@@ -1,0 +1,96 @@
+#
+# CMake build for PyOpenFLUID
+#
+# Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
+#
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+PROJECT(PyOpenFluid)
+
+#
+# Libraries
+#
+FIND_PACKAGE(PythonInterp)
+FIND_PACKAGE(PythonLibs)
+FIND_PACKAGE(Doxygen)
+FIND_PACKAGE(OpenFLUID REQUIRED core base ware tools machine)
+FIND_PACKAGE(Boost 1.35.0 REQUIRED COMPONENTS python)
+
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+
+# checking python version
+IF(NOT ${PYTHON_VERSION_MAJOR} EQUAL 2)
+  MESSAGE(FATAL_ERROR "Python version must be 2.X, not ${PYTHON_VERSION_MAJOR}.")
+ENDIF(NOT ${PYTHON_VERSION_MAJOR} EQUAL 2)
+SET(PYTHON_VERSION "${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
+
+#
+# Directories
+#
+INCLUDE(CMake.in.cmake)
+IF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
+  INCLUDE(CMake.in.local.cmake)
+ENDIF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
+
+SET(PYTHON_LIB_OUTPUT_PATH         "${BUILD_PATH}/lib/python${PYTHON_VERSION}")
+SET(PYTHON_LIBDYNLOAD_OUTPUT_PATH  "${BUILD_PATH}/lib/python${PYTHON_VERSION}/lib-dynload")
+SET(PYTHON_MODULE_OUTPUT_PATH      "${BUILD_PATH}/lib/python${PYTHON_VERSION}/PyOpenFLUID")
+SET(DOC_OUTPUT_PATH                "${BUILD_PATH}/share/doc")
+
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PYTHON_LIBDYNLOAD_OUTPUT_PATH}")
+
+#
+# Repositories
+#
+FILE(MAKE_DIRECTORY "${BUILD_PATH}/share")
+FILE(MAKE_DIRECTORY "${BUILD_PATH}/share/doc")
+FILE(MAKE_DIRECTORY "${BUILD_PATH}/share/doc/html")
+FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib")
+FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib/python${PYTHON_VERSION}")
+FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib/python${PYTHON_VERSION}/lib-dynload")
+FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib/python${PYTHON_VERSION}/PyOpenFLUID")
+FILE(MAKE_DIRECTORY "${OUTPUT_PATH}/tests-OutPuts")
+
+#<<output_path>>
+#  |-<<build_path>>
+#  | |-share
+#  | | |-doc
+#  | | | |-html
+#  | |-lib
+#  | | |-python<X>.<Y>
+#  | | | |-lib-dynload
+#  | | | |-PyOpenFLUID
+#  |-tests-Outputs
+
+#
+# Browsing
+#
+ADD_SUBDIRECTORY(module)
+ADD_SUBDIRECTORY(src)
+
+#
+# Documentation
+#
+ADD_SUBDIRECTORY(doc)
+
+#
+# Testing
+#
+ENABLE_TESTING()
+ADD_SUBDIRECTORY(tests)
+
+#
+# Text informations
+#
+if (UNIX)
+  INSTALL(FILES "README" DESTINATION "${OUTPUT_PATH}}")
+  INSTALL(FILES "COPYING" DESTINATION "${OUTPUT_PATH}")
+else ()
+  INSTALL(FILES "README" DESTINATION "${OUTPUT_PATH}" RENAME "Readme.txt")
+  INSTALL(FILES "COPYING" DESTINATION "${OUTPUT_PATH}" RENAME "CopyRight.txt")
+endif ()
+
+
+
+# debugging
+MESSAGE("Python paths : $ENV{PYTHONPATH}")
