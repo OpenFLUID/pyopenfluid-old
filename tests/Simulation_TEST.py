@@ -1,0 +1,14 @@
+#!/bin/env/python
+# -*- coding: UTF-8 -*-
+
+from BaseTest import *
+
+class PyOpenFLUIDTest_Simulation(PyOpenFLUIDTest):
+
+  def mainTest(self):
+    """Test of simulation functions."""
+    self.openfluid.printSimulationInfo()
+    self.openfluid.runSimulation()
+
+if __name__ == "__main__":
+  unittest.main()
