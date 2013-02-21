@@ -28,7 +28,7 @@ import re
 #
 # @return    True if arg's type is in types list
 #
-def PCCheck_type (Arg, Types, Error=False):
+def PyOFCheckType (Arg, Types, Error=False):
     """Check the arg parameter, verify arg's type in types list.
 
     Keyword arguments:
@@ -51,32 +51,38 @@ def PCCheck_type (Arg, Types, Error=False):
 # ####################################### #
 
 ##
-# @brief Verify date string by format.
+# @brief Verify and extract date string by format.
 #
 # Check the date format, for begin and end date of the simulation.
 # Do not check if the date exists.
 # Format : (%Y-%m-%d %H:%M:%S)
 #
-# @param Date     a string representation of a date
+# @param StrDate     a string representation of a date
 #
-# @return    True if string date matches the format
+# @return    False if string doesn't match the format, a dict otherwise
 #
-def OFCheck_date (Date):
-    """Check the date format, for begin and end date of the simulation.
+def PyOFExtractDate (StrDate):
+    """Verify and extract the date format, for begin and end date of the simulation.
     Do not check if the date exists.
     Format : (%Y-%m-%d %H:%M:%S)
 
     Keyword arguments:
-    Date   -- a string representation of a date
+    StrDate   -- a string representation of a date
 
     Returns:
-    True if string date matches the format
+    False if string doesn't match the format, a dict otherwise
     """
 
-    expr = "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}-[0-9]{2}-[0-9]{2}$"
+    Expr = "^([0-9]{1,4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})$"
 
-    validator = re.compile(expr)
+    Validator = re.compile(Expr)
+    Res = Validator.search(StrDate)
 
-    check_bl = not validator.match(Date) is None
+    # if wrong expression string
+    if Res is None:
+        return False
 
-    return check_bl
+    DictDate = dict(year=int(Res.group(1)), month=int(Res.group(2)),
+                    day=int(Res.group(3)), hour=int(Res.group(4)),
+                    minute=int(Res.group(5)), second=int(Res.group(6)))
+    return DictDate

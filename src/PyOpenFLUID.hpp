@@ -1,8 +1,10 @@
 #include <Python.h>
 #include <boost/python.hpp>
-//#include <openfluid/base.hpp>
-#include <vector>
-#include <string>
+#include <openfluid/fluidx/DomainDescriptor.hpp>
+#include <openfluid/fluidx/DatastoreDescriptor.hpp>
+#include <openfluid/fluidx/CoupledModelDescriptor.hpp>
+#include <openfluid/fluidx/MonitoringDescriptor.hpp>
+#include <openfluid/fluidx/RunDescriptor.hpp>
 
 /*!
  * @file pyopenfluid.cpp
@@ -52,7 +54,7 @@ class PyOpenFLUID
      * @return
      *    the OpenFLUID version number
      */
-    boost::python::str* getVersion ();
+    boost::python::str getVersion ();
 
 
 // =====================================================================
@@ -87,9 +89,9 @@ class PyOpenFLUID
      * @brief Returns the added paths to search for simulation functions.
      * 
      * @return
-     *    a vector of paths
+     *    a list of paths
      */
-    boost::python::list* getExtraFunctionsPaths ();
+    boost::python::list getExtraFunctionsPaths ();
 
 
 // =====================================================================
@@ -124,9 +126,9 @@ class PyOpenFLUID
      * @brief Returns the added paths to search for observers.
      * 
      * @return
-     *    a vector of paths
+     *    a list of paths
      */
-    boost::python::list* getExtraObserversPaths ();
+    boost::python::list getExtraObserversPaths ();
 
 
 // =====================================================================
@@ -453,7 +455,7 @@ class PyOpenFLUID
      * @param DeltaT
      *    the time step value in seconds
      */
-    void setDefaultDeltaT (int DeltaT);
+    void setDefaultDeltaT (int DefaultDeltaT);
 
 
 // =====================================================================
@@ -464,9 +466,10 @@ class PyOpenFLUID
      * @brief Returns the simulation period begin date.
      * 
      * @return
-     *    the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
+     *    the begin date as a python dict, containing following attributs :
+            year, month, day, hour, minute, second
      */
-    boost::python::str* getPeriodBeginDate ();
+    boost::python::dict getPeriodBeginDate ();
 
 
 // =====================================================================
@@ -477,9 +480,10 @@ class PyOpenFLUID
      * @brief Returns the simulation period end date.
      * 
      * @return
-     *    the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
+     *    the end date as a python dict, containing following attributs :
+            year, month, day, hour, minute, second
      */
-    boost::python::str* getPeriodEndDate ();
+    boost::python::dict getPeriodEndDate ();
 
 
 // =====================================================================
@@ -489,10 +493,21 @@ class PyOpenFLUID
     /*!
      * @brief Sets the simulation period begin date.
      * 
-     * @param BeginDate
-     *    the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
+     * @param BYear
+     *    the begin date's year
+     * @param BMonth
+     *    the begin date's month
+     * @param BDay
+     *    the begin date's day
+     * @param BHour
+     *    the begin date's hour
+     * @param BMinute
+     *    the begin date's minute
+     * @param BSecond
+     *    the begin date's second
      */
-    void setPeriodBeginDate (boost::python::str BeginDate);
+    void setPeriodBeginDate (int BYear, int BMonth, int BDay,
+                             int BHour, int BMinute, int BSecond);
 
 
 // =====================================================================
@@ -502,10 +517,21 @@ class PyOpenFLUID
     /*!
      * @brief Sets the simulation period end date.
      * 
-     * @param EndDate
-     *    the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
+     * @param EYear
+     *    the end date's year
+     * @param EMonth
+     *    the end date's month
+     * @param EDay
+     *    the end date's day
+     * @param EHour
+     *    the end date's hour
+     * @param EMinute
+     *    the end date's minute
+     * @param ESecond
+     *    the end date's second
      */
-    void setPeriodEndDate (boost::python::str EndDate);
+    void setPeriodEndDate (int EYear, int EMonth, int EDay,
+                           int EHour, int EMinute, int ESecond);
 
 
 // =====================================================================
@@ -577,10 +603,10 @@ class PyOpenFLUID
 
 
   private :
-//    openfluid::base::DomainDescriptor m_Domain;
-//    openfluid::base::DatastoreDescriptor m_Datastore;
-//    openfluid::base::ModelDescriptor m_Model;
-//    openfluid::base::MonitoringDescriptor m_Monitoring;
-//    openfluid::base::RunDescriptor m_Run;
+    openfluid::fluidx::DomainDescriptor m_DomainDescriptor;
+    openfluid::fluidx::DatastoreDescriptor m_DatastoreDescriptor;
+    openfluid::fluidx::CoupledModelDescriptor m_ModelDescriptor;
+    openfluid::fluidx::MonitoringDescriptor m_MonitoringDescriptor;
+    openfluid::fluidx::RunDescriptor m_RunDescriptor;
 
 };

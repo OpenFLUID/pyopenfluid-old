@@ -7,12 +7,15 @@ class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of begin period dates functions."""
-    Date = "2012-03-04 13-04-13"
+    Date = "2012-03-04 13:04:13"
 
     self.openfluid.setPeriodBeginDate(Date)
     self.assertEquals(self.openfluid.getPeriodBeginDate(), Date)
 
-    self.openfluid.setPeriodBeginDate("fail date")
+    try :
+        self.openfluid.setPeriodBeginDate("fail date")
+    except:
+        pass
     self.assertEquals(self.openfluid.getPeriodBeginDate(), Date)
 
 if __name__ == "__main__":

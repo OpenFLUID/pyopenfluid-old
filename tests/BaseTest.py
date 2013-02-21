@@ -4,11 +4,12 @@
 import unittest
 import sys
 import os
+import PyOpenFLUID
 
 class PyOpenFLUIDTest(unittest.TestCase):
-    def __init__(self, *args, **kw):
+    def __init__(self, *arg, **kw):
         """Initialize testing. Do not build any object in."""
-        import PyOpenFLUID
+        unittest.TestCase.__init__(self, *arg, **kw)
         self.openfluid = None
         self.addCleanup(self.cleanUp, (), {})
 
@@ -17,15 +18,11 @@ class PyOpenFLUIDTest(unittest.TestCase):
            Build the PyOpenFLUID object."""
         try:
             self.openfluid = PyOpenFLUID.PyOpenFLUID()
-        except Exception:
-            wlog( "Construction error" )
-            self.assertTrue(False)
-        finally:
-            self.assertTrue(True)
+        except Exception as e:
+            self.assertTrue(False, "Error building PyOpenFLUID object\n> " + e.message)
 
-    def cleanUp(self):
+    def cleanUp(self, *arg, **kw):
         """Clean up testing unit."""
-        del PyOpenFLUID
         if not self.openfluid is None:
             del self.openfluid
 
@@ -35,7 +32,8 @@ class PyOpenFLUIDTest(unittest.TestCase):
            function, otherwise, gives True."""
         try:
             self.mainTest()
-        except Exception:
-            self.assertTrue(False)
-        finally:
-            self.assertTrue(True)
+        except Exception as e:
+            self.assertTrue(False, "Error handled during test\n> " + e.message)
+
+    def mainTest(self):
+        pass

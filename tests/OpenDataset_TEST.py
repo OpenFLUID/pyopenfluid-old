@@ -7,7 +7,7 @@ class PyOpenFLUIDTest_OpenDataSet(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of simulation functions."""
-    self.assertIsNotNone(self.openfluid.openDataSet("Path"))
+    self.assertIsNotNone(self.openfluid.openDataset("Path"))
 
 if __name__ == "__main__":
   unittest.main()

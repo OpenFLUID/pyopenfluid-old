@@ -58,7 +58,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the added paths to search for simulation functions.\
 \n\nExamples:\
 \n\tPaths = PyOpenFLUID.getExtraFunctionsPaths()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -101,7 +101,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the added paths to search for observers.\
 \n\nExamples:\
 \n\tPaths = PyOpenFLUID.getExtraObserversPaths()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -126,7 +126,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the OpenFLUID version.\
 \n\nExamples:\
 \n\tV = PyOpenFLUID.getVersion()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -435,7 +435,7 @@ a default value.\
       "Returns the simulation period begin date.\
 \n\nExamples:\
 \n\tBDate = PyOpenFLUID.getPeriodBeginDate()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -447,7 +447,7 @@ a default value.\
       "Returns the simulation period end date.\
 \n\nExamples:\
 \n\tEDate = PyOpenFLUID.getPeriodEndDate()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 

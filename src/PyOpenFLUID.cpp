@@ -2,11 +2,27 @@
 #include <boost/python.hpp>
 #include <boost/exception/all.hpp>
 
+#include <iostream>
 #include <vector>
 #include <string>
+#include <map>
+#include <list>
 #include <exception>
 
+#include <stdio.h>
+
 #include <openfluid/config.hpp>
+#include <openfluid/base.hpp>
+#include <openfluid/core.hpp>
+//#include <openfluid/fluidx.hpp>
+#include <openfluid/fluidx/UnitDescriptor.hpp>
+#include <openfluid/fluidx/FunctionDescriptor.hpp>
+#include <openfluid/fluidx/GeneratorDescriptor.hpp>
+
+#include <openfluid/fluidx/DatastoreDescriptor.hpp>
+#include <openfluid/fluidx/CoupledModelDescriptor.hpp>
+#include <openfluid/fluidx/MonitoringDescriptor.hpp>
+#include <openfluid/fluidx/RunDescriptor.hpp>
 
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
@@ -20,6 +36,12 @@
 
 PyOpenFLUID::PyOpenFLUID ()
 {
+//  std::cout << "Création de l'objet OpenFLUID." << std::endl;
+  this->m_DomainDescriptor = openfluid::fluidx::DomainDescriptor();
+  this->m_DatastoreDescriptor = openfluid::fluidx::DatastoreDescriptor();
+  this->m_ModelDescriptor = openfluid::fluidx::CoupledModelDescriptor();
+  this->m_MonitoringDescriptor = openfluid::fluidx::MonitoringDescriptor();
+  this->m_RunDescriptor = openfluid::fluidx::RunDescriptor();
 }
 
 
@@ -29,6 +51,12 @@ PyOpenFLUID::PyOpenFLUID ()
 
 PyOpenFLUID::~PyOpenFLUID ()
 {
+//  std::cout << "Destruction de l'objet OpenFLUID." << std::endl;
+//  delete this->m_DomainDescriptor;
+//  delete this->m_DatastoreDescriptor;
+//  delete this->m_ModelDescriptor;
+//  delete this->m_MonitoringDescriptor;
+//  delete this->m_RunDescriptor;
 }
 
 
@@ -36,10 +64,11 @@ PyOpenFLUID::~PyOpenFLUID ()
 /* ----------------------  GENERAL FUNCTIONS  ----------------------- */
 
 
-boost::python::str* PyOpenFLUID::getVersion ()
+boost::python::str PyOpenFLUID::getVersion ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  boost::python::str StrVersion = boost::python::str((const char*)
+    openfluid::config::FULL_VERSION.c_str());
+  return StrVersion;
 }
 
 
@@ -49,8 +78,9 @@ boost::python::str* PyOpenFLUID::getVersion ()
 
 void PyOpenFLUID::addExtraFunctionsPaths (boost::python::str BoostPaths)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::string Paths = *convert::boostStrToCString(&BoostPaths);
+  openfluid::base::RuntimeEnvironment::getInstance()->
+    addExtraFunctionsPluginsPaths(Paths);
 }
 
 // =====================================================================
@@ -59,18 +89,19 @@ void PyOpenFLUID::addExtraFunctionsPaths (boost::python::str BoostPaths)
 
 void PyOpenFLUID::resetExtraFunctionsPaths ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  openfluid::base::RuntimeEnvironment::getInstance()->
+    resetExtraFunctionsPluginsPaths();
 }
 
 // =====================================================================
 // =====================================================================
 
 
-boost::python::list* PyOpenFLUID::getExtraFunctionsPaths ()
+boost::python::list PyOpenFLUID::getExtraFunctionsPaths ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::vector<std::string> Paths = openfluid::base::RuntimeEnvironment::getInstance()->
+    getExtraFunctionsPluginsPaths();
+  return *convert::cVectorToBoostListOfString(&Paths);
 }
 
 // =====================================================================
@@ -79,8 +110,9 @@ boost::python::list* PyOpenFLUID::getExtraFunctionsPaths ()
 
 void PyOpenFLUID::addExtraObserversPaths (boost::python::str BoostPaths)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::string Paths = *convert::boostStrToCString(&BoostPaths);
+  openfluid::base::RuntimeEnvironment::getInstance()->
+    addExtraObserversPluginsPaths(Paths);
 }
 
 // =====================================================================
@@ -89,8 +121,8 @@ void PyOpenFLUID::addExtraObserversPaths (boost::python::str BoostPaths)
 
 void PyOpenFLUID::resetExtraObserversPaths ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  openfluid::base::RuntimeEnvironment::getInstance()->
+    resetExtraObserversPluginsPaths();
 }
 
 
@@ -98,10 +130,11 @@ void PyOpenFLUID::resetExtraObserversPaths ()
 // =====================================================================
 
 
-boost::python::list* PyOpenFLUID::getExtraObserversPaths ()
+boost::python::list PyOpenFLUID::getExtraObserversPaths ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::vector<std::string> Paths = openfluid::base::RuntimeEnvironment::getInstance()->
+    getExtraObserversPluginsPaths();
+  return *convert::cVectorToBoostListOfString(&Paths);
 }
 
 // =====================================================================
@@ -110,8 +143,68 @@ boost::python::list* PyOpenFLUID::getExtraObserversPaths ()
 
 void PyOpenFLUID::printSimulationInfo ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  // Spatial domain
+
+  std::map<openfluid::core::UnitClass_t,unsigned int> UnitsInfos;
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator bItUnits = this->m_DomainDescriptor.getUnits().begin();
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator eItUnits = this->m_DomainDescriptor.getUnits().end();
+
+  for (std::list<openfluid::fluidx::UnitDescriptor>::iterator ItUnits = bItUnits; ItUnits != eItUnits; ++ItUnits)
+  {
+    openfluid::core::UnitClass_t ClassName = (*ItUnits).getUnitClass();
+
+    if (UnitsInfos.find(ClassName) == UnitsInfos.end()) UnitsInfos[ClassName] = 0;
+      UnitsInfos[ClassName]++;
+  }
+
+  std::cout << "Spatial domain is made of " << this->m_DomainDescriptor.getUnits().size() << " spatial units" << std::endl;
+
+  for (std::map<openfluid::core::UnitClass_t,unsigned int>::iterator ItUnitsInfos = UnitsInfos.begin();
+       ItUnitsInfos != UnitsInfos.end(); ++ItUnitsInfos)
+    std::cout << " - " << (*ItUnitsInfos).second << " units of class " << (*ItUnitsInfos).first.c_str() << std::endl;
+
+
+  // Model
+
+  std::cout << "Model is made of " << this->m_ModelDescriptor.getItems().size() << " simulation items" << std::endl;
+
+  for (openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_ModelDescriptor.getItems().begin(); ItModelInfos != this->m_ModelDescriptor.getItems().end(); ++ItModelInfos)
+  {
+    fprintf(stdout, " - ");
+
+    if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
+    {
+      std::cout << ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID().c_str() << " simulation function" << std::endl;
+    }
+
+    if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::Generator))
+    {
+      openfluid::fluidx::GeneratorDescriptor* pGenDesc = ((openfluid::fluidx::GeneratorDescriptor*)(*ItModelInfos));
+
+      if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Fixed)
+        std::cout << "fixed";
+
+      if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Random)
+        std::cout << "random";
+
+      if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Interp)
+        std::cout << "interp";
+
+      if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Inject)
+        std::cout << "inject";
+
+      std::cout << " generator for variable " << pGenDesc->getVariableName().c_str() << " on units " << pGenDesc->getUnitClass().c_str() << std::endl;
+    }
+  }
+
+  // Time period
+
+  std::cout << "Simulation period from " << this->m_RunDescriptor.getBeginDate().getAsISOString().c_str() << " to " << this->m_RunDescriptor.getEndDate().getAsISOString().c_str() << std::endl;
+
+  // Time step
+
+  std::cout << "Simulation time step : " << this->m_RunDescriptor.getDeltaT() << std::endl;
 }
 
 // =====================================================================
@@ -300,8 +393,8 @@ void PyOpenFLUID::setCurrentOutputDir (boost::python::str Path)
 
 int PyOpenFLUID::getDefaultDeltaT ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  int DefaultDeltaT = this->m_RunDescriptor.getDeltaT();
+  return DefaultDeltaT;
 }
 
 
@@ -309,10 +402,9 @@ int PyOpenFLUID::getDefaultDeltaT ()
 // =====================================================================
 
 
-void PyOpenFLUID::setDefaultDeltaT (int DeltaT)
+void PyOpenFLUID::setDefaultDeltaT (int DefaultDeltaT)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  this->m_RunDescriptor.setDeltaT((const int)DefaultDeltaT);
 }
 
 
@@ -320,39 +412,58 @@ void PyOpenFLUID::setDefaultDeltaT (int DeltaT)
 // =====================================================================
 
 
-boost::python::str* PyOpenFLUID::getPeriodBeginDate ()
+boost::python::dict PyOpenFLUID::getPeriodBeginDate ()
 {
-  throw new PyOFException("unavailable method");
+  openfluid::core::DateTime BrutDate = this->m_RunDescriptor.getBeginDate();
+  boost::python::dict DictDate = boost::python::dict();
+  DictDate["year"] = BrutDate.getYear();
+  DictDate["month"] = BrutDate.getMonth();
+  DictDate["day"] = BrutDate.getDay();
+  DictDate["hour"] = BrutDate.getHour();
+  DictDate["minute"] = BrutDate.getMinute();
+  DictDate["second"] = BrutDate.getSecond();
+  return DictDate;
 }
 
 // =====================================================================
 // =====================================================================
 
 
-boost::python::str* PyOpenFLUID::getPeriodEndDate ()
+boost::python::dict PyOpenFLUID::getPeriodEndDate ()
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  openfluid::core::DateTime BrutDate = this->m_RunDescriptor.getEndDate();
+  boost::python::dict DictDate = boost::python::dict();
+  DictDate["year"] = BrutDate.getYear();
+  DictDate["month"] = BrutDate.getMonth();
+  DictDate["day"] = BrutDate.getDay();
+  DictDate["hour"] = BrutDate.getHour();
+  DictDate["minute"] = BrutDate.getMinute();
+  DictDate["second"] = BrutDate.getSecond();
+  return DictDate;
 }
 
 // =====================================================================
 // =====================================================================
 
 
-void PyOpenFLUID::setPeriodBeginDate (boost::python::str BeginDate)
+void PyOpenFLUID::setPeriodBeginDate (int BYear, int BMonth, int BDay,
+                                      int BHour, int BMinute, int BSecond)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  openfluid::core::DateTime BDate = openfluid::core::DateTime(BYear, BMonth,
+                                      BDay, BHour, BMinute, BSecond);
+  this->m_RunDescriptor.setBeginDate(BDate);
 }
 
 // =====================================================================
 // =====================================================================
 
 
-void PyOpenFLUID::setPeriodEndDate (boost::python::str EndDate)
+void PyOpenFLUID::setPeriodEndDate (int EYear, int EMonth, int EDay,
+                                    int EHour, int EMinute, int ESecond)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  openfluid::core::DateTime EDate = openfluid::core::DateTime(EYear, EMonth,
+                                      EDay, EHour, EMinute, ESecond);
+  this->m_RunDescriptor.setEndDate(EDate);
 }
 
 // =====================================================================

@@ -100,13 +100,13 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         Paths  -- the semicolon separated paths to add
         """
-        if PCCheck_type(Paths, str):
+        if PyOFCheckType(Paths, str):
             try:
                 pyopenfluid.PyOpenFLUID.addExtraFunctionsPaths(self, Paths)
             except Exception as e:
                 raise PyOFError(e.message)
         else:
-            raise OFError("'Paths' is not a string parameter")
+            raise PyOFError("'Paths' is not a string parameter")
 
 
 # ########################################################################## #
@@ -131,13 +131,13 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the added paths to search for simulation functions.
     #
-    # @return   a vector of Paths
+    # @return   a list of Paths
     #
     def getExtraFunctionsPaths (self):
         """Returns the added paths to search for simulation functions.
 
         Returns:
-        a vector of Paths
+        a list of Paths
         """
         try:
             Paths = pyopenfluid.PyOpenFLUID.getExtraFunctionsPaths(self)
@@ -162,10 +162,13 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         Paths  -- the semicolon separated paths to add
         """
-        try:
-            pyopenfluid.PyOpenFLUID.addExtraObserversPaths(self, Paths)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType(Paths, str):
+            try:
+                pyopenfluid.PyOpenFLUID.addExtraObserversPaths(self, Paths)
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'Paths' is not a string parameter")
 
 
 # ########################################################################## #
@@ -608,7 +611,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         a simulation definition class (PyOpenFLUID)
         """
         try:
-            Class = pyopenfluid.PyOpenFLUID.openDataset(self, Path)
+            Class = pyopenfluid.PyOpenFLUID.openDataSet(self, Path)
         except Exception as e:
             raise PyOFError(e.message)
         else:
@@ -724,11 +727,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
         """
         try:
-            Date = pyopenfluid.PyOpenFLUID.getPeriodBeginDate(self)
+            DictDate = pyopenfluid.PyOpenFLUID.getPeriodBeginDate(self)
+            StrDate = "%s-%s-%s %s:%s:%s" % (
+                str(DictDate["year"]), str(DictDate["month"]).zfill(2),
+                str(DictDate["day"]).zfill(2), str(DictDate["hour"]).zfill(2),
+                str(DictDate["minute"]).zfill(2), str(DictDate["second"]).zfill(2))
         except Exception as e:
             raise PyOFError(e.message)
         else:
-            return Date
+            return StrDate
 
 
 # ########################################################################## #
@@ -747,11 +754,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
         """
         try:
-            Date = pyopenfluid.PyOpenFLUID.getPeriodEndDate(self)
+            DictDate = pyopenfluid.PyOpenFLUID.getPeriodEndDate(self)
+            StrDate = "%s-%s-%s %s:%s:%s" % (
+                str(DictDate["year"]), str(DictDate["month"]).zfill(2),
+                str(DictDate["day"]).zfill(2), str(DictDate["hour"]).zfill(2),
+                str(DictDate["minute"]).zfill(2), str(DictDate["second"]).zfill(2))
         except Exception as e:
             raise PyOFError(e.message)
         else:
-            return Date
+            return StrDate
 
 
 # ########################################################################## #
@@ -769,10 +780,13 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
           Keyword arguments:
           BeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
         """
-        if (not OFCheck_date( BeginDate )):
+        DictDate = PyOFExtractDate(BeginDate)
+        if DictDate is False:
             raise PyOFError("Bad entry for the begin date of the simulation period.")
         try:
-            pyopenfluid.PyOpenFLUID.setPeriodBeginDate(self, BeginDate)
+            pyopenfluid.PyOpenFLUID.setPeriodBeginDate(self, DictDate["year"],
+                DictDate["month"], DictDate["day"], DictDate["hour"],
+                DictDate["minute"], DictDate["second"])
         except Exception as e:
             raise PyOFError(e.message)
 
@@ -792,10 +806,13 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
         """
-        if (not OFCheck_date( EndDate )):
+        DictDate = PyOFExtractDate(EndDate)
+        if DictDate is False:
             raise PyOFError("Bad entry for the end date of the simulation period.")
         try:
-            pyopenfluid.PyOpenFLUID.setPeriodEndDate(self, EndDate)
+            pyopenfluid.PyOpenFLUID.setPeriodEndDate(self, DictDate["year"],
+                DictDate["month"], DictDate["day"], DictDate["hour"],
+                DictDate["minute"], DictDate["second"])
         except Exception as e:
             raise PyOFError(e.message)
 
