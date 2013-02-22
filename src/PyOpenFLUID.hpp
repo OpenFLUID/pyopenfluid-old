@@ -159,7 +159,7 @@ class PyOpenFLUID
      *    the parameter value
      */
     boost::python::str* getFunctionParam (boost::python::str FuncID,
-                                          boost::python::str ParamName);
+                                         boost::python::str ParamName);
 
 
 // =====================================================================
@@ -238,7 +238,7 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::str* getModelGlobalParam (boost::python::str ParamName);
+    boost::python::str getModelGlobalParam (boost::python::str ParamName);
 
 
 // =====================================================================
@@ -303,9 +303,9 @@ class PyOpenFLUID
      * @brief Returns the existing units classes.
      * 
      * @return
-     *    a vector of units classes
+     *    a list of units classes
      */
-    boost::python::list* getUnitsClasses ();
+    boost::python::list getUnitsClasses ();
 
 
 // =====================================================================
@@ -319,9 +319,9 @@ class PyOpenFLUID
      *    the unit class
      * 
      * @return
-     *    a vector of units IDs
+     *    a list of units IDs
      */
-    boost::python::list* getUnitsIDs (boost::python::str UnitClass);
+    boost::python::list getUnitsIDs (boost::python::str UnitClass);
 
 
 // =====================================================================
@@ -430,6 +430,19 @@ class PyOpenFLUID
      *    the output directory path
      */
     void setCurrentOutputDir (boost::python::str Path);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Gets the current output directory for simulations.
+     * 
+     * @return
+     *    the output directory path
+     */
+    boost::python::str getCurrentOutputDir ();
 
 
 // =====================================================================
@@ -557,8 +570,10 @@ class PyOpenFLUID
     /*!
      * @brief Runs a simulation from a simulation definition class (self).
      * 
+     * @return
+     *    1 if the simulation runned without problems, 0 otherwise
      */
-    void runSimulation ();
+    unsigned short int runSimulation ();
 
 
 // =====================================================================
@@ -599,13 +614,26 @@ class PyOpenFLUID
 
 
 // =====================================================================
+/* ------------------------ OTHER FUNCTIONS  ------------------------ */
+
+
+    /*!
+     * @brief Copy all attributs from the parameter in self.
+     * 
+     * @param InputClass
+     *    the PyOpenFLUID class to copy
+     */
+    void copy (PyOpenFLUID InputClass);
+
+
+// =====================================================================
 // =====================================================================
 
 
-  private :
+//  private :
     openfluid::fluidx::DomainDescriptor m_DomainDescriptor;
     openfluid::fluidx::DatastoreDescriptor m_DatastoreDescriptor;
-    openfluid::fluidx::CoupledModelDescriptor m_ModelDescriptor;
+    openfluid::fluidx::CoupledModelDescriptor m_CoupledModelDescriptor;
     openfluid::fluidx::MonitoringDescriptor m_MonitoringDescriptor;
     openfluid::fluidx::RunDescriptor m_RunDescriptor;
 

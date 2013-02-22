@@ -100,7 +100,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         Paths  -- the semicolon separated paths to add
         """
-        if PyOFCheckType(Paths, str):
+        if PyOFCheckType((Paths,), str):
             try:
                 pyopenfluid.PyOpenFLUID.addExtraFunctionsPaths(self, Paths)
             except Exception as e:
@@ -162,7 +162,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         Paths  -- the semicolon separated paths to add
         """
-        if PyOFCheckType(Paths, str):
+        if PyOFCheckType((Paths,), str):
             try:
                 pyopenfluid.PyOpenFLUID.addExtraObserversPaths(self, Paths)
             except Exception as e:
@@ -246,13 +246,16 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Returns:
         the parameter value
         """
-        try:
-            Value = pyopenfluid.PyOpenFLUID.getFunctionParam(self, FunId,
-                                                             ParamName)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((FunID, ParamName), str):
+            try:
+                Value = pyopenfluid.PyOpenFLUID.getFunctionParam(self, FunID,
+                                                                 ParamName)
+            except Exception as e:
+                raise PyOFError(e.message)
+            else:
+                return Value
         else:
-            return Value
+            raise PyOFError("'FunID' or 'ParamName' is not a string parameter")
 
 
 # ########################################################################## #
@@ -274,11 +277,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         ParamName    -- the name of the parameter
         ParamValue   -- the parameter value
         """
-        try:
-            pyopenfluid.PyOpenFLUID.setFunctionParam(self, FunId, ParamName,
+        if PyOFCheckType((FunID, ParamName, ParamValue), str):
+            try:
+                pyopenfluid.PyOpenFLUID.setFunctionParam(self, FunID, ParamName,
                                                      ParamValue)
-        except Exception as e:
-            raise PyOFError(e.message)
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'FunID', 'ParamName' or 'ParamValue' is not a string parameter")
 
 
 # ########################################################################## #
@@ -483,7 +489,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @param UnitClass   the unit class
     #
-    # @return   a list of units classes
+    # @return   a list of units IDs
     #
     def getUnitsIDs (self, UnitClass):
         """Returns the existing units IDs for a given units class.
@@ -494,12 +500,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Returns:
         a list of units IDs
         """
-        try:
-            List = pyopenfluid.PyOpenFLUID.getUnitsIDs(self, UnitClass)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((UnitClass,), str):
+          try:
+              List = pyopenfluid.PyOpenFLUID.getUnitsIDs(self, UnitClass)
+          except Exception as e:
+              raise PyOFError(e.message)
+          else:
+              return List
         else:
-            return List
+            raise PyOFError("'UnitClass' is not a string parameter")
 
 
 # ########################################################################## #
@@ -523,11 +532,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         IDataName  -- the inputdata name
         IDataVal   -- the default inputdata value for alla units
         """
-        try:
-            pyopenfluid.PyOpenFLUID.createInputData(self, UnitClass, IDataName,
-                                                    IDataVal)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((UnitClass, IDataName, IDataVal), str):
+            try:
+                pyopenfluid.PyOpenFLUID.createInputData(self, UnitClass, IDataName,
+                                                        IDataVal)
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'UnitClass', 'IDataName' or 'IDataVal' is not a string parameter")
 
 
 # ########################################################################## #
@@ -538,29 +550,33 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # Returns an inputdata value for a given spatial unit.
     #
     # @param UnitClass   the unit class
-    # @param UnitId      the unit
+    # @param UnitID      the unit
     # @param IDataName   the inputdata name
     #
     # @return   the inputdata value
     #
-    def getInputData (self, UnitClass, UnitId, IDataName):
+    def getInputData (self, UnitClass, UnitID, IDataName):
         """Returns an inputdata value for a given spatial unit.
 
         Keyword arguments:
         UnitClass  -- the unit class
-        UnitId     -- the unit
+        UnitID     -- the unit
         IDataName  -- the name of the inputdata
 
         Returns:
         the inputdata value
         """
-        try:
-            Value = pyopenfluid.PyOpenFLUID.getInputData(self, UnitClass,
-                                                         UnitId, IDataName)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((UnitClass, IDataName), str) and PyOFCheckType((UnitID,), int):
+            try:
+                Value = pyopenfluid.PyOpenFLUID.getInputData(self, UnitClass,
+                                                             UnitID, IDataName)
+            except Exception as e:
+                raise PyOFError(e.message)
+            else:
+                return Value
         else:
-            return Value
+            raise PyOFError("'UnitClass' or 'IDataName' is not a string parameter, or 'UnitID' is not an integer parameter")
+
 
 # ########################################################################## #
 # ########################################################################## #
@@ -570,24 +586,27 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # Sets an inputdata value for a given spatial unit.
     #
     # @param UnitClass   the unit class
-    # @param UnitId      the unit
+    # @param UnitID      the unit
     # @param IDataName   the inputdata name
     # @param IDataVal    the value of the inputdata
     #
-    def setInputData (self, UnitClass, UnitId, IDataName, IDataVal):
+    def setInputData (self, UnitClass, UnitID, IDataName, IDataVal):
         """Sets an inputdata value for a given spatial unit.
 
         Keyword arguments:
         UnitClass  -- the unit class
-        UnitId     -- the unit ID
+        UnitID     -- the unit ID
         IDataName  -- the name of the inputdata
         IDataVal   -- the value of the inputdata
         """
-        try:
-            pyopenfluid.PyOpenFLUID.setInputData(self, UnitClass, UnitId,
-                                                 IDataName, IDataVal)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((UnitClass, IDataName, IDataVal), str) and PyOFCheckType((UnitID,), int):
+            try:
+                pyopenfluid.PyOpenFLUID.setInputData(self, UnitClass, UnitID,
+                                                     IDataName, IDataVal)
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'UnitClass', 'IDataName' or 'IDataVal' is not a string parameter, or 'UnitID' is not an integer parameter")
 
 
 # ########################################################################## #
@@ -610,12 +629,20 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Returns:
         a simulation definition class (PyOpenFLUID)
         """
-        try:
-            Class = pyopenfluid.PyOpenFLUID.openDataSet(self, Path)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((Path,), str):
+            try:
+                Class = None
+                Res = pyopenfluid.PyOpenFLUID.openDataset(self, Path)
+                if not Res is None:
+                    Class = PyOpenFLUID()
+                    pyopenfluid.PyOpenFLUID.copy(Class, Res)
+                    del Res
+            except Exception as e:
+                raise PyOFError(e.message)
+            else:
+                return Class
         else:
-            return Class
+            raise PyOFError("'Path' is not a string parameter")
 
 
 # ########################################################################## #
@@ -638,12 +665,20 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Returns:
         a simulation definition class (PyOpenFLUID)
         """
-        try:
-            Class = pyopenfluid.PyOpenFLUID.openProject(self, Path)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((Path,), str):
+            try:
+                Class = None
+                Res = pyopenfluid.PyOpenFLUID.openProject(self, Path)
+                if not Res is None:
+                    Class = PyOpenFLUID()
+                    pyopenfluid.PyOpenFLUID.copy(Class, Res)
+                    del Res
+            except Exception as e:
+                raise PyOFError(e.message)
+            else:
+                return Class
         else:
-            return Class
+            raise PyOFError("'Path' is not a string parameter")
 
 
 # ########################################################################## #
@@ -661,10 +696,36 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         Path  -- the output directory path
         """
+        if PyOFCheckType((Path,), str):
+            try:
+                pyopenfluid.PyOpenFLUID.setCurrentOutputDir(self, Path)
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'Paths' is not a string parameter")
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
+    # Gets the current output directory for simulations.
+    #
+    # @return   the output directory path
+    #
+    def getCurrentOutputDir (self):
+        """Gets the current output directory for simulations.
+
+        Returns:
+        the output directory path
+        """
         try:
-            pyopenfluid.PyOpenFLUID.setCurrentOutputDir(self, Path)
+            Path = pyopenfluid.PyOpenFLUID.getCurrentOutputDir(self)
         except Exception as e:
             raise PyOFError(e.message)
+        else:
+            return Path
 
 
 # ########################################################################## #
@@ -705,10 +766,13 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         DefaultDeltaT  -- the time step value in seconds
         """
-        try:
-            pyopenfluid.PyOpenFLUID.setDefaultDeltaT(self, DefaultDeltaT)
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((DefaultDeltaT,), int):
+            try:
+                pyopenfluid.PyOpenFLUID.setDefaultDeltaT(self, DefaultDeltaT)
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'DefaultDeltaT' is not an integer parameter")
 
 
 # ########################################################################## #
@@ -780,15 +844,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
           Keyword arguments:
           BeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
         """
-        DictDate = PyOFExtractDate(BeginDate)
-        if DictDate is False:
-            raise PyOFError("Bad entry for the begin date of the simulation period.")
-        try:
-            pyopenfluid.PyOpenFLUID.setPeriodBeginDate(self, DictDate["year"],
-                DictDate["month"], DictDate["day"], DictDate["hour"],
-                DictDate["minute"], DictDate["second"])
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((BeginDate,), str):
+            DictDate = PyOFExtractDate(BeginDate)
+            if DictDate is False:
+                raise PyOFError("Bad entry for the begin date of the simulation period.")
+            try:
+                pyopenfluid.PyOpenFLUID.setPeriodBeginDate(self, DictDate["year"],
+                    DictDate["month"], DictDate["day"], DictDate["hour"],
+                    DictDate["minute"], DictDate["second"])
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'BeginDate' is not a string parameter")
 
 
 # ########################################################################## #
@@ -806,15 +873,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         Keyword arguments:
         EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
         """
-        DictDate = PyOFExtractDate(EndDate)
-        if DictDate is False:
-            raise PyOFError("Bad entry for the end date of the simulation period.")
-        try:
-            pyopenfluid.PyOpenFLUID.setPeriodEndDate(self, DictDate["year"],
-                DictDate["month"], DictDate["day"], DictDate["hour"],
-                DictDate["minute"], DictDate["second"])
-        except Exception as e:
-            raise PyOFError(e.message)
+        if PyOFCheckType((EndDate,), str):
+            DictDate = PyOFExtractDate(EndDate)
+            if DictDate is False:
+                raise PyOFError("Bad entry for the end date of the simulation period.")
+            try:
+                pyopenfluid.PyOpenFLUID.setPeriodEndDate(self, DictDate["year"],
+                    DictDate["month"], DictDate["day"], DictDate["hour"],
+                    DictDate["minute"], DictDate["second"])
+            except Exception as e:
+                raise PyOFError(e.message)
+        else:
+            raise PyOFError("'EndDate' is not a string parameter")
 
 
 # ########################################################################## #
@@ -852,10 +922,16 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Runs a project from a simulation definition class (PyOpenFLUID).
     #
+    # @return   True if the simulation is runned without problems, False otherwise
+    #
     def runSimulation (self):
-        """Runs a simulation from a simulation definition class (self)."""
+        """Runs a simulation from a simulation definition class (self).
+
+        Returns:
+        True if the simulation is runned without problems, False otherwise
+        """
         try:
-            pyopenfluid.PyOpenFLUID.runSimulation(self)
+            return bool(pyopenfluid.PyOpenFLUID.runSimulation(self))
         except Exception as e:
             raise PyOFError(e.message)
 
@@ -868,24 +944,24 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # Loads results as a dataframe, giving output dataset informations.
     #
     # @param UnitClass   the unit class
-    # @param UnitId      the unit ID
+    # @param UnitID      the unit ID
     # @param Suffix      the output dataset suffix
     #
     # @return   a dataframe containing the simulation results
     #
-    def loadResult (self, UnitClass, UnitId, Suffix):
+    def loadResult (self, UnitClass, UnitID, Suffix):
         """Loads results as a dataframe, giving output dataset informations.
 
         Keyword arguments:
         UnitClass  -- the unit class
-        UnitId     -- the unit ID
+        UnitID     -- the unit ID
         Suffix     -- the output dataset suffix
 
         Returns:
         a dataframe containing the simulation results
         """
         try:
-            Data = pyopenfluid.PyOpenFLUID.loadResult(self, UnitClass, UnitId,
+            Data = pyopenfluid.PyOpenFLUID.loadResult(self, UnitClass, UnitID,
                                                       Suffix)
         except Exception as e:
             raise PyOFError(e.message)

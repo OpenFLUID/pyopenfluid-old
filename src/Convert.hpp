@@ -3,16 +3,23 @@
 
 #include <string>
 #include <vector>
+#include <list>
+#include <map>
 #include <boost/python.hpp>
 
 namespace convert {
 
-template<class T>
-boost::python::list* cVectorToBoostList(const std::vector<T>* Vector);
 
-boost::python::list* cVectorToBoostListOfString(const std::vector<std::string>* Vector);
+// =====================================================================
+// =====================================================================
 
-std::string* boostStrToCString (const boost::python::str* StrInput);
+
+std::string boostStrToCString (const boost::python::str StrInput);
+
+
+// =====================================================================
+// =====================================================================
+
 
 }
 

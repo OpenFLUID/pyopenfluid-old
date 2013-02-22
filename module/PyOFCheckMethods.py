@@ -22,28 +22,31 @@ import re
 #
 # Check the arg parameter, verify arg's type in types list.
 #
-# @param Arg     the parameter to check
-# @param Types   the list of types available for Arg
+# @param Args    a list of parameter to check (must be a tuple or a list)
+# @param Types   a list of types available for Arg
 # @param Error   boolean, if set and if test fail, raise TypeError
 #
-# @return    True if arg's type is in types list
+# @return    True if args' type is in types list
 #
-def PyOFCheckType (Arg, Types, Error=False):
+def PyOFCheckType (Args, Types, Error=False):
     """Check the arg parameter, verify arg's type in types list.
 
     Keyword arguments:
-    Arg     -- the parameter to checked
-    Types   -- the list of types available for Arg
+    Args    -- a list of parameter to checked (must be a tuple or a list)
+    Types   -- a list of types available for Arg
     Error   -- boolean, if set and if test fail, raise TypeError
 
     Returns:
-    True if arg's type is in types list
+    True if args' type is in types list
     """
+    if not isinstance(Args, (tuple, list)):
+        raise TypeError, "Args should be tuple or list."
 
-    if not isinstance(Arg, Types) :
-        if Error:
-            raise TypeError, "parameter should be a/an '%s' type" % (str(types))
-        return False
+    for i, Arg in enumerate(Args):
+        if not isinstance(Arg, Types):
+            if Error:
+                raise TypeError, "parameter %d should be a/an '%s' type" % (i, str(types))
+            return False
     return True
 
 # ####################################### #

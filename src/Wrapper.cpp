@@ -223,7 +223,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - ParamName    : the name of the parameter\
 \n\nExamples:\
 \n\tVal = PyOpenFLUID.getModelGlobalParam(\"gvalue\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -283,7 +283,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the existing units classes.\
 \n\nExamples:\
 \n\tCls = PyOpenFLUID.getUnitsClasses()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -297,7 +297,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - UnitClass    : the unit class\
 \n\nExamples:\
 \n\tIds = PyOpenFLUID.getUnitsIDs(\"SU\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -366,7 +366,7 @@ a default value.\
 \n - Path    : the full path of the dataset to open\
 \n\nExamples:\
 \n\tOfsim = PyOpenFLUID.openDataset(\"/path/to/dataset\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+", boost::python::return_internal_reference<>()
     )
 
 
@@ -395,6 +395,19 @@ a default value.\
 \n - Path    : the output directory path\
 \n\nExamples:\
 \n\tPyOpenFLUID.setCurrentOutputDir(\"/path/to/output\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getCurrentOutputDir",
+      &PyOpenFLUID::getCurrentOutputDir,
+      "Gets the current output directory for simulations.\
+\n\nExamples:\
+\n\tPath = PyOpenFLUID.getCurrentOutputDir()\
 "
     )
 
@@ -537,6 +550,18 @@ a default value.\
 \n\tResSU18 = PyOpenFLUID.loadResultFile(\"/path/to/output/SU18_full.out\")\
 \n\tResRS1 = PyOpenFLUID.loadResultFile(\"/path/to/output/RS1_waterlevel.out\")\
 ", boost::python::return_value_policy<boost::python::manage_new_object>()
+    )
+
+
+// =====================================================================
+/* ------------------------ OTHER FUNCTIONS  ------------------------ */
+
+
+    .def("copy", &PyOpenFLUID::copy,
+      ( boost::python::arg("InputClass") ),
+      "Copy all attributs from the parameter in self.\
+\n - InputClass    : the PyOpenFLUID class to copy\
+"
     )
 
 ; /* end of PyOpenFLUID class definition */
