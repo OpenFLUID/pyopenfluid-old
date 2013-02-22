@@ -14,17 +14,23 @@
 #include <openfluid/config.hpp>
 #include <openfluid/base.hpp>
 #include <openfluid/core.hpp>
-//#include <openfluid/fluidx.hpp>
-#include <openfluid/ware/PluggableWare.hpp>
+#include <openfluid/machine.hpp>
+#include <openfluid/ware.hpp>
+
+/* TODO delete when compilation runs perfectly */
+#include <openfluid/machine/MonitoringInstance.hpp>
+#include <openfluid/machine/ObserverPluginsManager.hpp>
 #include <openfluid/fluidx/UnitDescriptor.hpp>
 #include <openfluid/fluidx/FunctionDescriptor.hpp>
+#include <openfluid/fluidx/ObserverDescriptor.hpp>
 #include <openfluid/fluidx/GeneratorDescriptor.hpp>
-
+#include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/DomainDescriptor.hpp>
 #include <openfluid/fluidx/DatastoreDescriptor.hpp>
 #include <openfluid/fluidx/CoupledModelDescriptor.hpp>
 #include <openfluid/fluidx/MonitoringDescriptor.hpp>
 #include <openfluid/fluidx/RunDescriptor.hpp>
+/* end todo */
 
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
@@ -66,7 +72,7 @@ PyOpenFLUID::~PyOpenFLUID ()
 /* ----------------------  GENERAL FUNCTIONS  ----------------------- */
 
 
-boost::python::str PyOpenFLUID::getVersion ()
+boost::python::object PyOpenFLUID::getVersion ()
 {
   boost::python::str StrVersion = boost::python::str((const char*)
     openfluid::config::FULL_VERSION.c_str());
@@ -85,6 +91,7 @@ void PyOpenFLUID::addExtraFunctionsPaths (boost::python::str BoostPaths)
     addExtraFunctionsPluginsPaths(Paths);
 }
 
+
 // =====================================================================
 // =====================================================================
 
@@ -95,11 +102,12 @@ void PyOpenFLUID::resetExtraFunctionsPaths ()
     resetExtraFunctionsPluginsPaths();
 }
 
+
 // =====================================================================
 // =====================================================================
 
 
-boost::python::list PyOpenFLUID::getExtraFunctionsPaths ()
+boost::python::object PyOpenFLUID::getExtraFunctionsPaths ()
 {
   std::vector<std::string> VectPath = openfluid::base::RuntimeEnvironment::getInstance()->
     getExtraFunctionsPluginsPaths();
@@ -109,6 +117,7 @@ boost::python::list PyOpenFLUID::getExtraFunctionsPaths ()
     ListPath.append( boost::python::str(*IterVectPath) );
   return ListPath;
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -120,6 +129,7 @@ void PyOpenFLUID::addExtraObserversPaths (boost::python::str BoostPaths)
   openfluid::base::RuntimeEnvironment::getInstance()->
     addExtraObserversPluginsPaths(Paths);
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -136,7 +146,7 @@ void PyOpenFLUID::resetExtraObserversPaths ()
 // =====================================================================
 
 
-boost::python::list PyOpenFLUID::getExtraObserversPaths ()
+boost::python::object PyOpenFLUID::getExtraObserversPaths ()
 {
   std::vector<std::string> VectPath = openfluid::base::RuntimeEnvironment::getInstance()->
     getExtraObserversPluginsPaths();
@@ -146,6 +156,7 @@ boost::python::list PyOpenFLUID::getExtraObserversPaths ()
     ListPath.append( boost::python::str(*IterVectPath) );
   return ListPath;
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -196,13 +207,13 @@ void PyOpenFLUID::printSimulationInfo ()
       if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Fixed)
         std::cout << "fixed";
 
-      if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Random)
+      else if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Random)
         std::cout << "random";
 
-      if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Interp)
+      else if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Interp)
         std::cout << "interp";
 
-      if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Inject)
+      else if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Inject)
         std::cout << "inject";
 
       std::cout << " generator for variable " << pGenDesc->getVariableName().c_str() << " on units " << pGenDesc->getUnitClass().c_str() << std::endl;
@@ -218,11 +229,12 @@ void PyOpenFLUID::printSimulationInfo ()
   std::cout << "Simulation time step : " << this->m_RunDescriptor.getDeltaT() << std::endl;
 }
 
+
 // =====================================================================
 /* ------------------------  MODEL FUNCTIONS  ----------------------- */
 
 
-boost::python::str* PyOpenFLUID::getFunctionParam (boost::python::str FuncID,
+boost::python::object PyOpenFLUID::getFunctionParam (boost::python::str FuncID,
                                                    boost::python::str ParamName)
 {
   std::string FuncIDStr = convert::boostStrToCString(FuncID);
@@ -233,9 +245,7 @@ boost::python::str* PyOpenFLUID::getFunctionParam (boost::python::str FuncID,
 
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
 
-  boost::python::str* ResValue = NULL; /* makes Python NONE */
-
-  while (ResValue == NULL && ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
   {
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
         ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID() == FuncIDStr)
@@ -246,14 +256,15 @@ boost::python::str* PyOpenFLUID::getFunctionParam (boost::python::str FuncID,
         ++ItParam;
 
       if (ItParam != Params.end())
-        ResValue = new boost::python::str((*ItParam).second.data());
+        return boost::python::str((*ItParam).second.data());
       break;
     }
     ++ItModelInfos;
   }
 
-  return ResValue;
+  return boost::python::object(); /* makes Python NONE */
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -265,39 +276,71 @@ void PyOpenFLUID::setFunctionParam (boost::python::str FuncID,
 {
   std::string FuncIDStr = convert::boostStrToCString(FuncID);
   std::string ParamNameStr = convert::boostStrToCString(ParamName);
-  std::string ParamValStr = convert::boostStrToCString(ParamValue);
+  std::string ParamValueStr = convert::boostStrToCString(ParamValue);
 
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t ModelInfos = this->m_CoupledModelDescriptor.getItems();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = ModelInfos.begin();
 
-  boost::python::str* ResValue = NULL; /* makes Python NONE */
-
-  while (ResValue == NULL && ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  while (ItModelInfos != ModelInfos.end())
   {
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
         ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID() == FuncIDStr)
     {
-      (*ItModelInfos)->setParameter(ParamNameStr,ParamValStr);
+      (*ItModelInfos)->setParameter(ParamNameStr,ParamValueStr);
       break;
     }
     ++ItModelInfos;
   }
 }
 
+
 // =====================================================================
 // =====================================================================
 
 
-boost::python::str* PyOpenFLUID::getGeneratorParam (
+boost::python::object PyOpenFLUID::getGeneratorParam (
                                                   boost::python::str UnitClass,
                                                   boost::python::str VarName,
                                                   boost::python::str ParamName)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::string UnitClassStr = convert::boostStrToCString(UnitClass);
+  std::string VarNameStr = convert::boostStrToCString(VarName);
+  std::string ParamNameStr = convert::boostStrToCString(ParamName);
+
+  openfluid::ware::WareParams_t Params;
+  openfluid::ware::WareParams_t::iterator ItParam;
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+
+  openfluid::fluidx::GeneratorDescriptor* GenDescp;
+
+  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  {
+    if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::Generator))
+    {
+      GenDescp = (openfluid::fluidx::GeneratorDescriptor*)(*ItModelInfos);
+      if (GenDescp->getUnitClass() == UnitClassStr && GenDescp->getVariableName() == VarNameStr)
+      {
+        Params = GenDescp->getParameters();
+        ItParam = Params.begin();
+
+        while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
+          ++ItParam;
+
+        if (ItParam != Params.end())
+          return boost::python::str((*ItParam).second.data());
+        break;
+      }
+    }
+    ++ItModelInfos;
+  }
+
+  return boost::python::object(); /* makes Python NONE */
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -308,22 +351,57 @@ void PyOpenFLUID::setGeneratorParam (boost::python::str UnitClass,
                                      boost::python::str ParamName,
                                      boost::python::str ParamValue)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::string UnitClassStr = convert::boostStrToCString(UnitClass);
+  std::string VarNameStr = convert::boostStrToCString(VarName);
+  std::string ParamNameStr = convert::boostStrToCString(ParamName);
+  std::string ParamValueStr = convert::boostStrToCString(ParamValue);
+
+  openfluid::ware::WareParams_t Params;
+  openfluid::ware::WareParams_t::iterator ItParam;
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+
+  openfluid::fluidx::GeneratorDescriptor* GenDescp;
+
+  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  {
+    if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::Generator))
+    {
+      GenDescp = (openfluid::fluidx::GeneratorDescriptor*)(*ItModelInfos);
+      if (GenDescp->getUnitClass() == UnitClassStr && GenDescp->getVariableName() == VarNameStr)
+      {
+        GenDescp->setParameter(ParamNameStr, ParamValueStr);
+        break;
+      }
+    }
+    ++ItModelInfos;
+  }
 }
 
+
 // =====================================================================
 // =====================================================================
 
 
-boost::python::str PyOpenFLUID::getModelGlobalParam (
+boost::python::object PyOpenFLUID::getModelGlobalParam (
                                                   boost::python::str ParamName)
 {
-//  std::string ParamNameStr = convert::boostStrToCString(ParamName);
-//  std::string ValueStr = this->m_CoupledModelDescriptor.getParameters(ParamNameStr);
-//  return boost::python::str(ValueStr.c_str());
-    return boost::python::str("");
+  std::string ParamNameStr = convert::boostStrToCString(ParamName);
+
+  openfluid::ware::WareParams_t Params = this->m_CoupledModelDescriptor.getGlobalParameters();
+  openfluid::ware::WareParams_t::iterator ItParam = Params.begin();
+
+  boost::python::str ResValue; /* makes Python NONE */
+
+  while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
+    ++ItParam;
+
+  if (ItParam != Params.end())
+    return boost::python::str((*ItParam).second.data());
+
+  return boost::python::object(); /* makes Python NONE */
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -332,22 +410,56 @@ boost::python::str PyOpenFLUID::getModelGlobalParam (
 void PyOpenFLUID::setModelGlobalParam (boost::python::str ParamName,
                                        boost::python::str ParamValue)
 {
-//  std::string ParamNameStr = convert::boostStrToCString(ParamName));
-//  std::string ParamValStr = convert::boostStrToCString(ParamValue);
+  openfluid::ware::WareParamKey_t ParamNameStr =
+      (openfluid::ware::WareParamKey_t) convert::boostStrToCString(ParamName);
+  openfluid::ware::WareParamValue_t ParamValueStr =
+      (openfluid::ware::WareParamValue_t) convert::boostStrToCString(ParamValue);
 
-//  this->m_CoupledModelDescriptor.setParameter(ParamNameStr,ParamValStr);
+  this->m_CoupledModelDescriptor.setGlobalParameter(ParamNameStr,ParamValueStr);
 }
+
 
 // =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 
-boost::python::str* PyOpenFLUID::getObserverParam (boost::python::str ObsID,
+boost::python::object PyOpenFLUID::getObserverParam (boost::python::str ObsID,
                                                    boost::python::str ParamName)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::string ObsIDStr = convert::boostStrToCString(ObsID);
+  std::string ParamNameStr = convert::boostStrToCString(ParamName);
+
+  openfluid::ware::WareParams_t Params;
+  openfluid::ware::WareParams_t::iterator ItParam;
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+
+  openfluid::fluidx::ObserverDescriptor* ObsDescp;
+
+  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  {
+    if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+    {
+      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
+      if (ObsDescp->getID() == ObsIDStr)
+      {
+        Params = ObsDescp->getParameters();
+        ItParam = Params.begin();
+
+        while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
+          ++ItParam;
+
+        if (ItParam != Params.end())
+          return boost::python::str((*ItParam).second.data());
+        break;
+      }
+    }
+    ++ItModelInfos;
+  }
+
+  return boost::python::object(); /* makes Python NONE */
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -357,15 +469,38 @@ void PyOpenFLUID::setObserverParam (boost::python::str ObsID,
                                     boost::python::str ParamName,
                                     boost::python::str ParamValue)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  std::string ObsIDStr = convert::boostStrToCString(ObsID);
+  std::string ParamNameStr = convert::boostStrToCString(ParamName);
+  std::string ParamValueStr = convert::boostStrToCString(ParamValue);
+
+  openfluid::ware::WareParams_t Params;
+  openfluid::ware::WareParams_t::iterator ItParam;
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+
+  openfluid::fluidx::ObserverDescriptor* ObsDescp;
+
+  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  {
+    if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+    {
+      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
+      if (ObsDescp->getID() == ObsIDStr)
+      {
+        ObsDescp->setParameter(ParamNameStr, ParamValueStr);
+        break;
+      }
+    }
+    ++ItModelInfos;
+  }
 }
+
 
 // =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 
-boost::python::list PyOpenFLUID::getUnitsClasses ()
+boost::python::object PyOpenFLUID::getUnitsClasses ()
 {
   boost::python::list ListClasses = boost::python::list();
   std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
@@ -373,16 +508,17 @@ boost::python::list PyOpenFLUID::getUnitsClasses ()
 
   for (std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit = ListUnit.begin();
        IterUnit != ListUnit.end(); ++IterUnit)
-    ListClasses.append( boost::python::str( (*IterUnit).getUnitClass().c_str() ) );
+    ListClasses.append(boost::python::str((*IterUnit).getUnitClass()));
 
   return ListClasses;
 }
 
+
 // =====================================================================
 // =====================================================================
 
 
-boost::python::list PyOpenFLUID::getUnitsIDs (boost::python::str UnitClass)
+boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::str UnitClass)
 {
   std::string UnitClassRef = convert::boostStrToCString(UnitClass);
   boost::python::list ListID = boost::python::list();
@@ -396,6 +532,7 @@ boost::python::list PyOpenFLUID::getUnitsIDs (boost::python::str UnitClass)
 
   return ListID;
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -423,11 +560,12 @@ void PyOpenFLUID::createInputData (boost::python::str UnitClass,
   }
 }
 
+
 // =====================================================================
 // =====================================================================
 
 
-boost::python::str* PyOpenFLUID::getInputData (boost::python::str UnitClass,
+boost::python::object PyOpenFLUID::getInputData (boost::python::str UnitClass,
                                                int UnitID,
                                                boost::python::str IDataName)
 {
@@ -444,13 +582,14 @@ boost::python::str* PyOpenFLUID::getInputData (boost::python::str UnitClass,
       if (ItUnitData != (*ItIData).getData().end())
       {
         if ((*ItUnitData).second.find(IDataNameStr) != (*ItUnitData).second.end())
-          return new boost::python::str((*ItUnitData).second.at(IDataNameStr).c_str());
+          return boost::python::str((*ItUnitData).second.at(IDataNameStr));
       }
     }
   }
 
-  return NULL; /* return python None */
+  return boost::python::object(); /* makes Python NONE */
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -480,6 +619,7 @@ void PyOpenFLUID::setInputData (boost::python::str UnitClass, int UnitID,
   }
 }
 
+
 // =====================================================================
 /* --------------------  INPUT OUTPUT FUNCTIONS  -------------------- */
 
@@ -492,28 +632,19 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::str Path)
 
   try
   {
-//    openfluid::base::Init();
+    openfluid::base::Init();
 
-//    openfluid::io::IOListener IOListen;
-//    openfluid::io::FluidXReader FXReader(&IOListen);
+    openfluid::base::IOListener IOListen;
+    openfluid::fluidx::FluidXDescriptor FXReader(&IOListen);
 
+    openfluid::base::RuntimeEnvironment::getInstance()->setInputDir(std::string(StrPath));
+    FXReader.loadFromDirectory(openfluid::base::RuntimeEnvironment::getInstance()->getInputDir());
 
-//    openfluid::base::RuntimeEnvironment::getInstance()->setInputDir(std::string(StrPath));
-//    FXReader.loadFromDirectory(openfluid::base::RuntimeEnvironment::getInstance()->getInputDir());
-
-//    this->m_IsSimulationRun = false;
-
-//    this->m_DomainDescriptor = FXReader.getDomainDescriptor();
-//    this->m_CoupledModelDescriptor = FXReader.getModelDescriptor();
-//    this->m_DatastoreDescriptor = FXReader.getDatstoreDescriptor();
-//    this->m_MonitoringDescriptor = FXReader.getOutputDescriptor();
-//    this->m_RunDescr = FXReader.getRunDescriptor();
-
-//    if (!this->IsProject)
-//    {
-//      this->IsDataset = true;
-//      this->SourcePath = openfluid::base::RuntimeEnvironment::getInstance()->getInputDir();
-//    }
+    this->m_DomainDescriptor = FXReader.getDomainDescriptor();
+    this->m_CoupledModelDescriptor = FXReader.getModelDescriptor();
+    this->m_DatastoreDescriptor = FXReader.getDatastoreDescriptor();
+    this->m_MonitoringDescriptor = FXReader.getMonitoringDescriptor();
+    this->m_RunDescriptor = FXReader.getRunDescriptor();
 
     return ResClass;
   }
@@ -533,9 +664,6 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::str Path)
   {
     StrError = std::string("UNKNOWN ERROR");
   }
-//  this->IsProject = false;
-//  this->IsDataset = false;
-//  this->SourcePath = "";
 
   if (StrError.length() != 0)
   {
@@ -545,6 +673,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::str Path)
 
   return NULL;
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -557,20 +686,17 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::str Path)
 
   try
   {
-//    openfluid::base::Init();
+    openfluid::base::Init();
 
-//    openfluid::io::IOListener IOListen;
+    openfluid::base::IOListener IOListen;
 
-//    if (openfluid::base::ProjectManager::getInstance()->open(StrPath))
-//    {
-//      openfluid::base::RuntimeEnvironment::getInstance()->linkToProject();
-//      openfluid::base::ProjectManager::getInstance()->updateOutputDir();
-//    }
-//    else
-//      throw openfluid::base::OFException("PyOpenFLUID", StrPath + " is not a correct project path");
-
-//    this->IsProject = true;
-//    this->SourcePath = openfluid::base::ProjectManager::getInstance()->getPath();
+    if (openfluid::base::ProjectManager::getInstance()->open(StrPath))
+    {
+      openfluid::base::RuntimeEnvironment::getInstance()->linkToProject();
+      openfluid::base::ProjectManager::getInstance()->updateOutputDir();
+    }
+    else
+      throw openfluid::base::OFException("PyOpenFLUID", StrPath + " is not a correct project path");
 
     return this->openDataset(openfluid::base::RuntimeEnvironment::getInstance()->getInputDir().c_str());
   }
@@ -590,9 +716,6 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::str Path)
   {
     StrError = std::string("UNKNOWN ERROR");
   }
-//  this->IsProject = false;
-//  this->IsDataset = false;
-//  this->SourcePath = "";
 
   if (StrError.length() != 0)
   {
@@ -602,6 +725,7 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::str Path)
 
   return NULL;
 }
+
 
 // =====================================================================
 // =====================================================================
@@ -613,15 +737,16 @@ void PyOpenFLUID::setCurrentOutputDir (boost::python::str Path)
      convert::boostStrToCString(Path));
 }
 
+
 // =====================================================================
 // =====================================================================
 
 
-boost::python::str PyOpenFLUID::getCurrentOutputDir ()
+boost::python::object PyOpenFLUID::getCurrentOutputDir ()
 {
-  boost::python::str Path = boost::python::str(openfluid::base::RuntimeEnvironment::getInstance()->getOutputDir());
-  return Path;
+  return boost::python::str(openfluid::base::RuntimeEnvironment::getInstance()->getOutputDir());
 }
+
 
 // =====================================================================
 /* ---------------------  SIMULATION FUNCTIONS  --------------------- */
@@ -648,7 +773,7 @@ void PyOpenFLUID::setDefaultDeltaT (int DefaultDeltaT)
 // =====================================================================
 
 
-boost::python::dict PyOpenFLUID::getPeriodBeginDate ()
+boost::python::object PyOpenFLUID::getPeriodBeginDate ()
 {
   openfluid::core::DateTime BrutDate = this->m_RunDescriptor.getBeginDate();
   boost::python::dict DictDate = boost::python::dict();
@@ -666,7 +791,7 @@ boost::python::dict PyOpenFLUID::getPeriodBeginDate ()
 // =====================================================================
 
 
-boost::python::dict PyOpenFLUID::getPeriodEndDate ()
+boost::python::object PyOpenFLUID::getPeriodEndDate ()
 {
   openfluid::core::DateTime BrutDate = this->m_RunDescriptor.getEndDate();
   boost::python::dict DictDate = boost::python::dict();
@@ -726,49 +851,42 @@ unsigned short int PyOpenFLUID::runSimulation ()
   std::string StrError("");
   try
   {
-//    openfluid::base::Init();
+    openfluid::base::Init();
 
-//    openfluid::machine::Engine* Engine;
+    this->updateOutputsConfig();
 
-//    UpdateOutputsConfig(BlobHandle);
-
-//    openfluid::io::IOListener IOListen;
-//    openfluid::machine::SimulationBlob SimBlob;
-
-//    openfluid::machine::PluginManager::getInstance()->unloadAllPlugins();
+    openfluid::machine::FunctionPluginsManager::getInstance()->unloadAllWares();
+    openfluid::machine::ObserverPluginsManager::getInstance()->unloadAllWares();
 
 
-//    openfluid::machine::Factory::buildSimulationBlobFromDescriptors(
-//        this->m_DomainDescriptor,
-//        this->m_RunDescriptor,
-//        this->m_OutDesc,
-//        this->m_DataStoreDesc,
-//        SimBlob);
+    openfluid::machine::Engine* Engine;
+    openfluid::machine::SimulationBlob SBlob;
+    openfluid::base::RuntimeEnvironment* RunEnv;
+    openfluid::base::IOListener* IOListen = new openfluid::base::IOListener();
+    openfluid::machine::MachineListener* MachineListen = new openfluid::machine::MachineListener();
 
+    openfluid::machine::ModelInstance Model(SBlob,MachineListen);
+    openfluid::machine::MonitoringInstance Monitoring(SBlob);
+    openfluid::fluidx::FluidXDescriptor FXDesc(IOListen);
 
-//    openfluid::machine::MachineListener MachineListen;
-//    openfluid::machine::ModelInstance Model(SimBlob, &MachineListen);
+    openfluid::machine::Factory::buildSimulationBlobFromDescriptors(FXDesc,SBlob);
 
-//    openfluid::machine::Factory::buildModelInstanceFromDescriptor(this->m_ModelDescriptor,
-//        Model);
+    openfluid::machine::Factory::buildModelInstanceFromDescriptor(this->m_CoupledModelDescriptor, Model);
 
-//    this->m_OutputDir = openfluid::base::RuntimeEnvironment::getInstance()->getOutputDir();
+    openfluid::machine::Factory::buildMonitoringInstanceFromDescriptor(this->m_MonitoringDescriptor, Monitoring);
 
-//    Engine = new openfluid::machine::Engine(SimBlob, Model, &MachineListen, &IOListen);
+    Engine = new openfluid::machine::Engine(SBlob, Model, Monitoring, MachineListen);
 
-//    Engine->initialize();
+    Engine->initialize();
 
-//    Engine->initParams();
-//    Engine->prepareData();
-//    Engine->checkConsistency();
-//    Engine->run();
-//    Engine->saveReports();
+    Engine->initParams();
+    Engine->prepareData();
+    Engine->checkConsistency();
+    Engine->run();
 
-//    Engine->finalize();
+    Engine->finalize();
 
-//    delete Engine;
-
-//    this->m_IsSimulationRun = true;
+    delete Engine;
 
     return 1;
   }
@@ -803,24 +921,24 @@ unsigned short int PyOpenFLUID::runSimulation ()
 // =====================================================================
 
 
-PyOpenFLUID* PyOpenFLUID::loadResult (boost::python::str UnitClass,
-                                           int UnitID,
-                                           boost::python::str Suffix)
-{
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
-}
+//PyOpenFLUID* PyOpenFLUID::loadResult (boost::python::str UnitClass,
+//                                           int UnitID,
+//                                           boost::python::str Suffix)
+//{
+//  PyOFException* error = new PyOFException("unavailable method");
+//  throw *error;
+//}
 
 
 // =====================================================================
 // =====================================================================
 
 
-PyOpenFLUID* PyOpenFLUID::loadResultFile (boost::python::str FilePath)
-{
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
-}
+//PyOpenFLUID* PyOpenFLUID::loadResultFile (boost::python::str FilePath)
+//{
+//  PyOFException* error = new PyOFException("unavailable method");
+//  throw *error;
+//}
 
 
 // =====================================================================
@@ -834,4 +952,22 @@ void PyOpenFLUID::copy (PyOpenFLUID InputClass)
   this->m_CoupledModelDescriptor = InputClass.m_CoupledModelDescriptor;
   this->m_MonitoringDescriptor = InputClass.m_MonitoringDescriptor;
   this->m_RunDescriptor = InputClass.m_RunDescriptor;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::updateOutputsConfig ()
+{
+//  std::vector<openfluid::base::OutputFilesDescriptor>::iterator DescIt;
+
+//  for (DescIt = this->m_MonitoringDescriptor.getFileSets().begin();
+//       DescIt != this->m_MonitoringDescriptor.getFileSets().end();
+//       ++DescIt)
+//  {
+//    (*DescIt).setHeaderType(openfluid::base::OutputFilesDescriptor::ColnamesAsData);
+//    (*DescIt).setDateFormat("%Y%m%d-%H%M%S");
+//  }
 }

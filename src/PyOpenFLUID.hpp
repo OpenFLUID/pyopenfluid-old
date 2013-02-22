@@ -54,7 +54,7 @@ class PyOpenFLUID
      * @return
      *    the OpenFLUID version number
      */
-    boost::python::str getVersion ();
+    boost::python::object getVersion ();
 
 
 // =====================================================================
@@ -91,7 +91,7 @@ class PyOpenFLUID
      * @return
      *    a list of paths
      */
-    boost::python::list getExtraFunctionsPaths ();
+    boost::python::object getExtraFunctionsPaths ();
 
 
 // =====================================================================
@@ -128,7 +128,7 @@ class PyOpenFLUID
      * @return
      *    a list of paths
      */
-    boost::python::list getExtraObserversPaths ();
+    boost::python::object getExtraObserversPaths ();
 
 
 // =====================================================================
@@ -158,7 +158,7 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::str* getFunctionParam (boost::python::str FuncID,
+    boost::python::object getFunctionParam (boost::python::str FuncID,
                                          boost::python::str ParamName);
 
 
@@ -198,7 +198,7 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::str* getGeneratorParam (boost::python::str UnitClass,
+    boost::python::object getGeneratorParam (boost::python::str UnitClass,
                                            boost::python::str VarName,
                                            boost::python::str ParamName);
 
@@ -238,7 +238,7 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::str getModelGlobalParam (boost::python::str ParamName);
+    boost::python::object getModelGlobalParam (boost::python::str ParamName);
 
 
 // =====================================================================
@@ -272,7 +272,7 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::str* getObserverParam (boost::python::str ObsID,
+    boost::python::object getObserverParam (boost::python::str ObsID,
                                           boost::python::str ParamName);
 
 
@@ -305,7 +305,7 @@ class PyOpenFLUID
      * @return
      *    a list of units classes
      */
-    boost::python::list getUnitsClasses ();
+    boost::python::object getUnitsClasses ();
 
 
 // =====================================================================
@@ -321,7 +321,7 @@ class PyOpenFLUID
      * @return
      *    a list of units IDs
      */
-    boost::python::list getUnitsIDs (boost::python::str UnitClass);
+    boost::python::object getUnitsIDs (boost::python::str UnitClass);
 
 
 // =====================================================================
@@ -361,7 +361,7 @@ class PyOpenFLUID
      * @return
      *    the inputdata value
      */
-    boost::python::str* getInputData (boost::python::str UnitClass, int UnitID,
+    boost::python::object getInputData (boost::python::str UnitClass, int UnitID,
                                       boost::python::str IDataName);
 
 
@@ -442,7 +442,7 @@ class PyOpenFLUID
      * @return
      *    the output directory path
      */
-    boost::python::str getCurrentOutputDir ();
+    boost::python::object getCurrentOutputDir ();
 
 
 // =====================================================================
@@ -482,7 +482,7 @@ class PyOpenFLUID
      *    the begin date as a python dict, containing following attributs :
             year, month, day, hour, minute, second
      */
-    boost::python::dict getPeriodBeginDate ();
+    boost::python::object getPeriodBeginDate ();
 
 
 // =====================================================================
@@ -496,7 +496,7 @@ class PyOpenFLUID
      *    the end date as a python dict, containing following attributs :
             year, month, day, hour, minute, second
      */
-    boost::python::dict getPeriodEndDate ();
+    boost::python::object getPeriodEndDate ();
 
 
 // =====================================================================
@@ -593,8 +593,8 @@ class PyOpenFLUID
      * @return
      *    a dataframe containing the simulation results
      */
-    PyOpenFLUID* loadResult (boost::python::str UnitClass, int UnitID,
-                               boost::python::str Suffix);
+//    PyOpenFLUID* loadResult (boost::python::str UnitClass, int UnitID,
+//                               boost::python::str Suffix);
 
 
 // =====================================================================
@@ -610,7 +610,7 @@ class PyOpenFLUID
      * @return
      *    a dataframe containing the simulation results
      */
-    PyOpenFLUID* loadResultFile (boost::python::str FilePath);
+//    PyOpenFLUID* loadResultFile (boost::python::str FilePath);
 
 
 // =====================================================================
@@ -624,6 +624,16 @@ class PyOpenFLUID
      *    the PyOpenFLUID class to copy
      */
     void copy (PyOpenFLUID InputClass);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Updates output configuration.
+     */
+    void updateOutputsConfig ();
 
 
 // =====================================================================
