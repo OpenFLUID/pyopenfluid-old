@@ -830,8 +830,14 @@ void PyOpenFLUID::setPeriodEndDate (int EYear, int EMonth, int EDay,
 
 PyOpenFLUID* PyOpenFLUID::runProject (boost::python::str Path)
 {
-  PyOFException* error = new PyOFException("unavailable method");
-  throw *error;
+  PyOpenFLUID* project = this->openProject(Path);
+
+  if (project != NULL)
+  {
+    project->runSimulation();
+  }
+
+  return project;
 }
 
 

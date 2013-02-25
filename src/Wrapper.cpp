@@ -504,7 +504,7 @@ a default value.\
 \n - Path    : the full path of the dataset to open\
 \n\nExamples:\
 \n\tOfsim = PyOpenFLUID.runProject(\"/path/to/dataset\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+", boost::python::return_internal_reference<>()
     )
 
 

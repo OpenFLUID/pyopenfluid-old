@@ -901,7 +901,7 @@ EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     ##
     # Runs a project and returns a simulation definition class (PyOpenFLUID).
     #
-    # @param Path   the full path of the dataset to open
+    # @param Path   the full path of the project to open
     #
     # @return   a simulation definition class (PyOpenFLUID)
     #
@@ -909,7 +909,7 @@ EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
         """Runs a project and returns a simulation definition class (PyOpenFLUID).
 
 Keyword arguments:
-Path  -- the full path of the dataset to open
+Path  -- the full path of the project to open
 
 Returns:
 a simulation definition class (PyOpenFLUID)

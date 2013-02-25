@@ -555,7 +555,7 @@ class PyOpenFLUID
      * @brief Runs a project and returns a simulation definition class (PyOpenFLUID).
      * 
      * @param Path
-     *    the full path of the dataset to open
+     *    the full path of the project to open
      * 
      * @return
      *    a simulation definition class (PyOpenFLUID)
