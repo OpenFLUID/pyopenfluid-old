@@ -13,7 +13,7 @@ SET(PyOpenFLUID_tests
     OpenDataset_TEST.py
     OpenProject_TEST.py
     OutputDir_TEST.py
-    Results_TEST.py
+#    Results_TEST.py
     RunProject_TEST.py
     Simulation_TEST.py
     UnitsClasses_TEST.py

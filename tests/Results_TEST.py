@@ -13,7 +13,5 @@ class PyOpenFLUIDTest_Result(PyOpenFLUIDTest):
     self.assertIsNotNone(self.openfluid.loadResult(UnitClass, UnitID, Suffix))
     self.assertIsNotNone(self.openfluid.loadResultFile("imposssible path/"))
 
-    self.openfluid.setCurrentOutputDir("imposssible path/")
-
 if __name__ == "__main__":
   unittest.main()
