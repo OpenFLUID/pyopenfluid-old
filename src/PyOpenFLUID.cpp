@@ -2,7 +2,7 @@
 #include <boost/python.hpp>
 #include <boost/exception/all.hpp>
 
-#include <iostream>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <map>
@@ -44,7 +44,7 @@
 
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
-#include "Convert.hpp"
+#include "Utilities.hpp"
 
 
 // =====================================================================
@@ -162,6 +162,9 @@ boost::python::object PyOpenFLUID::getExtraObserversPaths ()
 
 void PyOpenFLUID::printSimulationInfo ()
 {
+  // output stream
+  std::stringstream SStream(std::stringstream::in | std::stringstream::out);
+
   // Spatial domain
   openfluid::core::UnitClass_t ClassName;
 
@@ -179,24 +182,24 @@ void PyOpenFLUID::printSimulationInfo ()
     UnitsInfos[ClassName]++;
   }
 
-  std::cout << "Spatial domain is made of " << this->m_FXDesc.getDomainDescriptor().getUnits().size() << " spatial units" << std::endl;
+  SStream << "Spatial domain is made of " << this->m_FXDesc.getDomainDescriptor().getUnits().size() << " spatial units" << std::endl;
 
   for (std::map<openfluid::core::UnitClass_t,unsigned int>::iterator ItUnitsInfos = UnitsInfos.begin(); ItUnitsInfos != UnitsInfos.end(); ++ItUnitsInfos)
-    std::cout << " - " << (*ItUnitsInfos).second << " units of class " << (*ItUnitsInfos).first.c_str() << std::endl;
+    SStream << " - " << (*ItUnitsInfos).second << " units of class " << (*ItUnitsInfos).first.c_str() << std::endl;
 
 
   // Model
   openfluid::fluidx::GeneratorDescriptor* pGenDesc;
 
-  std::cout << "Model is made of " << this->m_FXDesc.getModelDescriptor().getItems().size() << " simulation items" << std::endl;
+  SStream << "Model is made of " << this->m_FXDesc.getModelDescriptor().getItems().size() << " simulation items" << std::endl;
 
   for (openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin(); ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end(); ++ItModelInfos)
   {
-    std::cout << " - ";
+    SStream << " - ";
 
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
     {
-      std::cout << ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID().c_str() << " simulation function" << std::endl;
+      SStream << ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID().c_str() << " simulation function" << std::endl;
     }
 
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::Generator))
@@ -204,28 +207,31 @@ void PyOpenFLUID::printSimulationInfo ()
       pGenDesc = ((openfluid::fluidx::GeneratorDescriptor*)(*ItModelInfos));
 
       if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Fixed)
-        std::cout << "fixed";
+        SStream << "fixed";
 
       else if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Random)
-        std::cout << "random";
+        SStream << "random";
 
       else if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Interp)
-        std::cout << "interp";
+        SStream << "interp";
 
       else if (pGenDesc->getGeneratorMethod() == openfluid::fluidx::GeneratorDescriptor::Inject)
-        std::cout << "inject";
+        SStream << "inject";
 
-      std::cout << " generator for variable " << pGenDesc->getVariableName().c_str() << " on units " << pGenDesc->getUnitClass().c_str() << std::endl;
+      SStream << " generator for variable " << pGenDesc->getVariableName().c_str() << " on units " << pGenDesc->getUnitClass().c_str() << std::endl;
     }
   }
 
   // Time period
 
-  std::cout << "Simulation period from " << this->m_FXDesc.getRunDescriptor().getBeginDate().getAsISOString().c_str() << " to " << this->m_FXDesc.getRunDescriptor().getEndDate().getAsISOString().c_str() << std::endl;
+  SStream << "Simulation period from " << this->m_FXDesc.getRunDescriptor().getBeginDate().getAsISOString().c_str() << " to " << this->m_FXDesc.getRunDescriptor().getEndDate().getAsISOString().c_str() << std::endl;
 
   // Time step
 
-  std::cout << "Simulation time step : " << this->m_FXDesc.getRunDescriptor().getDeltaT() << std::endl;
+  SStream << "Simulation time step : " << this->m_FXDesc.getRunDescriptor().getDeltaT() << std::endl;
+
+  // Printing
+  topython::printStdOut(SStream);
 }
 
 

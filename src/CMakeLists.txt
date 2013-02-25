@@ -2,7 +2,7 @@ SET(pyopenfluid_source
     Wrapper.cpp
     PyOpenFLUID.hpp          PyOpenFLUID.cpp
     PyOpenFLUIDError.hpp     PyOpenFLUIDError.cpp
-    Convert.hpp              Convert.cpp)
+    Utilities.hpp            Utilities.cpp)
 
 ADD_LIBRARY(PyOpenFLUID SHARED ${pyopenfluid_source})
 
