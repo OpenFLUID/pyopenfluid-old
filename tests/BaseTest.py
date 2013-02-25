@@ -26,14 +26,10 @@ class PyOpenFLUIDTest(unittest.TestCase):
         if not self.openfluid is None:
             del self.openfluid
 
-    def test_ErrorHandler(self):
+    def test_Main(self):
         """Call mainTest self function (user definied). No testing sequence required.
-           If an exception is raised, it catches it and gives False to assertTrue
-           function, otherwise, gives True."""
-        try:
-            self.mainTest()
-        except Exception as e:
-            self.assertTrue(False, "Error handled during test\n> " + e.message)
+           Allows user to make a complete sequence of testing, without let control to unittest."""
+        self.mainTest()
 
     def mainTest(self):
         pass
