@@ -865,14 +865,12 @@ unsigned short int PyOpenFLUID::runSimulation ()
     openfluid::machine::Engine* Engine;
     openfluid::machine::SimulationBlob SBlob;
     openfluid::base::RuntimeEnvironment* RunEnv;
-    openfluid::base::IOListener* IOListen = new openfluid::base::IOListener();
     openfluid::machine::MachineListener* MachineListen = new openfluid::machine::MachineListener();
 
     openfluid::machine::ModelInstance Model(SBlob,MachineListen);
     openfluid::machine::MonitoringInstance Monitoring(SBlob);
-    openfluid::fluidx::FluidXDescriptor FXDesc(IOListen);
 
-    openfluid::machine::Factory::buildSimulationBlobFromDescriptors(FXDesc,SBlob);
+    openfluid::machine::Factory::buildSimulationBlobFromDescriptors(this->m_FXDesc,SBlob);
 
     openfluid::machine::Factory::buildModelInstanceFromDescriptor(this->m_FXDesc.getModelDescriptor(), Model);
 
