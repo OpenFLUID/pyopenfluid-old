@@ -9,28 +9,38 @@
 #include <list>
 #include <exception>
 
-#include <stdio.h>
-
 #include <openfluid/config.hpp>
-#include <openfluid/base.hpp>
-#include <openfluid/core.hpp>
-#include <openfluid/machine.hpp>
-#include <openfluid/ware.hpp>
 
-/* TODO delete when compilation runs perfectly */
+#include <openfluid/base/Init.hpp>
+#include <openfluid/base/IOListener.hpp>
+#include <openfluid/base/RuntimeEnv.hpp>
+#include <openfluid/base/OFException.hpp>
+#include <openfluid/base/ProjectManager.hpp>
+
+#include <openfluid/core/TypeDefs.hpp>
+#include <openfluid/core/DateTime.hpp>
+
+#include <openfluid/ware/PluggableWare.hpp>
+
+#include <openfluid/machine/Engine.hpp>
+#include <openfluid/machine/Factory.hpp>
+#include <openfluid/machine/ModelInstance.hpp>
+#include <openfluid/machine/SimulationBlob.hpp>
+#include <openfluid/machine/MachineListener.hpp>
 #include <openfluid/machine/MonitoringInstance.hpp>
+#include <openfluid/machine/FunctionPluginsManager.hpp>
 #include <openfluid/machine/ObserverPluginsManager.hpp>
+
+#include <openfluid/fluidx/RunDescriptor.hpp>
 #include <openfluid/fluidx/UnitDescriptor.hpp>
+#include <openfluid/fluidx/FluidXDescriptor.hpp>
+#include <openfluid/fluidx/DomainDescriptor.hpp>
 #include <openfluid/fluidx/FunctionDescriptor.hpp>
 #include <openfluid/fluidx/ObserverDescriptor.hpp>
 #include <openfluid/fluidx/GeneratorDescriptor.hpp>
-#include <openfluid/fluidx/FluidXDescriptor.hpp>
-#include <openfluid/fluidx/DomainDescriptor.hpp>
 #include <openfluid/fluidx/DatastoreDescriptor.hpp>
-#include <openfluid/fluidx/CoupledModelDescriptor.hpp>
 #include <openfluid/fluidx/MonitoringDescriptor.hpp>
-#include <openfluid/fluidx/RunDescriptor.hpp>
-/* end todo */
+#include <openfluid/fluidx/CoupledModelDescriptor.hpp>
 
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
