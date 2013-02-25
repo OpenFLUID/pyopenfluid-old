@@ -7,16 +7,36 @@ class PyOpenFLUIDTest_EndPeriodDate(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of end period dates functions."""
-    Date = "2012-03-04 15:04:13"
+    # test true date format
+    ListPassDateDate = ["2012-03-04 15:04:13"]
+    ListPassDate.append( "2012-12-31 23:59:59" )
+    ListPassDate.append( "2012-02-29 12:00:00" )
 
-    self.openfluid.setPeriodEndDate(Date)
-    self.assertEquals(self.openfluid.getPeriodEndDate(), Date)
+    for PassDate in ListPassDate:
+        self.openfluid.setPeriodEndDate(PassDate)
+        self.assertEquals(self.openfluid.getPeriodEndDate(), PassDate)
 
-    try:
-        self.openfluid.setPeriodEndDate("fail date")
-    except:
-        pass
-    self.assertEquals(self.openfluid.getPeriodEndDate(), Date)
+    # test wrong date format
+    ListFailDate = ["fail date"]
+    ListFailDate.append( "2012 03 04 15 04 13" )
+    ListFailDate.append( "2012-03-04 15-04-13" )
+    ListFailDate.append( "2012-03-04  15:04:13" )
+    ListFailDate.append( "2012-03-04   15:04:13" )
+    ListFailDate.append( " 2012-03-04 15:04:13" )
+    ListFailDate.append( "2012-03-04  15:04:13 " )
+    ListFailDate.append( "2012:03:04 15:04:13" )
+    ListFailDate.append( "2012:03:04 15-04-13" )
+    ListFailDate.append( "15:04:13 2012-03-04" )
+    ListFailDate.append( "2012-03-04-15-04-13" )
+    ListFailDate.append( "2012,03,04 15,04,13" )
+    ListFailDate.append( "2012/03/04 15:04:13" )
+
+    for FailDate in ListFailDate:
+        try :
+            self.openfluid.setPeriodEndDate(FailDate)
+        except:
+            pass
+        self.assertEquals(self.openfluid.getPeriodEndDate(), PassDate)
 
 if __name__ == "__main__":
   unittest.main()
