@@ -18,11 +18,9 @@ class PyOpenFLUIDTest_Simulation(PyOpenFLUIDTest):
         try:
             self.openfluid.printSimulationInfo()
         except Exception as exc:
-            print sys.__stderr__.write("Exception: " + exc.message)
+            sys.__stderr__.write(exc.__name__ + ": " + exc.message)
 
-        # moving file pointer to the start of the file
-        FakeOutputFile.seek(0,0)
-        self.assertGreater(len(FakeOutputFile.read(10)), 0, "function 'printSimulationInfo' didn't print anything")
+        self.assertGreater(FakeOutputFile.tell(), 10, "function 'printSimulationInfo' didn't print anything")
 
         # removing temporary output file
         sys.stdout = sys.__stdout__
