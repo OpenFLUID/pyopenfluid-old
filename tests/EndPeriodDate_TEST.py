@@ -8,7 +8,7 @@ class PyOpenFLUIDTest_EndPeriodDate(PyOpenFLUIDTest):
   def mainTest(self):
     """Test of end period dates functions."""
     # test true date format
-    ListPassDateDate = ["2012-03-04 15:04:13"]
+    ListPassDate = ["2012-03-04 15:04:13"]
     ListPassDate.append( "2012-12-31 23:59:59" )
     ListPassDate.append( "2012-02-29 12:00:00" )
 

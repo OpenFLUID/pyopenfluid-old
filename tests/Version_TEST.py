@@ -7,7 +7,8 @@ class PyOpenFLUIDTest_Version(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of version functions."""
-    self.openfluid.getVersion()
+    self.assertIsNotNone(self.openfluid.getVersion())
+    self.assertGreaterEqual(self.openfluid.getVersion(), 3)
 
 if __name__ == "__main__":
   unittest.main()
