@@ -59,12 +59,6 @@ PyOpenFLUID::PyOpenFLUID ()
 
 PyOpenFLUID::~PyOpenFLUID ()
 {
-//  std::cout << "Destruction de l'objet OpenFLUID." << std::endl;
-//  delete this->m_DomainDescriptor;
-//  delete this->m_DatastoreDescriptor;
-//  delete this->m_CoupledModelDescriptor;
-//  delete this->m_MonitoringDescriptor;
-//  delete this->m_RunDescriptor;
 }
 
 
@@ -650,15 +644,15 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::str Path)
   }
   catch (openfluid::base::OFException& E)
   {
-    StrError = std::string("PyOpenFLUID ERROR: ") + std::string(E.what());
+    StrError = std::string(E.what());
   }
   catch (std::bad_alloc& E)
   {
-    StrError = std::string("MEMORY ALLOCATION ERROR: ") + std::string(E.what()) + std::string(". Possibly not enough memory available");
+    StrError = std::string("MEMORY ALLOCATION ERROR, ") + std::string(E.what()) + std::string(". Possibly not enough memory available");
   }
   catch (std::exception& E)
   {
-    StrError = std::string("SYSTEM ERROR: ") + std::string(E.what());
+    StrError = std::string("SYSTEM ERROR, ") + std::string(E.what());
   }
   catch (...)
   {
@@ -667,8 +661,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::str Path)
 
   if (StrError.length() != 0)
   {
-    PyOFException* error = new PyOFException(StrError.c_str());
-    throw *error;
+    throw PyOFException(StrError.c_str());
   }
 
   return NULL;
@@ -702,15 +695,15 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::str Path)
   }
   catch (openfluid::base::OFException& E)
   {
-    StrError = std::string("PyOpenFLUID ERROR: ") + std::string(E.what());
+    StrError = std::string(E.what());
   }
   catch (std::bad_alloc& E)
   {
-    StrError = std::string("MEMORY ALLOCATION ERROR: ") + std::string(E.what()) + std::string(". Possibly not enough memory available");
+    StrError = std::string("MEMORY ALLOCATION ERROR, ") + std::string(E.what()) + std::string(". Possibly not enough memory available");
   }
   catch (std::exception& E)
   {
-    StrError = std::string("SYSTEM ERROR: ") + std::string(E.what());
+    StrError = std::string("SYSTEM ERROR, ") + std::string(E.what());
   }
   catch (...)
   {
@@ -858,7 +851,6 @@ unsigned short int PyOpenFLUID::runSimulation ()
     openfluid::machine::FunctionPluginsManager::getInstance()->unloadAllWares();
     openfluid::machine::ObserverPluginsManager::getInstance()->unloadAllWares();
 
-
     openfluid::machine::Engine* Engine;
     openfluid::machine::SimulationBlob SBlob;
     openfluid::base::RuntimeEnvironment* RunEnv;
@@ -868,6 +860,12 @@ unsigned short int PyOpenFLUID::runSimulation ()
     openfluid::machine::ModelInstance Model(SBlob,MachineListen);
     openfluid::machine::MonitoringInstance Monitoring(SBlob);
     openfluid::fluidx::FluidXDescriptor FXDesc(IOListen);
+
+    FXDesc.getDomainDescriptor() = this->m_DomainDescriptor;
+    FXDesc.getDatastoreDescriptor() = this->m_DatastoreDescriptor;
+    FXDesc.getRunDescriptor() = this->m_RunDescriptor;
+    FXDesc.getModelDescriptor() = this->m_CoupledModelDescriptor;
+    FXDesc.getMonitoringDescriptor() = this->m_MonitoringDescriptor;
 
     openfluid::machine::Factory::buildSimulationBlobFromDescriptors(FXDesc,SBlob);
 
@@ -892,19 +890,19 @@ unsigned short int PyOpenFLUID::runSimulation ()
   }
   catch (openfluid::base::OFException& E)
   {
-    StrError = "OpenFLUID ERROR: " + std::string(E.what()) +"\n";
+    StrError =  std::string(E.what());
   }
   catch (std::bad_alloc& E)
   {
-    StrError = "MEMORY ALLOCATION ERROR: " + std::string(E.what()) + ". Possibly not enough memory available\n";
+    StrError = "MEMORY ALLOCATION ERROR, " + std::string(E.what()) + ". Possibly not enough memory available";
   }
   catch (std::exception& E)
   {
-    StrError = "SYSTEM ERROR: " + std::string(E.what()) +"\n";
+    StrError = "SYSTEM ERROR, " + std::string(E.what());
   }
   catch (...)
   {
-    StrError = "UNKNOWN ERROR\n";
+    StrError = "UNKNOWN ERROR";
   }
 
   if (StrError.length() != 0)
