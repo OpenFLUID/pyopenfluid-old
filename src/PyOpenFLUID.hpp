@@ -1,10 +1,6 @@
 #include <Python.h>
 #include <boost/python.hpp>
-#include <openfluid/fluidx/DomainDescriptor.hpp>
-#include <openfluid/fluidx/DatastoreDescriptor.hpp>
-#include <openfluid/fluidx/CoupledModelDescriptor.hpp>
-#include <openfluid/fluidx/MonitoringDescriptor.hpp>
-#include <openfluid/fluidx/RunDescriptor.hpp>
+#include <openfluid/fluidx/FluidXDescriptor.hpp>
 
 /*!
  * @file pyopenfluid.cpp
@@ -631,6 +627,19 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Return the internal FluidXDescriptor by reference.
+     * 
+     * @return 
+     *    a reference FluidXDescriptor
+     */
+    openfluid::fluidx::FluidXDescriptor& getFluidXDescriptor ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Updates output configuration.
      */
     void updateOutputsConfig ();
@@ -640,11 +649,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-//  private :
-    openfluid::fluidx::DomainDescriptor m_DomainDescriptor;
-    openfluid::fluidx::DatastoreDescriptor m_DatastoreDescriptor;
-    openfluid::fluidx::CoupledModelDescriptor m_CoupledModelDescriptor;
-    openfluid::fluidx::MonitoringDescriptor m_MonitoringDescriptor;
-    openfluid::fluidx::RunDescriptor m_RunDescriptor;
+  private :
+    openfluid::fluidx::FluidXDescriptor m_FXDesc;
 
 };

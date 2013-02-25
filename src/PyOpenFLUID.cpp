@@ -52,13 +52,8 @@
 
 
 
-PyOpenFLUID::PyOpenFLUID ()
+PyOpenFLUID::PyOpenFLUID () : m_FXDesc(NULL)
 {
-  this->m_DomainDescriptor = openfluid::fluidx::DomainDescriptor();
-  this->m_DatastoreDescriptor = openfluid::fluidx::DatastoreDescriptor();
-  this->m_CoupledModelDescriptor = openfluid::fluidx::CoupledModelDescriptor();
-  this->m_MonitoringDescriptor = openfluid::fluidx::MonitoringDescriptor();
-  this->m_RunDescriptor = openfluid::fluidx::RunDescriptor();
 }
 
 
@@ -170,20 +165,21 @@ void PyOpenFLUID::printSimulationInfo ()
   // Spatial domain
   openfluid::core::UnitClass_t ClassName;
 
-  std::map<openfluid::core::UnitClass_t,unsigned int> UnitsInfos;
+  std::map<openfluid::core::UnitClass_t, unsigned int> UnitsInfos;
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator bItUnits = this->m_DomainDescriptor.getUnits().begin();
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator eItUnits = this->m_DomainDescriptor.getUnits().end();
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator bItUnits = this->m_FXDesc.getDomainDescriptor().getUnits().begin();
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator eItUnits = this->m_FXDesc.getDomainDescriptor().getUnits().end();
 
   for (std::list<openfluid::fluidx::UnitDescriptor>::iterator ItUnits = bItUnits; ItUnits != eItUnits; ++ItUnits)
   {
     ClassName = (*ItUnits).getUnitClass();
 
-    if (UnitsInfos.find(ClassName) == UnitsInfos.end()) UnitsInfos[ClassName] = 0;
-      UnitsInfos[ClassName]++;
+    if (UnitsInfos.find(ClassName) == UnitsInfos.end())
+      UnitsInfos[ClassName] = 0;
+    UnitsInfos[ClassName]++;
   }
 
-  std::cout << "Spatial domain is made of " << this->m_DomainDescriptor.getUnits().size() << " spatial units" << std::endl;
+  std::cout << "Spatial domain is made of " << this->m_FXDesc.getDomainDescriptor().getUnits().size() << " spatial units" << std::endl;
 
   for (std::map<openfluid::core::UnitClass_t,unsigned int>::iterator ItUnitsInfos = UnitsInfos.begin(); ItUnitsInfos != UnitsInfos.end(); ++ItUnitsInfos)
     std::cout << " - " << (*ItUnitsInfos).second << " units of class " << (*ItUnitsInfos).first.c_str() << std::endl;
@@ -192,9 +188,9 @@ void PyOpenFLUID::printSimulationInfo ()
   // Model
   openfluid::fluidx::GeneratorDescriptor* pGenDesc;
 
-  std::cout << "Model is made of " << this->m_CoupledModelDescriptor.getItems().size() << " simulation items" << std::endl;
+  std::cout << "Model is made of " << this->m_FXDesc.getModelDescriptor().getItems().size() << " simulation items" << std::endl;
 
-  for (openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin(); ItModelInfos != this->m_CoupledModelDescriptor.getItems().end(); ++ItModelInfos)
+  for (openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin(); ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end(); ++ItModelInfos)
   {
     std::cout << " - ";
 
@@ -225,11 +221,11 @@ void PyOpenFLUID::printSimulationInfo ()
 
   // Time period
 
-  std::cout << "Simulation period from " << this->m_RunDescriptor.getBeginDate().getAsISOString().c_str() << " to " << this->m_RunDescriptor.getEndDate().getAsISOString().c_str() << std::endl;
+  std::cout << "Simulation period from " << this->m_FXDesc.getRunDescriptor().getBeginDate().getAsISOString().c_str() << " to " << this->m_FXDesc.getRunDescriptor().getEndDate().getAsISOString().c_str() << std::endl;
 
   // Time step
 
-  std::cout << "Simulation time step : " << this->m_RunDescriptor.getDeltaT() << std::endl;
+  std::cout << "Simulation time step : " << this->m_FXDesc.getRunDescriptor().getDeltaT() << std::endl;
 }
 
 
@@ -246,9 +242,9 @@ boost::python::object PyOpenFLUID::getFunctionParam (boost::python::str FuncID,
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
 
-  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
   {
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
         ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID() == FuncIDStr)
@@ -284,7 +280,7 @@ void PyOpenFLUID::setFunctionParam (boost::python::str FuncID,
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t ModelInfos = this->m_CoupledModelDescriptor.getItems();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = ModelInfos.begin();
 
   while (ItModelInfos != ModelInfos.end())
@@ -316,11 +312,11 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
 
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
 
-  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
   {
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::Generator))
     {
@@ -362,11 +358,11 @@ void PyOpenFLUID::setGeneratorParam (boost::python::str UnitClass,
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
 
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
 
-  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
   {
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::Generator))
     {
@@ -391,7 +387,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParam (
 {
   std::string ParamNameStr = convert::boostStrToCString(ParamName);
 
-  openfluid::ware::WareParams_t Params = this->m_CoupledModelDescriptor.getGlobalParameters();
+  openfluid::ware::WareParams_t Params = this->m_FXDesc.getModelDescriptor().getGlobalParameters();
   openfluid::ware::WareParams_t::iterator ItParam = Params.begin();
 
   boost::python::str ResValue; /* makes Python NONE */
@@ -418,7 +414,7 @@ void PyOpenFLUID::setModelGlobalParam (boost::python::str ParamName,
   openfluid::ware::WareParamValue_t ParamValueStr =
       (openfluid::ware::WareParamValue_t) convert::boostStrToCString(ParamValue);
 
-  this->m_CoupledModelDescriptor.setGlobalParameter(ParamNameStr,ParamValueStr);
+  this->m_FXDesc.getModelDescriptor().setGlobalParameter(ParamNameStr,ParamValueStr);
 }
 
 
@@ -435,11 +431,11 @@ boost::python::object PyOpenFLUID::getObserverParam (boost::python::str ObsID,
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
 
   openfluid::fluidx::ObserverDescriptor* ObsDescp;
 
-  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
   {
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
     {
@@ -479,11 +475,11 @@ void PyOpenFLUID::setObserverParam (boost::python::str ObsID,
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
 
   openfluid::fluidx::ObserverDescriptor* ObsDescp;
 
-  while (ItModelInfos != this->m_CoupledModelDescriptor.getItems().end())
+  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
   {
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
     {
@@ -507,7 +503,7 @@ boost::python::object PyOpenFLUID::getUnitsClasses ()
 {
   boost::python::list ListClasses = boost::python::list();
   std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
-    this->m_DomainDescriptor.getUnits();
+    this->m_FXDesc.getDomainDescriptor().getUnits();
 
   for (std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit = ListUnit.begin();
        IterUnit != ListUnit.end(); ++IterUnit)
@@ -526,7 +522,7 @@ boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::str UnitClass)
   std::string UnitClassRef = convert::boostStrToCString(UnitClass);
   boost::python::list ListID = boost::python::list();
   std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
-    this->m_DomainDescriptor.getUnits();
+    this->m_FXDesc.getDomainDescriptor().getUnits();
 
   for (std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit = ListUnit.begin();
        IterUnit != ListUnit.end(); ++IterUnit)
@@ -549,7 +545,7 @@ void PyOpenFLUID::createInputData (boost::python::str UnitClass,
   std::string IDataNameStr = convert::boostStrToCString(IDataName);
   std::string IDataValStr = convert::boostStrToCString(IDataVal);
 
-  std::list<openfluid::fluidx::InputDataDescriptor>& IData = this->m_DomainDescriptor.getInputData();
+  std::list<openfluid::fluidx::InputDataDescriptor>& IData = this->m_FXDesc.getDomainDescriptor().getInputData();
 
   for (std::list<openfluid::fluidx::InputDataDescriptor>::iterator ItIData = IData.begin();ItIData != IData.end();++ItIData)
   {
@@ -575,7 +571,7 @@ boost::python::object PyOpenFLUID::getInputData (boost::python::str UnitClass,
   std::string UnitClassStr = convert::boostStrToCString(UnitClass);
   std::string IDataNameStr = convert::boostStrToCString(IDataName);
 
-  std::list<openfluid::fluidx::InputDataDescriptor>& IData = this->m_DomainDescriptor.getInputData();
+  std::list<openfluid::fluidx::InputDataDescriptor>& IData = this->m_FXDesc.getDomainDescriptor().getInputData();
 
   for (std::list<openfluid::fluidx::InputDataDescriptor>::iterator ItIData = IData.begin();ItIData != IData.end();++ItIData)
   {
@@ -606,7 +602,7 @@ void PyOpenFLUID::setInputData (boost::python::str UnitClass, int UnitID,
   std::string IDataNameStr = convert::boostStrToCString(IDataName);
   std::string IDataValStr = convert::boostStrToCString(IDataValue);
 
-  std::list<openfluid::fluidx::InputDataDescriptor>& IData = this->m_DomainDescriptor.getInputData();
+  std::list<openfluid::fluidx::InputDataDescriptor>& IData = this->m_FXDesc.getDomainDescriptor().getInputData();
 
   for (std::list<openfluid::fluidx::InputDataDescriptor>::iterator ItIData = IData.begin();ItIData != IData.end();++ItIData)
   {
@@ -643,11 +639,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::str Path)
     openfluid::base::RuntimeEnvironment::getInstance()->setInputDir(std::string(StrPath));
     FXReader.loadFromDirectory(openfluid::base::RuntimeEnvironment::getInstance()->getInputDir());
 
-    this->m_DomainDescriptor = FXReader.getDomainDescriptor();
-    this->m_CoupledModelDescriptor = FXReader.getModelDescriptor();
-    this->m_DatastoreDescriptor = FXReader.getDatastoreDescriptor();
-    this->m_MonitoringDescriptor = FXReader.getMonitoringDescriptor();
-    this->m_RunDescriptor = FXReader.getRunDescriptor();
+    this->m_FXDesc = FXReader;
 
     return ResClass;
   }
@@ -755,8 +747,7 @@ boost::python::object PyOpenFLUID::getCurrentOutputDir ()
 
 int PyOpenFLUID::getDefaultDeltaT ()
 {
-  int DefaultDeltaT = this->m_RunDescriptor.getDeltaT();
-  return DefaultDeltaT;
+  return this->m_FXDesc.getRunDescriptor().getDeltaT();
 }
 
 
@@ -766,7 +757,7 @@ int PyOpenFLUID::getDefaultDeltaT ()
 
 void PyOpenFLUID::setDefaultDeltaT (int DefaultDeltaT)
 {
-  this->m_RunDescriptor.setDeltaT((const int)DefaultDeltaT);
+  this->m_FXDesc.getRunDescriptor().setDeltaT((const int)DefaultDeltaT);
 }
 
 
@@ -776,7 +767,7 @@ void PyOpenFLUID::setDefaultDeltaT (int DefaultDeltaT)
 
 boost::python::object PyOpenFLUID::getPeriodBeginDate ()
 {
-  openfluid::core::DateTime BrutDate = this->m_RunDescriptor.getBeginDate();
+  openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor().getBeginDate();
   boost::python::dict DictDate = boost::python::dict();
   DictDate["year"] = BrutDate.getYear();
   DictDate["month"] = BrutDate.getMonth();
@@ -794,7 +785,7 @@ boost::python::object PyOpenFLUID::getPeriodBeginDate ()
 
 boost::python::object PyOpenFLUID::getPeriodEndDate ()
 {
-  openfluid::core::DateTime BrutDate = this->m_RunDescriptor.getEndDate();
+  openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor().getEndDate();
   boost::python::dict DictDate = boost::python::dict();
   DictDate["year"] = BrutDate.getYear();
   DictDate["month"] = BrutDate.getMonth();
@@ -815,7 +806,7 @@ void PyOpenFLUID::setPeriodBeginDate (int BYear, int BMonth, int BDay,
 {
   openfluid::core::DateTime BDate = openfluid::core::DateTime(BYear, BMonth,
                                       BDay, BHour, BMinute, BSecond);
-  this->m_RunDescriptor.setBeginDate(BDate);
+  this->m_FXDesc.getRunDescriptor().setBeginDate(BDate);
 }
 
 
@@ -828,7 +819,7 @@ void PyOpenFLUID::setPeriodEndDate (int EYear, int EMonth, int EDay,
 {
   openfluid::core::DateTime EDate = openfluid::core::DateTime(EYear, EMonth,
                                       EDay, EHour, EMinute, ESecond);
-  this->m_RunDescriptor.setEndDate(EDate);
+  this->m_FXDesc.getRunDescriptor().setEndDate(EDate);
 }
 
 
@@ -875,17 +866,11 @@ unsigned short int PyOpenFLUID::runSimulation ()
     openfluid::machine::MonitoringInstance Monitoring(SBlob);
     openfluid::fluidx::FluidXDescriptor FXDesc(IOListen);
 
-    FXDesc.getDomainDescriptor() = this->m_DomainDescriptor;
-    FXDesc.getDatastoreDescriptor() = this->m_DatastoreDescriptor;
-    FXDesc.getRunDescriptor() = this->m_RunDescriptor;
-    FXDesc.getModelDescriptor() = this->m_CoupledModelDescriptor;
-    FXDesc.getMonitoringDescriptor() = this->m_MonitoringDescriptor;
-
     openfluid::machine::Factory::buildSimulationBlobFromDescriptors(FXDesc,SBlob);
 
-    openfluid::machine::Factory::buildModelInstanceFromDescriptor(this->m_CoupledModelDescriptor, Model);
+    openfluid::machine::Factory::buildModelInstanceFromDescriptor(this->m_FXDesc.getModelDescriptor(), Model);
 
-    openfluid::machine::Factory::buildMonitoringInstanceFromDescriptor(this->m_MonitoringDescriptor, Monitoring);
+    openfluid::machine::Factory::buildMonitoringInstanceFromDescriptor(this->m_FXDesc.getMonitoringDescriptor(), Monitoring);
 
     Engine = new openfluid::machine::Engine(SBlob, Model, Monitoring, MachineListen);
 
@@ -958,11 +943,17 @@ unsigned short int PyOpenFLUID::runSimulation ()
 
 void PyOpenFLUID::copy (PyOpenFLUID InputClass)
 {
-  this->m_DomainDescriptor = InputClass.m_DomainDescriptor;
-  this->m_DatastoreDescriptor = InputClass.m_DatastoreDescriptor;
-  this->m_CoupledModelDescriptor = InputClass.m_CoupledModelDescriptor;
-  this->m_MonitoringDescriptor = InputClass.m_MonitoringDescriptor;
-  this->m_RunDescriptor = InputClass.m_RunDescriptor;
+  this->m_FXDesc = InputClass.getFluidXDescriptor();
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+openfluid::fluidx::FluidXDescriptor& PyOpenFLUID::getFluidXDescriptor ()
+{
+  return this->m_FXDesc;
 }
 
 
@@ -974,8 +965,8 @@ void PyOpenFLUID::updateOutputsConfig ()
 {
 //  std::vector<openfluid::base::OutputFilesDescriptor>::iterator DescIt;
 
-//  for (DescIt = this->m_MonitoringDescriptor.getFileSets().begin();
-//       DescIt != this->m_MonitoringDescriptor.getFileSets().end();
+//  for (DescIt = this->m_FXDesc.getMonitoringDescriptor().getFileSets().begin();
+//       DescIt != this->m_FXDesc.getMonitoringDescriptor().getFileSets().end();
 //       ++DescIt)
 //  {
 //    (*DescIt).setHeaderType(openfluid::base::OutputFilesDescriptor::ColnamesAsData);
