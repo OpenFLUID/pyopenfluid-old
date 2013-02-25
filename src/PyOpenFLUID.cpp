@@ -54,7 +54,6 @@
 
 PyOpenFLUID::PyOpenFLUID ()
 {
-//  std::cout << "Création de l'objet OpenFLUID." << std::endl;
   this->m_DomainDescriptor = openfluid::fluidx::DomainDescriptor();
   this->m_DatastoreDescriptor = openfluid::fluidx::DatastoreDescriptor();
   this->m_CoupledModelDescriptor = openfluid::fluidx::CoupledModelDescriptor();
@@ -197,7 +196,7 @@ void PyOpenFLUID::printSimulationInfo ()
 
   for (openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_CoupledModelDescriptor.getItems().begin(); ItModelInfos != this->m_CoupledModelDescriptor.getItems().end(); ++ItModelInfos)
   {
-    fprintf(stdout, " - ");
+    std::cout << " - ";
 
     if ((*ItModelInfos)->isType(openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
     {
@@ -722,8 +721,7 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::str Path)
 
   if (StrError.length() != 0)
   {
-    PyOFException* error = new PyOFException(StrError.c_str());
-    throw *error;
+    throw PyOFException(StrError.c_str());
   }
 
   return NULL;
@@ -923,8 +921,7 @@ unsigned short int PyOpenFLUID::runSimulation ()
 
   if (StrError.length() != 0)
   {
-    PyOFException* error = new PyOFException(StrError.c_str());
-    throw *error;
+    throw PyOFException(StrError.c_str());
   }
 
   return 0;
