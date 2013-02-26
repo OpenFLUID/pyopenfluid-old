@@ -2,6 +2,7 @@
 #include <boost/python.hpp>
 #include <boost/exception/all.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <vector>
 #include <string>
@@ -283,9 +284,6 @@ void PyOpenFLUID::setFunctionParam (boost::python::str FuncID,
   std::string ParamNameStr = convert::boostStrToCString(ParamName);
   std::string ParamValueStr = convert::boostStrToCString(ParamValue);
 
-  openfluid::ware::WareParams_t Params;
-  openfluid::ware::WareParams_t::iterator ItParam;
-
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = ModelInfos.begin();
 
@@ -360,9 +358,6 @@ void PyOpenFLUID::setGeneratorParam (boost::python::str UnitClass,
   std::string VarNameStr = convert::boostStrToCString(VarName);
   std::string ParamNameStr = convert::boostStrToCString(ParamName);
   std::string ParamValueStr = convert::boostStrToCString(ParamValue);
-
-  openfluid::ware::WareParams_t Params;
-  openfluid::ware::WareParams_t::iterator ItParam;
 
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
 
@@ -510,10 +505,15 @@ boost::python::object PyOpenFLUID::getUnitsClasses ()
   boost::python::list ListClasses = boost::python::list();
   std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
     this->m_FXDesc.getDomainDescriptor().getUnits();
+  boost::python::str UnitClassStr;
 
   for (std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit = ListUnit.begin();
        IterUnit != ListUnit.end(); ++IterUnit)
-    ListClasses.append(boost::python::str((*IterUnit).getUnitClass()));
+  {
+    UnitClassStr = boost::python::str((*IterUnit).getUnitClass());
+    if (!ListClasses.contains(UnitClassStr))
+      ListClasses.append(UnitClassStr);
+  }
 
   return ListClasses;
 }
@@ -559,8 +559,10 @@ void PyOpenFLUID::createInputData (boost::python::str UnitClass,
     {
       openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator ItUnitData = (*ItIData).getData().begin();
 
-      for (ItUnitData;ItUnitData!=(*ItIData).getData().end();++ItUnitData)
+      for (ItUnitData; ItUnitData!=(*ItIData).getData().end(); ++ItUnitData)
+      {
         (*ItUnitData).second[IDataNameStr] = IDataValStr;
+      }
     }
   }
 }
@@ -587,7 +589,9 @@ boost::python::object PyOpenFLUID::getInputData (boost::python::str UnitClass,
       if (ItUnitData != (*ItIData).getData().end())
       {
         if ((*ItUnitData).second.find(IDataNameStr) != (*ItUnitData).second.end())
+        {
           return boost::python::str((*ItUnitData).second.at(IDataNameStr));
+        }
       }
     }
   }
