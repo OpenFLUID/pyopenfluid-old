@@ -642,7 +642,7 @@ a simulation definition class (PyOpenFLUID)
                 Res = pyopenfluid.PyOpenFLUID.openDataset(self, Path)
                 if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
                     Class = PyOpenFLUID()
-                    pyopenfluid.PyOpenFLUID.copy(Class, Res)
+                    pyopenfluid.PyOpenFLUID._copy(Class, Res)
                     del Res
             except Exception as e:
                 raise PyOFError(e.message)
@@ -678,7 +678,7 @@ a simulation definition class (PyOpenFLUID)
                 Res = pyopenfluid.PyOpenFLUID.openProject(self, Path)
                 if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
                     Class = PyOpenFLUID()
-                    pyopenfluid.PyOpenFLUID.copy(Class, Res)
+                    pyopenfluid.PyOpenFLUID._copy(Class, Res)
                     del Res
             except Exception as e:
                 raise PyOFError(e.message)
@@ -920,7 +920,7 @@ a simulation definition class (PyOpenFLUID)
                 Res = pyopenfluid.PyOpenFLUID.runProject(self, Path)
                 if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
                     Class = PyOpenFLUID()
-                    pyopenfluid.PyOpenFLUID.copy(Class, Res)
+                    pyopenfluid.PyOpenFLUID._copy(Class, Res)
                     del Res
                 else:
                     Res = None
@@ -1021,7 +1021,7 @@ True if the simulation is runned without problems, False otherwise
     ##
     # Internal method.
     #
-    def copy (self):
+    def _copy (self):
         """Internal method."""
         raise PyOFError("Unavaible method : internal private method.")
 

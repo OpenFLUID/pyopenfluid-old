@@ -557,7 +557,7 @@ a default value.\
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 
-    .def("copy", &PyOpenFLUID::copy,
+    .def("_copy", &PyOpenFLUID::copy,
       ( boost::python::arg("InputClass") ),
       "Copy all attributs from the parameter in self.\
 \n - InputClass    : the PyOpenFLUID class to copy\
