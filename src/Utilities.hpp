@@ -1,78 +1,80 @@
+#ifndef __UTILITIES_HPP__
+#define __UTILITIES_HPP__
+
+#include <string>
+#include <vector>
+#include <list>
+#include <map>
 #include <boost/python.hpp>
-#include <boost/exception/all.hpp>
-#include <exception>
-#include "PyOpenFLUIDError.hpp"
-
-// =====================================================================
-// =====================================================================
+#include <sstream>
+#include <iostream>
 
 
-PyOFException::PyOFException ()
-{
-  this->m_Message = new std::string("");
-}
+namespace convert {
+
+std::string boostStrToCString (const boost::python::str StrInput);
+
+} // convert
 
 
 // =====================================================================
 // =====================================================================
 
 
-PyOFException::PyOFException (std::string* input)
-{
-  this->m_Message = input;
-}
+namespace topython {
+
+void printStdOut (std::string& CharMessage, int EOL=0);
 
 
 // =====================================================================
 // =====================================================================
 
 
-PyOFException::PyOFException (char* input)
-{
-  this->m_Message = new std::string(input);
-}
+void printStdOut (const char* CharMessage, int EOL=0);
 
 
 // =====================================================================
 // =====================================================================
 
 
-PyOFException::PyOFException (const char* input)
-{
-  this->m_Message = new std::string(input);
-}
+void printStdOut (std::stringstream& StringStream, int EOL=0);
 
 
 // =====================================================================
 // =====================================================================
 
 
-PyOFException::~PyOFException () throw ()
-{
-  if (this->m_Message != NULL)
-    delete this->m_Message;
-}
+void printStdOut (std::iostream& IOStream, int EOL=0);
 
 
 // =====================================================================
 // =====================================================================
 
 
-const char* PyOFException::what() const throw()
-{
-  return this->m_Message->c_str();
-}
+void printStdErr (std::string& CharMessage, int EOL=0);
 
 
 // =====================================================================
 // =====================================================================
 
 
-void TranslatePyOFException (const PyOFException& e)
-{
-  // Use the Python 'C' API to set up an exception object
-  const char* name = "PyOpenFluid.PyOFError";
-  PyObject* myException = PyErr_NewException((char*)name,
-      PyExc_RuntimeError, NULL);
-  PyErr_SetString(PyExc_RuntimeError, e.what());
-}
+void printStdErr (const char* CharMessage, int EOL=0);
+
+
+// =====================================================================
+// =====================================================================
+
+
+void printStdErr (std::stringstream& StringStream, int EOL=0);
+
+
+// =====================================================================
+// =====================================================================
+
+
+void printStdErr (std::iostream& IOStream, int EOL=0);
+
+} // topython
+
+
+#endif // __UTILITIES_HPP__

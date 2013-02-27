@@ -58,7 +58,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the added paths to search for simulation functions.\
 \n\nExamples:\
 \n\tPaths = PyOpenFLUID.getExtraFunctionsPaths()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -101,7 +101,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the added paths to search for observers.\
 \n\nExamples:\
 \n\tPaths = PyOpenFLUID.getExtraObserversPaths()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -126,7 +126,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the OpenFLUID version.\
 \n\nExamples:\
 \n\tV = PyOpenFLUID.getVersion()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -155,7 +155,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - ParamName  : the name of the parameter\
 \n\nExamples:\
 \n\tVal = PyOpenFLUID.getFunctionParam(\"my_function\", \"coeff\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -190,7 +190,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - ParamName  : the name of the parameter\
 \n\nExamples:\
 \n\tVal = PyOpenFLUID.getGeneratorParam(\"SU\", \"var.flux\", \"fixedvalue\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -223,7 +223,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - ParamName    : the name of the parameter\
 \n\nExamples:\
 \n\tVal = PyOpenFLUID.getModelGlobalParam(\"gvalue\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -254,7 +254,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - ParamName  : the name of the parameter\
 \n\nExamples:\
 \n\tParam = PyOpenFLUID.getObserverParam\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -271,7 +271,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - ParamName  : the parameter value\
 \n\nExamples:\
 \n\tParam = PyOpenFLUID.setObserverParam\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -283,7 +283,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Returns the existing units classes.\
 \n\nExamples:\
 \n\tCls = PyOpenFLUID.getUnitsClasses()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -297,7 +297,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n - UnitClass    : the unit class\
 \n\nExamples:\
 \n\tIds = PyOpenFLUID.getUnitsIDs(\"SU\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -333,7 +333,7 @@ a default value.\
 \n - IDataName  : the name of the inputdata\
 \n\nExamples:\
 \n\tVal = PyOpenFLUID.getInputData(\"SU\",18,\"length\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -366,7 +366,7 @@ a default value.\
 \n - Path    : the full path of the dataset to open\
 \n\nExamples:\
 \n\tOfsim = PyOpenFLUID.openDataset(\"/path/to/dataset\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+", boost::python::return_internal_reference<>()
     )
 
 
@@ -380,7 +380,7 @@ a default value.\
 \n - Path    : the full path of the project to open\
 \n\nExamples:\
 \n\tOfsim = PyOpenFLUID.openDataset(\"/path/to/project\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+", boost::python::return_internal_reference<>()
     )
 
 
@@ -395,6 +395,19 @@ a default value.\
 \n - Path    : the output directory path\
 \n\nExamples:\
 \n\tPyOpenFLUID.setCurrentOutputDir(\"/path/to/output\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getCurrentOutputDir",
+      &PyOpenFLUID::getCurrentOutputDir,
+      "Gets the current output directory for simulations.\
+\n\nExamples:\
+\n\tPath = PyOpenFLUID.getCurrentOutputDir()\
 "
     )
 
@@ -435,7 +448,7 @@ a default value.\
       "Returns the simulation period begin date.\
 \n\nExamples:\
 \n\tBDate = PyOpenFLUID.getPeriodBeginDate()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -447,7 +460,7 @@ a default value.\
       "Returns the simulation period end date.\
 \n\nExamples:\
 \n\tEDate = PyOpenFLUID.getPeriodEndDate()\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+"
     )
 
 
@@ -491,7 +504,7 @@ a default value.\
 \n - Path    : the full path of the dataset to open\
 \n\nExamples:\
 \n\tOfsim = PyOpenFLUID.runProject(\"/path/to/dataset\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+", boost::python::return_internal_reference<>()
     )
 
 
@@ -511,32 +524,44 @@ a default value.\
 // =====================================================================
 
 
-    .def("loadResult", &PyOpenFLUID::loadResult,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
-        boost::python::arg("Suffix") ),
-      "Loads results as a dataframe, giving output dataset informations.\
-\n - UnitClass  : the unit class\
-\n - UnitID     : the unid ID\
-\n - Suffix     : the output dataset suffix\
-\n\nExamples:\
-\n\tResSU18 = PyOpenFLUID.loadResult(\"SU\",18,\"full\")\
-\n\tResRS1 = PyOpenFLUID.loadResult(\"RS\",1,\"waterlevel\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
-    )
+//    .def("loadResult", &PyOpenFLUID::loadResult,
+//      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
+//        boost::python::arg("Suffix") ),
+//      "Loads results as a dataframe, giving output dataset informations.\
+//\n - UnitClass  : the unit class\
+//\n - UnitID     : the unid ID\
+//\n - Suffix     : the output dataset suffix\
+//\n\nExamples:\
+//\n\tResSU18 = PyOpenFLUID.loadResult(\"SU\",18,\"full\")\
+//\n\tResRS1 = PyOpenFLUID.loadResult(\"RS\",1,\"waterlevel\")\
+//", boost::python::return_internal_reference<>()
+//    )
 
 
 // =====================================================================
 // =====================================================================
 
 
-    .def("loadResultFile", &PyOpenFLUID::loadResultFile,
-      ( boost::python::arg("FilePath") ),
-      "Loads results as a dataframe, giving output file name.\
-\n - FilePath    : the full path of the file to load\
-\n\nExamples:\
-\n\tResSU18 = PyOpenFLUID.loadResultFile(\"/path/to/output/SU18_full.out\")\
-\n\tResRS1 = PyOpenFLUID.loadResultFile(\"/path/to/output/RS1_waterlevel.out\")\
-", boost::python::return_value_policy<boost::python::manage_new_object>()
+//    .def("loadResultFile", &PyOpenFLUID::loadResultFile,
+//      ( boost::python::arg("FilePath") ),
+//      "Loads results as a dataframe, giving output file name.\
+//\n - FilePath    : the full path of the file to load\
+//\n\nExamples:\
+//\n\tResSU18 = PyOpenFLUID.loadResultFile(\"/path/to/output/SU18_full.out\")\
+//\n\tResRS1 = PyOpenFLUID.loadResultFile(\"/path/to/output/RS1_waterlevel.out\")\
+//", boost::python::return_internal_reference<>()
+//    )
+
+
+// =====================================================================
+/* ------------------------ OTHER FUNCTIONS  ------------------------ */
+
+
+    .def("_copy", &PyOpenFLUID::copy,
+      ( boost::python::arg("InputClass") ),
+      "Copy all attributs from the parameter in self.\
+\n - InputClass    : the PyOpenFLUID class to copy\
+"
     )
 
 ; /* end of PyOpenFLUID class definition */

@@ -4,38 +4,132 @@
 import unittest
 import sys
 import os
+import PyOpenFLUID
+
+def skipArgFromLC():
+    """Gets arguments (in line command) away from sys, because unittest will try to use them."""
+    Res = sys.argv[1:]
+    sys.argv = sys.argv[:1]
+    return Res
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
 
 class PyOpenFLUIDTest(unittest.TestCase):
-    def __init__(self, *args, **kw):
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def __init__(self, *arg, **kw):
         """Initialize testing. Do not build any object in."""
-        import PyOpenFLUID
+        unittest.TestCase.__init__(self, *arg, **kw)
         self.openfluid = None
         self.addCleanup(self.cleanUp, (), {})
+
+
+# ########################################################################## #
+# ########################################################################## #
+
 
     def setUp(self):
         """First test to run.
            Build the PyOpenFLUID object."""
         try:
             self.openfluid = PyOpenFLUID.PyOpenFLUID()
-        except Exception:
-            wlog( "Construction error" )
-            self.assertTrue(False)
-        finally:
-            self.assertTrue(True)
+        except Exception as e:
+            self.assertTrue(False, "Error building PyOpenFLUID object\n> " + e.message)
 
-    def cleanUp(self):
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def cleanUp(self, *arg, **kw):
         """Clean up testing unit."""
-        del PyOpenFLUID
         if not self.openfluid is None:
             del self.openfluid
 
-    def test_ErrorHandler(self):
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def test_Main(self):
         """Call mainTest self function (user definied). No testing sequence required.
-           If an exception is raised, it catches it and gives False to assertTrue
-           function, otherwise, gives True."""
-        try:
-            self.mainTest()
-        except Exception:
-            self.assertTrue(False)
-        finally:
-            self.assertTrue(True)
+           Allows user to make a complete sequence of testing, without let control to unittest."""
+        self.mainTest()
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def mainTest(self):
+        pass
+
+
+# ########################################################################## #
+# ###################         SPECIFIC FUNCTIONS         ################### #
+
+
+    def loadInputDataset(self, Path):
+        self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
+        self.assertTrue(os.access(Path, os.R_OK))
+        self.openfluid.openDataset(Path)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def loadAllInputDataset(self, List):
+        for DTPath in List:
+            try:
+                self.loadInputDataset(DTPath)
+            except Exception as e:
+                print "Loading input dataset fail : " + e.message
+        else:
+            return len(List)
+
+
+# ########################################################################## #
+# ###################          CHECK FUNCTIONS           ################### #
+
+
+    def checkFloat(self, InputStr):
+        self.assertTrue(isinstance(InputStr, str))
+        self.assertEquals(InputStr.count("."), 1)
+        if InputStr.startswith("-"):
+            InputStr = InputStr[1:]
+        ISep = InputStr.index(".")
+        self.assertTrue(InputStr[:ISep].isdigit())
+        self.assertTrue(InputStr[ISep+1:].isdigit())
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def checkInt(self, InputStr):
+        self.assertTrue(isinstance(InputStr, str))
+        if InputStr.startswith("-"):
+            InputStr = InputStr[1:]
+        self.assertTrue(InputStr.isdigit())
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def checkNumeric(self, InputStr):
+        self.assertTrue(isinstance(InputStr, str))
+        if InputStr.startswith("-"):
+            InputStr = InputStr[1:]
+        if not InputStr.isdigit():
+            ISep = InputStr.index(".")
+            self.assertTrue(InputStr[:ISep].isdigit())
+            self.assertTrue(InputStr[ISep+1:].isdigit())
