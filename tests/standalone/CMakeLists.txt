@@ -1,18 +1,86 @@
-SET(PyOpenFLUID_SA_tests
-    BeginPeriodDate_TEST.py
-    DefaultDeltaT_TEST.py
-    EndPeriodDate_TEST.py
-    ExtraFunctionsPaths_TEST.py
-    ExtraObserversPaths_TEST.py
-    ModelGlobalParameter_TEST.py
-    OutputDir_TEST.py
-    PrintSimulationInfo_TEST.py
-    Version_TEST.py
-    )
+ADD_TEST(Version_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/Version_TEST.py)
+SET_TESTS_PROPERTIES(Version_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
-FOREACH(TEST ${PyOpenFLUID_SA_tests})
-    ADD_TEST(${TEST} ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${TEST})
-    SET_TESTS_PROPERTIES(${TEST} PROPERTIES
-                         WILL_FAIL FALSE
-                         ENVIRONMENT "PYTHONPATH=${PY_DIR}") 
-ENDFOREACH()
+
+
+
+ADD_TEST(BeginPeriodDate_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/BeginPeriodDate_TEST.py)
+SET_TESTS_PROPERTIES(BeginPeriodDate_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(EndPeriodDate_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/EndPeriodDate_TEST.py)
+SET_TESTS_PROPERTIES(EndPeriodDate_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(DefaultDeltaT_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/DefaultDeltaT_TEST.py)
+SET_TESTS_PROPERTIES(DefaultDeltaT_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(ExtraFunctionsPaths_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/ExtraFunctionsPaths_TEST.py)
+SET_TESTS_PROPERTIES(ExtraFunctionsPaths_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(ExtraObserversPaths_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/ExtraObserversPaths_TEST.py)
+SET_TESTS_PROPERTIES(ExtraObserversPaths_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(ModelGlobalParameter_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/ModelGlobalParameter_TEST.py)
+SET_TESTS_PROPERTIES(ModelGlobalParameter_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(OutputDir_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/OutputDir_TEST.py)
+SET_TESTS_PROPERTIES(OutputDir_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(PrintSimulationInfo_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/PrintSimulationInfo_TEST.py)
+SET_TESTS_PROPERTIES(PrintSimulationInfo_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
