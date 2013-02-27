@@ -10,10 +10,14 @@ class PyOpenFLUIDTest_DefaultDeltaT(PyOpenFLUIDTest):
     DeltaT = 23
 
     self.openfluid.setDefaultDeltaT(DeltaT)
-    self.assertEquals(self.openfluid.getDefaultDeltaT(), DeltaT)
+    Val = self.openfluid.getDefaultDeltaT()
+    self.assertTrue(isinstance(Val, int))
+    self.assertEquals(Val, DeltaT)
 
     self.openfluid.setDefaultDeltaT(-90)
-    self.assertNotEquals(self.openfluid.getDefaultDeltaT(), DeltaT)
+    Val = self.openfluid.getDefaultDeltaT()
+    self.assertTrue(isinstance(Val, int))
+    self.assertEquals(Val, DeltaT)
 
 if __name__ == "__main__":
   unittest.main()

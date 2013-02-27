@@ -14,7 +14,9 @@ class PyOpenFLUIDTest_EndPeriodDate(PyOpenFLUIDTest):
 
     for PassDate in ListPassDate:
         self.openfluid.setPeriodEndDate(PassDate)
-        self.assertEquals(self.openfluid.getPeriodEndDate(), PassDate)
+        CheckDate = self.openfluid.getPeriodEndDate()
+        self.assertTrue(isinstance(CheckDate, str))
+        self.assertEquals(CheckDate, PassDate)
 
     # test wrong date format
     ListFailDate = ["fail date"]
@@ -36,7 +38,10 @@ class PyOpenFLUIDTest_EndPeriodDate(PyOpenFLUIDTest):
             self.openfluid.setPeriodEndDate(FailDate)
         except:
             pass
-        self.assertEquals(self.openfluid.getPeriodEndDate(), PassDate)
+        else:
+            CheckDate = self.openfluid.getPeriodEndDate()
+            self.assertTrue(isinstance(CheckDate, str))
+            self.assertEquals(CheckDate, PassDate)
 
 if __name__ == "__main__":
   unittest.main()
