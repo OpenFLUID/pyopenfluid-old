@@ -767,6 +767,8 @@ int PyOpenFLUID::getDefaultDeltaT ()
 
 void PyOpenFLUID::setDefaultDeltaT (int DefaultDeltaT)
 {
+  if (DefaultDeltaT <= 0)
+    throw PyOFException("DefaultDeltaT cann't be negative or null.");
   this->m_FXDesc.getRunDescriptor().setDeltaT((const int)DefaultDeltaT);
 }
 
