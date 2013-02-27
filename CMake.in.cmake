@@ -18,6 +18,7 @@ SET(PYOPENFLUID_VERSION ${OpenFLUID_VERSION})
 # "<S>_PATH" -> for built and installed repository (relative path)
 # "<S>_OUTPUT_PATH" -> for the built repository (absolute path)
 
+SET(PYOPENFLUID_INPUT_RESSOURCE "${CURRENT_PATH}/ressource")
 SET(PYOPENFLUID_INPUT_MODULE "${CURRENT_PATH}/module")
 SET(PYOPENFLUID_INPUT_SOURCE "${CURRENT_PATH}/src")
 SET(PYOPENFLUID_INPUT_DOC "${CURRENT_PATH}/doc")

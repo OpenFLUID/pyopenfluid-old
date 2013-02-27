@@ -7,10 +7,8 @@ class PyOpenFLUIDTest_OpenDataSet(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of simulation functions."""
-    Res = self.openfluid.openDataset("Path")
-    self.assertIsNotNone(Res)
-    self.assertTrue(isinstance(Res, PyOpenFLUID.PyOpenFLUID))
-    self.assertNotEquals(Res, self.openfluid)
+    self.assertEquals(self.loadAllInputDataset(ArgList), 2)
 
 if __name__ == "__main__":
+  ArgList = skipArgFromLC()
   unittest.main()

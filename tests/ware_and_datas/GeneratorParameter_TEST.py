@@ -7,17 +7,33 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of generator parameters functions."""
-    UnitClass = "SU"
-    VarName = "var.flux"
+    self.assertEquals(self.loadAllInputDataset(ArgList), 1)
+
+    UnitClass = "TestUnits"
+    VarName = "tests.fixed"
     ParamName = "fixedvalue"
-    ParamValue = "12.3"
-    self.openfluid.setGeneratorParam(UnitClass, VarName, ParamName, ParamValue)
-    self.assertEquals(self.openfluid.getGeneratorParam(
-                                                UnitClass,
-                                                VarName,
-                                                ParamName),
-                      ParamValue)
+
+    Val = self.openfluid.getGeneratorParam(UnitClass, VarName, ParamName)
+
+    self.assertIsNone(self.openfluid.getGeneratorParam(UnitClass, VarName, "bidon"))
+    self.assertIsNone(self.openfluid.getGeneratorParam(UnitClass, "bidon", ParamName))
+    self.assertIsNone(self.openfluid.getGeneratorParam("bidon", VarName, ParamName))
+    self.assertIsNone(self.openfluid.getGeneratorParam(UnitClass, "bidon", "bidon"))
+    self.assertIsNone(self.openfluid.getGeneratorParam("bidon", "bidon", ParamName))
+    self.assertIsNone(self.openfluid.getGeneratorParam("bidon", VarName, "bidon"))
+
+    self.assertTrue(isinstance(Val, str))
+    self.checkNumeric(Val)
+
+    NvVal = str(float(Val) + 123.6)
+    self.openfluid.setGeneratorParam(UnitClass, VarName, ParamName, NvVal)
+    CheckVal = self.openfluid.getGeneratorParam(UnitClass, VarName, ParamName)
+    self.assertTrue(isinstance(CheckVal, str))
+    self.checkNumeric(CheckVal)
+    self.assertNotEquals(CheckVal, Val)
+    self.assertEquals(CheckVal, NvVal)
 
 
 if __name__ == "__main__":
+  ArgList = skipArgFromLC()
   unittest.main()

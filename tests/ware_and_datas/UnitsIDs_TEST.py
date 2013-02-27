@@ -7,7 +7,17 @@ class PyOpenFLUIDTest_UnitsIDs(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of units IDs functions."""
-    self.assertTrue(isinstance(self.openfluid.getUnitsIDs("UnitClass"), list))
+    self.assertEquals(self.loadAllInputDataset(ArgList), 1)
+
+    # test of unitsA
+    ListID = self.openfluid.getUnitsIDs("unitsA")
+    self.assertTrue(isinstance(ListID, list))
+
+    ListTest = range(1, 10)
+    ListTest.remove(4)
+    ListID.sort(); ListTest.sort()
+    self.assertEquals(ListID, ListTest)
 
 if __name__ == "__main__":
+  ArgList = skipArgFromLC()
   unittest.main()

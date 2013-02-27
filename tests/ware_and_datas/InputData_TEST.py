@@ -7,15 +7,26 @@ class PyOpenFLUIDTest_InputData(PyOpenFLUIDTest):
 
   def mainTest(self):
     """Test of input datas functions."""
-    UnitClass = "SU"
-    IDataName = "area"
-    IDataValue = "13.9"
-    self.openfluid.createInputData(UnitClass, IDataName, IDataValue)
+    self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
-    UnitID = 9
-    self.openfluid.setInputData(UnitClass, UnitID, IDataName, IDataValue)
-    self.assertEquals(self.openfluid.getInputData(UnitClass, UnitID, IDataName),
-                      IDataValue)
+    UnitClass = "unitsA"
+    UnitID = 3
+    UnitName = "inivar1"
+    self.assertIsNone(self.openfluid.getInputData(UnitClass, UnitID, "bidon"))
+
+    Val = self.openfluid.getInputData(UnitClass, UnitID, UnitName)
+    self.assertTrue(isinstance(Val, str))
+    self.checkFloat(Val)
+
+    NvVal = str(float(Val) + 8.2)
+    self.openfluid.setInputData(UnitClass, UnitID, UnitName, NvVal)
+    CheckVal = self.openfluid.getInputData(UnitClass, UnitID, UnitName)
+    self.assertTrue(isinstance(Val, str))
+    self.checkFloat(CheckVal)
+    self.assertNotEquals(CheckVal, Val)
+    self.assertEquals(CheckVal, NvVal)
+
 
 if __name__ == "__main__":
+  ArgList = skipArgFromLC()
   unittest.main()
