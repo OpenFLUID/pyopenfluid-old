@@ -155,7 +155,7 @@ class PyOpenFLUID
      *    the parameter value
      */
     boost::python::object getFunctionParam (boost::python::object FuncID,
-                                         boost::python::object ParamName);
+                                            boost::python::object ParamName);
 
 
 // =====================================================================
@@ -195,8 +195,8 @@ class PyOpenFLUID
      *    the parameter value
      */
     boost::python::object getGeneratorParam (boost::python::object UnitClass,
-                                           boost::python::object VarName,
-                                           boost::python::object ParamName);
+                                             boost::python::object VarName,
+                                             boost::python::object ParamName);
 
 
 // =====================================================================
@@ -269,7 +269,7 @@ class PyOpenFLUID
      *    the parameter value
      */
     boost::python::object getObserverParam (boost::python::object ObsID,
-                                          boost::python::object ParamName);
+                                            boost::python::object ParamName);
 
 
 // =====================================================================
@@ -358,8 +358,8 @@ class PyOpenFLUID
      *    the inputdata value
      */
     boost::python::object getInputData (boost::python::object UnitClass,
-                                      boost::python::object UnitID,
-                                      boost::python::object IDataName);
+                                        boost::python::object UnitID,
+                                        boost::python::object IDataName);
 
 
 // =====================================================================
@@ -567,8 +567,9 @@ class PyOpenFLUID
      * @return
      *    a dataframe containing the simulation results
      */
-//    PyOpenFLUID* loadResult (boost::python::object UnitClass, boost::python::object UnitID,
-//                               boost::python::object Suffix);
+//    PyOpenFLUID* loadResult (boost::python::object UnitClass,
+//                             boost::python::object UnitID,
+//                             boost::python::object Suffix);
 
 
 // =====================================================================
