@@ -18,8 +18,17 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 /* ------------------------- MODULE CONSTANTS ----------------------- */
 
-  boost::python::scope().attr("__version__") = std::string(
+  boost::python::scope().attr("__version__") = boost::python::str(
       (const std::string) openfluid::config::FULL_VERSION);
+
+  boost::python::list AuthorsList = boost::python::list();
+  AuthorsList.append(boost::python::str("Bastien Vaysse <bastien.vaysse@supagro.inra.fr>"));
+  AuthorsList.append(boost::python::str("Jean-Christophe Fabre <fabrejc@supagro.inra.fr>"));
+  boost::python::scope().attr("__authors__") = AuthorsList;
+
+  boost::python::scope().attr("__license__") = boost::python::str("GPLv3");
+
+  boost::python::scope().attr("__date__") = boost::python::str("wen 27 févr. 2013 14:45:23 +0100 ");
 
 
 // =====================================================================

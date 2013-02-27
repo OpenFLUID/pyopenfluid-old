@@ -63,7 +63,7 @@ class PyOpenFLUID
      * @param Paths
      *    the semicolon separated paths to add
      */
-    void addExtraFunctionsPaths (boost::python::str BoostPaths);
+    void addExtraFunctionsPaths (boost::python::object Paths);
 
 
 // =====================================================================
@@ -100,7 +100,7 @@ class PyOpenFLUID
      * @param Paths
      *    the semicolon separated paths to add
      */
-    void addExtraObserversPaths (boost::python::str BoostPaths);
+    void addExtraObserversPaths (boost::python::object Paths);
 
 
 // =====================================================================
@@ -154,8 +154,8 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::object getFunctionParam (boost::python::str FuncID,
-                                         boost::python::str ParamName);
+    boost::python::object getFunctionParam (boost::python::object FuncID,
+                                         boost::python::object ParamName);
 
 
 // =====================================================================
@@ -172,9 +172,9 @@ class PyOpenFLUID
      * @param ParamVal
      *    the parameter value
      */
-    void setFunctionParam (boost::python::str FuncID,
-                           boost::python::str ParamName,
-                           boost::python::str ParamValue);
+    void setFunctionParam (boost::python::object FuncID,
+                           boost::python::object ParamName,
+                           boost::python::object ParamValue);
 
 
 // =====================================================================
@@ -194,9 +194,9 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::object getGeneratorParam (boost::python::str UnitClass,
-                                           boost::python::str VarName,
-                                           boost::python::str ParamName);
+    boost::python::object getGeneratorParam (boost::python::object UnitClass,
+                                           boost::python::object VarName,
+                                           boost::python::object ParamName);
 
 
 // =====================================================================
@@ -215,10 +215,10 @@ class PyOpenFLUID
      * @param ParamVal
      *    the parameter value
      */
-    void setGeneratorParam (boost::python::str UnitClass,
-                            boost::python::str VarName,
-                            boost::python::str ParamName,
-                            boost::python::str ParamValue);
+    void setGeneratorParam (boost::python::object UnitClass,
+                            boost::python::object VarName,
+                            boost::python::object ParamName,
+                            boost::python::object ParamValue);
 
 
 // =====================================================================
@@ -234,7 +234,7 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::object getModelGlobalParam (boost::python::str ParamName);
+    boost::python::object getModelGlobalParam (boost::python::object ParamName);
 
 
 // =====================================================================
@@ -249,8 +249,8 @@ class PyOpenFLUID
      * @param ParamVal
      *    the parameter value
      */
-    void setModelGlobalParam (boost::python::str ParamName,
-                              boost::python::str ParamValue);
+    void setModelGlobalParam (boost::python::object ParamName,
+                              boost::python::object ParamValue);
 
 
 // =====================================================================
@@ -268,8 +268,8 @@ class PyOpenFLUID
      * @return
      *    the parameter value
      */
-    boost::python::object getObserverParam (boost::python::str ObsID,
-                                          boost::python::str ParamName);
+    boost::python::object getObserverParam (boost::python::object ObsID,
+                                          boost::python::object ParamName);
 
 
 // =====================================================================
@@ -286,9 +286,9 @@ class PyOpenFLUID
      * @param ParamVal
      *    the parameter value
      */
-    void setObserverParam (boost::python::str ObsID,
-                           boost::python::str ParamName,
-                           boost::python::str ParamValue);
+    void setObserverParam (boost::python::object ObsID,
+                           boost::python::object ParamName,
+                           boost::python::object ParamValue);
 
 
 // =====================================================================
@@ -317,7 +317,7 @@ class PyOpenFLUID
      * @return
      *    a list of units IDs
      */
-    boost::python::object getUnitsIDs (boost::python::str UnitClass);
+    boost::python::object getUnitsIDs (boost::python::object UnitClass);
 
 
 // =====================================================================
@@ -335,9 +335,9 @@ class PyOpenFLUID
      * @param IDataVal
      *    the default inputdata value for alla units
      */
-    void createInputData (boost::python::str UnitClass,
-                          boost::python::str IDataName,
-                          boost::python::str IDataVal);
+    void createInputData (boost::python::object UnitClass,
+                          boost::python::object IDataName,
+                          boost::python::object IDataVal);
 
 
 // =====================================================================
@@ -357,8 +357,9 @@ class PyOpenFLUID
      * @return
      *    the inputdata value
      */
-    boost::python::object getInputData (boost::python::str UnitClass, int UnitID,
-                                      boost::python::str IDataName);
+    boost::python::object getInputData (boost::python::object UnitClass,
+                                      boost::python::object UnitID,
+                                      boost::python::object IDataName);
 
 
 // =====================================================================
@@ -377,9 +378,10 @@ class PyOpenFLUID
      * @param IDataVal
      *    the value of the inputdata
      */
-    void setInputData (boost::python::str UnitClass, int UnitID,
-                       boost::python::str IDataName,
-                       boost::python::str IDataValue);
+    void setInputData (boost::python::object UnitClass,
+                       boost::python::object UnitID,
+                       boost::python::object IDataName,
+                       boost::python::object IDataValue);
 
 
 // =====================================================================
@@ -395,7 +397,7 @@ class PyOpenFLUID
      * @return
      *    a simulation definition class (PyOpenFLUID)
      */
-    PyOpenFLUID* openDataset (boost::python::str Path);
+    PyOpenFLUID* openDataset (boost::python::object Path);
 
 
 // =====================================================================
@@ -412,7 +414,7 @@ class PyOpenFLUID
      * @return
      *    a simulation definition class (PyOpenFLUID)
      */
-    PyOpenFLUID* openProject (boost::python::str Path);
+    PyOpenFLUID* openProject (boost::python::object Path);
 
 
 // =====================================================================
@@ -425,7 +427,7 @@ class PyOpenFLUID
      * @param Path
      *    the output directory path
      */
-    void setCurrentOutputDir (boost::python::str Path);
+    void setCurrentOutputDir (boost::python::object Path);
 
 
 // =====================================================================
@@ -451,7 +453,7 @@ class PyOpenFLUID
      * @return
      *    the time step value in seconds
      */
-    int getDefaultDeltaT ();
+    boost::python::object getDefaultDeltaT ();
 
 
 // =====================================================================
@@ -464,7 +466,7 @@ class PyOpenFLUID
      * @param DeltaT
      *    the time step value in seconds
      */
-    void setDefaultDeltaT (int DefaultDeltaT);
+    void setDefaultDeltaT (boost::python::object DefaultDeltaT);
 
 
 // =====================================================================
@@ -516,7 +518,7 @@ class PyOpenFLUID
      * 
      * @param EDate   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
      */
-    void setPeriodEndDate (boost::python::str EDate);
+    void setPeriodEndDate (boost::python::object EDate);
 
 
 // =====================================================================
@@ -532,7 +534,7 @@ class PyOpenFLUID
      * @return
      *    a simulation definition class (PyOpenFLUID)
      */
-    PyOpenFLUID* runProject (boost::python::str Path);
+    PyOpenFLUID* runProject (boost::python::object Path);
 
 
 // =====================================================================
@@ -545,7 +547,7 @@ class PyOpenFLUID
      * @return
      *    1 if the simulation runned without problems, 0 otherwise
      */
-    unsigned short int runSimulation ();
+    boost::python::object runSimulation ();
 
 
 // =====================================================================
@@ -565,8 +567,8 @@ class PyOpenFLUID
      * @return
      *    a dataframe containing the simulation results
      */
-//    PyOpenFLUID* loadResult (boost::python::str UnitClass, int UnitID,
-//                               boost::python::str Suffix);
+//    PyOpenFLUID* loadResult (boost::python::object UnitClass, boost::python::object UnitID,
+//                               boost::python::object Suffix);
 
 
 // =====================================================================
@@ -582,7 +584,7 @@ class PyOpenFLUID
      * @return
      *    a dataframe containing the simulation results
      */
-//    PyOpenFLUID* loadResultFile (boost::python::str FilePath);
+//    PyOpenFLUID* loadResultFile (boost::python::object FilePath);
 
 
 // =====================================================================
