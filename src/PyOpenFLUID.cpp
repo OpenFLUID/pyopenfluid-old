@@ -1,5 +1,7 @@
 #include <Python.h>
 #include <boost/python.hpp>
+#include <boost/regex.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/exception/all.hpp>
 
 #include <iostream>
@@ -9,6 +11,7 @@
 #include <map>
 #include <list>
 #include <exception>
+#include <cstdlib>
 
 #include <openfluid/config.hpp>
 
@@ -780,14 +783,14 @@ void PyOpenFLUID::setDefaultDeltaT (int DefaultDeltaT)
 boost::python::object PyOpenFLUID::getPeriodBeginDate ()
 {
   openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor().getBeginDate();
-  boost::python::dict DictDate = boost::python::dict();
-  DictDate["year"] = BrutDate.getYear();
-  DictDate["month"] = BrutDate.getMonth();
-  DictDate["day"] = BrutDate.getDay();
-  DictDate["hour"] = BrutDate.getHour();
-  DictDate["minute"] = BrutDate.getMinute();
-  DictDate["second"] = BrutDate.getSecond();
-  return DictDate;
+  std::stringstream StreamRes(std::stringstream::in | std::stringstream::out);
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getYear()), 1) << "-";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getMonth()), 2) << "-";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getDay()), 2) << " ";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getHour()), 2) << ":";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getMinute()), 2) << ":";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getSecond()), 2);
+  return boost::python::str(StreamRes.str().c_str());
 }
 
 
@@ -798,14 +801,14 @@ boost::python::object PyOpenFLUID::getPeriodBeginDate ()
 boost::python::object PyOpenFLUID::getPeriodEndDate ()
 {
   openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor().getEndDate();
-  boost::python::dict DictDate = boost::python::dict();
-  DictDate["year"] = BrutDate.getYear();
-  DictDate["month"] = BrutDate.getMonth();
-  DictDate["day"] = BrutDate.getDay();
-  DictDate["hour"] = BrutDate.getHour();
-  DictDate["minute"] = BrutDate.getMinute();
-  DictDate["second"] = BrutDate.getSecond();
-  return DictDate;
+  std::stringstream StreamRes(std::stringstream::in | std::stringstream::out);
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getYear()), 1) << "-";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getMonth()), 2) << "-";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getDay()), 2) << " ";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getHour()), 2) << ":";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getMinute()), 2) << ":";
+  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(BrutDate.getSecond()), 2);
+  return boost::python::str(StreamRes.str().c_str());
 }
 
 
@@ -813,12 +816,30 @@ boost::python::object PyOpenFLUID::getPeriodEndDate ()
 // =====================================================================
 
 
-void PyOpenFLUID::setPeriodBeginDate (int BYear, int BMonth, int BDay,
-                                      int BHour, int BMinute, int BSecond)
+void PyOpenFLUID::setPeriodBeginDate (boost::python::str BDate)
 {
-  openfluid::core::DateTime BDate = openfluid::core::DateTime(BYear, BMonth,
-                                      BDay, BHour, BMinute, BSecond);
+  std::string Pattern = std::string("^(\\d{1,4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$");
+  std::string Target = convert::boostStrToCString(BDate);
+
+  boost::regex RegexPattern = boost::regex(Pattern, boost::regex::extended);
+  boost::smatch ResMatch;
+
+  bool isMatchFound = boost::regex_match(Target, ResMatch, RegexPattern);
+
+  if (isMatchFound && ResMatch.size() == 7)
+  {
+    int TabRes[6];
+    int i;
+    std::string TmpStr;
+    for (i=0; i<6; i++)
+    {
+      TmpStr = ResMatch[i+1];
+      TabRes[i] = std::atoi(TmpStr.c_str());
+    }
+
+  openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0], TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
   this->m_FXDesc.getRunDescriptor().setBeginDate(BDate);
+  }
 }
 
 
@@ -826,12 +847,30 @@ void PyOpenFLUID::setPeriodBeginDate (int BYear, int BMonth, int BDay,
 // =====================================================================
 
 
-void PyOpenFLUID::setPeriodEndDate (int EYear, int EMonth, int EDay,
-                                    int EHour, int EMinute, int ESecond)
+void PyOpenFLUID::setPeriodEndDate (boost::python::str EDate)
 {
-  openfluid::core::DateTime EDate = openfluid::core::DateTime(EYear, EMonth,
-                                      EDay, EHour, EMinute, ESecond);
-  this->m_FXDesc.getRunDescriptor().setEndDate(EDate);
+  std::string Pattern = std::string("^(\\d{1,4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$");
+  std::string Target = convert::boostStrToCString(EDate);
+
+  boost::regex RegexPattern = boost::regex(Pattern, boost::regex::extended);
+  boost::smatch ResMatch;
+
+  bool isMatchFound = boost::regex_match(Target, ResMatch, RegexPattern);
+
+  if (isMatchFound && ResMatch.size() == 7)
+  {
+    int TabRes[6];
+    int i;
+    std::string TmpStr;
+    for (i=0; i<6; i++)
+    {
+      TmpStr = ResMatch[i+1];
+      TabRes[i] = std::atoi(TmpStr.c_str());
+    }
+
+  openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0], TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
+  this->m_FXDesc.getRunDescriptor().setEndDate(BDate);
+  }
 }
 
 

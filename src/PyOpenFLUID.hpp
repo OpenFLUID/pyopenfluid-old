@@ -502,21 +502,9 @@ class PyOpenFLUID
     /*!
      * @brief Sets the simulation period begin date.
      * 
-     * @param BYear
-     *    the begin date's year
-     * @param BMonth
-     *    the begin date's month
-     * @param BDay
-     *    the begin date's day
-     * @param BHour
-     *    the begin date's hour
-     * @param BMinute
-     *    the begin date's minute
-     * @param BSecond
-     *    the begin date's second
+     * @param BDate   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
      */
-    void setPeriodBeginDate (int BYear, int BMonth, int BDay,
-                             int BHour, int BMinute, int BSecond);
+    void setPeriodBeginDate (boost::python::str BDate);
 
 
 // =====================================================================
@@ -526,21 +514,9 @@ class PyOpenFLUID
     /*!
      * @brief Sets the simulation period end date.
      * 
-     * @param EYear
-     *    the end date's year
-     * @param EMonth
-     *    the end date's month
-     * @param EDay
-     *    the end date's day
-     * @param EHour
-     *    the end date's hour
-     * @param EMinute
-     *    the end date's minute
-     * @param ESecond
-     *    the end date's second
+     * @param EDate   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
      */
-    void setPeriodEndDate (int EYear, int EMonth, int EDay,
-                           int EHour, int EMinute, int ESecond);
+    void setPeriodEndDate (boost::python::str EDate);
 
 
 // =====================================================================

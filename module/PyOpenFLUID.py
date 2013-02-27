@@ -798,11 +798,7 @@ Returns:
 the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
 """
         try:
-            DictDate = pyopenfluid.PyOpenFLUID.getPeriodBeginDate(self)
-            StrDate = "%s-%s-%s %s:%s:%s" % (
-                str(DictDate["year"]), str(DictDate["month"]).zfill(2),
-                str(DictDate["day"]).zfill(2), str(DictDate["hour"]).zfill(2),
-                str(DictDate["minute"]).zfill(2), str(DictDate["second"]).zfill(2))
+            StrDate = pyopenfluid.PyOpenFLUID.getPeriodBeginDate(self)
         except Exception as e:
             raise PyOFError(e.message)
         else:
@@ -825,11 +821,7 @@ Returns:
 the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
 """
         try:
-            DictDate = pyopenfluid.PyOpenFLUID.getPeriodEndDate(self)
-            StrDate = "%s-%s-%s %s:%s:%s" % (
-                str(DictDate["year"]), str(DictDate["month"]).zfill(2),
-                str(DictDate["day"]).zfill(2), str(DictDate["hour"]).zfill(2),
-                str(DictDate["minute"]).zfill(2), str(DictDate["second"]).zfill(2))
+            StrDate = pyopenfluid.PyOpenFLUID.getPeriodEndDate(self)
         except Exception as e:
             raise PyOFError(e.message)
         else:
@@ -852,15 +844,7 @@ the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
   BeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
 """
         if PyOFCheckType((BeginDate,), str):
-            DictDate = PyOFExtractDate(BeginDate)
-            if DictDate is False:
-                raise PyOFError("Bad entry for the begin date of the simulation period.")
-            try:
-                pyopenfluid.PyOpenFLUID.setPeriodBeginDate(self, DictDate["year"],
-                    DictDate["month"], DictDate["day"], DictDate["hour"],
-                    DictDate["minute"], DictDate["second"])
-            except Exception as e:
-                raise PyOFError(e.message)
+            pyopenfluid.PyOpenFLUID.setPeriodBeginDate(self, BeginDate)
         else:
             raise PyOFError("'BeginDate' is not a string parameter")
 
@@ -881,15 +865,7 @@ Keyword arguments:
 EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
 """
         if PyOFCheckType((EndDate,), str):
-            DictDate = PyOFExtractDate(EndDate)
-            if DictDate is False:
-                raise PyOFError("Bad entry for the end date of the simulation period.")
-            try:
-                pyopenfluid.PyOpenFLUID.setPeriodEndDate(self, DictDate["year"],
-                    DictDate["month"], DictDate["day"], DictDate["hour"],
-                    DictDate["minute"], DictDate["second"])
-            except Exception as e:
-                raise PyOFError(e.message)
+            pyopenfluid.PyOpenFLUID.setPeriodEndDate(self, EndDate)
         else:
             raise PyOFError("'EndDate' is not a string parameter")
 
