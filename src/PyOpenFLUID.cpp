@@ -1126,6 +1126,24 @@ boost::python::object PyOpenFLUID::runSimulation ()
 
 
 // =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::updateOutputsConfig ()
+{
+//  std::vector<openfluid::base::OutputFilesDescriptor>::iterator DescIt;
+
+//  for (DescIt = this->m_FXDesc.getMonitoringDescriptor().getFileSets().begin();
+//       DescIt != this->m_FXDesc.getMonitoringDescriptor().getFileSets().end();
+//       ++DescIt)
+//  {
+//    (*DescIt).setHeaderType(openfluid::base::OutputFilesDescriptor::ColnamesAsData);
+//    (*DescIt).setDateFormat("%Y%m%d-%H%M%S");
+//  }
+}
+
+
+// =====================================================================
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 
@@ -1142,22 +1160,4 @@ void PyOpenFLUID::copy (PyOpenFLUID InputClass)
 openfluid::fluidx::FluidXDescriptor& PyOpenFLUID::getFluidXDescriptor ()
 {
   return this->m_FXDesc;
-}
-
-
-// =====================================================================
-// =====================================================================
-
-
-void PyOpenFLUID::updateOutputsConfig ()
-{
-//  std::vector<openfluid::base::OutputFilesDescriptor>::iterator DescIt;
-
-//  for (DescIt = this->m_FXDesc.getMonitoringDescriptor().getFileSets().begin();
-//       DescIt != this->m_FXDesc.getMonitoringDescriptor().getFileSets().end();
-//       ++DescIt)
-//  {
-//    (*DescIt).setHeaderType(openfluid::base::OutputFilesDescriptor::ColnamesAsData);
-//    (*DescIt).setDateFormat("%Y%m%d-%H%M%S");
-//  }
 }
