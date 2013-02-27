@@ -504,7 +504,7 @@ class PyOpenFLUID
      * 
      * @param BDate   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
      */
-    void setPeriodBeginDate (boost::python::str BDate);
+    void setPeriodBeginDate (boost::python::object BDate);
 
 
 // =====================================================================
