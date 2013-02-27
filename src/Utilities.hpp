@@ -10,20 +10,15 @@
 #include <iostream>
 
 
-namespace convert {
-
-std::string boostStrToCString (const boost::python::str StrInput);
-
-} // convert
-
-
-// =====================================================================
-// =====================================================================
-
-
 namespace tools {
 
-std::string stringFill (const std::string Input, const std::string StrFill, int MaxLength);
+std::string stringFill (const std::string Input, const std::string StrFill,
+    int MaxLength);
+
+
+// =====================================================================
+// =====================================================================
+
 
 std::string zeroFill (const std::string Input, int MaxLength);
 

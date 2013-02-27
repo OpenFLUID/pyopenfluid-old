@@ -31,7 +31,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
   boost::python::scope().attr("__license__") = boost::python::str("GPLv3");
 
   boost::python::scope().attr("__date__") =
-      boost::python::str("27-02-2013 GMT+0100 ");
+      boost::python::str("27-02-2013 GMT+0100");
 
 
 // =====================================================================
@@ -216,7 +216,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \nthe parameter value\
 \n\nExamples:\
-\nVal = PyOpenFLUID.getGeneratorParam(self, \"SU\", \"var.flux\", \"fixedvalue\")\
+\nVal = PyOpenFLUID.getGeneratorParam(self, \"SU\", \"var.flux\",\
+\"fixedvalue\")\
 "
     )
 
@@ -235,7 +236,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \nParamName   -- the name of the parameter\
 \nParamValue  -- the parameter value\
 \n\nExamples:\
-\nPyOpenFLUID.setGeneratorParam(self, \"SU\",\"var.flux\",\"fixedvalue\",\"12.3\")\
+\nPyOpenFLUID.setGeneratorParam(self, \"SU\",\"var.flux\",\"fixedvalue\",\
+\"12.3\")\
 "
     )
 
@@ -622,7 +624,8 @@ a default value.\
 //\na dataframe containing the simulation results\
 //\n\nExamples:\
 //\nResSU18 = PyOpenFLUID.loadResultFile(self, \"/path/to/output/SU18_full.out\")\
-//\nResRS1 = PyOpenFLUID.loadResultFile(self, \"/path/to/output/RS1_waterlevel.out\")\
+//\nResRS1 = PyOpenFLUID.loadResultFile(self,\
+//\"/path/to/output/RS1_waterlevel.out\")\
 //", boost::python::return_internal_reference<>()
 //    )
 
