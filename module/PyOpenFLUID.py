@@ -805,5 +805,5 @@ True if the simulation is runned without problems, False otherwise
     # @return   a string representation
     #
     def __str__ (self):
-        """Return a description of the classe."""
+        """Return a description of the class."""
         return "PyOpenFLUID({0})".format(self.getVersion())

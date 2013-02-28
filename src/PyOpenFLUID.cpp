@@ -1221,6 +1221,21 @@ void PyOpenFLUID::updateOutputsConfig ()
 
 
 // =====================================================================
+/* ------------------------ PYTHON FUNCTIONS  ----------------------- */
+
+
+boost::python::object PyOpenFLUID::getStr ()
+{
+  std::stringstream SStream(std::stringstream::in | std::stringstream::out);
+
+  SStream << "PyOpenFLUID(" << openfluid::config::FULL_VERSION.c_str();
+  SStream << ")";
+
+  return boost::python::object(SStream.str());
+}
+
+
+// =====================================================================
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 

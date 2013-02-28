@@ -62,9 +62,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nKeyword arguments:\
 \nPaths  -- the semicolon separated paths to add\
 \n\nExamples:\
-\nPyOpenFLUID.addExtraFunctionsPaths(self, \"/first/path/to/add\")\
-\nPyOpenFLUID.addExtraFunctionsPaths(self, \"/second/path/to/add\
-:/third/path/to/add\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.addExtraFunctionsPaths(\"/first/path/to/add\")\
+\n>>> obj.addExtraFunctionsPaths(\"/second/path/to/add:/third/path/to/add\")\
 "
     )
 
@@ -79,7 +79,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \na list of Paths\
 \n\nExamples:\
-\nPaths = PyOpenFLUID.getExtraFunctionsPaths(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> paths = obj.getExtraFunctionsPaths()\
 "
     )
 
@@ -92,7 +93,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       &PyOpenFLUID::resetExtraFunctionsPaths,
       "Reset paths to search for simulation functions.\
 \n\nExamples:\
-\nPyOpenFLUID.resetExtraFunctionsPaths(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.resetExtraFunctionsPaths()\
 "
     )
 
@@ -108,9 +110,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nKeyword arguments:\
 \nPaths  -- the semicolon separated paths to add\
 \n\nExamples:\
-\nPyOpenFLUID.addExtraObserversPaths(self, \"/first/path/to/add\")\
-\nPyOpenFLUID.addExtraObserversPaths(self, \"/second/path/to/add\
-:/third/path/to/add\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.addExtraObserversPaths(\"/first/path/to/add\")\
+\n>>> obj.addExtraObserversPaths(\"/second/path/to/add:/third/path/to/add\")\
 "
     )
 
@@ -125,7 +127,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \na list of Paths\
 \n\nExamples:\
-\nPaths = PyOpenFLUID.getExtraObserversPaths(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> paths = obj.getExtraObserversPaths()\
 "
     )
 
@@ -138,7 +141,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       &PyOpenFLUID::resetExtraObserversPaths,
       "Reset paths to search for observers.\
 \n\nExamples:\
-\nPyOpenFLUID.resetExtraObserversPaths(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.resetExtraObserversPaths()\
 "
     )
 
@@ -152,7 +156,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \nthe OpenFLUID version number\
 \n\nExamples:\
-\nV = PyOpenFLUID.getVersion(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> v = obj.getVersion()\
 "
     )
 
@@ -165,7 +170,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       &PyOpenFLUID::printSimulationInfo,
       "Prints informations to screen about simulation definition class (self).\
 \n\nExamples:\
-\nPyOpenFLUID.printSimulationInfo(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.printSimulationInfo()\
 "
     )
 
@@ -184,7 +190,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \nthe parameter value\
 \n\nExamples:\
-\nVal = PyOpenFLUID.getFunctionParam(self, \"my_function\", \"coeff\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> val = obj.getFunctionParam(\"my_function\", \"coeff\")\
 "
     )
 
@@ -203,7 +210,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \nParamName    -- the name of the parameter\
 \nParamValue   -- the parameter value\
 \n\nExamples:\
-\nPyOpenFLUID.setFunctionParam(self, \"my.function\",\"coeff\",\"3\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setFunctionParam(\"my.function\",\"coeff\",\"3\")\
 "
     )
 
@@ -223,8 +231,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \nthe parameter value\
 \n\nExamples:\
-\nVal = PyOpenFLUID.getGeneratorParam(self, \"SU\", \"var.flux\",\
-\"fixedvalue\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> val = obj.getGeneratorParam(\"SU\",\"var.flux\",\"fixedvalue\")\
 "
     )
 
@@ -243,8 +251,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \nParamName   -- the name of the parameter\
 \nParamValue  -- the parameter value\
 \n\nExamples:\
-\nPyOpenFLUID.setGeneratorParam(self, \"SU\",\"var.flux\",\"fixedvalue\",\
-\"12.3\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setGeneratorParam(\"SU\",\"var.flux\",\"fixedvalue\",\"12.3\")\
 "
     )
 
@@ -262,7 +270,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \nthe parameter value\
 \n\nExamples:\
-\nVal = PyOpenFLUID.getModelGlobalParam(self, \"gvalue\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> val = obj.getModelGlobalParam(\"gvalue\")\
 "
     )
 
@@ -279,7 +288,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \nParamName   -- the name of the parameter\
 \nParamValue  -- the parameter value\
 \n\nExamples:\
-\nPyOpenFLUID.setModelGlobalParam(self, \"gvalue\",\"37.2\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setModelGlobalParam(\"gvalue\",\"37.2\")\
 "
     )
 
@@ -297,7 +307,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \nthe parameter value\
 \n\nExamples:\
-\nParam = PyOpenFLUID.getObserverParam\
+\n>>> obj = PyOpenFLUID()\
+\n>>> param = obj.getObserverParam\
 "
     )
 
@@ -315,7 +326,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \nParamName   -- the name of the parameter\
 \nParamValue  -- the parameter value\
 \n\nExamples:\
-\nParam = PyOpenFLUID.setObserverParam\
+\n>>> obj = PyOpenFLUID()\
+\n>>> param = obj.setObserverParam\
 "
     )
 
@@ -329,7 +341,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \na list of units classes\
 \n\nExamples:\
-\nCls = PyOpenFLUID.getUnitsClasses(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> lclass = obj.getUnitsClasses()\
 "
     )
 
@@ -346,7 +359,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nReturns:\
 \na list of units IDs\
 \n\nExamples:\
-\nIds = PyOpenFLUID.getUnitsIDs(self, \"SU\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> lids = obj.getUnitsIDs(\"SU\")\
 "
     )
 
@@ -365,8 +379,9 @@ a default value.\
 \nIDataName    -- the inputdata name\
 \nIDataValue   -- the default inputdata value for alla units\
 \n\nExamples:\
-\nPyOpenFLUID.createInputData(self,\"SU\",\"area\",\"1.0\")\
-\nPyOpenFLUID.createInputData(self,\"SU\",\"code\",\"NONE\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.createInputData(\"SU\",\"area\",\"1.0\")\
+\n>>> obj.createInputData(\"SU\",\"code\",\"NONE\")\
 "
     )
 
@@ -386,7 +401,8 @@ a default value.\
 \n\nReturns:\
 \nthe inputdata value\
 \n\nExamples:\
-\nVal = PyOpenFLUID.getInputData(self, \"SU\",18,\"length\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> val = obj.getInputData(\"SU\",18,\"length\")\
 "
     )
 
@@ -405,8 +421,9 @@ a default value.\
 \nIDataName   -- the name of the inputdata\
 \nIDataValue  -- the value of the inputdata\
 \n\nExamples:\
-\nPyOpenFLUID.setInputData(self, \"SU\",18,\"length\",\"12.3\")\
-\nPyOpenFLUID.setInputData(self, \"SU\",18,\"CODE\",\"ABC\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setInputData(\"SU\",18,\"length\",\"12.3\")\
+\n>>> obj.setInputData(\"SU\",18,\"CODE\",\"ABC\")\
 "
     )
 
@@ -417,13 +434,15 @@ a default value.\
 
     .def("openDataset", &PyOpenFLUID::openDataset,
       ( boost::python::arg("Path") ),
-      "Opens a dataset and returns a simulation definition class (self).\
+      "Opens a dataset and returns a new simulation definition class\
+ (PyOpenFLUID).\
 \nKeyword arguments:\
 \nPath  -- the full path of the dataset to open\
 \n\nReturns:\
-\na simulation definition class (PyOpenFLUID)\
+\na new simulation definition class (PyOpenFLUID)\
 \n\nExamples:\
-\nOfsim = PyOpenFLUID.openDataset(self, \"/path/to/dataset\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> otherClass = obj.openDataset(\"/path/to/dataset\")\
 ", boost::python::return_internal_reference<>()
     )
 
@@ -434,13 +453,15 @@ a default value.\
 
     .def("openProject", &PyOpenFLUID::openProject,
       ( boost::python::arg("Path") ),
-      "Opens a project and returns a simulation definition class (PyOpenFLUID).\
+      "Opens a project and returns a new simulation definition class\
+ (PyOpenFLUID).\
 \n\nKeyword arguments:\
 \nPath  -- the full path of the project to open\
 \n\nReturns:\
-\na simulation definition class (PyOpenFLUID)\
+\na new simulation definition class (PyOpenFLUID)\
 \n\nExamples:\
-\nOfsim = PyOpenFLUID.openDataset(self, \"/path/to/project\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> otherClass = obj.openDataset(\"/path/to/project\")\
 ", boost::python::return_internal_reference<>()
     )
 
@@ -456,7 +477,8 @@ a default value.\
 \n\nKeyword arguments:\
 \nPath  -- the output directory path\
 \n\nExamples:\
-\nPyOpenFLUID.setCurrentOutputDir(self, \"/path/to/output\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setCurrentOutputDir(\"/path/to/output\")\
 "
     )
 
@@ -471,7 +493,8 @@ a default value.\
 \n\nReturns:\
 \nthe output directory path\
 \n\nExamples:\
-\nPath = PyOpenFLUID.getCurrentOutputDir(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> path = obj.getCurrentOutputDir()\
 "
     )
 
@@ -485,7 +508,8 @@ a default value.\
 \n\nReturns:\
 \nthe time step value in seconds\
 \n\nExamples:\
-\nDeltaT = PyOpenFLUID.getDefaultDeltaT(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> deltat = obj.getDefaultDeltaT()\
 "
     )
 
@@ -500,8 +524,9 @@ a default value.\
 \n\nKeyword arguments:\
 \nDefaultDeltaT  -- the time step value in seconds\
 \n\nExamples:\
-\nPyOpenFLUID.setDefaultDeltaT(self, 60)\
-\nPyOpenFLUID.setDefaultDeltaT(self, 86400)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setDefaultDeltaT(60)\
+\n>>> obj.setDefaultDeltaT(86400)\
 "
     )
 
@@ -516,7 +541,8 @@ a default value.\
 \n\nReturns:\
 \nthe begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)\
 \n\nExamples:\
-\nBDate = PyOpenFLUID.getPeriodBeginDate(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> bdate = obj.getPeriodBeginDate()\
 "
     )
 
@@ -530,7 +556,8 @@ a default value.\
 \n\nReturns:\
 \nthe end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)\
 \n\nExamples:\
-\nEDate = PyOpenFLUID.getPeriodEndDate(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> edate = obj.getPeriodEndDate()\
 "
     )
 
@@ -545,7 +572,8 @@ a default value.\
 \n\nKeyword arguments:\
 \nBeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)\
 \n\nExamples:\
-\nPyOpenFLUID.setPeriodBeginDate(self, \"1997-06-05 04:00:00\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setPeriodBeginDate(\"1997-06-05 04:00:00\")\
 "
     )
 
@@ -561,7 +589,8 @@ a default value.\
 \nEndDate  -- the end date as an ISO datetime string\
  (%Y-%m-%d %H:%M:%S)\
 \n\nExamples:\
-\nPyOpenFLUID.setPeriodEndDate(self, \"1997-06-05 16:07:17\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setPeriodEndDate(\"1997-06-05 16:07:17\")\
 "
     )
 
@@ -578,7 +607,8 @@ a default value.\
 \n\nReturns:\
 \na simulation definition class (PyOpenFLUID)\
 \n\nExamples:\
-\nOfsim = PyOpenFLUID.runProject(self, \"/path/to/dataset\")\
+\n>>> obj = PyOpenFLUID()\
+\n>>> ofsim = obj.runProject(\"/path/to/dataset\")\
 ", boost::python::return_internal_reference<>()
     )
 
@@ -592,7 +622,8 @@ a default value.\
 \n\nReturns:\
 \nTrue if the simulation is runned without problems, False otherwise\
 \n\nExamples:\
-\nPyOpenFLUID.runSimulation(self)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.runSimulation()\
 "
     )
 
@@ -612,8 +643,9 @@ a default value.\
 //\n\nReturns:\
 //\na dataframe containing the simulation results\
 //\n\nExamples:\
-//\nResSU18 = PyOpenFLUID.loadResult(self, \"SU\",18,\"full\")\
-//\nResRS1 = PyOpenFLUID.loadResult(self, \"RS\",1,\"waterlevel\")\
+//\n>>> obj = PyOpenFLUID()\
+//\n>>> resSU18 = obj.loadResult(self, \"SU\",18,\"full\")\
+//\n>>> resRS1 = obj.loadResult(self, \"RS\",1,\"waterlevel\")\
 //", boost::python::return_internal_reference<>()
 //    )
 
@@ -630,8 +662,9 @@ a default value.\
 //\n\nReturns:\
 //\na dataframe containing the simulation results\
 //\n\nExamples:\
-//\nResSU18 = PyOpenFLUID.loadResultFile(self, \"/path/to/output/SU18_full.out\")\
-//\nResRS1 = PyOpenFLUID.loadResultFile(self,\
+//\n>>> obj = PyOpenFLUID()\
+//\n>>> resSU18 = obj.loadResultFile(\"/path/to/output/SU18_full.out\")\
+//\n>>> resRS1 = obj.loadResultFile(\
 //\"/path/to/output/RS1_waterlevel.out\")\
 //", boost::python::return_internal_reference<>()
 //    )
@@ -647,7 +680,23 @@ a default value.\
 \n\nKeyword arguments:\
 \nInputClass  -- the PyOpenFLUID class to copy\
 \n\nExamples:\
-\nPyOpenFLUID._copy(self, otherClass)\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj._copy(otherClass)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("__str__", &PyOpenFLUID::getStr,
+      "Return a description of the class.\
+\n\nReturns:\
+\nA string representation of the class.\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> info = str(obj)\
 "
     )
 

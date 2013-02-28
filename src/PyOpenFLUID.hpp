@@ -599,6 +599,19 @@ class PyOpenFLUID
 
 
 // =====================================================================
+/* ------------------------ PYTHON FUNCTIONS  ----------------------- */
+
+
+    /*!
+     * @brief Return a string representation of the class.
+     * 
+     * @return
+     *    a string representation of the class
+     */
+    boost::python::object getStr ();
+
+
+// =====================================================================
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 
