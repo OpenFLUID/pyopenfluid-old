@@ -4,7 +4,7 @@
 """This module allows to load, parameterize, run and analyse OpenFLUID
  simulations within the Python 2.x environment."""
 
-__author__ = ["Bastien VAYSSE"]
+__author__ = "Bastien VAYSSE"
 __credits__ = ["Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>", "Jean-Christophe FABRE <fabrejc@supagro.inra.fr>"]
 __license__ = "GPLv3"
 __version__ = "2.0.0~alpha"
