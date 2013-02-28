@@ -1,8 +1,6 @@
 SET(pyopenfluid_script
     __init__.py
-    PyOpenFLUID.py
-    PyOFExceptions.py
-    PyOFCheckMethods.py)
+    PyOpenFLUID.py)
 
 # copy PyOpenFLUID module (python files) of the library
 ADD_CUSTOM_TARGET(PyOpenFLUID_File_Copy ALL)

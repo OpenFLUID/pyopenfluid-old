@@ -21,12 +21,15 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
   boost::python::scope().attr("__version__") = boost::python::str(
       (const std::string) openfluid::config::FULL_VERSION);
 
+  boost::python::scope().attr("__author__") = boost::python::str(
+      "Bastien VAYSSE");
+
   boost::python::list AuthorsList = boost::python::list();
   AuthorsList.append(
-      boost::python::str("Bastien Vaysse <bastien.vaysse@supagro.inra.fr>"));
+      boost::python::str("Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>"));
   AuthorsList.append(
-      boost::python::str("Jean-Christophe Fabre <fabrejc@supagro.inra.fr>"));
-  boost::python::scope().attr("__authors__") = AuthorsList;
+      boost::python::str("Jean-Christophe FABRE <fabrejc@supagro.inra.fr>"));
+  boost::python::scope().attr("__credits__") = AuthorsList;
 
   boost::python::scope().attr("__license__") = boost::python::str("GPLv3");
 
