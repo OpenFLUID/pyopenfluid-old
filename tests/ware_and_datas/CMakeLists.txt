@@ -2,6 +2,8 @@ SET(RESSOURCE_A "${PYOPENFLUID_INPUT_RESSOURCE}/OPENFLUID.IN.A")
 SET(RESSOURCE_B "${PYOPENFLUID_INPUT_RESSOURCE}/OPENFLUID.IN.B")
 
 
+
+
 ADD_TEST(OpenDataset_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/OpenDataset_TEST.py
@@ -10,6 +12,7 @@ ADD_TEST(OpenDataset_TEST
 SET_TESTS_PROPERTIES(OpenDataset_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
 
 
 
@@ -24,6 +27,7 @@ SET_TESTS_PROPERTIES(FunctionsParameter_TEST PROPERTIES
 
 
 
+
 ADD_TEST(GeneratorParameter_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/GeneratorParameter_TEST.py
@@ -32,6 +36,7 @@ SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
 
 
 
@@ -46,6 +51,7 @@ SET_TESTS_PROPERTIES(InputData_TEST PROPERTIES
 
 
 
+
 ADD_TEST(UnitsClasses_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/UnitsClasses_TEST.py
@@ -54,6 +60,7 @@ SET_TESTS_PROPERTIES(UnitsClasses_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
 
 
 

@@ -7,15 +7,29 @@
 #include <sstream>
 #include <iostream>
 
-namespace convert {
 
-std::string boostStrToCString (const boost::python::str StrInput)
+namespace tools {
+
+std::string stringFill (const std::string Input, const std::string StrFill,
+    int MaxLength)
 {
-	char* CharStr = boost::python::extract<char*>(StrInput);
-	return std::string(CharStr);
+  std::string Res = std::string(Input);
+  while (Res.length() < MaxLength)
+    Res = StrFill + Res;
+  return Res;
 }
 
-} // convert
+
+// =====================================================================
+// =====================================================================
+
+
+std::string zeroFill (const std::string Input, int MaxLength)
+{
+  return stringFill(Input, std::string("0"), MaxLength);
+}
+
+} // tools
 
 
 // =====================================================================
