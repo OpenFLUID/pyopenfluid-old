@@ -2,7 +2,7 @@ SET(PY_DIR "${PYTHON_LIB_OUTPUT_PATH}:${PYTHON_LIBDYNLOAD_OUTPUT_PATH}:${CMAKE_C
 
 ADD_SUBDIRECTORY(standalone)
 
-ADD_SUBDIRECTORY(ware_and_datas)
+ADD_SUBDIRECTORY(datas_depending)
 
 #SET(PyOpenFLUID_tests
 #    BeginPeriodDate_TEST.py
