@@ -79,7 +79,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
     def loadInputDataset(self, Path):
         self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
         self.assertTrue(os.access(Path, os.R_OK))
-        self.openfluid.openDataset(Path)
+        self.openfluid = self.openfluid.openDataset(Path)
 
 
 # ########################################################################## #
