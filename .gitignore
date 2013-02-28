@@ -3,4 +3,4 @@ _*
 *~
 *.pyc
 !/.gitignore
-!__*
+!*.py
