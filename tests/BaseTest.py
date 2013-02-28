@@ -79,7 +79,17 @@ class PyOpenFLUIDTest(unittest.TestCase):
     def loadInputDataset(self, Path):
         self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
         self.assertTrue(os.access(Path, os.R_OK))
-        self.openfluid = self.openfluid.openDataset(Path)
+        return self.openfluid.openDataset(Path)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def loadProject(self, Path):
+        self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
+        self.assertTrue(os.access(Path, os.R_OK))
+        return self.openfluid.openProject(Path)
 
 
 # ########################################################################## #
@@ -89,7 +99,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
     def loadAllInputDataset(self, List):
         for DTPath in List:
             try:
-                self.loadInputDataset(DTPath)
+                self.openfluid = self.loadInputDataset(DTPath)
             except Exception as e:
                 print "Loading input dataset fail : " + e.message
         else:
