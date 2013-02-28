@@ -610,6 +610,18 @@ class PyOpenFLUID
      */
     void copy (PyOpenFLUID InputClass);
 
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Change the internal FluidXDescriptor class.
+     * 
+     * @param InputFXD
+     *    the new FluidXDescriptor class to copy
+     */
+    void setFluidXDescriptor (openfluid::fluidx::FluidXDescriptor& InputFXD);
+
 
 // =====================================================================
 // =====================================================================
