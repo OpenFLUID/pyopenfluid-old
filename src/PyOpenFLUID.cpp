@@ -90,7 +90,7 @@ void PyOpenFLUID::addExtraFunctionsPaths (boost::python::object Paths)
 {
   boost::python::extract<std::string> getStringPaths(Paths);
   if (!getStringPaths.check())
-    throw PyOFException("needed string for extra functions paths");
+    throw PyOFException("needed string for extra functions paths", PyExc_TypeError);
 
   openfluid::base::RuntimeEnvironment::getInstance()->
     addExtraFunctionsPluginsPaths(getStringPaths());
@@ -132,7 +132,7 @@ void PyOpenFLUID::addExtraObserversPaths (boost::python::object Paths)
 {
   boost::python::extract<std::string> getStringPaths(Paths);
   if (!getStringPaths.check())
-    throw PyOFException("needed string for extra observers paths");
+    throw PyOFException("needed string for extra observers paths", PyExc_TypeError);
 
   openfluid::base::RuntimeEnvironment::getInstance()->
       addExtraObserversPluginsPaths(getStringPaths());
@@ -282,10 +282,10 @@ boost::python::object PyOpenFLUID::getFunctionParam (
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
   if (!getStringFuncID.check())
-    throw PyOFException("needed string for function id");
+    throw PyOFException("needed string for function id", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
 
   std::string FuncIDStr = getStringFuncID();
   std::string ParamNameStr = getStringParamName();
@@ -329,13 +329,13 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
   if (!getStringFuncID.check())
-    throw PyOFException("needed string for function id");
+    throw PyOFException("needed string for function id", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamValue(ParamValue);
   if (!getStringParamValue.check())
-    throw PyOFException("needed string for parameter value");
+    throw PyOFException("needed string for parameter value", PyExc_TypeError);
 
   std::string FuncIDStr = getStringFuncID();
   std::string ParamNameStr = getStringParamName();
@@ -370,13 +370,13 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit class");
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<std::string> getStringVarName(VarName);
   if (!getStringVarName.check())
-    throw PyOFException("needed string for variable name");
+    throw PyOFException("needed string for variable name", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
   std::string VarNameStr = getStringVarName();
@@ -428,16 +428,16 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit class");
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<std::string> getStringVarName(VarName);
   if (!getStringVarName.check())
-    throw PyOFException("needed string for variable name");
+    throw PyOFException("needed string for variable name", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamValue(ParamValue);
   if (!getStringParamValue.check())
-    throw PyOFException("needed string for parameter value");
+    throw PyOFException("needed string for parameter value", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
   std::string VarNameStr = getStringVarName();
@@ -476,7 +476,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParam (
 {
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
 
   std::string ParamNameStr = getStringParamName();
 
@@ -505,10 +505,10 @@ void PyOpenFLUID::setModelGlobalParam (boost::python::object ParamName,
 {
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamValue(ParamValue);
   if (!getStringParamValue.check())
-    throw PyOFException("needed string for parameter value");
+    throw PyOFException("needed string for parameter value", PyExc_TypeError);
 
   openfluid::ware::WareParamKey_t ParamNameStr =
       (openfluid::ware::WareParamKey_t) getStringParamName();
@@ -529,10 +529,10 @@ boost::python::object PyOpenFLUID::getObserverParam (
 {
   boost::python::extract<std::string> getStringObsID(ObsID);
   if (!getStringObsID.check())
-    throw PyOFException("needed string for observer id");
+    throw PyOFException("needed string for observer id", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
 
   std::string ObsIDStr = getStringObsID();
   std::string ParamNameStr = getStringParamName();
@@ -581,13 +581,13 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
 {
   boost::python::extract<std::string> getStringObsID(ObsID);
   if (!getStringObsID.check())
-    throw PyOFException("needed string for observer id");
+    throw PyOFException("needed string for observer id", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamName(ParamName);
   if (!getStringParamName.check())
-    throw PyOFException("needed string for parameter name");
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
   boost::python::extract<std::string> getStringParamValue(ParamValue);
   if (!getStringParamValue.check())
-    throw PyOFException("needed string for parameter value");
+    throw PyOFException("needed string for parameter value", PyExc_TypeError);
 
   std::string ObsIDStr = getStringObsID();
   std::string ParamNameStr = getStringParamName();
@@ -649,7 +649,7 @@ boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::object UnitClass)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit class");
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
 
   std::string UnitClassRef = getStringUnitClass();
 
@@ -676,13 +676,13 @@ void PyOpenFLUID::createInputData (boost::python::object UnitClass,
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit class");
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<std::string> getStringIDataName(IDataName);
   if (!getStringIDataName.check())
-    throw PyOFException("needed string for data name");
+    throw PyOFException("needed string for data name", PyExc_TypeError);
   boost::python::extract<std::string> getStringIDataValue(IDataVal);
   if (!getStringIDataValue.check())
-    throw PyOFException("needed string for data value");
+    throw PyOFException("needed string for data value", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
   std::string IDataNameStr = getStringIDataName();
@@ -718,13 +718,13 @@ boost::python::object PyOpenFLUID::getInputData (
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit class");
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<int> getUnitID(UnitID);
   if (!getUnitID.check())
-    throw PyOFException("needed integer for unit id");
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
   boost::python::extract<std::string> getStringIDataName(IDataName);
   if (!getStringIDataName.check())
-    throw PyOFException("needed string for data name");
+    throw PyOFException("needed string for data name", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
   std::string IDataNameStr = getStringIDataName();
@@ -766,16 +766,16 @@ void PyOpenFLUID::setInputData (boost::python::object UnitClass,
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit class");
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<int> getUnitID(UnitID);
   if (!getUnitID.check())
-    throw PyOFException("needed integer for unit id");
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
   boost::python::extract<std::string> getStringIDataName(IDataName);
   if (!getStringIDataName.check())
-    throw PyOFException("needed string for data name");
+    throw PyOFException("needed string for data name", PyExc_TypeError);
   boost::python::extract<std::string> getStringIDataValue(IDataValue);
   if (!getStringIDataValue.check())
-    throw PyOFException("needed string for data value");
+    throw PyOFException("needed string for data value", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
   std::string IDataNameStr = getStringIDataName();
@@ -811,7 +811,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
-    throw PyOFException("needed string");
+    throw PyOFException("needed string", PyExc_TypeError);
 
   std::string StrError = std::string("");
   std::string StrPath = getStringPath();
@@ -835,25 +835,22 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
   }
   catch (openfluid::base::OFException& E)
   {
-    StrError = std::string(E.what());
+    throw PyOFException(E.what());
   }
   catch (std::bad_alloc& E)
   {
     StrError = std::string("MEMORY ALLOCATION ERROR, ") + std::string(E.what())
         + std::string(". Possibly not enough memory available");
+    throw PyOFException(StrError, PyExc_MemoryError);
   }
   catch (std::exception& E)
   {
     StrError = std::string("SYSTEM ERROR, ") + std::string(E.what());
+    throw PyOFException(StrError, PyExc_SystemError);
   }
   catch (...)
   {
-    StrError = std::string("UNKNOWN ERROR");
-  }
-
-  if (StrError.length() != 0)
-  {
-    throw PyOFException(StrError.c_str());
+    throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError);
   }
 
   return NULL;
@@ -868,7 +865,7 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
-    throw PyOFException("needed string");
+    throw PyOFException("needed string", PyExc_TypeError);
 
   std::string StrError = std::string("");
   std::string StrPath = getStringPath();
@@ -887,33 +884,28 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
     else
       throw openfluid::base::OFException("PyOpenFLUID", StrPath +
           " is not a correct project path");
-
-    return this->openDataset(Path);
   }
   catch (openfluid::base::OFException& E)
   {
-    StrError = std::string(E.what());
+    throw PyOFException(E.what());
   }
   catch (std::bad_alloc& E)
   {
     StrError = std::string("MEMORY ALLOCATION ERROR, ") + std::string(E.what())
         + std::string(". Possibly not enough memory available");
+    throw PyOFException(StrError, PyExc_MemoryError);
   }
   catch (std::exception& E)
   {
     StrError = std::string("SYSTEM ERROR, ") + std::string(E.what());
+    throw PyOFException(StrError, PyExc_SystemError);
   }
   catch (...)
   {
-    StrError = std::string("UNKNOWN ERROR");
+    throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError);
   }
 
-  if (StrError.length() != 0)
-  {
-    throw PyOFException(StrError.c_str());
-  }
-
-  return NULL;
+  return this->openDataset(Path);
 }
 
 
@@ -925,7 +917,7 @@ void PyOpenFLUID::setCurrentOutputDir (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
-    throw PyOFException("needed string");
+    throw PyOFException("needed string", PyExc_TypeError);
 
   openfluid::base::RuntimeEnvironment::getInstance()->
       setOutputDir(getStringPath());
@@ -961,11 +953,11 @@ void PyOpenFLUID::setDefaultDeltaT (boost::python::object DefaultDeltaT)
 {
   boost::python::extract<int> getDefaultDeltaT(DefaultDeltaT);
   if (!getDefaultDeltaT.check())
-    throw PyOFException("needed integer");
+    throw PyOFException("needed integer", PyExc_TypeError);
 
   const int DefaultDeltaTInt = getDefaultDeltaT();
   if (DefaultDeltaTInt <= 0)
-    throw PyOFException("DefaultDeltaT cann't be negative or null.");
+    throw PyOFException("DefaultDeltaT cann't be negative or null.", PyExc_ValueError);
   this->m_FXDesc.getRunDescriptor().setDeltaT(DefaultDeltaTInt);
 }
 
@@ -1028,7 +1020,7 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
 {
   boost::python::extract<std::string> getStringBDate(BDate);
   if (!getStringBDate.check())
-    throw PyOFException("needed string");
+    throw PyOFException("needed string", PyExc_TypeError);
 
   std::string Pattern = std::string(
       "^(\\d{1,4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$");
@@ -1065,7 +1057,7 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
 {
   boost::python::extract<std::string> getStringEDate(EDate);
   if (!getStringEDate.check())
-    throw PyOFException("needed string");
+    throw PyOFException("needed string", PyExc_TypeError);
 
   std::string Pattern = std::string(
       "^(\\d{1,4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$");
@@ -1163,25 +1155,22 @@ boost::python::object PyOpenFLUID::runSimulation ()
   }
   catch (openfluid::base::OFException& E)
   {
-    StrError =  std::string(E.what());
+    throw PyOFException(E.what());
   }
   catch (std::bad_alloc& E)
   {
     StrError = "MEMORY ALLOCATION ERROR, " + std::string(E.what()) +
         ". Possibly not enough memory available";
+    throw PyOFException(StrError, PyExc_MemoryError);
   }
   catch (std::exception& E)
   {
     StrError = "SYSTEM ERROR, " + std::string(E.what());
+    throw PyOFException(StrError, PyExc_SystemError);
   }
   catch (...)
   {
-    StrError = "UNKNOWN ERROR";
-  }
-
-  if (StrError.length() != 0)
-  {
-    throw PyOFException(StrError.c_str());
+    throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError);
   }
 
   return boost::python::object(false);
@@ -1196,8 +1185,7 @@ boost::python::object PyOpenFLUID::runSimulation ()
 //                                           boost::python::object UnitID,
 //                                           boost::python::object Suffix)
 //{
-//  PyOFException* error = new PyOFException("unavailable method");
-//  throw *error;
+//  throw PyOFException("unavailable method");
 //}
 
 
@@ -1207,8 +1195,7 @@ boost::python::object PyOpenFLUID::runSimulation ()
 
 //PyOpenFLUID* PyOpenFLUID::loadResultFile (boost::python::object FilePath)
 //{
-//  PyOFException* error = new PyOFException("unavailable method");
-//  throw *error;
+//  throw PyOFException("unavailable method");
 //}
 
 
