@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """This module allows to load, parameterize, run and analyse OpenFLUID
-    simulations within the Python 2.x environment."""
+ simulations within the Python 2.x environment."""
 
 __author__ = "Bastien Vaysse"
 __copyright__ = "Copyright 2013, Creative Commons By-NC-ND license"
@@ -48,7 +48,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     """This class provides OpenFLUID simulations, by loading, parameterizing and running them. It uses the OpenFLUID framework to do simulations."""
     ##
     # Initialize a new PyOpenFLUID class.
-    #
     #
     def __init__ (self):
         """Create an OpenFLUID class."""

@@ -33,6 +33,10 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
   boost::python::scope().attr("__date__") =
       boost::python::str("27-02-2013 GMT+0100");
 
+  boost::python::scope().attr("__doc__") =
+      boost::python::str("This module allows to load, parameterize, run and\
+ analyse OpenFLUID simulations within the Python 2.x environment.");
+
 
 // =====================================================================
 /* ---------------------- OTHERS CLASS & METHODS -------------------- */
@@ -358,8 +362,8 @@ a default value.\
 \nIDataName    -- the inputdata name\
 \nIDataValue   -- the default inputdata value for alla units\
 \n\nExamples:\
-\nPyOpenFLUID.createInputData(self, \"SU\",\"area\",\"1.0\")\
-\nPyOpenFLUID.createInputData(self, \"SU\",\"code\",\"NONE\")\
+\nPyOpenFLUID.createInputData(self,\"SU\",\"area\",\"1.0\")\
+\nPyOpenFLUID.createInputData(self,\"SU\",\"code\",\"NONE\")\
 "
     )
 
