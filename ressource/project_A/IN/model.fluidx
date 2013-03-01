@@ -1,14 +1,10 @@
 <?xml version="1.0" standalone="yes"?>
 <openfluid>
-  <model>
 
-    <function ID="examples.primitives.unitsA.prod" />
-
+ <model>
     <function ID="examples.primitives.unitsA.up">
        <param name="gmult" value="3" />
     </function>
+ </model>
 
-    <function ID="examples.primitives.unitsB.prod" />
-
-  </model>
 </openfluid>

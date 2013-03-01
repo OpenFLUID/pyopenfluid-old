@@ -46,10 +46,7 @@
 
 
 
-
   <monitoring>
-
-
   </monitoring>
 
 
@@ -73,7 +70,5 @@
       </unit>
     </definition>
   </domain>
+
 </openfluid>
-
-
-
