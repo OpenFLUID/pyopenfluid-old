@@ -12,7 +12,7 @@ class PyOpenFLUIDTest_UnitsClasses(PyOpenFLUIDTest):
         ListUC = self.openfluid.getUnitsClasses()
         self.assertTrue(isinstance(ListUC, list))
 
-        ListTest = ['unitsA', 'unitsB']
+        ListTest = ['TestUnits', 'ParentTestUnits']
         ListTest.sort()
         ListUC.sort()
 

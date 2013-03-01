@@ -10,11 +10,10 @@ class PyOpenFLUIDTest_UnitsIDs(PyOpenFLUIDTest):
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
         # test of unitsA
-        ListID = self.openfluid.getUnitsIDs("unitsA")
+        ListID = self.openfluid.getUnitsIDs("TestUnits")
         self.assertTrue(isinstance(ListID, list))
 
-        ListTest = range(1, 10)
-        ListTest.remove(4)
+        ListTest = range(1, 13)
         ListID.sort(); ListTest.sort()
         self.assertEquals(ListID, ListTest)
 

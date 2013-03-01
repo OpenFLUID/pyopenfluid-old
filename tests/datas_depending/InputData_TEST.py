@@ -9,9 +9,9 @@ class PyOpenFLUIDTest_InputData(PyOpenFLUIDTest):
         """Test of input datas functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
-        UnitClass = "unitsA"
+        UnitClass = "TestUnits"
         UnitID = 3
-        UnitName = "inivar1"
+        UnitName = "indataA"
         self.assertIsNone(self.openfluid.getInputData(UnitClass, UnitID, "bidon"))
 
         Val = self.openfluid.getInputData(UnitClass, UnitID, UnitName)

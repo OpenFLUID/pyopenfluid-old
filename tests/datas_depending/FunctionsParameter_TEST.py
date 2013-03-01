@@ -9,8 +9,8 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         """Test of functions parameters functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
-        FunID = "examples.primitives.unitsA.up"
-        ParamName = "gmult"
+        FunID = "tests.primitives.use"
+        ParamName = "longparam"
 
         self.assertIsNone(self.openfluid.getFunctionParam(FunID, "bidon"))
         self.assertIsNone(self.openfluid.getFunctionParam("bidon", ParamName))
