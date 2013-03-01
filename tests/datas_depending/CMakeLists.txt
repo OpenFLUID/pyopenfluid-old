@@ -20,13 +20,25 @@ SET_TESTS_PROPERTIES(OpenDataset_TEST PROPERTIES
 
 
 
+ADD_TEST(RunSimulation_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/RunSimulation_TEST.py
+         ${RESSOURCE_PROJECT})
+SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
+                     DEPENDS OpenDataset_TEST
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
 ADD_TEST(OpenProject_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/OpenProject_TEST.py
          ${RESSOURCE_PROJECT})
 SET_TESTS_PROPERTIES(OpenProject_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
-                     WILL_FAIL TRUE
+                     WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
 
@@ -38,7 +50,8 @@ ADD_TEST(RunProject_TEST
          ${RESSOURCE_PROJECT})
 SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
-                     WILL_FAIL TRUE
+                     DEPENDS RunSimulation_TEST
+                     WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
 
