@@ -11,7 +11,7 @@ class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
         Path = ArgList[0]
 
         self.checkDirectory(Path)
-        Res = self.runProject(Path)
+        Res = self.openfluid.runProject(Path)
 
         self.assertTrue(isinstance(Res, bool))
         self.assertTrue(Res)
