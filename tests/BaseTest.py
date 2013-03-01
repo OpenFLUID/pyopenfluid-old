@@ -4,6 +4,7 @@
 import unittest
 import sys
 import os
+import re
 import PyOpenFLUID
 
 def skipArgFromLC():
@@ -77,8 +78,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def loadInputDataset(self, Path):
-        self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
-        self.assertTrue(os.access(Path, os.R_OK))
+        self.checkDirectory(Path)
         return self.openfluid.openDataset(Path)
 
 
@@ -87,8 +87,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def loadProject(self, Path):
-        self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
-        self.assertTrue(os.access(Path, os.R_OK))
+        self.checkDirectory(Path)
         return self.openfluid.openProject(Path)
 
 
@@ -108,6 +107,15 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 # ########################################################################## #
 # ###################          CHECK FUNCTIONS           ################### #
+
+
+    def checkDirectory(self, Path):
+        self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
+        self.assertTrue(os.access(Path, os.R_OK))
+
+
+# ########################################################################## #
+# ########################################################################## #
 
 
     def checkFloat(self, InputStr):

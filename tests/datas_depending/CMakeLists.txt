@@ -32,6 +32,18 @@ SET_TESTS_PROPERTIES(OpenProject_TEST PROPERTIES
 
 
 
+ADD_TEST(RunProject_TEST
+         ${PYTHON_EXECUTABLE}
+         ${CMAKE_CURRENT_SOURCE_DIR}/RunProject_TEST.py
+         ${RESSOURCE_PROJECT})
+SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
+                     DEPENDS OpenDataset_TEST
+                     WILL_FAIL TRUE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
 ADD_TEST(FunctionsParameter_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/FunctionsParameter_TEST.py
