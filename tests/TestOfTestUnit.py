@@ -3,7 +3,7 @@
 
 from BaseTest import *
 
-class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
+class PyOpenFLUIDTest_TestUnit(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of good working of tests."""
