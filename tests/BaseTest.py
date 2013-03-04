@@ -134,6 +134,10 @@ class PyOpenFLUIDTest(unittest.TestCase):
             self.assertTrue(InputStr[ISep+1:].isdigit())
 
 
+# ########################################################################## #
+# ########################################################################## #
+
+
     def checkSimulationOutputPath(self, OutPath):
         # verification dossier sortie non vide
         self.checkDirectory(OutPath)
@@ -141,7 +145,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
         self.assertGreater(len(Contenu), 0)
 
         # verification des fichiers que le dossier contient
-        ListModel = ["^.*$"]
+        ListModel = ["^.*\.log$"]
         ListModel = [re.compile(Model) for Model in ListModel]
         for Fichier in Contenu:
             for ValidModel in ListModel:

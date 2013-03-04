@@ -31,10 +31,10 @@ ADD_CUSTOM_COMMAND(TARGET Tests_Preparation POST_BUILD
     "${TEST_OUTPUT_PROJECT_A}/" VERBATIM)
 
 #
-ADD_TEST(TestofTestUnit
+ADD_TEST(TestOfTestUnit
          ${PYTHON_EXECUTABLE}
-         ${CMAKE_CURRENT_SOURCE_DIR}/TestofTestUnit.py)
-SET_TESTS_PROPERTIES(TestofTestUnit PROPERTIES
+         ${CMAKE_CURRENT_SOURCE_DIR}/TestOfTestUnit.py)
+SET_TESTS_PROPERTIES(TestOfTestUnit PROPERTIES
                      WILL_FAIL TRUE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
