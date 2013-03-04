@@ -1,9 +1,12 @@
-SET(BASE_RESSOURCE_INPUT "/home/vaysseb/Téléchargements/openfluid/resources/tests/datasets")
+SET(RESSOURCE_INPUT "/home/vaysseb/Téléchargements/openfluid/resources/tests/datasets")
 
-SET(RESSOURCE_INPUT_Generators "${BASE_RESSOURCE_INPUT}/OPENFLUID.IN.Generators")
-SET(RESSOURCE_INPUT_FluidXWriter "${BASE_RESSOURCE_INPUT}/OPENFLUID.IN.FluidXWriter")
+SET(RESSOURCE_INPUT_Generators "${RESSOURCE_INPUT}/OPENFLUID.IN.Generators")
+SET(RESSOURCE_INPUT_FluidXWriter "${RESSOURCE_INPUT}/OPENFLUID.IN.FluidXWriter")
 
-SET(RESSOURCE_PROJECT "${BASE_RESSOURCE_INPUT}")
+SET(RESSOURCE_PROJECT "${RESSOURCE_INPUT}")
+
+SET(RESSOURCE_FUNCTIONS "/home/vaysseb/Téléchargements/openfluid/_build/tests-bin")
+SET(RESSOURCE_GENERATORS "/home/vaysseb/Téléchargements/openfluid/_build/tests-bin")
 
 
 
@@ -23,7 +26,9 @@ SET_TESTS_PROPERTIES(OpenDataset_TEST PROPERTIES
 ADD_TEST(RunSimulation_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/RunSimulation_TEST.py
-         ${RESSOURCE_PROJECT})
+         ${RESSOURCE_INPUT_Generators}
+         ${RESSOURCE_FUNCTIONS}
+         ${RESSOURCE_GENERATORS})
 SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE

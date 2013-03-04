@@ -7,15 +7,22 @@ class PyOpenFLUIDTest_RunSimulation(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of project functions."""
-        self.assertEquals(len(ArgList), 1)
+        self.assertEquals(len(ArgList), 3)
         Path = ArgList[0]
 
-        self.checkDirectory(Path)
-        Res = self.openfluid.runProject(Path)
+        ObjPyOF = self.loadInputDataset(Path)
+        ObjPyOF.addExtraFunctionsPaths(ArgList[1])
+        ObjPyOF.addExtraObserversPaths(ArgList[2])
+
+        Res = ObjPyOF.runSimulation()
 
         self.assertTrue(isinstance(Res, bool))
         self.assertTrue(Res)
 
+        # verification dossier sortie
+        self.checkSimulationOutputPath(ObjPyOF.getCurrentOutputDir())
+
 if __name__ == "__main__":
   ArgList = skipArgFromLC()
+  print "ARGV:", ArgList
   unittest.main()

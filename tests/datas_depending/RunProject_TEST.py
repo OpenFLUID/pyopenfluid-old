@@ -13,24 +13,10 @@ class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
         self.checkDirectory(Path)
         Res = self.openfluid.runProject(Path)
 
-        self.assertTrue(isinstance(Res, bool))
-        self.assertTrue(Res)
+        self.assertTrue(isinstance(Res, PyOpenFLUID))
 
-        # verification dossier sortie non vide
-        OutPath = self.openfluid.getCurrentOutputDir()
-        self.checkDirectory(OutPath)
-        Contenu = os.listdir(OutPath)
-        self.assertGreater(len(Contenu), 0)
-
-        # verification des fichiers que le dossier contient
-        ListModel = ["^.*$"]
-        ListModel = [re.compile(Model) for Model in ListModel]
-        for Fichier in Contenu:
-            for ValidModel in ListModel:
-                if not ValidModel.search(Fichier) is None:
-                    break
-            else:
-                self.assertTrue(False, "file '{0}' doesn't suit any format.".format(Fichier))
+        # verification dossier sortie
+        self.checkSimulationOutputPath(Res.getCurrentOutputDir())
 
 if __name__ == "__main__":
   ArgList = skipArgFromLC()
