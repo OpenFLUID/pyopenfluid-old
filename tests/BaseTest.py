@@ -133,6 +133,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
             self.assertTrue(InputStr[:ISep].isdigit())
             self.assertTrue(InputStr[ISep+1:].isdigit())
 
+
     def checkSimulationOutputPath(self, OutPath):
         # verification dossier sortie non vide
         self.checkDirectory(OutPath)

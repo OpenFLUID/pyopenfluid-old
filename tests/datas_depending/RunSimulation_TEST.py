@@ -24,5 +24,4 @@ class PyOpenFLUIDTest_RunSimulation(PyOpenFLUIDTest):
 
 if __name__ == "__main__":
   ArgList = skipArgFromLC()
-  print "ARGV:", ArgList
   unittest.main()
