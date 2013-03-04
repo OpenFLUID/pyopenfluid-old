@@ -5,7 +5,6 @@
 #include <boost/python.hpp>
 #include <Python.h>
 #include <sstream>
-#include <iostream>
 
 
 namespace tools {
@@ -52,12 +51,10 @@ void printStdOut (std::string& Message, int EOL=0)
     {
       TmpString = Message.substr(i*999, 999);
       PySys_WriteStdout("%s", TmpString.c_str());
-      std::cout << "printStdOut -- i=" << i;
     }
 
     i = NFois*999;
     TmpString = Message.substr(i, (LenMsg-i));
-    std::cout << "printStdOut -- last=" << (LenMsg-i);
     PySys_WriteStdout("%s", TmpString.c_str());
   }
   else
@@ -86,12 +83,10 @@ void printStdErr (std::string& Message, int EOL=0)
     {
       TmpString = Message.substr(i*999, 999);
       PySys_WriteStderr("%s", TmpString.c_str());
-      std::cout << "printStdOut -- i=" << i;
     }
 
     i = NFois*999;
     TmpString = Message.substr(i, (LenMsg-i));
-    std::cout << "printStdOut -- last=" << (LenMsg-i);
     PySys_WriteStderr("%s", TmpString.c_str());
   }
   else
