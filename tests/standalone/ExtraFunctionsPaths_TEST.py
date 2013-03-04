@@ -7,6 +7,9 @@ class PyOpenFLUIDTest_ExtraFunctionsPaths(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of extra functions paths functions."""
+        self.assertRaises(TypeError, self.openfluid.addExtraFunctionsPaths, 65)
+        self.assertRaises(TypeError, self.openfluid.addExtraFunctionsPaths, None)
+
         self.openfluid.resetExtraFunctionsPaths()
         Val = self.openfluid.getExtraFunctionsPaths()
         self.assertTrue(isinstance(Val, list))

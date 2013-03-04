@@ -7,6 +7,8 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of model global parameters functions."""
+        self.assertRaises(TypeError, self.openfluid.getModelGlobalParam, 65)
+        self.assertRaises(TypeError, self.openfluid.getModelGlobalParam, None)
 
         ParamsList = (("test_bidon","vrai",True),("gvalue","37.2",True),("wind","60",True),("megabidon","??",True),("erreur.pk","rien",False))
         for ParamName, ParamValue, ParamSuccess in ParamsList:

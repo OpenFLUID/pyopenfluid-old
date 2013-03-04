@@ -7,6 +7,9 @@ class PyOpenFLUIDTest_ExtraObserversPaths(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of extra observers paths functions."""
+        self.assertRaises(TypeError, self.openfluid.addExtraObserversPaths, 65)
+        self.assertRaises(TypeError, self.openfluid.addExtraObserversPaths, None)
+
         self.openfluid.resetExtraObserversPaths()
         Val = self.openfluid.getExtraObserversPaths()
         self.assertTrue(isinstance(Val, list))

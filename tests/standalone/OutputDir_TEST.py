@@ -7,16 +7,15 @@ class PyOpenFLUIDTest_OutputDir(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of result functions."""
+        self.assertRaises(TypeError, self.openfluid.setCurrentOutputDir, 65)
+        self.assertRaises(TypeError, self.openfluid.setCurrentOutputDir, None)
+
         Path = "/path/fake"
         self.openfluid.setCurrentOutputDir(Path)
         self.assertEquals(self.openfluid.getCurrentOutputDir(), Path)
 
-        try:
-            self.openfluid.setCurrentOutputDir(3)
-        except:
-            pass
-        else:
-            self.assertTrue(False, "missed raised exception")
+        self.assertRaises(TypeError, self.openfluid.setCurrentOutputDir, 3)
+        self.assertEquals(self.openfluid.getCurrentOutputDir(), Path)
 
 if __name__ == "__main__":
   unittest.main()
