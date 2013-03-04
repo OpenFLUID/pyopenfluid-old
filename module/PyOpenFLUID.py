@@ -44,6 +44,10 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Initialize a new PyOpenFLUID class.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    # @EndExample
+    #
     def __init__ (self):
         """Create an OpenFLUID class."""
         pyopenfluid.PyOpenFLUID.__init__(self)
@@ -55,6 +59,11 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
     ##
     # Returns the OpenFLUID version.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{v, obj.getVersion()}
+    # @EndExample
     #
     # @return   the OpenFLUID version number
     #
@@ -74,6 +83,19 @@ the OpenFLUID version number
     ##
     # Adds paths to search for simulation functions.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{addExtraFunctionsPaths}("/first/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExResult{["/first/path/to/add"]}
+    #   @LineExSimple{obj.@HiglightImportant{addExtraFunctionsPaths}("/second/path/to/add:/third/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExResult{["/second/path/to/add:/third/path/to/add:/first/path/to/add"]}
+    #   @LineExSimple{obj.resetExtraFunctionsPaths()}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExResult{[]}
+    # @EndExample
+    #
     # @param Paths   the semicolon separated paths to add
     #
     def addExtraFunctionsPaths (self, Paths):
@@ -92,6 +114,19 @@ Paths  -- the semicolon separated paths to add
     ##
     # Reset paths to search for simulation functions.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.addExtraFunctionsPaths("/first/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExResult{["/first/path/to/add"]}
+    #   @LineExSimple{obj.addExtraFunctionsPaths("/second/path/to/add:/third/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExResult{["/second/path/to/add:/third/path/to/add:/first/path/to/add"]}
+    #   @LineExSimple{obj.@HiglightImportant{resetExtraFunctionsPaths}()}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExResult{[]}
+    # @EndExample
+    #
     def resetExtraFunctionsPaths (self):
         """Reset paths to search for simulation functions."""
         pyopenfluid.PyOpenFLUID.resetExtraFunctionsPaths(self)
@@ -103,6 +138,19 @@ Paths  -- the semicolon separated paths to add
 
     ##
     # Returns the added paths to search for simulation functions.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.addExtraFunctionsPaths("/first/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.@HiglightImportant{getExtraFunctionsPaths}()}
+    #   @LineExResult{["/first/path/to/add"]}
+    #   @LineExSimple{obj.addExtraFunctionsPaths("/second/path/to/add:/third/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.@HiglightImportant{getExtraFunctionsPaths}()}
+    #   @LineExResult{["/second/path/to/add:/third/path/to/add:/first/path/to/add"]}
+    #   @LineExSimple{obj.resetExtraFunctionsPaths()}
+    #   @LineExSimple{@HiglightReserv{print} obj.@HiglightImportant{getExtraFunctionsPaths}()}
+    #   @LineExResult{[]}
+    # @EndExample
     #
     # @return   a list of Paths
     #
@@ -122,6 +170,19 @@ a list of Paths
     ##
     # Adds paths to search for observers.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{addExtraObserversPaths}("/first/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraObserversPaths()}
+    #   @LineExResult{["/first/path/to/add"]}
+    #   @LineExSimple{obj.@HiglightImportant{addExtraObserversPaths}("/second/path/to/add:/third/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraObserversPaths()}
+    #   @LineExResult{["/second/path/to/add:/third/path/to/add:/first/path/to/add"]}
+    #   @LineExSimple{obj.resetExtraObserversPaths()}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraObserversPaths()}
+    #   @LineExResult{[]}
+    # @EndExample
+    #
     # @param Paths   the semicolon separated paths to add
     #
     def addExtraObserversPaths (self, Paths):
@@ -140,6 +201,19 @@ Paths  -- the semicolon separated paths to add
     ##
     # Reset paths to search for observers.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.addExtraObserversPaths("/first/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraObserversPaths()}
+    #   @LineExResult{["/first/path/to/add"]}
+    #   @LineExSimple{obj.addExtraObserversPaths("/second/path/to/add:/third/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraObserversPaths()}
+    #   @LineExResult{["/second/path/to/add:/third/path/to/add:/first/path/to/add"]}
+    #   @LineExSimple{obj.@HiglightImportant{resetExtraObserversPaths}()}
+    #   @LineExSimple{@HiglightReserv{print} obj.getExtraObserversPaths()}
+    #   @LineExResult{[]}
+    # @EndExample
+    #
     def resetExtraObserversPaths (self):
         """Reset paths to search for observers."""
         pyopenfluid.PyOpenFLUID.resetExtraObserversPaths(self)
@@ -151,6 +225,19 @@ Paths  -- the semicolon separated paths to add
 
     ##
     # Returns the added paths to search for observers.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.addExtraObserversPaths("/first/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.@HiglightImportant{getExtraObserversPaths}()}
+    #   @LineExResult{["/first/path/to/add"]}
+    #   @LineExSimple{obj.addExtraObserversPaths("/second/path/to/add:/third/path/to/add")}
+    #   @LineExSimple{@HiglightReserv{print} obj.@HiglightImportant{getExtraObserversPaths}()}
+    #   @LineExResult{["/second/path/to/add:/third/path/to/add:/first/path/to/add"]}
+    #   @LineExSimple{obj.resetExtraObserversPaths()}
+    #   @LineExSimple{@HiglightReserv{print} obj.@HiglightImportant{getExtraObserversPaths}()}
+    #   @LineExResult{[]}
+    # @EndExample
     #
     # @return   a list of Paths
     #
@@ -170,6 +257,11 @@ a list of Paths
     ##
     # Prints informations to screen about simulation definition class (self).
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.printSimulationInfo()}
+    # @EndExample
+    #
     def printSimulationInfo (self):
         """Prints informations to screen about simulation definition class (self)."""
         pyopenfluid.PyOpenFLUID.printSimulationInfo(self)
@@ -181,6 +273,14 @@ a list of Paths
 
     ##
     # Returns a function parameter value.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setFunctionParam(\"my_function\"\,\"coeff\"\,\"3\")}
+    #   @LineExEqual{val, obj.@HiglightImportant{getFunctionParam}(\"my_function\"\, \"coeff\")}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"3\"}
+    # @EndExample
     #
     # @param FunID       the simulation function id
     # @param ParamName   the name of the parameter
@@ -207,6 +307,14 @@ the parameter value
     ##
     # Sets a function parameter value.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setFunctionParam}(\"my_function\"\,\"coeff\"\,\"3\")}
+    #   @LineExEqual{val, obj.getFunctionParam(\"my_function\"\, \"coeff\")}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"3\"}
+    # @EndExample
+    #
     # @param FunID        the simulation function id
     # @param ParamName    the name of the parameter
     # @param ParamValue   the parameter value
@@ -229,6 +337,14 @@ ParamValue   -- the parameter value
 
     ##
     # Returns a generator parameter value.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
+    #   @LineExEqual{val, obj.@HiglightImportant{getGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\")}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"12.3\"}
+    # @EndExample
     #
     # @param UnitClass   the unit class to which the generator is applied
     # @param VarName     the variable name to which the generator is applied
@@ -258,6 +374,14 @@ the parameter value
     ##
     # Sets a generator parameter value.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
+    #   @LineExEqual{val, obj.getGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\")}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"12.3\"}
+    # @EndExample
+    #
     # @param UnitClass    the unit class to which the generator is applied
     # @param VarName      the variable name to which the generator is applied
     # @param ParamName    the name of the parameter
@@ -283,6 +407,14 @@ ParamValue  -- the parameter value
     ##
     # Returns a model global parameter value.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setModelGlobalParam(\"gvalue\"\,\"37.2\")}
+    #   @LineExEqual{val, obj.@HiglightImportant{getModelGlobalParam}(\"gvalue\")}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"37.2\"}
+    # @EndExample
+    #
     # @param ParamName   the name of the parameter
     #
     # @return   the parameter value
@@ -306,6 +438,14 @@ the parameter value
     ##
     # Sets a model global parameter value.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setModelGlobalParam}(\"gvalue\"\,\"37.2\")}
+    #   @LineExEqual{val, obj.getModelGlobalParam(\"gvalue\")}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"37.2\"}
+    # @EndExample
+    #
     # @param ParamName    the name of the parameter
     # @param ParamValue   the parameter value
     #
@@ -326,6 +466,14 @@ ParamValue  -- the parameter value
 
     ##
     # Returns an observer parameter value.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setObserverParam}
+    #   @LineExEqual{val, obj.@HiglightImportant{getObserverParam}}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"?\"}
+    # @EndExample
     #
     # @param ObsID       the observer id
     # @param ParamName   the name of the parameter
@@ -352,6 +500,14 @@ the parameter value
     ##
     # Sets an observer parameter value.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setObserverParam}}
+    #   @LineExEqual{val, obj.getObserverParam}
+    #   @LineExSimple{@HiglightReserv{print} val}
+    #   @LineExResult{\"?\"}
+    # @EndExample
+    #
     # @param ObsID       the observer id
     # @param ParamName   the name of the parameter
     # @param ParamValue  the parameter value
@@ -375,6 +531,13 @@ ParamValue  -- the parameter value
     ##
     # Returns the existing units classes.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{lclass, obj.getUnitsClasses()}
+    #   @LineExSimple{@HiglightReserv{print} @HiglightSpecial{isinstance}(lclass\, @HiglightSpecial{list})}
+    #   @LineExResult{@HiglightValue{True}}
+    # @EndExample
+    #
     # @return   a list of units classes
     #
     def getUnitsClasses (self):
@@ -392,6 +555,13 @@ a list of units classes
 
     ##
     # Returns the existing units IDs for a given units class.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{lids, obj.getUnitsIDs(\"SU\")}
+    #   @LineExSimple{@HiglightReserv{print} @HiglightSpecial{isinstance}(lids\, @HiglightSpecial{list})}
+    #   @LineExResult{@HiglightValue{True}}
+    # @EndExample
     #
     # @param UnitClass   the unit class
     #
@@ -417,6 +587,12 @@ a list of units IDs
     # Creates an inputdata for alla spatial units of a class,
     #  initialized with a default value.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.createInputData(\"SU\"\,\"area\"\,\"1.0\")}
+    #   @LineExSimple{obj.createInputData(\"SU\"\,\"code\"\,\"NONE\")}
+    # @EndExample
+    #
     # @param UnitClass   the unit class
     # @param IDataName   the inputdata name
     # @param IDataVal    the default inputdata value for alla units
@@ -439,6 +615,11 @@ IDataVal   -- the default inputdata value for alla units
 
     ##
     # Returns an inputdata value for a given spatial unit.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{val, obj.getInputData(\"SU\"\,18\,\"length\")}
+    # @EndExample
     #
     # @param UnitClass   the unit class
     # @param UnitID      the unit
@@ -468,6 +649,12 @@ the inputdata value
     ##
     # Sets an inputdata value for a given spatial unit.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setInputData(\"SU\"\,18\,\"length\"\,\"12.3\")}
+    #   @LineExSimple{obj.setInputData(\"SU\"\,18\,\"CODE\"\,\"ABC\")}
+    # @EndExample
+    #
     # @param UnitClass   the unit class
     # @param UnitID      the unit
     # @param IDataName   the inputdata name
@@ -492,6 +679,15 @@ IDataVal   -- the value of the inputdata
 
     ##
     # Opens a dataset and returns a simulation definition class (self).
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{otherClass, obj.@HiglightImportant{openDataset}(\"/path/to/dataset\")}
+    #   @LineExSimple{@HiglightReserv{print} obj == otherClass}
+    #   @LineExResult{@HiglightValue{False}}
+    #   @LineExSimple{@HiglightReserv{print} @HiglightSpecial{isinstance}(otherClass\, PyOpenFLUID)}
+    #   @LineExResult{@HiglightValue{True}}
+    # @EndExample
     #
     # @param Path   the full path of the dataset to open
     #
@@ -521,6 +717,15 @@ a simulation definition class (PyOpenFLUID)
     ##
     # Opens a project and returns a simulation definition class (PyOpenFLUID).
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{otherClass, obj.@HiglightImportant{openProject}(\"/path/to/project\")}
+    #   @LineExSimple{@HiglightReserv{print} obj == otherClass}
+    #   @LineExResult{@HiglightValue{False}}
+    #   @LineExSimple{@HiglightReserv{print} @HiglightSpecial{isinstance}(otherClass\, PyOpenFLUID)}
+    #   @LineExResult{@HiglightValue{True}}
+    # @EndExample
+    #
     # @param Path   the full path of the project to open
     #
     # @return   a simulation definition class (PyOpenFLUID)
@@ -549,6 +754,14 @@ a simulation definition class (PyOpenFLUID)
     ##
     # Sets the current output directory for simulations.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setCurrentOutputDir}(\"/path/to/output\")}
+    #   @LineExEqual{path, obj.getCurrentOutputDir()}
+    #   @LineExSimple{@HiglightReserv{print} path}
+    #   @LineExResult{\"/path/to/output\"}
+    # @EndExample
+    #
     # @param Path   the output directory path
     #
     def setCurrentOutputDir (self, Path):
@@ -566,6 +779,14 @@ Path  -- the output directory path
 
     ##
     # Gets the current output directory for simulations.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setCurrentOutputDir(\"/path/to/output\")}
+    #   @LineExEqual{path, obj.@HiglightImportant{getCurrentOutputDir}()}
+    #   @LineExSimple{@HiglightReserv{print} path}
+    #   @LineExResult{\"/path/to/output\"}
+    # @EndExample
     #
     # @return   the output directory path
     #
@@ -585,6 +806,14 @@ the output directory path
     ##
     # Returns the simulation time step.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setDefaultDeltaT(60)}
+    #   @LineExEqual{deltat, obj.@HiglightImportant{getDefaultDeltaT}()}
+    #   @LineExSimple{@HiglightReserv{print} deltat}
+    #   @LineExResult{60}
+    # @EndExample
+    #
     # @return   the time step value in seconds
     #
     def getDefaultDeltaT (self):
@@ -602,6 +831,14 @@ the time step value in seconds
 
     ##
     # Sets the simulation time step.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setDefaultDeltaT}(60)}
+    #   @LineExEqual{deltat, obj.getDefaultDeltaT()}
+    #   @LineExSimple{@HiglightReserv{print} deltat}
+    #   @LineExResult{60}
+    # @EndExample
     #
     # @param DefaultDeltaT   the time step value in seconds
     #
@@ -621,6 +858,14 @@ DefaultDeltaT  -- the time step value in seconds
     ##
     # Returns the simulation period begin date.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setPeriodBeginDate(\"1997-06-05 04:00:00\")}
+    #   @LineExEqual{bdate, obj.@HiglightImportant{getPeriodBeginDate}()}
+    #   @LineExSimple{@HiglightReserv{print} bdate}
+    #   @LineExResult{\"1997-06-05 04:00:00\"}
+    # @EndExample
+    #
     # @return   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def getPeriodBeginDate (self):
@@ -638,6 +883,14 @@ the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
 
     ##
     # Returns the simulation period end date.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.setPeriodEndDate(\"1997-06-05 16:07:17\")}
+    #   @LineExEqual{edate, obj.@HiglightImportant{getPeriodEndDate}()}
+    #   @LineExSimple{@HiglightReserv{print} edate}
+    #   @LineExResult{\"1997-06-05 16:07:17\"}
+    # @EndExample
     #
     # @return   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
@@ -657,6 +910,14 @@ the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     ##
     # Sets the simulation period begin date.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setPeriodBeginDate}(\"1997-06-05 04:00:00\")}
+    #   @LineExEqual{bdate, obj.getPeriodBeginDate()}
+    #   @LineExSimple{@HiglightReserv{print} bdate}
+    #   @LineExResult{\"1997-06-05 04:00:00\"}
+    # @EndExample
+    #
     # @param BeginDate   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def setPeriodBeginDate (self, BeginDate):
@@ -675,6 +936,14 @@ the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     ##
     # Sets the simulation period end date.
     #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExSimple{obj.@HiglightImportant{setPeriodEndDate}(\"1997-06-05 16:07:17\")}
+    #   @LineExEqual{edate, obj.getPeriodEndDate()}
+    #   @LineExSimple{@HiglightReserv{print} edate}
+    #   @LineExResult{\"1997-06-05 16:07:17\"}
+    # @EndExample
+    #
     # @param EndDate   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def setPeriodEndDate (self, EndDate):
@@ -692,6 +961,15 @@ EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
 
     ##
     # Runs a project and returns a simulation definition class (PyOpenFLUID).
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{ofsim, obj.runProject(\"/path/to/dataset\")}
+    #   @LineExSimple{@HiglightReserv{print} obj == ofsim}
+    #   @LineExResult{@HiglightValue{False}}
+    #   @LineExSimple{@HiglightReserv{print} @HiglightSpecial{isinstance}(ofsim\, PyOpenFLUID)}
+    #   @LineExResult{@HiglightValue{True}}
+    # @EndExample
     #
     # @param Path   the full path of the project to open
     #
@@ -720,6 +998,13 @@ a simulation definition class (PyOpenFLUID)
 
     ##
     # Runs a project from a simulation definition class (PyOpenFLUID).
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{res, obj.runSimulation()}
+    #   @LineExSimple{@HiglightReserv{print} @HiglightSpecial{isinstance}(res\, @HiglightSpecial{bool})}
+    #   @LineExResult{@HiglightValue{True}}
+    # @EndExample
     #
     # @return   True if the simulation is runned without problems, False otherwise
     #
@@ -801,6 +1086,12 @@ True if the simulation is runned without problems, False otherwise
 
     ##
     # Return a description of the class.
+    #
+    # Examples : @StartExample
+    #   @LineExEqual{obj, PyOpenFLUID()}
+    #   @LineExEqual{v, @HiglightSpecial{str}(obj.getVersion())}
+    #   @LineExSimple{@LineExComment{print obj}}
+    # @EndExample
     #
     # @return   a string representation
     #
