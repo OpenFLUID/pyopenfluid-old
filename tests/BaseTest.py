@@ -132,3 +132,19 @@ class PyOpenFLUIDTest(unittest.TestCase):
             ISep = InputStr.index(".")
             self.assertTrue(InputStr[:ISep].isdigit())
             self.assertTrue(InputStr[ISep+1:].isdigit())
+
+    def checkSimulationOutputPath(self, OutPath):
+        # verification dossier sortie non vide
+        self.checkDirectory(OutPath)
+        Contenu = os.listdir(OutPath)
+        self.assertGreater(len(Contenu), 0)
+
+        # verification des fichiers que le dossier contient
+        ListModel = ["^.*$"]
+        ListModel = [re.compile(Model) for Model in ListModel]
+        for Fichier in Contenu:
+            for ValidModel in ListModel:
+                if not ValidModel.search(Fichier) is None:
+                    break
+            else:
+                self.assertTrue(False, "file '{0}' doesn't suit any format.".format(Fichier))
