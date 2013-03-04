@@ -35,5 +35,5 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
 
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

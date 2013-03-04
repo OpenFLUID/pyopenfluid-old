@@ -10,5 +10,5 @@ class PyOpenFLUIDTest_OpenDataSet(PyOpenFLUIDTest):
         self.assertEquals(self.loadAllInputDataset(ArgList), len(ArgList))
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

@@ -7,7 +7,7 @@ import os
 import re
 import PyOpenFLUID
 
-def skipArgFromLC():
+def skipArgFromCL():
     """Gets arguments (in line command) away from sys, because unittest will try to use them."""
     Res = sys.argv[1:]
     sys.argv = sys.argv[:1]

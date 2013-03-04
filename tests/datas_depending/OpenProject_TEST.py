@@ -8,12 +8,14 @@ class PyOpenFLUIDTest_OpenProject(PyOpenFLUIDTest):
     def runTest(self):
         """Test of project functions."""
         self.assertEquals(len(ArgList), 1)
-        OClass = self.loadProject(ArgList[0])
+        Path = ArgList[0]
 
-        self.assertIsNotNone(OClass)
+        self.checkDirectory(Path)
+        OClass = self.openfluid.openProject(Path)
+
         self.assertTrue(isinstance(OClass, PyOpenFLUID.PyOpenFLUID))
         self.assertNotEquals(OClass, self.openfluid)
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

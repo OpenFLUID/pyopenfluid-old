@@ -7,17 +7,21 @@ class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of project functions."""
-        self.assertEquals(len(ArgList), 1)
+        self.assertEquals(len(ArgList), 3)
+        [self.checkDirectory(p) for p in ArgList]
         Path = ArgList[0]
 
-        self.checkDirectory(Path)
-        Res = self.openfluid.runProject(Path)
+        self.openfluid.addExtraFunctionsPaths(ArgList[1])
+        self.openfluid.addExtraObserversPaths(ArgList[2])
 
-        self.assertTrue(isinstance(Res, PyOpenFLUID))
+        OClass = self.openfluid.runProject(Path)
+
+        self.assertTrue(isinstance(OClass, PyOpenFLUID.PyOpenFLUID))
+        self.assertNotEquals(OClass, self.openfluid)
 
         # verification dossier sortie
-        self.checkSimulationOutputPath(Res.getCurrentOutputDir())
+        self.checkSimulationOutputPath(OClass.getCurrentOutputDir())
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

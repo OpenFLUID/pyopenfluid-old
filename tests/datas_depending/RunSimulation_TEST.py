@@ -8,6 +8,7 @@ class PyOpenFLUIDTest_RunSimulation(PyOpenFLUIDTest):
     def runTest(self):
         """Test of project functions."""
         self.assertEquals(len(ArgList), 3)
+        [self.checkDirectory(p) for p in ArgList]
         Path = ArgList[0]
 
         ObjPyOF = self.loadInputDataset(Path)
@@ -23,5 +24,5 @@ class PyOpenFLUIDTest_RunSimulation(PyOpenFLUIDTest):
         self.checkSimulationOutputPath(ObjPyOF.getCurrentOutputDir())
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

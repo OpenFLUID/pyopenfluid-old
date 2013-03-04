@@ -28,5 +28,5 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         self.assertEquals(CheckVal, NvVal)
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()
