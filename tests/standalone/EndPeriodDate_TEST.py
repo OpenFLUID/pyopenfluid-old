@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_EndPeriodDate(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of end period dates functions."""
         # test true date format
         ListPassDate = ["2012-03-04 15:04:13"]

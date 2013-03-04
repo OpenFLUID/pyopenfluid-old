@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_OutputDir(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of result functions."""
         Path = "/path/fake"
         self.openfluid.setCurrentOutputDir(Path)

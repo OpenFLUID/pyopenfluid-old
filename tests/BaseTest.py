@@ -27,9 +27,8 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
     def __init__(self, *arg, **kw):
         """Initialize testing. Do not build any object in."""
-        unittest.TestCase.__init__(self, *arg, **kw)
+        unittest.TestCase.__init__(self)
         self.openfluid = None
-        self.addCleanup(self.cleanUp, (), {})
 
 
 # ########################################################################## #
@@ -37,7 +36,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def setUp(self):
-        """First test to run.
+        """First method called.
            Build the PyOpenFLUID object."""
         try:
             self.openfluid = PyOpenFLUID.PyOpenFLUID()
@@ -49,28 +48,10 @@ class PyOpenFLUIDTest(unittest.TestCase):
 # ########################################################################## #
 
 
-    def cleanUp(self, *arg, **kw):
+    def tearDown(self, *arg, **kw):
         """Clean up testing unit."""
         if not self.openfluid is None:
             del self.openfluid
-
-
-# ########################################################################## #
-# ########################################################################## #
-
-
-    def test_Main(self):
-        """Call mainTest self function (user definied). No testing sequence required.
-           Allows user to make a complete sequence of testing, without let control to unittest."""
-        self.mainTest()
-
-
-# ########################################################################## #
-# ########################################################################## #
-
-
-    def mainTest(self):
-        pass
 
 
 # ########################################################################## #

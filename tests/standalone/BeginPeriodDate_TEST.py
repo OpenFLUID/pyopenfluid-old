@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of begin period dates functions."""
 
         # test true date format

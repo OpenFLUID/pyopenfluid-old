@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of project functions."""
         self.assertEquals(len(ArgList), 1)
         Path = ArgList[0]

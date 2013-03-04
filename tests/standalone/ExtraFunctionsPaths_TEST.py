@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_ExtraFunctionsPaths(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of extra functions paths functions."""
         self.openfluid.resetExtraFunctionsPaths()
         Val = self.openfluid.getExtraFunctionsPaths()

@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of model global parameters functions."""
 
         ParamsList = (("test_bidon","vrai",True),("gvalue","37.2",True),("wind","60",True),("megabidon","??",True),("erreur.pk","rien",False))

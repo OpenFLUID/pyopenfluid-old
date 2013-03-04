@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_OpenProject(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of project functions."""
         self.assertEquals(len(ArgList), 1)
         OClass = self.loadProject(ArgList[0])

@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of functions parameters functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 

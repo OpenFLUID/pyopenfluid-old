@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_DefaultDeltaT(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of default delta t attribute functions."""
         DeltaT = 23
 

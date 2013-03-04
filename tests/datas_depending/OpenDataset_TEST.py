@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_OpenDataSet(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of simulation functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), len(ArgList))
 

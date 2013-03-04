@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_ExtraObserversPaths(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of extra observers paths functions."""
         self.openfluid.resetExtraObserversPaths()
         Val = self.openfluid.getExtraObserversPaths()

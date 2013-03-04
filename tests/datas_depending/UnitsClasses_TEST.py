@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_UnitsClasses(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of units classes functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
