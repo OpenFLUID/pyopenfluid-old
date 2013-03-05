@@ -581,6 +581,25 @@ void PyOpenFLUID::removeModelGlobalParam (boost::python::object ParamName)
 
 
 // =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::addFunction (boost::python::object FuncID)
+{
+  boost::python::extract<std::string> getStringFuncID(FuncID);
+  if (!getStringFuncID.check())
+    throw PyOFException("needed string for function id", PyExc_TypeError);
+
+  std::string FuncIDStr = getStringFuncID();
+
+  openfluid::fluidx::FunctionDescriptor* NewFunction =
+      new openfluid::fluidx::FunctionDescriptor(FuncIDStr);
+
+  this->m_FXDesc.getModelDescriptor().appendItem(NewFunction);
+}
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 

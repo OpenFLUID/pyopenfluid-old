@@ -330,6 +330,23 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
 // =====================================================================
+// =====================================================================
+
+
+    .def("addFunction",
+      &PyOpenFLUID::addFunction,
+      ( boost::python::arg("FuncID") ),
+      "Adds a function.\
+\n\nKeyword arguments:\
+\nFunID        -- the simulation function id\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.addFunction(\"my.function\")\
+"
+    )
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 
