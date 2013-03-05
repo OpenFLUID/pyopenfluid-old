@@ -469,10 +469,10 @@ ParamValue  -- the parameter value
     #
     # Examples : @StartExample
     #   @LineExEqual{obj, PyOpenFLUID()}
-    #   @LineExSimple{obj.setObserverParam}
-    #   @LineExEqual{val, obj.@HiglightImportant{getObserverParam}}
+    #   @LineExSimple{obj.setObserverParam(\"export.fake.useless\"\, \"format.f1.header\"\, \"colsname\")}
+    #   @LineExEqual{val, obj.@HiglightImportant{getObserverParam}(\"export.fake.useless\"\, \"format.f1.header\")}
     #   @LineExSimple{@HiglightReserv{print} val}
-    #   @LineExResult{\"?\"}
+    #   @LineExResult{\"colsname\"}
     # @EndExample
     #
     # @param ObsID       the observer id
@@ -502,10 +502,10 @@ the parameter value
     #
     # Examples : @StartExample
     #   @LineExEqual{obj, PyOpenFLUID()}
-    #   @LineExSimple{obj.@HiglightImportant{setObserverParam}}
-    #   @LineExEqual{val, obj.getObserverParam}
+    #   @LineExSimple{obj.@HiglightImportant{setObserverParam}(\"export.fake.useless\"\, \"format.f1.header\"\, \"colsname\")}
+    #   @LineExEqual{val, obj.getObserverParam(\"export.fake.useless\"\, \"format.f1.header\")}
     #   @LineExSimple{@HiglightReserv{print} val}
-    #   @LineExResult{\"?\"}
+    #   @LineExResult{\"colsname\"}
     # @EndExample
     #
     # @param ObsID       the observer id

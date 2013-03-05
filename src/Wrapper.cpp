@@ -308,7 +308,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \nthe parameter value\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
-\n>>> param = obj.getObserverParam\
+\n>>> param = obj.getObserverParam(\"export.fake.useless\", \"format.f1.header\")\
 "
     )
 
@@ -327,7 +327,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \nParamValue  -- the parameter value\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
-\n>>> param = obj.setObserverParam\
+\n>>> obj.setObserverParam(\"export.fake.useless\", \"format.f1.header\", \"colsname\")\
 "
     )
 
