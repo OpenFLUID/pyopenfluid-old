@@ -145,7 +145,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
         self.assertGreater(len(Contenu), 0)
 
         # verification des fichiers que le dossier contient
-        ListModel = ["^.*\.log$"]
+        ListModel = ["^.*\.(log|csv)$"]
         ListModel = [re.compile(Model) for Model in ListModel]
         for Fichier in Contenu:
             for ValidModel in ListModel:

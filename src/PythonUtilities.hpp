@@ -1,5 +1,5 @@
-#ifndef __UTILITIES_HPP__
-#define __UTILITIES_HPP__
+#ifndef __PYTHONUTILITIES_HPP__
+#define __PYTHONUTILITIES_HPP__
 
 #include <string>
 #include <vector>
@@ -85,4 +85,4 @@ void printStdErr (std::iostream& IOStream, int EOL=0);
 } // topython
 
 
-#endif // __UTILITIES_HPP__
+#endif // __PYTHONUTILITIES_HPP__

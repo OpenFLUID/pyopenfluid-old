@@ -3,6 +3,7 @@
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/exception/all.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -48,7 +49,7 @@
 
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
-#include "Utilities.hpp"
+#include "PythonUtilities.hpp"
 
 
 // =====================================================================
@@ -484,8 +485,6 @@ boost::python::object PyOpenFLUID::getModelGlobalParam (
       .getGlobalParameters();
   openfluid::ware::WareParams_t::iterator ItParam = Params.begin();
 
-  boost::python::str ResValue;
-
   while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
     ++ItParam;
 
@@ -535,17 +534,23 @@ boost::python::object PyOpenFLUID::getObserverParam (
     throw PyOFException("needed string for parameter name", PyExc_TypeError);
 
   std::string ObsIDStr = getStringObsID();
-  std::string ParamNameStr = getStringParamName();
+  std::vector<std::string> ParamNameVector;
+
+  boost::split(ParamNameVector, getStringParamName(), boost::is_any_of("."), boost::token_compress_on);
+
+  const int SizeParamNameVector = ParamNameVector.size();
+  int IndexParamName = 0;
 
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
+  std::string CheckParamName;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems().begin();
 
   openfluid::fluidx::ObserverDescriptor* ObsDescp;
 
-  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
+  while (ItModelInfos != this->m_FXDesc.getMonitoringDescriptor().getItems().end())
   {
     if ((*ItModelInfos)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
@@ -556,17 +561,30 @@ boost::python::object PyOpenFLUID::getObserverParam (
         Params = ObsDescp->getParameters();
         ItParam = Params.begin();
 
-        while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
-          ++ItParam;
+        IndexParamName = 0;
+        while (IndexParamName < SizeParamNameVector)
+        {
+          CheckParamName = ParamNameVector.at(IndexParamName);
+          while (ItParam != Params.end() && (*ItParam).first != CheckParamName)
+            ++ItParam;
 
-        if (ItParam != Params.end())
-          return boost::python::str((*ItParam).second.data());
+          if (ItParam == Params.end())
+            break;
+          else
+          {
+            IndexParamName++;
+            Params = (*ItParam).second;
+            if (IndexParamName >= SizeParamNameVector)
+              return boost::python::str(Params.data());
+            ItParam = Params.begin();
+          }
+        }
+
         break;
       }
     }
     ++ItModelInfos;
   }
-
   return boost::python::object(); /* makes Python NONE */
 }
 
@@ -593,15 +611,12 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
   std::string ParamNameStr = getStringParamName();
   std::string ParamValueStr = getStringParamValue();
 
-  openfluid::ware::WareParams_t Params;
-  openfluid::ware::WareParams_t::iterator ItParam;
-
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems().begin();
 
   openfluid::fluidx::ObserverDescriptor* ObsDescp;
 
-  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
+  while (ItModelInfos != this->m_FXDesc.getMonitoringDescriptor().getItems().end())
   {
     if ((*ItModelInfos)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedObserver))

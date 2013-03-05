@@ -8,6 +8,7 @@ SET(RESSOURCE_INPUT "/home/vaysseb/Téléchargements/openfluid/resources/tests/d
 # TODO: replace by openfluid binary test ressource
 SET(TEST_INPUT_Generators "${RESSOURCE_INPUT}/OPENFLUID.IN.Generators")
 SET(TEST_INPUT_FluidXWriter "${RESSOURCE_INPUT}/OPENFLUID.IN.FluidXWriter")
+SET(TEST_INPUT_CSVObserver "${RESSOURCE_INPUT}/OPENFLUID.IN.CSVObserver")
 
 # binary functions
 SET(TEST_RESSOURCE_FUNCTIONS "/home/vaysseb/Téléchargements/openfluid/_build/tests-bin")
