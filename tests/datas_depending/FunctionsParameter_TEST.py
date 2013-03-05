@@ -27,6 +27,10 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         self.assertNotEquals(CheckVal, Val)
         self.assertEquals(CheckVal, NvVal)
 
+        self.openfluid.removeFunctionParam(FunID, ParamName)
+        CheckVal = self.openfluid.getFunctionParam(FunID, ParamName)
+        self.assertIsNone(CheckVal)
+
 if __name__ == "__main__":
   ArgList = skipArgFromCL()
   unittest.main()

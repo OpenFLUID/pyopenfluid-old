@@ -25,5 +25,8 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
             else:
                 self.assertNotEquals(self.openfluid.getModelGlobalParam(ParamName), ParamValue)
 
+        self.openfluid.removeModelGlobalParam(ParamsList[0][0])
+        self.assertIsNone(self.openfluid.getModelGlobalParam(ParamsList[0][0]))
+
 if __name__ == "__main__":
   unittest.main()
