@@ -5,7 +5,6 @@
 #include <boost/python.hpp>
 #include <Python.h>
 #include <sstream>
-#include <iostream>
 
 
 namespace tools {
@@ -51,17 +50,15 @@ void printStdOut (std::string& Message, int EOL=0)
     for (i=0; i<NFois; i++)
     {
       TmpString = Message.substr(i*999, 999);
-      PySys_WriteStdout("%s", TmpString.c_str());
-      std::cout << "printStdOut -- i=" << i;
+      PySys_WriteStdout("%.999s", TmpString.c_str());
     }
 
     i = NFois*999;
     TmpString = Message.substr(i, (LenMsg-i));
-    std::cout << "printStdOut -- last=" << (LenMsg-i);
-    PySys_WriteStdout("%s", TmpString.c_str());
+    PySys_WriteStdout("%.999s", TmpString.c_str());
   }
   else
-    PySys_WriteStdout("%s", Message.c_str());
+    PySys_WriteStdout("%.999s", Message.c_str());
 
   if (EOL)
     PySys_WriteStdout("\n");
@@ -85,17 +82,15 @@ void printStdErr (std::string& Message, int EOL=0)
     for (i=0; i<NFois; i++)
     {
       TmpString = Message.substr(i*999, 999);
-      PySys_WriteStderr("%s", TmpString.c_str());
-      std::cout << "printStdOut -- i=" << i;
+      PySys_WriteStderr("%.999s", TmpString.c_str());
     }
 
     i = NFois*999;
     TmpString = Message.substr(i, (LenMsg-i));
-    std::cout << "printStdOut -- last=" << (LenMsg-i);
-    PySys_WriteStderr("%s", TmpString.c_str());
+    PySys_WriteStderr("%.999s", TmpString.c_str());
   }
   else
-    PySys_WriteStderr("%s", Message.c_str());
+    PySys_WriteStderr("%.999s", Message.c_str());
 
   if (EOL)
     PySys_WriteStderr("\n");

@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_Version(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of version functions."""
         self.assertIsNotNone(self.openfluid.getVersion())
         self.assertGreaterEqual(self.openfluid.getVersion(), 3)

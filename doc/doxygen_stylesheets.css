@@ -948,3 +948,65 @@ dl.citelist dd {
   }
 }
 
+/* EXAMPLE */
+.example
+{
+  line-height : 130%;
+  text-align : justify;
+}
+
+.example .highlight
+{
+  line-height : 120%;
+  padding : 5px;
+  color : #333333;
+  border-width : 1px medium;
+  border-style : solid none;
+  border-image : none;
+  border-color : #AACC99;
+  background : none repeat scroll 0 0 #EEFFCC;
+}
+
+
+.example .gp
+{
+  color : #000080;
+  font-weight : bold;
+}
+.example .n
+{
+  color : #333333;
+}
+.example .nb
+{
+  color : #008000;
+  font-weight : bold;
+}
+.example .nc
+{
+  color : #cc0000;
+  font-weight : bold;
+}
+.example .nd
+{
+  color : #5c3566;
+  font-weight : bold;
+}
+.example .ne
+{
+  font-weight : bold;
+}
+.example .o
+{
+  color : #666666;
+}
+.example .p
+{
+  color : #333333;
+}
+.example .c
+{
+  color : #5c3566;
+  font-weight : bold;
+  font-style : oblique;
+}

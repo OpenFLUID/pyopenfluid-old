@@ -5,7 +5,7 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of generator parameters functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
@@ -35,5 +35,5 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
 
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

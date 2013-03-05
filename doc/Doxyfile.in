@@ -230,3 +230,31 @@ DOT_CLEANUP            = YES
 # Configuration::additions related to the search engine   
 #---------------------------------------------------------------------------
 SEARCHENGINE           = YES
+#---------------------------------------------------------------------------
+# Aliases for custom render
+#---------------------------------------------------------------------------
+ALIASES += StartExample="<div class='example'><div class='highlight'>"
+ALIASES += EndExample="</div></div>"
+
+ALIASES += LineExEqual{2}="<div><span class='gp'>&gt;&gt;&gt; </span><span class='n'>\1</span><span class='o'> = </span><span class='n'>\2</span></div>"
+# => ">>> {0} = {1}" - bleu puis normal
+ALIASES += LineExSimple{1}="<div><span class='gp'>&gt;&gt;&gt; </span><span class='n'>\1</span></div>"
+# => ">>> {0}" - bleu puis normal
+
+ALIASES += LineExEqualContinue{2}="<div><span class='gp'>... </span><span class='n'>\1</span><span class='o'> = </span><span class='n'>\2</span></div>"
+# => "... {0} = {1}" - bleu puis normal
+ALIASES += LineExSimpleContinue{1}="<div><span class='gp'>... </span><span class='n'>\1</span></div>"
+# => "... {0}" - bleu puis normal
+
+ALIASES += LineExResult{1}="<div><span class='n'>\1</span></div>"
+# => "{0}"
+ALIASES += LineExComment{1}="<span class='c'>\#\1</span><br/>"
+# => "#{0}"
+
+ALIASES += HiglightSpecial{1}="<span class='nb'>\1</span>"  # vert - mot redefinissable (str, id, ...)
+ALIASES += HiglightReserv{1}="<span class='nc'>\1</span>"   # rouge - mot reserve (print, exec, ...)
+ALIASES += HiglightValue{1}="<span class='nd'>\1</span>"   # violet - mot reserve valeur (None, True..)
+ALIASES += HiglightImportant{1}="<span class='ne'>\1</span>"   # gris fonce - mot important
+
+ALIASES += Bold{1}="<b>\1</b>"
+ALIASES += Emph{1}="<em>\1</em>"

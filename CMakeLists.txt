@@ -38,11 +38,12 @@ IF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
   INCLUDE(CMake.in.local.cmake)
 ENDIF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
 
+# TODO: change python library path 
 SET(PYTHON_LIB_OUTPUT_PATH         "${BUILD_PATH}/lib/python${PYTHON_VERSION}")
 SET(PYTHON_LIBDYNLOAD_OUTPUT_PATH  "${BUILD_PATH}/lib/python${PYTHON_VERSION}/lib-dynload")
 SET(PYTHON_MODULE_OUTPUT_PATH      "${BUILD_PATH}/lib/python${PYTHON_VERSION}/PyOpenFLUID")
 SET(DOC_OUTPUT_PATH                "${BUILD_PATH}/share/doc")
-SET(TEST_OUTPUT_PATH               "${BUILD_PATH}/tests-OutPuts")
+SET(TEST_OUTPUT_PATH               "${OUTPUT_PATH}/tests-outputs")
 
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PYTHON_LIBDYNLOAD_OUTPUT_PATH}")
 
@@ -56,7 +57,7 @@ FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib")
 FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib/python${PYTHON_VERSION}")
 FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib/python${PYTHON_VERSION}/lib-dynload")
 FILE(MAKE_DIRECTORY "${BUILD_PATH}/lib/python${PYTHON_VERSION}/PyOpenFLUID")
-FILE(MAKE_DIRECTORY "${OUTPUT_PATH}/tests-OutPuts")
+FILE(MAKE_DIRECTORY "${OUTPUT_PATH}/tests-outputs")
 
 #<<output_path>>
 #  |-<<build_path>>
@@ -67,7 +68,8 @@ FILE(MAKE_DIRECTORY "${OUTPUT_PATH}/tests-OutPuts")
 #  | | |-python<X>.<Y>
 #  | | | |-lib-dynload
 #  | | | |-PyOpenFLUID
-#  |-tests-Outputs
+#  |-tests-outputs
+#  |-tests-inputs
 
 #
 # Browsing

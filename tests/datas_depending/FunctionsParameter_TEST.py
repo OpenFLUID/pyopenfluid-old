@@ -5,12 +5,12 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of functions parameters functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
-        FunID = "examples.primitives.unitsA.up"
-        ParamName = "gmult"
+        FunID = "tests.primitives.use"
+        ParamName = "longparam"
 
         self.assertIsNone(self.openfluid.getFunctionParam(FunID, "bidon"))
         self.assertIsNone(self.openfluid.getFunctionParam("bidon", ParamName))
@@ -28,5 +28,5 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         self.assertEquals(CheckVal, NvVal)
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

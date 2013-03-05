@@ -6,7 +6,7 @@ import tempfile
 
 class PyOpenFLUIDTest_Simulation(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of simulation functions."""
 
         # creation of a temporary output file and redirecting standard outputs

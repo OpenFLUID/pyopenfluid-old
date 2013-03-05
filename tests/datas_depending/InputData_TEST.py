@@ -5,13 +5,13 @@ from BaseTest import *
 
 class PyOpenFLUIDTest_InputData(PyOpenFLUIDTest):
 
-    def mainTest(self):
+    def runTest(self):
         """Test of input datas functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
-        UnitClass = "unitsA"
+        UnitClass = "TestUnits"
         UnitID = 3
-        UnitName = "inivar1"
+        UnitName = "indataA"
         self.assertIsNone(self.openfluid.getInputData(UnitClass, UnitID, "bidon"))
 
         Val = self.openfluid.getInputData(UnitClass, UnitID, UnitName)
@@ -28,5 +28,5 @@ class PyOpenFLUIDTest_InputData(PyOpenFLUIDTest):
 
 
 if __name__ == "__main__":
-  ArgList = skipArgFromLC()
+  ArgList = skipArgFromCL()
   unittest.main()

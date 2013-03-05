@@ -599,6 +599,19 @@ class PyOpenFLUID
 
 
 // =====================================================================
+/* ------------------------ PYTHON FUNCTIONS  ----------------------- */
+
+
+    /*!
+     * @brief Return a string representation of the class.
+     * 
+     * @return
+     *    a string representation of the class
+     */
+    boost::python::object getStr ();
+
+
+// =====================================================================
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 
@@ -609,6 +622,18 @@ class PyOpenFLUID
      *    the PyOpenFLUID class to copy
      */
     void copy (PyOpenFLUID InputClass);
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Change the internal FluidXDescriptor class.
+     * 
+     * @param InputFXD
+     *    the new FluidXDescriptor class to copy
+     */
+    void setFluidXDescriptor (openfluid::fluidx::FluidXDescriptor& InputFXD);
 
 
 // =====================================================================

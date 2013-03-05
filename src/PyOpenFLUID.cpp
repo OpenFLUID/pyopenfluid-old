@@ -815,7 +815,6 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
 
   std::string StrError = std::string("");
   std::string StrPath = getStringPath();
-  PyOpenFLUID* ResClass = new PyOpenFLUID();
 
   try
   {
@@ -829,7 +828,8 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
     FXReader.loadFromDirectory(openfluid::base::RuntimeEnvironment::
         getInstance()->getInputDir());
 
-    this->m_FXDesc = FXReader;
+    PyOpenFLUID* ResClass = new PyOpenFLUID();
+    ResClass->setFluidXDescriptor(FXReader);
 
     return ResClass;
   }
@@ -874,8 +874,6 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
   {
     openfluid::base::Init();
 
-    openfluid::base::IOListener IOListen;
-
     if (openfluid::base::ProjectManager::getInstance()->open(StrPath))
     {
       openfluid::base::RuntimeEnvironment::getInstance()->linkToProject();
@@ -884,6 +882,10 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
     else
       throw openfluid::base::OFException("PyOpenFLUID", StrPath +
           " is not a correct project path");
+
+    boost::python::str BoostPath = boost::python::str(
+        openfluid::base::RuntimeEnvironment::getInstance()->getInputDir());
+    return this->openDataset(BoostPath);
   }
   catch (openfluid::base::OFException& E)
   {
@@ -905,7 +907,7 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
     throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError);
   }
 
-  return this->openDataset(Path);
+  return NULL;
 }
 
 
@@ -1219,7 +1221,33 @@ void PyOpenFLUID::updateOutputsConfig ()
 
 
 // =====================================================================
+/* ------------------------ PYTHON FUNCTIONS  ----------------------- */
+
+
+boost::python::object PyOpenFLUID::getStr ()
+{
+  std::stringstream SStream(std::stringstream::in | std::stringstream::out);
+
+  SStream << "PyOpenFLUID(" << openfluid::config::FULL_VERSION.c_str();
+  SStream << ")";
+
+  return boost::python::object(SStream.str());
+}
+
+
+// =====================================================================
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
+
+
+void PyOpenFLUID::setFluidXDescriptor (
+    openfluid::fluidx::FluidXDescriptor& InputFXD)
+{
+  this->m_FXDesc = InputFXD;
+}
+
+
+// =====================================================================
+// =====================================================================
 
 
 void PyOpenFLUID::copy (PyOpenFLUID InputClass)
