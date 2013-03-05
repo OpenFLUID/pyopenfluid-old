@@ -714,6 +714,49 @@ void PyOpenFLUID::addObserver (boost::python::object ObsID)
 
 
 // =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::removeObserver (boost::python::object ObsID)
+{
+  boost::python::extract<std::string> getStringObsID(ObsID);
+  if (!getStringObsID.check())
+    throw PyOFException("needed string for observer id", PyExc_TypeError);
+
+  std::string ObsIDStr = getStringObsID();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t ModelInfos = 
+      this->m_FXDesc.getMonitoringDescriptor().getItems();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos = ModelInfos.begin();
+
+  openfluid::fluidx::ObserverDescriptor* ObsDescp;
+
+  std::cout << "calling removeObserver" << std::endl;
+
+  while (ItModelInfos != ModelInfos.end())
+  {
+    if ((*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+    {
+      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
+      std::cout << "Tour : '" << ObsDescp->getID() << "'" << std::endl;
+      if (ObsDescp->getID() == ObsIDStr)
+      {
+        std::cout << "erasing" << std::endl;
+        ModelInfos.erase(ItModelInfos);
+        break;
+      }
+    }
+    ++ItModelInfos;
+  }
+
+  this->m_FXDesc.getMonitoringDescriptor().getItems() = ModelInfos;
+}
+
+
+// =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 

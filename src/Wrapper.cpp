@@ -373,12 +373,28 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("addObserver", &PyOpenFLUID::addObserver,
       ( boost::python::arg("ObsID") ),
-      "Adds an observer parameter.\
+      "Adds an observer.\
 \n\nKeyword arguments:\
 \nObsID       -- the observer id\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
-\n>>> obj.setObserverParam(\"export.fake.useless\")\
+\n>>> obj.addObserver(\"export.fake.useless\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeObserver", &PyOpenFLUID::removeObserver,
+      ( boost::python::arg("ObsID") ),
+      "Removes an observer.\
+\n\nKeyword arguments:\
+\nObsID       -- the observer id\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeObserver(\"export.fake.useless\")\
 "
     )
 

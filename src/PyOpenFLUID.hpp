@@ -325,12 +325,25 @@ class PyOpenFLUID
 
 
     /*!
-     * @brief Adds an observer parameter.
+     * @brief Adds an observer.
      * 
      * @param ObsID
      *    the observer id
      */
     void addObserver (boost::python::object ObsID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Removes an observer.
+     * 
+     * @param ObsID
+     *    the observer id
+     */
+    void removeObserver (boost::python::object ObsID);
 
 
 // =====================================================================
