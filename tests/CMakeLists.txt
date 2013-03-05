@@ -1,5 +1,5 @@
 # TODO: erase first and second path when install or whenever
-SET(PY_DIR "${PYTHON_LIB_OUTPUT_PATH}:${PYTHON_LIBDYNLOAD_OUTPUT_PATH}:${CMAKE_CURRENT_SOURCE_DIR}")
+SET(PY_DIR "${PYTHON_MODULE_OUTPUT_PATH}:${CMAKE_CURRENT_SOURCE_DIR}")
 
 # creation of tests datasets and projects
 # datasets
