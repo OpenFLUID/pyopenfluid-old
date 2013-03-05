@@ -733,18 +733,14 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
 
   openfluid::fluidx::ObserverDescriptor* ObsDescp;
 
-  std::cout << "calling removeObserver" << std::endl;
-
   while (ItModelInfos != ModelInfos.end())
   {
     if ((*ItModelInfos)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
     {
       ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
-      std::cout << "Tour : '" << ObsDescp->getID() << "'" << std::endl;
       if (ObsDescp->getID() == ObsIDStr)
       {
-        std::cout << "erasing" << std::endl;
         ModelInfos.erase(ItModelInfos);
         break;
       }
@@ -753,6 +749,33 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
   }
 
   this->m_FXDesc.getMonitoringDescriptor().getItems() = ModelInfos;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::clearMonitoring ()
+{
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t ModelInfos = 
+      this->m_FXDesc.getMonitoringDescriptor().getItems();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t NewModelInfos = 
+      openfluid::fluidx::MonitoringDescriptor::SetDescription_t();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos = ModelInfos.begin();
+
+  while (ItModelInfos != ModelInfos.end())
+  {
+    if (!(*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+      NewModelInfos.push_back(*ItModelInfos);
+    ++ItModelInfos;
+  }
+
+  this->m_FXDesc.getMonitoringDescriptor().getItems() = NewModelInfos;
 }
 
 

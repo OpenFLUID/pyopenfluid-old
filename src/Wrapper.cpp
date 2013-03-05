@@ -400,6 +400,19 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
 // =====================================================================
+// =====================================================================
+
+
+    .def("clearMonitoring", &PyOpenFLUID::clearMonitoring,
+      "Removes all observers.\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.clearMonitoring()\
+"
+    )
+
+
+// =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 
