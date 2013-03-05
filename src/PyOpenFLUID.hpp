@@ -182,6 +182,22 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Removes a function parameter.
+     * 
+     * @param FuncID
+     *    the simulation function ID
+     * @param ParamName
+     *    the name of the parameter
+     */
+    void removeFunctionParam (boost::python::object FuncID,
+                              boost::python::object ParamName);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Returns a generator parameter value.
      * 
      * @param UnitClass
@@ -254,6 +270,19 @@ class PyOpenFLUID
 
 
 // =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Removes a model global parameter.
+     * 
+     * @param ParamName
+     *    the name of the parameter
+     */
+    void removeModelGlobalParam (boost::python::object ParamName);
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 
@@ -289,6 +318,19 @@ class PyOpenFLUID
     void setObserverParam (boost::python::object ObsID,
                            boost::python::object ParamName,
                            boost::python::object ParamValue);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Adds an observer parameter.
+     * 
+     * @param ObsID
+     *    the observer id
+     */
+    void addObserver (boost::python::object ObsID);
 
 
 // =====================================================================

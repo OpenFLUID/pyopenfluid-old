@@ -220,6 +220,24 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("removeFunctionParam",
+      &PyOpenFLUID::removeFunctionParam,
+      ( boost::python::arg("FuncID"), boost::python::arg("ParamName") ),
+      "Removes a function parameter.\
+\n\nKeyword arguments:\
+\nFunID        -- the simulation function id\
+\nParamName    -- the name of the parameter\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeFunctionParam(\"my.function\",\"coeff\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("getGeneratorParam", &PyOpenFLUID::getGeneratorParam,
       ( boost::python::arg("UnitClass"), boost::python::arg("VarName"),
         boost::python::arg("ParamName") ),
@@ -295,6 +313,23 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
 // =====================================================================
+// =====================================================================
+
+
+    .def("removeModelGlobalParam",
+      &PyOpenFLUID::removeModelGlobalParam,
+      ( boost::python::arg("ParamName") ),
+      "Removes a model global parameter value.\
+\n\nKeyword arguments:\
+\nParamName   -- the name of the parameter\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeModelGlobalParam(\"gvalue\")\
+"
+    )
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 
@@ -334,6 +369,22 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 // =====================================================================
 // =====================================================================
+
+
+    .def("addObserver", &PyOpenFLUID::addObserver,
+      ( boost::python::arg("ObsID") ),
+      "Adds an observer parameter.\
+\n\nKeyword arguments:\
+\nObsID       -- the observer id\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setObserverParam(\"export.fake.useless\")\
+"
+    )
+
+
+// =====================================================================
+/* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 
     .def("getUnitsClasses", &PyOpenFLUID::getUnitsClasses,

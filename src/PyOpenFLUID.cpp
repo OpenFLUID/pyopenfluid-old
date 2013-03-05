@@ -365,6 +365,51 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
 // =====================================================================
 
 
+void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
+                                       boost::python::object ParamName)
+{
+  boost::python::extract<std::string> getStringFuncID(FuncID);
+  if (!getStringFuncID.check())
+    throw PyOFException("needed string for function id", PyExc_TypeError);
+  boost::python::extract<std::string> getStringParamName(ParamName);
+  if (!getStringParamName.check())
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
+
+  std::string FuncIDStr = getStringFuncID();
+  std::string ParamNameStr = getStringParamName();
+
+  openfluid::ware::WareParams_t Params;
+//  openfluid::ware::WareParams_t::iterator ItParam;
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
+      ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
+
+  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
+  {
+    if ((*ItModelInfos)->isType(
+          openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
+        ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID()
+          == FuncIDStr)
+    {
+      Params = (*ItModelInfos)->getParameters();
+      Params.erase(ParamNameStr);
+//      ItParam = Params.begin();
+//      while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
+//        ++ItParam;
+
+//      if (ItParam != Params.end())
+//        (*ItParam).clear();
+//      break;
+    }
+    ++ItModelInfos;
+  }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
 boost::python::object PyOpenFLUID::getGeneratorParam (
     boost::python::object UnitClass, boost::python::object VarName,
     boost::python::object ParamName)
@@ -520,6 +565,22 @@ void PyOpenFLUID::setModelGlobalParam (boost::python::object ParamName,
 
 
 // =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::removeModelGlobalParam (boost::python::object ParamName)
+{
+  boost::python::extract<std::string> getStringParamName(ParamName);
+  if (!getStringParamName.check())
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
+
+  std::string ParamNameStr = getStringParamName();
+
+  this->m_FXDesc.getModelDescriptor().eraseGlobalParameter(ParamNameStr);
+}
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 
@@ -630,6 +691,25 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
     }
     ++ItModelInfos;
   }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::addObserver (boost::python::object ObsID)
+{
+  boost::python::extract<std::string> getStringObsID(ObsID);
+  if (!getStringObsID.check())
+    throw PyOFException("needed string for observer id", PyExc_TypeError);
+
+  std::string ObsIDStr = getStringObsID();
+
+  openfluid::fluidx::ObserverDescriptor* NewObserver =
+      new openfluid::fluidx::ObserverDescriptor(ObsIDStr);
+
+  this->m_FXDesc.getMonitoringDescriptor().appendItem(NewObserver);
 }
 
 
