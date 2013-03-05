@@ -8,7 +8,7 @@ class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
     def runTest(self):
         """Test of project functions."""
         self.assertEquals(len(ArgList), 3)
-        map(ArgList, self.checkDirectory)
+        map(self.checkDirectory, ArgList)
         Path = ArgList[0]
 
         self.openfluid.addExtraFunctionsPaths(ArgList[1])
