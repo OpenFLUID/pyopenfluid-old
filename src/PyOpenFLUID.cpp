@@ -378,28 +378,25 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
   std::string FuncIDStr = getStringFuncID();
   std::string ParamNameStr = getStringParamName();
 
-  openfluid::ware::WareParams_t Params;
-//  openfluid::ware::WareParams_t::iterator ItParam;
+  openfluid::fluidx::FunctionDescriptor* Function;
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
+      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
 
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
+      ItModelInfos = ModelInfos.begin();
 
-  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
+  while (ItModelInfos != ModelInfos.end())
   {
     if ((*ItModelInfos)->isType(
-          openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
-        ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID()
-          == FuncIDStr)
+        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
     {
-      Params = (*ItModelInfos)->getParameters();
-      Params.erase(ParamNameStr);
-//      ItParam = Params.begin();
-//      while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
-//        ++ItParam;
-
-//      if (ItParam != Params.end())
-//        (*ItParam).clear();
-//      break;
+      Function = (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos);
+      if (Function->getFileID() == FuncIDStr)
+      {
+        Function->eraseParameter(ParamNameStr);
+        break;
+      }
     }
     ++ItModelInfos;
   }
