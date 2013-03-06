@@ -616,7 +616,8 @@ boost::python::object PyOpenFLUID::getObserverParam (
   std::string ObsIDStr = getStringObsID();
   std::vector<std::string> ParamNameVector;
 
-  boost::split(ParamNameVector, getStringParamName(), boost::is_any_of("."), boost::token_compress_on);
+  boost::split(ParamNameVector, getStringParamName(), boost::is_any_of("."),
+      boost::token_compress_on);
 
   const int SizeParamNameVector = ParamNameVector.size();
   int IndexParamName = 0;
