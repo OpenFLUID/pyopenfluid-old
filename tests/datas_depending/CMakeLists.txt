@@ -51,18 +51,6 @@ SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
 
 
 
-ADD_TEST(FunctionsParameter_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/FunctionsParameter_TEST.py"
-         "${TEST_INPUT_FluidXWriter}")
-SET_TESTS_PROPERTIES(FunctionsParameter_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
 ADD_TEST(GeneratorParameter_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/GeneratorParameter_TEST.py"

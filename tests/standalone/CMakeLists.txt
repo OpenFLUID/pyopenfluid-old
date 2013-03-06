@@ -104,3 +104,25 @@ ADD_TEST(ObserverParameter_TEST
 SET_TESTS_PROPERTIES(ObserverParameter_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(Functions_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/Functions_TEST.py")
+SET_TESTS_PROPERTIES(Functions_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(FunctionsParameter_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/FunctionsParameter_TEST.py"
+         "${TEST_INPUT_FluidXWriter}")
+SET_TESTS_PROPERTIES(FunctionsParameter_TEST PROPERTIES
+                     DEPENDS OpenDataset_TEST
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
