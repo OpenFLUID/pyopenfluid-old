@@ -419,6 +419,24 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("removeObserverParam",
+      &PyOpenFLUID::removeObserverParam,
+      ( boost::python::arg("ObsID"), boost::python::arg("ParamName") ),
+      "Removes an observer parameter.\
+\n\nKeyword arguments:\
+\nFunID        -- the simulation function id\
+\nParamName    -- the name of the parameter\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeObserverParam(\"my.function\",\"coeff\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("addObserver", &PyOpenFLUID::addObserver,
       ( boost::python::arg("ObsID") ),
       "Adds an observer.\

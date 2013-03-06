@@ -4,6 +4,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/optional.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -296,24 +297,30 @@ boost::python::object PyOpenFLUID::getFunctionParam (
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
+      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
 
-  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
+      ItModelInfos = ModelInfos.begin();
+
+  openfluid::fluidx::FunctionDescriptor* FuncDescp;
+
+  while (ItModelInfos != ModelInfos.end())
   {
     if ((*ItModelInfos)->isType(
-          openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
-        ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID()
-          == FuncIDStr)
+          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
     {
-      Params = (*ItModelInfos)->getParameters();
-      ItParam = Params.begin();
-      while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
-        ++ItParam;
+      FuncDescp = (openfluid::fluidx::FunctionDescriptor*) *ItModelInfos;
+      if (FuncDescp->getFileID() == FuncIDStr)
+      {
+        boost::optional<std::string> Res =
+            FuncDescp->getParameters().get_optional<std::string>(ParamNameStr);
 
-      if (ItParam != Params.end())
-        return boost::python::str((*ItParam).second.data());
-      break;
+        if (Res)
+          return boost::python::str(*Res);
+
+        break;
+      }
     }
     ++ItModelInfos;
   }
@@ -431,28 +438,29 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
+      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
+      ItModelInfos = ModelInfos.begin();
 
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
 
-  while (ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end())
+  while (ItModelInfos != ModelInfos.end())
   {
     if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::Generator))
+          openfluid::fluidx::GeneratorDescriptor::Generator))
     {
-      GenDescp = (openfluid::fluidx::GeneratorDescriptor*)(*ItModelInfos);
+      GenDescp = (openfluid::fluidx::GeneratorDescriptor*) *ItModelInfos;
       if (GenDescp->getUnitClass() == UnitClassStr &&
           GenDescp->getVariableName() == VarNameStr)
       {
-        Params = GenDescp->getParameters();
-        ItParam = Params.begin();
+        boost::optional<std::string> Res =
+            GenDescp->getParameters().get_optional<std::string>(ParamNameStr);
 
-        while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
-          ++ItParam;
+        if (Res)
+          return boost::python::str(*Res);
 
-        if (ItParam != Params.end())
-          return boost::python::str((*ItParam).second.data());
         break;
       }
     }
@@ -617,15 +625,15 @@ void PyOpenFLUID::removeFunction (boost::python::object FuncID)
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
       ItModelInfos = ModelInfos.begin();
 
-  openfluid::fluidx::FunctionDescriptor* FunDescp;
+  openfluid::fluidx::FunctionDescriptor* FuncDescp;
 
   while (ItModelInfos != ModelInfos.end())
   {
     if ((*ItModelInfos)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
     {
-      FunDescp = (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos);
-      if (FunDescp->getFileID() == FuncIDStr)
+      FuncDescp = (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos);
+      if (FuncDescp->getFileID() == FuncIDStr)
       {
         ModelInfos.erase(ItModelInfos);
         break;
@@ -674,17 +682,7 @@ boost::python::object PyOpenFLUID::getObserverParam (
     throw PyOFException("needed string for parameter name", PyExc_TypeError);
 
   std::string ObsIDStr = getStringObsID();
-  std::vector<std::string> ParamNameVector;
-
-  boost::split(ParamNameVector, getStringParamName(), boost::is_any_of("."),
-      boost::token_compress_on);
-
-  const int SizeParamNameVector = ParamNameVector.size();
-  int IndexParamName = 0;
-
-  openfluid::ware::WareParams_t Params;
-  openfluid::ware::WareParams_t::iterator ItParam;
-  std::string CheckParamName;
+  std::string ParamNameStr = getStringParamName();
 
   openfluid::fluidx::MonitoringDescriptor::SetDescription_t
       ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
@@ -697,38 +695,23 @@ boost::python::object PyOpenFLUID::getObserverParam (
   while (ItModelInfos != ModelInfos.end())
   {
     if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+          openfluid::fluidx::ObserverDescriptor::PluggedObserver))
     {
-      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
+      ObsDescp = *ItModelInfos;
       if (ObsDescp->getID() == ObsIDStr)
       {
-        Params = ObsDescp->getParameters();
-        ItParam = Params.begin();
+        boost::optional<std::string> Res =
+            ObsDescp->getParameters().get_optional<std::string>(ParamNameStr);
 
-        IndexParamName = 0;
-        while (IndexParamName < SizeParamNameVector)
-        {
-          CheckParamName = ParamNameVector.at(IndexParamName);
-          while (ItParam != Params.end() && (*ItParam).first != CheckParamName)
-            ++ItParam;
-
-          if (ItParam == Params.end())
-            break;
-          else
-          {
-            IndexParamName++;
-            Params = (*ItParam).second;
-            if (IndexParamName >= SizeParamNameVector)
-              return boost::python::str(Params.data());
-            ItParam = Params.begin();
-          }
-        }
+        if (Res)
+          return boost::python::str(*Res);
 
         break;
       }
     }
     ++ItModelInfos;
   }
+
   return boost::python::object(); /* makes Python NONE */
 }
 
@@ -772,6 +755,48 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
       if (ObsDescp->getID() == ObsIDStr)
       {
         ObsDescp->setParameter(ParamNameStr, ParamValueStr);
+        break;
+      }
+    }
+    ++ItModelInfos;
+  }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::removeObserverParam (boost::python::object ObsID,
+                                       boost::python::object ParamName)
+{
+  boost::python::extract<std::string> getStringObsID(ObsID);
+  if (!getStringObsID.check())
+    throw PyOFException("needed string for observer id", PyExc_TypeError);
+  boost::python::extract<std::string> getStringParamName(ParamName);
+  if (!getStringParamName.check())
+    throw PyOFException("needed string for parameter name", PyExc_TypeError);
+
+  std::string ObsIDStr = getStringObsID();
+  std::string ParamNameStr = getStringParamName();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
+      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos = ModelInfos.begin();
+
+  openfluid::fluidx::ObserverDescriptor* ObsDescp;
+
+  while (ItModelInfos != ModelInfos.end())
+  {
+    if ((*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+    {
+      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
+      if (ObsDescp->getID() == ObsIDStr)
+      {
+        ObsDescp->eraseParameter(ParamNameStr);
         break;
       }
     }
