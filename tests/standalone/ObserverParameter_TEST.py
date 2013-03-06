@@ -10,6 +10,7 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
         IDParam = "export.test.fake"
         ParamName = "format.c1.header"
 
+        # first part - test of getObserverParam/setObserverParam
         self.openfluid.addObserver(IDParam)
         CheckVal = self.openfluid.getObserverParam(IDParam, ParamName)
         self.assertIsNone(CheckVal)
@@ -28,6 +29,12 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
         self.assertTrue(isinstance(CheckVal, str))
         self.assertNotEquals(CheckVal, Val)
         self.assertEquals(CheckVal, NvVal)
+
+        # second part - test of removeObserverParam
+        self.openfluid.setObserverParam(IDParam, ParamName, Val)
+        self.assertEquals(Val, self.openfluid.getObserverParam(IDParam, ParamName))
+        self.openfluid.removeObserverParam(IDParam, ParamName)
+        self.assertIsNone(self.openfluid.getObserverParam(IDParam, ParamName))
 
 
 if __name__ == "__main__":

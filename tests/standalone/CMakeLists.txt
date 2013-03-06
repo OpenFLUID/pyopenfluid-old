@@ -120,8 +120,7 @@ SET_TESTS_PROPERTIES(Functions_TEST PROPERTIES
 
 ADD_TEST(FunctionsParameter_TEST
          "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/FunctionsParameter_TEST.py"
-         "${TEST_INPUT_FluidXWriter}")
+         "${CMAKE_CURRENT_SOURCE_DIR}/FunctionsParameter_TEST.py")
 SET_TESTS_PROPERTIES(FunctionsParameter_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
