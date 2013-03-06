@@ -347,6 +347,23 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
 // =====================================================================
+// =====================================================================
+
+
+    .def("removeFunction",
+      &PyOpenFLUID::removeFunction,
+      ( boost::python::arg("FuncID") ),
+      "Removes a function.\
+\n\nKeyword arguments:\
+\nFunID        -- the simulation function id\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeFunction(\"my.function\")\
+"
+    )
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 

@@ -600,6 +600,43 @@ void PyOpenFLUID::addFunction (boost::python::object FuncID)
 
 
 // =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::removeFunction (boost::python::object FuncID)
+{
+  boost::python::extract<std::string> getStringFuncID(FuncID);
+  if (!getStringFuncID.check())
+    throw PyOFException("needed string for observer id", PyExc_TypeError);
+
+  std::string FuncIDStr = getStringFuncID();
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t&
+      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
+      ItModelInfos = ModelInfos.begin();
+
+  openfluid::fluidx::FunctionDescriptor* FunDescp;
+
+  while (ItModelInfos != ModelInfos.end())
+  {
+    if ((*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
+    {
+      FunDescp = (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos);
+      if (FunDescp->getFileID() == FuncIDStr)
+      {
+        ModelInfos.erase(ItModelInfos);
+        break;
+      }
+    }
+    ++ItModelInfos;
+  }
+}
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 
