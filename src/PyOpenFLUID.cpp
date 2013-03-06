@@ -637,6 +637,29 @@ void PyOpenFLUID::removeFunction (boost::python::object FuncID)
 
 
 // =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::clearModel ()
+{
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t&
+      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+
+  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
+      ItModelInfos = ModelInfos.begin();
+
+  while (ItModelInfos != ModelInfos.end())
+  {
+    if ((*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
+      ItModelInfos = ModelInfos.erase(ItModelInfos);
+    else
+      ++ItModelInfos;
+  }
+}
+
+
+// =====================================================================
 /* ---------------------  MONITORING FUNCTIONS  --------------------- */
 
 
