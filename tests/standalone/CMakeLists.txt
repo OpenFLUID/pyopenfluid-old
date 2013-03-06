@@ -84,3 +84,13 @@ ADD_TEST(PrintSimulationInfo_TEST
 SET_TESTS_PROPERTIES(PrintSimulationInfo_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(ObserverParameter_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/ObserverParameter_TEST.py")
+SET_TESTS_PROPERTIES(ObserverParameter_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")

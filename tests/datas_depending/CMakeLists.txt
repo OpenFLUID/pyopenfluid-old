@@ -107,15 +107,3 @@ SET_TESTS_PROPERTIES(UnitsIDs_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
-ADD_TEST(ObserverParameter_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/ObserverParameter_TEST.py"
-         "${TEST_INPUT_CSVObserver}")
-SET_TESTS_PROPERTIES(ObserverParameter_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")

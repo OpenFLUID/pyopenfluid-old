@@ -7,13 +7,17 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of observer parameters functions."""
-        self.assertEquals(self.loadAllInputDataset(ArgList), 1)
+        IDParam = "export.test.fake"
+        ParamName = "format.c1.header"
 
-        IDParam = "export.vars.files.csv"
-        ParamName = "format.f2.header"
+        self.openfluid.addObserver(IDParam)
+        CheckVal = self.openfluid.getObserverParam(IDParam, ParamName)
+        self.assertIsNone(CheckVal)
 
-        Val = self.openfluid.getObserverParam(IDParam, ParamName)
-        self.assertTrue(isinstance(Val, str))
+        Val = "colsname"
+        self.openfluid.setObserverParam(IDParam, ParamName, Val)
+        CheckVal = self.openfluid.getObserverParam(IDParam, ParamName)
+        self.assertTrue(isinstance(CheckVal, str))
 
         self.assertIsNone(self.openfluid.getObserverParam("bidon", ParamName))
         self.assertIsNone(self.openfluid.getObserverParam(IDParam, "bidon"))
@@ -27,5 +31,4 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
 
 
 if __name__ == "__main__":
-  ArgList = skipArgFromCL()
   unittest.main()
