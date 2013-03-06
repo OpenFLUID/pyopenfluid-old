@@ -9,6 +9,7 @@ class PyOpenFLUIDTest_DefaultDeltaT(PyOpenFLUIDTest):
         """Test of default delta t attribute functions."""
         DeltaT = 23
 
+        # test on setDefaultDeltaT/getDefaultDeltaT
         self.openfluid.setDefaultDeltaT(DeltaT)
         Val = self.openfluid.getDefaultDeltaT()
         self.assertTrue(isinstance(Val, int))
@@ -19,6 +20,7 @@ class PyOpenFLUIDTest_DefaultDeltaT(PyOpenFLUIDTest):
         Val = self.openfluid.getDefaultDeltaT()
         self.assertTrue(isinstance(Val, int))
         self.assertEquals(Val, DeltaT)
+
 
 if __name__ == "__main__":
   unittest.main()

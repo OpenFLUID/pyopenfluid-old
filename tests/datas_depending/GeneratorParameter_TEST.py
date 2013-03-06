@@ -13,6 +13,7 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
         VarName = "tests.fixed"
         ParamName = "fixedvalue"
 
+        # tests of getGeneratorParam
         Val = self.openfluid.getGeneratorParam(UnitClass, VarName, ParamName)
 
         self.assertIsNone(self.openfluid.getGeneratorParam(UnitClass, VarName, "bidon"))
@@ -25,6 +26,7 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
         self.assertTrue(isinstance(Val, str))
         self.checkNumeric(Val)
 
+        # tests of getGeneratorParam/setGeneratorParam
         NvVal = str(float(Val) + 123.6)
         self.openfluid.setGeneratorParam(UnitClass, VarName, ParamName, NvVal)
         CheckVal = self.openfluid.getGeneratorParam(UnitClass, VarName, ParamName)

@@ -14,7 +14,7 @@ class PyOpenFLUIDTest_Simulation(PyOpenFLUIDTest):
         sys.stdout = FakeOutputFile
         sys.stderr = FakeOutputFile
 
-        # calling methods
+        # calling method
         try:
             self.openfluid.printSimulationInfo()
         except Exception as exc:

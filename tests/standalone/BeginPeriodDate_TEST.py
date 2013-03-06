@@ -8,7 +8,7 @@ class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
     def runTest(self):
         """Test of begin period dates functions."""
 
-        # test true date format
+        # dataset => true date format
         ListPassDate = ["2012-03-04 13:04:13"]
         ListPassDate.append( "2012-12-31 23:59:59" )
         ListPassDate.append( "2012-02-29 12:00:00" )
@@ -19,7 +19,7 @@ class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
             self.assertTrue(isinstance(CheckDate, str))
             self.assertEquals(CheckDate, PassDate)
 
-        # test wrong date format
+        # dataset => wrong date format
         ListFailDate = ["fail date"]
         ListFailDate.append( "2012 03 04 13 04 13" )
         ListFailDate.append( "2012-03-04 13-04-13" )
@@ -34,6 +34,7 @@ class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
         ListFailDate.append( "2012,03,04 13,04,13" )
         ListFailDate.append( "2012/03/04 13:04:13" )
 
+        # tests of setPeriodBeginDate/getPeriodBeginDate
         for FailDate in ListFailDate:
             try :
                 self.openfluid.setPeriodBeginDate(FailDate)
@@ -43,6 +44,7 @@ class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
                 CheckDate = self.openfluid.getPeriodBeginDate()
                 self.assertTrue(isinstance(CheckDate, str))
                 self.assertEquals(CheckDate, PassDate)
+
 
 if __name__ == "__main__":
   unittest.main()

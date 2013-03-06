@@ -7,14 +7,18 @@ class PyOpenFLUIDTest_ExtraObserversPaths(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of extra observers paths functions."""
+
+        # tests on addExtraObserversPaths
         self.assertRaises(TypeError, self.openfluid.addExtraObserversPaths, 65)
         self.assertRaises(TypeError, self.openfluid.addExtraObserversPaths, None)
 
+        # tests on resetExtraObserversPaths/getExtraObserversPaths
         self.openfluid.resetExtraObserversPaths()
         Val = self.openfluid.getExtraObserversPaths()
         self.assertTrue(isinstance(Val, list))
         self.assertEquals(len(Val), 0)
 
+        # tests on addExtraObserversPaths/getExtraObserversPaths
         Path1 = "/bidon/chemin1"
         self.openfluid.addExtraObserversPaths(Path1)
         Val = self.openfluid.getExtraObserversPaths()
@@ -29,6 +33,7 @@ class PyOpenFLUIDTest_ExtraObserversPaths(PyOpenFLUIDTest):
         ListA.sort(); ListB.sort()
         self.assertEquals(ListA, ListB)
 
+        # tests on resetExtraObserversPaths/getExtraObserversPaths
         self.openfluid.resetExtraObserversPaths()
         Val = self.openfluid.getExtraObserversPaths()
         self.assertTrue(isinstance(Val, list))

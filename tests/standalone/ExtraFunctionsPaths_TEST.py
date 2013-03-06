@@ -7,14 +7,18 @@ class PyOpenFLUIDTest_ExtraFunctionsPaths(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of extra functions paths functions."""
+
+        # tests on addExtraFunctionsPaths
         self.assertRaises(TypeError, self.openfluid.addExtraFunctionsPaths, 65)
         self.assertRaises(TypeError, self.openfluid.addExtraFunctionsPaths, None)
 
+        # tests on resetExtraFunctionsPaths/getExtraFunctionsPaths
         self.openfluid.resetExtraFunctionsPaths()
         Val = self.openfluid.getExtraFunctionsPaths()
         self.assertTrue(isinstance(Val, list))
         self.assertEquals(len(Val), 0)
 
+        # tests on addExtraFunctionsPaths/getExtraFunctionsPaths
         Path1 = "/bidon/chemin1"
         self.openfluid.addExtraFunctionsPaths(Path1)
         Val = self.openfluid.getExtraFunctionsPaths()
@@ -29,10 +33,12 @@ class PyOpenFLUIDTest_ExtraFunctionsPaths(PyOpenFLUIDTest):
         ListA.sort(); ListB.sort()
         self.assertEquals(ListA, ListB)
 
+        # tests on resetExtraFunctionsPaths/getExtraFunctionsPaths
         self.openfluid.resetExtraFunctionsPaths()
         Val = self.openfluid.getExtraFunctionsPaths()
         self.assertTrue(isinstance(Val, list))
         self.assertEquals(Val, [])
+
 
 if __name__ == "__main__":
   unittest.main()

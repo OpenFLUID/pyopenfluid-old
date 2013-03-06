@@ -9,6 +9,7 @@ class PyOpenFLUIDTest_InputData(PyOpenFLUIDTest):
         """Test of input datas functions."""
         self.assertEquals(self.loadAllInputDataset(ArgList), 1)
 
+        # tests of getInputData
         UnitClass = "TestUnits"
         UnitID = 3
         UnitName = "indataA"
@@ -18,6 +19,7 @@ class PyOpenFLUIDTest_InputData(PyOpenFLUIDTest):
         self.assertTrue(isinstance(Val, str))
         self.checkFloat(Val)
 
+        # tests of getInputData/setInputData
         NvVal = str(float(Val) + 8.2)
         self.openfluid.setInputData(UnitClass, UnitID, UnitName, NvVal)
         CheckVal = self.openfluid.getInputData(UnitClass, UnitID, UnitName)

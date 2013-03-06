@@ -10,6 +10,7 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
         self.assertRaises(TypeError, self.openfluid.getModelGlobalParam, 65)
         self.assertRaises(TypeError, self.openfluid.getModelGlobalParam, None)
 
+        # tests on getModelGlobalParam/setModelGlobalParam
         ParamsList = (("test_bidon","vrai",True),("gvalue","37.2",True),("wind","60",True),("megabidon","??",True),("erreur.pk","rien",False))
         for ParamName, ParamValue, ParamSuccess in ParamsList:
             self.openfluid.setModelGlobalParam(ParamName, ParamValue)
@@ -25,6 +26,7 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
             else:
                 self.assertNotEquals(self.openfluid.getModelGlobalParam(ParamName), ParamValue)
 
+        # tests on removeModelGlobalParam
         self.openfluid.removeModelGlobalParam(ParamsList[0][0])
         self.assertIsNone(self.openfluid.getModelGlobalParam(ParamsList[0][0]))
 
