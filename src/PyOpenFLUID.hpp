@@ -420,6 +420,22 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Gets all observer parameters name.
+     * 
+     * @param ObsID
+     *    the observer id
+     * 
+     * @return
+     *    a list of parameters name
+     */
+    boost::python::object getObserverParams (boost::python::object ObsID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Adds an observer.
      * 
      * @param ObsID

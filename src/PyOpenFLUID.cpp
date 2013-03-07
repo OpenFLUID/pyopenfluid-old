@@ -38,6 +38,7 @@
 #include <openfluid/machine/ObserverPluginsManager.hpp>
 
 #include <openfluid/fluidx/RunDescriptor.hpp>
+#include <openfluid/fluidx/WareDescriptor.hpp>
 #include <openfluid/fluidx/UnitDescriptor.hpp>
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/DomainDescriptor.hpp>
@@ -892,6 +893,54 @@ void PyOpenFLUID::removeObserverParam (boost::python::object ObsID,
     }
     ++ItModelInfos;
   }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::getObserverParams (
+    boost::python::object ObsID)
+{
+  boost::python::extract<std::string> getStringObsID(ObsID);
+  if (!getStringObsID.check())
+    throw PyOFException("needed string for observer id", PyExc_TypeError);
+
+  std::string ObsIDStr = getStringObsID();
+
+  boost::python::list ListRes = boost::python::list();
+
+  openfluid::ware::WareParams_t Params;
+
+  openfluid::ware::WareParams_t::iterator ItParam;
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
+      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos;
+
+  for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
+      ++ItModelInfos)
+  {
+    if ((*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+    {
+      Params = ((openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos))->
+          getParameters();
+      std::map<std::string, std::string> MapInfos =
+          openfluid::fluidx::WareDescriptor::getParamsAsMap(Params);
+      std::map<std::string, std::string>::iterator ItMapInfos;
+      for (ItMapInfos = MapInfos.begin(); ItMapInfos != MapInfos.end();
+          ++ItMapInfos)
+        ListRes.append(boost::python::str((*ItMapInfos).first));
+
+      break;
+    }
+  }
+
+  return ListRes;
 }
 
 

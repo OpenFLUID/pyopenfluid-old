@@ -30,6 +30,16 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
         self.assertNotEquals(CheckVal, Val)
         self.assertEquals(CheckVal, NvVal)
 
+        # test of getObserverParams
+        CheckList = self.openfluid.getObserverParams(IDParam)
+        self.assertTrue(isinstance(CheckList, (list, tuple)))
+        self.assertEquals(len(CheckList), 1)
+        self.assertItemsEqual(CheckList, [ParamName])
+        self.openfluid.setObserverParam(IDParam, ParamName+"_muchlonguer", "o")
+        CheckList = self.openfluid.getObserverParams(IDParam)
+        self.assertEquals(len(CheckList), 2)
+        self.assertItemsEqual(CheckList, [ParamName, ParamName+"_muchlonguer"])
+
         # second part - test of removeObserverParam
         self.openfluid.setObserverParam(IDParam, ParamName, Val)
         self.assertEquals(Val, self.openfluid.getObserverParam(IDParam, ParamName))
