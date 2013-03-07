@@ -13,10 +13,8 @@ class PyOpenFLUIDTest_UnitsClasses(PyOpenFLUIDTest):
         self.assertTrue(isinstance(ListUC, list))
 
         ListTest = ['TestUnits', 'ParentTestUnits']
-        ListTest.sort()
-        ListUC.sort()
 
-        self.assertEquals(ListTest, ListUC)
+        self.assertItemsEqual(ListTest, ListUC)
 
 if __name__ == "__main__":
   ArgList = skipArgFromCL()

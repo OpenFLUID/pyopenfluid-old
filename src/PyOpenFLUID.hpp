@@ -198,6 +198,22 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Gets all parameter of a function.
+     * 
+     * @param FuncID
+     *    the simulation function ID
+     *
+     * @return
+     *    a list of parameter name
+     */
+    boost::python::object getFunctionParams (boost::python::object FuncID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Returns a generator parameter value.
      * 
      * @param UnitClass
@@ -317,6 +333,19 @@ class PyOpenFLUID
      * 
      */
     void clearModel ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Gets all functions names.
+     * 
+     * @return
+     *    a list of function name.
+     */
+    boost::python::object getFunctions ();
 
 
 // =====================================================================

@@ -7,7 +7,8 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of functions functions."""
-        # first part - test of removeFunction/addFunction
+
+        # test of removeFunction/addFunction
         FunID = "tests.primitives.use"
         ParamName = "longparam"
         ParamValue = "12568"
@@ -20,7 +21,16 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
         self.openfluid.removeFunction(FunID)
         self.assertIsNone(self.openfluid.getFunctionParam(FunID, ParamName))
 
-        # second part - test of clearModel
+        # test of getFunctions
+        CheckList = self.openfluid.getFunctions()
+        self.assertTrue(isinstance(CheckList, (list, tuple)))
+        self.assertEquals(len(CheckList), 0)
+        self.openfluid.addFunction(FunID)
+        CheckList = self.openfluid.getFunctions()
+        self.assertEquals(len(CheckList), 1)
+        self.assertItemsEqual(CheckList, [FunID])
+
+        # test of clearModel
         ListFunID = ["tests.primitives.fake1", "tests.primitives.fake2",
             "tests.primitives.fake3", "tests.primitives.fake4"]
         for FunID in ListFunID:

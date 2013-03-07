@@ -238,6 +238,25 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("getFunctionParams",
+      &PyOpenFLUID::getFunctionParams,
+      ( boost::python::arg("FuncID") ),
+      "Gets all parameter of a function.\
+\n\nKeyword arguments:\
+\nFunID        -- the simulation function id\
+\nReturns:\
+\na list of parameter name\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> listparam = obj.getFunctionParams(\"my.function\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("getGeneratorParam", &PyOpenFLUID::getGeneratorParam,
       ( boost::python::arg("UnitClass"), boost::python::arg("VarName"),
         boost::python::arg("ParamName") ),
@@ -373,6 +392,22 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
 \n>>> obj.clearModel()\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getFunctions",
+      &PyOpenFLUID::getFunctions,
+      "Gets all functions names.\
+\n\nReturns:\
+\na list of function name.\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> funclist = obj.getFunctions()\
 "
     )
 

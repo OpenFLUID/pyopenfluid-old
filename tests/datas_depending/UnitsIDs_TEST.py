@@ -14,8 +14,7 @@ class PyOpenFLUIDTest_UnitsIDs(PyOpenFLUIDTest):
         self.assertTrue(isinstance(ListID, list))
 
         ListTest = range(1, 13)
-        ListID.sort(); ListTest.sort()
-        self.assertEquals(ListID, ListTest)
+        self.assertItemsEqual(ListID, ListTest)
 
 if __name__ == "__main__":
   ArgList = skipArgFromCL()

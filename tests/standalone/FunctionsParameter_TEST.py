@@ -7,10 +7,11 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of functions parameters functions."""
+
         FuncID = "tests.primitives.use"
         ParamName = "longparam"
 
-        # first part - test of getFunctionParam/setFunctionParam
+        # test of getFunctionParam/setFunctionParam
         self.openfluid.addFunction(FuncID)
         CheckVal = self.openfluid.getFunctionParam(FuncID, ParamName)
         self.assertIsNone(CheckVal)
@@ -30,7 +31,17 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         self.assertNotEquals(CheckVal, Val)
         self.assertEquals(CheckVal, NvVal)
 
-        # second part - test of removeFunctionParam
+        # test of getFunctionParams
+        CheckList = self.openfluid.getFunctionParams(FuncID)
+        self.assertTrue(isinstance(CheckList, (list, tuple)))
+        self.assertEquals(len(CheckList), 1)
+        self.assertItemsEqual(CheckList, [ParamName])
+        self.openfluid.setFunctionParam(FuncID, ParamName+"_muchlonguer", "o")
+        CheckList = self.openfluid.getFunctionParams(FuncID)
+        self.assertEquals(len(CheckList), 2)
+        self.assertItemsEqual(CheckList, [ParamName, ParamName+"_muchlonguer"])
+
+        # test of removeFunctionParam
         self.openfluid.setFunctionParam(FuncID, ParamName, Val)
         self.assertEquals(Val, self.openfluid.getFunctionParam(FuncID, ParamName))
         self.openfluid.removeFunctionParam(FuncID, ParamName)
