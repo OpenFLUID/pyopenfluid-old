@@ -562,6 +562,44 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Sets the process order of an unit.
+     * 
+     * @param UnitClass
+     *    an unit class
+     * @param UnitID
+     *    an new unit id
+     * @param PcsOrder
+     *    a process order
+     */
+    void setUnitProcessOrder (boost::python::object UnitClass,
+                              boost::python::object UnitID,
+                              boost::python::object PcsOrder);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Gets the process order of an unit.
+     * 
+     * @param UnitClass
+     *    an unit class
+     * @param UnitID
+     *    an new unit id
+     * 
+     * @return
+     *    the process order
+     */
+    boost::python::object getUnitProcessOrder (boost::python::object UnitClass,
+                                               boost::python::object UnitID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Creates an inputdata for alla spatial units of a class,
      *    initialized with a default value
      * 

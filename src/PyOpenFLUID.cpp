@@ -123,7 +123,7 @@ boost::python::object PyOpenFLUID::getExtraFunctionsPaths ()
   boost::python::list ListPath = boost::python::list();
   for (std::vector<std::string>::iterator IterVectPath = VectPath.begin();
        IterVectPath != VectPath.end(); ++IterVectPath)
-    ListPath.append( boost::python::str(*IterVectPath) );
+    ListPath.append(boost::python::str(*IterVectPath));
   return ListPath;
 }
 
@@ -166,7 +166,7 @@ boost::python::object PyOpenFLUID::getExtraObserversPaths ()
   boost::python::list ListPath = boost::python::list();
   for (std::vector<std::string>::iterator IterVectPath = VectPath.begin();
        IterVectPath != VectPath.end(); ++IterVectPath)
-    ListPath.append( boost::python::str(*IterVectPath) );
+    ListPath.append(boost::python::str(*IterVectPath));
   return ListPath;
 }
 
@@ -1096,7 +1096,7 @@ boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::object UnitClass)
 
   for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
     if ((*IterUnit).getUnitClass() == UnitClassRef )
-      ListID.append( (*IterUnit).getUnitID() );
+      ListID.append(boost::python::object((*IterUnit).getUnitID()));
 
   return ListID;
 }
@@ -1215,6 +1215,91 @@ void PyOpenFLUID::clearUnitClass (boost::python::object UnitClass)
     else
       ++IterUnit;
   }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
+                                       boost::python::object UnitID,
+                                       boost::python::object PcsOrder)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+  boost::python::extract<int> getIntProcessOrder(PcsOrder);
+  if (!getIntProcessOrder.check())
+    throw PyOFException("needed integer for process order", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+  int ProcessOrderInt = getIntProcessOrder();
+
+  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnit;
+
+  openfluid::fluidx::UnitDescriptor UnitDesp;
+
+  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
+  {
+    UnitDesp = *IterUnit;
+    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
+        == UnitIDInt)
+    {
+      UnitDesp.getProcessOrder() = ProcessOrderInt;
+      IterUnit = ListUnit.erase(IterUnit);
+      ListUnit.insert(IterUnit, UnitDesp);
+      break;
+    }
+  }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::getUnitProcessOrder (
+    boost::python::object UnitClass, boost::python::object UnitID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+
+  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnit;
+
+  openfluid::fluidx::UnitDescriptor UnitDesp;
+
+  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
+  {
+    UnitDesp = *IterUnit;
+    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
+        == UnitIDInt)
+    {
+      return boost::python::object(UnitDesp.getProcessOrder());
+      break;
+    }
+  }
+
+  return boost::python::object(); /* makes Python NONE */
 }
 
 

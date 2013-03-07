@@ -652,6 +652,44 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("setUnitProcessOrder", &PyOpenFLUID::setUnitProcessOrder,
+      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
+        boost::python::arg("PcsOrder") ),
+      "Set the process order of an unit.\
+\n\nKeyword arguments:\
+\nUnitClass  -- an unit class\
+\nUnitID     -- an unit id for this unit class\
+\nPcsOrder   -- a process order\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.setUnitProcessOrder(\"SU\", 3, 1)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitProcessOrder", &PyOpenFLUID::getUnitProcessOrder,
+      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      "Set the process order of an unit.\
+\n\nKeyword arguments:\
+\nUnitClass  -- an unit class\
+\nUnitID     -- an unit id for this unit class\
+\nReturns:\
+\nthe process order\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> ProcOrder = obj.getUnitProcessOrder(\"SU\", 3)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("createInputData", &PyOpenFLUID::createInputData,
       ( boost::python::arg("UnitClass"), boost::python::arg("IDataName"),
         boost::python::arg("IDataValue") ),
