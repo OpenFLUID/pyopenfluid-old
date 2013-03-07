@@ -530,6 +530,21 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
 // =====================================================================
+// =====================================================================
+
+
+    .def("getObservers", &PyOpenFLUID::getObservers,
+      "Gets all observer name.\
+\n\nReturns:\
+\na list of observer name\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> listobs = obj.getObservers()\
+"
+    )
+
+
+// =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 

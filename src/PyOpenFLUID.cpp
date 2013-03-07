@@ -747,13 +747,11 @@ boost::python::object PyOpenFLUID::getFunctions ()
 
   for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
       ++ItModelInfos)
-  {
     if ((*ItModelInfos)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
       ListRes.append(boost::python::str((
         (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos)
         )->getFileID()));
-  }
 
   return ListRes;
 }
@@ -973,6 +971,31 @@ void PyOpenFLUID::clearMonitoring ()
     else
       ++ItModelInfos;
   }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::getObservers ()
+{
+  boost::python::list ListRes = boost::python::list();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
+      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
+
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos;
+
+  for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
+      ++ItModelInfos)
+    if ((*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+      ListRes.append(boost::python::str((
+          (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos))->getID()));
+
+  return ListRes;
 }
 
 
