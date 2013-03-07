@@ -514,6 +514,54 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Adds an new unit.
+     * 
+     * @param UnitClass
+     *    an unit class
+     * @param UnitID
+     *    an new unit id
+     * @param PcsOrder
+     *    a process order
+     */
+    void addUnit (boost::python::object UnitClass,
+                  boost::python::object UnitID,
+                  boost::python::object PcsOrder);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Removes an unit.
+     * 
+     * @param UnitClass
+     *    an unit class
+     * @param UnitID
+     *    an unit id
+     */
+    void removeUnit (boost::python::object UnitClass,
+                     boost::python::object UnitID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Removes all units from an unit class.
+     * 
+     * @param UnitClass
+     *    an unit class
+     */
+    void clearUnitClass (boost::python::object UnitClass);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Creates an inputdata for alla spatial units of a class,
      *    initialized with a default value
      * 

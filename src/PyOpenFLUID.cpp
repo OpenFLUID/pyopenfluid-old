@@ -1058,7 +1058,7 @@ boost::python::object PyOpenFLUID::getUnitsClasses ()
   boost::python::str UnitClassStr;
 
   std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
-    this->m_FXDesc.getDomainDescriptor().getUnits();
+      this->m_FXDesc.getDomainDescriptor().getUnits();
 
   std::list<openfluid::fluidx::UnitDescriptor>::iterator
       IterUnit;
@@ -1099,6 +1099,122 @@ boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::object UnitClass)
       ListID.append( (*IterUnit).getUnitID() );
 
   return ListID;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::addUnit (boost::python::object UnitClass,
+                           boost::python::object UnitID,
+                           boost::python::object PcsOrder)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+  boost::python::extract<int> getIntProcessOrder(PcsOrder);
+  if (!getIntProcessOrder.check())
+    throw PyOFException("needed integer for process order", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+  int PcsOrderInt = getIntProcessOrder();
+
+  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnit;
+
+  openfluid::fluidx::UnitDescriptor UnitDesp;
+
+  /* search for unique id */
+  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
+  {
+    UnitDesp = *IterUnit;
+    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
+        == UnitIDInt)
+      throw PyOFException("unit already exists", PyExc_ValueError);
+  }
+
+  /* add */
+  openfluid::fluidx::UnitDescriptor* NewUnitDesp;
+  NewUnitDesp = new openfluid::fluidx::UnitDescriptor();
+  NewUnitDesp->getUnitClass().assign(UnitClassStr);
+  NewUnitDesp->getUnitID() = UnitIDInt;
+  NewUnitDesp->getProcessOrder() = PcsOrderInt;
+  ListUnit.push_back(*NewUnitDesp);
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
+                              boost::python::object UnitID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+
+  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnit;
+
+  openfluid::fluidx::UnitDescriptor UnitDesp;
+
+  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
+  {
+    UnitDesp = *IterUnit;
+    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
+        == UnitIDInt)
+    {
+      ListUnit.erase(IterUnit);
+      break;
+    }
+  }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::clearUnitClass (boost::python::object UnitClass)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+
+  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnit = ListUnit.begin();
+
+  while (IterUnit != ListUnit.end())
+  {
+    if (((openfluid::fluidx::UnitDescriptor)(*IterUnit)).getUnitClass()
+        == UnitClassStr)
+      IterUnit = ListUnit.erase(IterUnit);
+    else
+      ++IterUnit;
+  }
 }
 
 

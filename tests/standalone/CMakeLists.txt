@@ -124,3 +124,13 @@ ADD_TEST(FunctionsParameter_TEST
 SET_TESTS_PROPERTIES(FunctionsParameter_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(Units_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/Units_TEST.py")
+SET_TESTS_PROPERTIES(Units_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")

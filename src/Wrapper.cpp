@@ -600,6 +600,58 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("addUnit", &PyOpenFLUID::addUnit,
+      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
+        boost::python::arg("PcsOrder") ),
+      "Adds an new unit.\
+\n\nKeyword arguments:\
+\nUnitClass  -- an unit class\
+\nUnitID     -- an new unit id for this unit class\
+\nPcsOrder   -- a process order\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.addUnit(\"SU\", 3, 1)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeUnit", &PyOpenFLUID::removeUnit,
+      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      "Removes an unit.\
+\n\nKeyword arguments:\
+\nUnitClass  -- an unit class\
+\nUnitID     -- an new unit id for this unit class\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeUnit(\"SU\", 3)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("clearUnitClass", &PyOpenFLUID::clearUnitClass,
+      ( boost::python::arg("UnitClass") ),
+      "Removes all units from an unit class.\
+\n\nKeyword arguments:\
+\nUnitClass  -- an unit class\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.clearUnitClass(\"SU\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("createInputData", &PyOpenFLUID::createInputData,
       ( boost::python::arg("UnitClass"), boost::python::arg("IDataName"),
         boost::python::arg("IDataValue") ),
