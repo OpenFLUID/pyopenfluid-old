@@ -448,7 +448,7 @@ boost::python::object PyOpenFLUID::getFunctionParams (boost::python::object Func
     {
       Params = (*ItModelInfos)->getParameters();
       for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
-        ListRes.append((*ItParam).first);
+        ListRes.append(boost::python::str((*ItParam).first));
 
       break;
     }
@@ -621,6 +621,25 @@ void PyOpenFLUID::setModelGlobalParam (boost::python::object ParamName,
 // =====================================================================
 
 
+boost::python::object PyOpenFLUID::getModelGlobalParams ()
+{
+  boost::python::list ListRes = boost::python::list();
+
+  openfluid::ware::WareParams_t Params = this->m_FXDesc.getModelDescriptor()
+      .getGlobalParameters();
+  openfluid::ware::WareParams_t::iterator ItParam;
+
+  for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
+    ListRes.append(boost::python::str((*ItParam).first));
+
+  return ListRes;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
 void PyOpenFLUID::removeModelGlobalParam (boost::python::object ParamName)
 {
   boost::python::extract<std::string> getStringParamName(ParamName);
@@ -731,9 +750,9 @@ boost::python::object PyOpenFLUID::getFunctions ()
   {
     if ((*ItModelInfos)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
-      ListRes.append((
+      ListRes.append(boost::python::str((
         (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos)
-        )->getFileID());
+        )->getFileID()));
   }
 
   return ListRes;

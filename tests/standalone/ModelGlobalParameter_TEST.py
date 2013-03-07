@@ -11,8 +11,8 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
         self.assertRaises(TypeError, self.openfluid.getModelGlobalParam, None)
 
         # tests on getModelGlobalParam/setModelGlobalParam
-        ParamsList = (("test_bidon","vrai",True),("gvalue","37.2",True),("wind","60",True),("megabidon","??",True),("erreur.pk","rien",False))
-        for ParamName, ParamValue, ParamSuccess in ParamsList:
+        ParamsList = (("test_bidon","vrai"),("gvalue","37.2"),("wind","60"),("megabidon","??"))
+        for ParamName, ParamValue in ParamsList:
             self.openfluid.setModelGlobalParam(ParamName, ParamValue)
 
             # test of memory access
@@ -20,15 +20,17 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
                 # will crash if the memory isn't managed good enough
                 Tmp = self.openfluid.getModelGlobalParam(ParamName)
 
-            # test of recording value
-            if ParamSuccess :
-                self.assertEquals(self.openfluid.getModelGlobalParam(ParamName), ParamValue)
-            else:
-                self.assertNotEquals(self.openfluid.getModelGlobalParam(ParamName), ParamValue)
+            self.assertEquals(self.openfluid.getModelGlobalParam(ParamName), ParamValue)
 
-        # tests on removeModelGlobalParam
+        # tests on removeModelGlobalParam/getModelGlobalParams
+        CheckList = map((lambda (a,b): a), ParamsList)
+        self.assertTrue(isinstance(self.openfluid.getModelGlobalParams(), (tuple, list)))
+        self.assertItemsEqual(CheckList, self.openfluid.getModelGlobalParams())
+
         self.openfluid.removeModelGlobalParam(ParamsList[0][0])
         self.assertIsNone(self.openfluid.getModelGlobalParam(ParamsList[0][0]))
+
+        self.assertEquals(len(self.openfluid.getModelGlobalParams()), len(ParamsList)-1)
 
 if __name__ == "__main__":
   unittest.main()

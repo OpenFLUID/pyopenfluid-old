@@ -335,6 +335,22 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("getModelGlobalParams",
+      &PyOpenFLUID::getModelGlobalParams,
+      "Returns all model global parameter.\
+\n\nReturns:\
+\na list of parameter name.\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> listparam = obj.getModelGlobalParams()\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("removeModelGlobalParam",
       &PyOpenFLUID::removeModelGlobalParam,
       ( boost::python::arg("ParamName") ),

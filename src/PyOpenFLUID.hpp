@@ -290,6 +290,19 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Returns all model global parameter.
+     * 
+     * @return
+     *    a list of parameter name.
+     */
+    boost::python::object getModelGlobalParams ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Removes a model global parameter.
      * 
      * @param ParamName
