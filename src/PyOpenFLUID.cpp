@@ -1112,7 +1112,7 @@ void PyOpenFLUID::addUnit (boost::python::object UnitClass,
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<int> getIntUnitID(UnitID);
   if (!getIntUnitID.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
@@ -1160,7 +1160,7 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<int> getIntUnitID(UnitID);
   if (!getIntUnitID.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
@@ -1197,7 +1197,7 @@ void PyOpenFLUID::clearUnitClass (boost::python::object UnitClass)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
 
@@ -1228,7 +1228,7 @@ void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<int> getIntUnitID(UnitID);
   if (!getIntUnitID.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
@@ -1272,7 +1272,7 @@ boost::python::object PyOpenFLUID::getUnitProcessOrder (
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit classs", PyExc_TypeError);
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
   boost::python::extract<int> getIntUnitID(UnitID);
   if (!getIntUnitID.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
@@ -1300,6 +1300,183 @@ boost::python::object PyOpenFLUID::getUnitProcessOrder (
   }
 
   return boost::python::object(); /* makes Python NONE */
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::getUnitsChildren (
+    boost::python::object UnitClass, boost::python::object UnitID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+
+  boost::python::list ListRes = boost::python::list();
+
+  std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnit;
+
+  std::list<openfluid::core::UnitClassID_t> ListUnits;
+
+  std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
+
+  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
+  {
+    ListUnits = (*IterUnit).getUnitsParents();
+    ItUnits = ListUnits.begin();
+    while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassStr
+        || (*ItUnits).second != UnitIDInt) )
+      ++ItUnits;
+
+    if (ItUnits != ListUnits.end())
+      ListRes.append(boost::python::make_tuple(
+          boost::python::str((*IterUnit).getUnitClass()),
+          boost::python::object((*IterUnit).getUnitID()) ));
+  }
+
+  return ListRes;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::getUnitsParents (
+    boost::python::object UnitClass, boost::python::object UnitID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+
+  boost::python::list ListRes = boost::python::list();
+
+  std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnit;
+
+  openfluid::fluidx::UnitDescriptor UnitDesp;
+
+  std::list<openfluid::core::UnitClassID_t> ListUnits;
+
+  std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
+
+  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
+  {
+    UnitDesp = *IterUnit;
+    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
+        == UnitIDInt)
+    {
+      ListUnits = UnitDesp.getUnitsParents();
+      for (ItUnits = ListUnits.begin(); ItUnits != ListUnits.end(); ++ItUnits)
+        ListRes.append(boost::python::make_tuple(
+            boost::python::str((*ItUnits).first),
+            boost::python::object((*ItUnits).second) ));
+      break;
+    }
+  }
+
+  return ListRes;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::addUnitChild (
+    boost::python::object UnitClassFrom, boost::python::object UnitIDFrom,
+    boost::python::object UnitClassTo, boost::python::object UnitIDTo)
+{
+  boost::python::extract<std::string> getStringUnitClassFrom(UnitClassFrom);
+  if (!getStringUnitClassFrom.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitIDFrom(UnitIDFrom);
+  if (!getIntUnitIDFrom.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  boost::python::extract<std::string> getStringUnitClassTo(UnitClassTo);
+  if (!getStringUnitClassTo.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitIDTo(UnitIDTo);
+  if (!getIntUnitIDTo.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassFromStr = getStringUnitClassFrom();
+  int UnitIDFromInt = getIntUnitIDFrom();
+
+  std::string UnitClassToStr = getStringUnitClassTo();
+  int UnitIDToInt = getIntUnitIDTo();
+
+  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
+      this->m_FXDesc.getDomainDescriptor().getUnits();
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnitFrom;
+
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator
+      IterUnitTo;
+
+  openfluid::fluidx::UnitDescriptor UnitDespFrom;
+
+  openfluid::fluidx::UnitDescriptor UnitDespTo;
+
+  std::list<openfluid::core::UnitClassID_t> ListUnits;
+
+  std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
+
+  IterUnitTo = ListUnit.begin();
+  while (IterUnitTo != ListUnit.end() && ((*IterUnitTo).getUnitClass()
+      != UnitClassToStr || (*IterUnitTo).getUnitID() != UnitIDToInt) )
+    ++IterUnitTo;
+
+  IterUnitFrom = ListUnit.begin();
+  while (IterUnitFrom != ListUnit.end() && ((*IterUnitFrom).getUnitClass()
+      != UnitClassFromStr || (*IterUnitFrom).getUnitID() != UnitIDFromInt) )
+    ++IterUnitFrom;
+
+  if (IterUnitTo != ListUnit.end() && IterUnitFrom != ListUnit.end())
+  {
+    UnitDespTo = *IterUnitTo;
+    UnitDespFrom = *IterUnitFrom;
+
+    /* check exists */
+    ListUnits = UnitDespTo.getUnitsParents();
+    ItUnits = ListUnits.begin();
+    while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
+        || (*ItUnits).second != UnitIDFromInt ))
+      ++ItUnits;
+
+    if (ItUnits == ListUnits.end())
+    {
+      std::pair<std::string, int> TmpUnit = std::pair<std::string, int>
+          (UnitClassFromStr, UnitIDFromInt);
+
+      UnitDespTo.getUnitsParents().push_back(TmpUnit);
+      IterUnitTo = ListUnit.erase(IterUnitTo);
+      ListUnit.insert(IterUnitTo, UnitDespTo);
+    }
+  }
 }
 
 

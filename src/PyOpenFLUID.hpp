@@ -567,7 +567,7 @@ class PyOpenFLUID
      * @param UnitClass
      *    an unit class
      * @param UnitID
-     *    an new unit id
+     *    an unit id
      * @param PcsOrder
      *    a process order
      */
@@ -586,13 +586,73 @@ class PyOpenFLUID
      * @param UnitClass
      *    an unit class
      * @param UnitID
-     *    an new unit id
+     *    an unit id
      * 
      * @return
      *    the process order
      */
     boost::python::object getUnitProcessOrder (boost::python::object UnitClass,
                                                boost::python::object UnitID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Gets children units of an unit.
+     * 
+     * @param UnitClass
+     *    an unit class
+     * @param UnitID
+     *    an unit id
+     * 
+     * @return
+     *    a list of tuple of units classes and units
+     */
+    boost::python::object getUnitsChildren (boost::python::object UnitClass,
+                                            boost::python::object UnitID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Gets parents units of an unit.
+     * 
+     * @param UnitClass
+     *    an unit class
+     * @param UnitID
+     *    an unit id
+     * 
+     * @return
+     *    a list of tuple of units classes and units
+     */
+    boost::python::object getUnitsParents (boost::python::object UnitClass,
+                                           boost::python::object UnitID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Adds a child on an unit.
+     * 
+     * @param UnitClassFrom
+     *    an unit class (parent)
+     * @param UnitIDFrom
+     *    an unit id (parent)
+     * @param UnitClassTo
+     *    an unit class (child)
+     * @param UnitIDTo
+     *    an unit id (child)
+     */
+    void addUnitChild (boost::python::object UnitClassFrom,
+                       boost::python::object UnitIDFrom,
+                       boost::python::object UnitClassTo,
+                       boost::python::object UnitIDTo);
 
 
 // =====================================================================

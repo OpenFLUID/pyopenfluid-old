@@ -655,7 +655,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("setUnitProcessOrder", &PyOpenFLUID::setUnitProcessOrder,
       ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
         boost::python::arg("PcsOrder") ),
-      "Set the process order of an unit.\
+      "Sets the process order of an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
 \nUnitID     -- an unit id for this unit class\
@@ -673,7 +673,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getUnitProcessOrder", &PyOpenFLUID::getUnitProcessOrder,
       ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
-      "Set the process order of an unit.\
+      "Gets the process order of an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
 \nUnitID     -- an unit id for this unit class\
@@ -682,6 +682,64 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
 \n>>> ProcOrder = obj.getUnitProcessOrder(\"SU\", 3)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitsChildren", &PyOpenFLUID::getUnitsChildren,
+      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      "Gets children units of an unit.\
+\n\nKeyword arguments:\
+\nUnitClass  -- an unit class\
+\nUnitID     -- an unit id for this unit class\
+\nReturns:\
+\na list of tuple of units classes and units\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> Children = obj.getUnitsChildren(\"SU\", 3)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitsParents", &PyOpenFLUID::getUnitsParents,
+      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      "Gets parents units of an unit.\
+\n\nKeyword arguments:\
+\nUnitClass  -- an unit class\
+\nUnitID     -- an unit id for this unit class\
+\nReturns:\
+\na list of tuple of units classes and units\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> Parents = obj.getUnitsParents(\"SU\", 3)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addUnitChild", &PyOpenFLUID::addUnitChild,
+      ( boost::python::arg("UnitClassFrom"), boost::python::arg("UnitIDFrom"),
+      boost::python::arg("UnitClassTo"), boost::python::arg("UnitIDTo") ),
+      "Adds a child on an unit.\
+\n\nKeyword arguments:\
+\nUnitClassFrom  -- an unit class (parent)\
+\nUnitIDFrom     -- an unit id (parent)\
+\nUnitClassTo    -- an unit class (child)\
+\nUnitIDTo       -- an unit id (child)\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.addUnitChild(\"SU\", 3, \"SU\", 5)\
 "
     )
 
