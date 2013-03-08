@@ -660,6 +660,28 @@ class PyOpenFLUID
 
 
     /*!
+     * @brief Removes a child of an unit.
+     * 
+     * @param UnitClassFrom
+     *    an unit class (parent)
+     * @param UnitIDFrom
+     *    an unit id (parent)
+     * @param UnitClassTo
+     *    an unit class (child)
+     * @param UnitIDTo
+     *    an unit id (child)
+     */
+    void removeUnitChild (boost::python::object UnitClassFrom,
+                          boost::python::object UnitIDFrom,
+                          boost::python::object UnitClassTo,
+                          boost::python::object UnitIDTo);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
      * @brief Creates an inputdata for alla spatial units of a class,
      *    initialized with a default value
      * 

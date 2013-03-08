@@ -19,6 +19,7 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         UnitLinksTo = (2, 2, 5, 4, 5, 7, 7, None)
 
         # creation of the model
+        # tests of addUnitChild
         [self.openfluid.addUnit(UnitClass, i, ProcessOrder)
             for i in range(len(UnitLinksTo))]
         for UnitFrom, UnitTo in enumerate(UnitLinksTo):
@@ -51,6 +52,22 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         for UnitTo, UnitsFrom in enumerate(UnitLinksFrom):
             CheckList = self.openfluid.getUnitsParents(UnitClass, UnitTo)
             self.assertItemsEqual(UnitsFrom, [b for a,b in CheckList])
+
+        # tests of removeUnitChild
+        # testing on 5->7, 2->5, 4->5
+        CheckList = self.openfluid.getUnitsChildren(UnitClass, 5)
+        self.assertEquals(CheckList[0][1], 7)
+        CheckList = self.openfluid.getUnitsParents(UnitClass, 5)
+        self.assertItemsEqual([b for a,b in CheckList], [2, 4])
+
+        self.openfluid.removeUnitChild(UnitClass, 5, UnitClass, 7)
+        self.openfluid.removeUnitChild(UnitClass, 4, UnitClass, 5)
+        self.openfluid.removeUnitChild(UnitClass, 2, UnitClass, 5)
+
+        CheckList = self.openfluid.getUnitsChildren(UnitClass, 5)
+        self.assertEquals(len(CheckList), 0)
+        CheckList = self.openfluid.getUnitsParents(UnitClass, 5)
+        self.assertEquals(len(CheckList), 0)
 
 
 if __name__ == "__main__":

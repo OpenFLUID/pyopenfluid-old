@@ -748,6 +748,26 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("removeUnitChild", &PyOpenFLUID::removeUnitChild,
+      ( boost::python::arg("UnitClassFrom"), boost::python::arg("UnitIDFrom"),
+      boost::python::arg("UnitClassTo"), boost::python::arg("UnitIDTo") ),
+      "Removes a child of an unit.\
+\n\nKeyword arguments:\
+\nUnitClassFrom  -- an unit class (parent)\
+\nUnitIDFrom     -- an unit id (parent)\
+\nUnitClassTo    -- an unit class (child)\
+\nUnitIDTo       -- an unit id (child)\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeUnitChild(\"SU\", 3, \"SU\", 5)\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("createInputData", &PyOpenFLUID::createInputData,
       ( boost::python::arg("UnitClass"), boost::python::arg("IDataName"),
         boost::python::arg("IDataValue") ),
