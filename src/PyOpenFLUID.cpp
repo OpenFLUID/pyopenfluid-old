@@ -332,6 +332,8 @@ boost::python::object PyOpenFLUID::getFunctionParam (
     if (Res)
       return boost::python::str(*Res);
   }
+  else
+    throw PyOFException("function doesn't exist", PyExc_ValueError);
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -381,6 +383,8 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
   {
     (*ItModelInfos)->setParameter(ParamNameStr,ParamValueStr);
   }
+  else
+    throw PyOFException("function doesn't exist", PyExc_ValueError);
 }
 
 
@@ -401,7 +405,7 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
   std::string FuncIDStr = getStringFuncID();
   std::string ParamNameStr = getStringParamName();
 
-  /* looking for position of the generator */
+  /* looking for position of the function */
   openfluid::fluidx::FunctionDescriptor* Function;
 
   openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
@@ -424,9 +428,9 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
 
   /* if exists (=> by position), erase */
   if (ItModelInfos != ModelInfos.end())
-  {
     Function->eraseParameter(ParamNameStr);
-  }
+  else
+    throw PyOFException("function doesn't exist", PyExc_ValueError);
 }
 
 
@@ -533,6 +537,8 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
     if (Res)
       return boost::python::str(*Res);
   }
+  else
+    throw PyOFException("generator doesn't exist", PyExc_ValueError);
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -589,9 +595,9 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
 
   /* if exists (=> by position), sets */
   if (ItModelInfos != ModelInfos.end())
-  {
     GenDescp->setParameter(ParamNameStr, ParamValueStr);
-  }
+  else
+    throw PyOFException("generator doesn't exist", PyExc_ValueError);
 }
 
 
@@ -765,6 +771,8 @@ void PyOpenFLUID::removeFunction (boost::python::object FuncID)
   /* if exists (=> by position), remove */
   if (ItModelInfos != ModelInfos.end())
     ModelInfos.erase(ItModelInfos);
+  else
+    throw PyOFException("function doesn't exist", PyExc_ValueError);
 }
 
 
@@ -864,6 +872,8 @@ boost::python::object PyOpenFLUID::getObserverParam (
     if (Res)
       return boost::python::str(*Res);
   }
+  else
+    throw PyOFException("observer doesn't exist", PyExc_ValueError);
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -914,9 +924,9 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
 
   /* if exists (=> by position), sets (possible new) parameter */
   if (ItModelInfos != ModelInfos.end())
-  {
     ObsDescp->setParameter(ParamNameStr, ParamValueStr);
-  }
+  else
+    throw PyOFException("observer doesn't exist", PyExc_ValueError);
 }
 
 
@@ -960,9 +970,9 @@ void PyOpenFLUID::removeObserverParam (boost::python::object ObsID,
 
   /* if exists (=> by position), removes (possible new) parameter */
   if (ItModelInfos != ModelInfos.end())
-  {
     ObsDescp->eraseParameter(ParamNameStr);
-  }
+  else
+    throw PyOFException("observer doesn't exist", PyExc_ValueError);
 }
 
 
@@ -1032,10 +1042,37 @@ void PyOpenFLUID::addObserver (boost::python::object ObsID)
 
   std::string ObsIDStr = getStringObsID();
 
-  openfluid::fluidx::ObserverDescriptor* NewObserver =
-      new openfluid::fluidx::ObserverDescriptor(ObsIDStr);
+  /* looking for position of the observer in list */
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t&
+      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
 
-  this->m_FXDesc.getMonitoringDescriptor().appendItem(NewObserver);
+  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
+      ItModelInfos = ModelInfos.begin();
+
+  openfluid::fluidx::ObserverDescriptor* ObsDescp;
+
+  while (ItModelInfos != ModelInfos.end())
+  {
+    if ((*ItModelInfos)->isType(
+        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
+    {
+      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
+      if (ObsDescp->getID() == ObsIDStr)
+        break;
+    }
+    ++ItModelInfos;
+  }
+
+  /* raising exception if exists, or else adds */
+  if (ItModelInfos != ModelInfos.end())
+    throw PyOFException("observer id already exists", PyExc_ValueError);
+  else
+  {
+    openfluid::fluidx::ObserverDescriptor* NewObserver =
+        new openfluid::fluidx::ObserverDescriptor(ObsIDStr);
+
+    this->m_FXDesc.getMonitoringDescriptor().appendItem(NewObserver);
+  }
 }
 
 
@@ -1074,9 +1111,9 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
 
   /* if exists (=> by position), erases it from descriptor */
   if (ItModelInfos != ModelInfos.end())
-  {
     ModelInfos.erase(ItModelInfos);
-  }
+  else
+    throw PyOFException("observer doesn't exist", PyExc_ValueError);
 }
 
 
@@ -1268,9 +1305,9 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
 
   /* if exists (=> by position), erases it from descriptor */
   if (IterUnit != ListUnit.end())
-  {
     ListUnit.erase(IterUnit);
-  }
+  else
+    throw PyOFException("unit doesn't exist", PyExc_ValueError);
 }
 
 
@@ -1350,6 +1387,8 @@ void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
     IterUnit = ListUnit.erase(IterUnit);
     ListUnit.insert(IterUnit, UnitDesp);
   }
+  else
+    throw PyOFException("unit doesn't exist", PyExc_ValueError);
 }
 
 
@@ -1390,9 +1429,7 @@ boost::python::object PyOpenFLUID::getUnitProcessOrder (
 
   /* if exists (=> by position), change its value and replaces it from list */
   if (IterUnit != ListUnit.end())
-  {
     return boost::python::object(UnitDesp.getProcessOrder());
-  }
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -1546,37 +1583,44 @@ void PyOpenFLUID::addUnitChild (
       != UnitClassToStr || (*IterUnitTo).getUnitID() != UnitIDToInt) )
     ++IterUnitTo;
 
+  /* if child units does'nt exist */
+  if (IterUnitTo != ListUnit.end())
+    throw PyOFException("child unit doesn't exist", PyExc_ValueError);
+
   /* check (parent) unit exists */
   IterUnitFrom = ListUnit.begin();
   while (IterUnitFrom != ListUnit.end() && ((*IterUnitFrom).getUnitClass()
       != UnitClassFromStr || (*IterUnitFrom).getUnitID() != UnitIDFromInt) )
     ++IterUnitFrom;
 
+  /* if parent units does'nt exist */
+  if (IterUnitFrom != ListUnit.end())
+    throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
+
   /* if both units exist */
-  if (IterUnitTo != ListUnit.end() && IterUnitFrom != ListUnit.end())
-  {
     UnitDespTo = *IterUnitTo;
     UnitDespFrom = *IterUnitFrom;
 
-    /* check the link */
-    ListUnits = UnitDespTo.getUnitsParents();
-    ItUnits = ListUnits.begin();
-    while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
-        || (*ItUnits).second != UnitIDFromInt ))
-      ++ItUnits;
+  /* check the link */
+  ListUnits = UnitDespTo.getUnitsParents();
+  ItUnits = ListUnits.begin();
+  while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
+      || (*ItUnits).second != UnitIDFromInt ))
+    ++ItUnits;
 
-    /* if doesn't exist */
-    if (ItUnits == ListUnits.end())
-    {
-      std::pair<std::string, int> TmpUnit = std::pair<std::string, int>
-          (UnitClassFromStr, UnitIDFromInt);
+  /* if doesn't exist */
+  if (ItUnits == ListUnits.end())
+  {
+    std::pair<std::string, int> TmpUnit = std::pair<std::string, int>
+        (UnitClassFromStr, UnitIDFromInt);
 
-      /* replacing */
-      UnitDespTo.getUnitsParents().push_back(TmpUnit);
-      IterUnitTo = ListUnit.erase(IterUnitTo);
-      ListUnit.insert(IterUnitTo, UnitDespTo);
-    }
+    /* replacing */
+    UnitDespTo.getUnitsParents().push_back(TmpUnit);
+    IterUnitTo = ListUnit.erase(IterUnitTo);
+    ListUnit.insert(IterUnitTo, UnitDespTo);
   }
+  else
+    throw PyOFException("units are already linked", PyExc_ValueError);
 }
 
 
@@ -1631,32 +1675,38 @@ void PyOpenFLUID::removeUnitChild (
       != UnitClassToStr || (*IterUnitTo).getUnitID() != UnitIDToInt) )
     ++IterUnitTo;
 
+  /* if child unit does'nt exist */
+  if (IterUnitTo != ListUnit.end())
+    throw PyOFException("child unit doesn't exist", PyExc_ValueError);
+
   /* check (parent) unit exists */
   IterUnitFrom = ListUnit.begin();
   while (IterUnitFrom != ListUnit.end() && ((*IterUnitFrom).getUnitClass()
       != UnitClassFromStr || (*IterUnitFrom).getUnitID() != UnitIDFromInt) )
     ++IterUnitFrom;
 
+  /* if parent unit does'nt exist */
+  if (IterUnitFrom != ListUnit.end())
+    throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
+
   /* if both units exist */
-  if (IterUnitTo != ListUnit.end() && IterUnitFrom != ListUnit.end())
+  UnitDespTo = *IterUnitTo;
+  UnitDespFrom = *IterUnitFrom;
+
+  /* check the link */
+  ListUnits = UnitDespTo.getUnitsParents();
+  ItUnits = ListUnits.begin();
+  while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
+      || (*ItUnits).second != UnitIDFromInt ))
+    ++ItUnits;
+
+  /* if exists, removing */
+  if (ItUnits != ListUnits.end())
   {
-    UnitDespTo = *IterUnitTo;
-    UnitDespFrom = *IterUnitFrom;
-
-    /* check the link */
-    ListUnits = UnitDespTo.getUnitsParents();
-    ItUnits = ListUnits.begin();
-    while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
-        || (*ItUnits).second != UnitIDFromInt ))
-      ++ItUnits;
-
-    /* if exists */
-    if (ItUnits != ListUnits.end())
-    {
-      /* removing */
-      IterUnitTo = ListUnit.erase(IterUnitTo);
-    }
+    IterUnitTo = ListUnit.erase(IterUnitTo);
   }
+  else
+    throw PyOFException("units aren't linked", PyExc_ValueError);
 }
 
 
