@@ -1648,12 +1648,6 @@ void PyOpenFLUID::removeUnitChild (
   std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitFrom;
   std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitTo;
 
-  openfluid::fluidx::UnitDescriptor UnitDespFrom;
-  openfluid::fluidx::UnitDescriptor UnitDespTo;
-
-  std::list<openfluid::core::UnitClassID_t> ListUnits;
-  std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
-
   /* check (child) unit exists */
   IterUnitTo = ListUnit.begin();
   while (IterUnitTo != ListUnit.end() && ((*IterUnitTo).getUnitClass()
@@ -1674,12 +1668,12 @@ void PyOpenFLUID::removeUnitChild (
   if (IterUnitFrom == ListUnit.end())
     throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
 
-  /* if both units exist */
-  UnitDespTo = *IterUnitTo;
-  UnitDespFrom = *IterUnitFrom;
+  /* both units exist AT THIS POINT */
+  /* checking the link */
+  std::list<openfluid::core::UnitClassID_t>& ListUnits
+      = (*IterUnitTo).getUnitsParents();
+  std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
 
-  /* check the link */
-  ListUnits = UnitDespTo.getUnitsParents();
   ItUnits = ListUnits.begin();
   while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
       || (*ItUnits).second != UnitIDFromInt ))
@@ -1687,7 +1681,7 @@ void PyOpenFLUID::removeUnitChild (
 
   /* if exists, removing */
   if (ItUnits != ListUnits.end())
-    IterUnitTo = ListUnit.erase(IterUnitTo);
+    ItUnits = ListUnits.erase(ItUnits);
   else
     throw PyOFException("units aren't linked", PyExc_ValueError);
 }
