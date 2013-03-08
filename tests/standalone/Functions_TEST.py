@@ -19,7 +19,8 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
         self.assertIsNotNone(self.openfluid.getFunctionParam(FuncID, ParamName))
 
         self.openfluid.removeFunction(FuncID)
-        self.assertIsNone(self.openfluid.getFunctionParam(FuncID, ParamName))
+        self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
+                self.assertIsNone, argObj=(FuncID, ParamName) )
 
         # test of getFunctions
         CheckList = self.openfluid.getFunctions()

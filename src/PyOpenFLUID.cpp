@@ -1208,8 +1208,7 @@ boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::object UnitClass)
   std::list<openfluid::fluidx::UnitDescriptor>
       ListUnit = this->m_FXDesc.getDomainDescriptor().getUnits();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit;
 
   for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
     if ((*IterUnit).getUnitClass() == UnitClassRef )
@@ -1244,8 +1243,7 @@ void PyOpenFLUID::addUnit (boost::python::object UnitClass,
   std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
       this->m_FXDesc.getDomainDescriptor().getUnits();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit;
 
   openfluid::fluidx::UnitDescriptor UnitDesp;
 
@@ -1457,11 +1455,9 @@ boost::python::object PyOpenFLUID::getUnitsChildren (
   std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
       this->m_FXDesc.getDomainDescriptor().getUnits();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit;
 
   std::list<openfluid::core::UnitClassID_t> ListUnits;
-
   std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
 
   for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
@@ -1504,13 +1500,11 @@ boost::python::object PyOpenFLUID::getUnitsParents (
   std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
       this->m_FXDesc.getDomainDescriptor().getUnits();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit;
 
   openfluid::fluidx::UnitDescriptor UnitDesp;
 
   std::list<openfluid::core::UnitClassID_t> ListUnits;
-
   std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
 
   for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
@@ -1563,18 +1557,14 @@ void PyOpenFLUID::addUnitChild (
   std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
       this->m_FXDesc.getDomainDescriptor().getUnits();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnitFrom;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitFrom;
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnitTo;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitTo;
 
   openfluid::fluidx::UnitDescriptor UnitDespFrom;
-
   openfluid::fluidx::UnitDescriptor UnitDespTo;
 
   std::list<openfluid::core::UnitClassID_t> ListUnits;
-
   std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
 
   /* check (child) unit exists */
@@ -1583,8 +1573,8 @@ void PyOpenFLUID::addUnitChild (
       != UnitClassToStr || (*IterUnitTo).getUnitID() != UnitIDToInt) )
     ++IterUnitTo;
 
-  /* if child units does'nt exist */
-  if (IterUnitTo != ListUnit.end())
+  /* if child units doesn't exist */
+  if (IterUnitTo == ListUnit.end())
     throw PyOFException("child unit doesn't exist", PyExc_ValueError);
 
   /* check (parent) unit exists */
@@ -1593,8 +1583,8 @@ void PyOpenFLUID::addUnitChild (
       != UnitClassFromStr || (*IterUnitFrom).getUnitID() != UnitIDFromInt) )
     ++IterUnitFrom;
 
-  /* if parent units does'nt exist */
-  if (IterUnitFrom != ListUnit.end())
+  /* if parent units doesn't exist */
+  if (IterUnitFrom == ListUnit.end())
     throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
 
   /* if both units exist */
@@ -1655,18 +1645,13 @@ void PyOpenFLUID::removeUnitChild (
   std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
       this->m_FXDesc.getDomainDescriptor().getUnits();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnitFrom;
-
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnitTo;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitFrom;
+  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitTo;
 
   openfluid::fluidx::UnitDescriptor UnitDespFrom;
-
   openfluid::fluidx::UnitDescriptor UnitDespTo;
 
   std::list<openfluid::core::UnitClassID_t> ListUnits;
-
   std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
 
   /* check (child) unit exists */
@@ -1675,8 +1660,8 @@ void PyOpenFLUID::removeUnitChild (
       != UnitClassToStr || (*IterUnitTo).getUnitID() != UnitIDToInt) )
     ++IterUnitTo;
 
-  /* if child unit does'nt exist */
-  if (IterUnitTo != ListUnit.end())
+  /* if child unit doesn't exist */
+  if (IterUnitTo == ListUnit.end())
     throw PyOFException("child unit doesn't exist", PyExc_ValueError);
 
   /* check (parent) unit exists */
@@ -1685,8 +1670,8 @@ void PyOpenFLUID::removeUnitChild (
       != UnitClassFromStr || (*IterUnitFrom).getUnitID() != UnitIDFromInt) )
     ++IterUnitFrom;
 
-  /* if parent unit does'nt exist */
-  if (IterUnitFrom != ListUnit.end())
+  /* if parent unit doesn't exist */
+  if (IterUnitFrom == ListUnit.end())
     throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
 
   /* if both units exist */
@@ -1702,9 +1687,7 @@ void PyOpenFLUID::removeUnitChild (
 
   /* if exists, removing */
   if (ItUnits != ListUnits.end())
-  {
     IterUnitTo = ListUnit.erase(IterUnitTo);
-  }
   else
     throw PyOFException("units aren't linked", PyExc_ValueError);
 }
@@ -1781,8 +1764,7 @@ boost::python::object PyOpenFLUID::getInputData (
   std::list<openfluid::fluidx::InputDataDescriptor>&
       IData = this->m_FXDesc.getDomainDescriptor().getInputData();
 
-  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
-      ItIData;
+  std::list<openfluid::fluidx::InputDataDescriptor>::iterator ItIData;
 
   openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator
       ItUnitData;

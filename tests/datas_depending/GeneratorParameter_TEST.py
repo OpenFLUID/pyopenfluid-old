@@ -16,12 +16,19 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
         # tests of getGeneratorParam
         Val = self.openfluid.getGeneratorParam(UnitClass, VarName, ParamName)
 
-        self.assertIsNone(self.openfluid.getGeneratorParam(UnitClass, VarName, "bidon"))
-        self.assertIsNone(self.openfluid.getGeneratorParam(UnitClass, "bidon", ParamName))
-        self.assertIsNone(self.openfluid.getGeneratorParam("bidon", VarName, ParamName))
-        self.assertIsNone(self.openfluid.getGeneratorParam(UnitClass, "bidon", "bidon"))
-        self.assertIsNone(self.openfluid.getGeneratorParam("bidon", "bidon", ParamName))
-        self.assertIsNone(self.openfluid.getGeneratorParam("bidon", VarName, "bidon"))
+        self.assertRaisesOrElse(ValueError, self.openfluid.getGeneratorParam,
+                self.assertIsNone, argObj=(UnitClass, VarName, "bidon") )
+        self.assertRaisesOrElse(ValueError, self.openfluid.getGeneratorParam,
+                self.assertIsNone, argObj=(UnitClass, "bidon", ParamName) )
+        self.assertRaisesOrElse(ValueError, self.openfluid.getGeneratorParam,
+                self.assertIsNone, argObj=("bidon", VarName, ParamName) )
+
+        self.assertRaisesOrElse(ValueError, self.openfluid.getGeneratorParam,
+                self.assertIsNone, argObj=(UnitClass, "bidon", "bidon") )
+        self.assertRaisesOrElse(ValueError, self.openfluid.getGeneratorParam,
+                self.assertIsNone, argObj=("bidon", "bidon", ParamName) )
+        self.assertRaisesOrElse(ValueError, self.openfluid.getGeneratorParam,
+                self.assertIsNone, argObj=(UnitClass, "bidon", "bidon") )
 
         self.assertTrue(isinstance(Val, str))
         self.checkNumeric(Val)

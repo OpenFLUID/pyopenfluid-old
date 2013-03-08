@@ -19,7 +19,8 @@ class PyOpenFLUIDTest_Observer(PyOpenFLUIDTest):
         self.assertIsNotNone(self.openfluid.getObserverParam(IDParam, ParamName))
 
         self.openfluid.removeObserver(IDParam)
-        self.assertIsNone(self.openfluid.getObserverParam(IDParam, ParamName))
+        self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
+                self.assertIsNone, argObj=(IDParam, ParamName) )
 
         # test of getObservers
         CheckList = self.openfluid.getObservers()

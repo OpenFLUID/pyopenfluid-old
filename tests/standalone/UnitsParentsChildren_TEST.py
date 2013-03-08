@@ -56,7 +56,7 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         # tests of removeUnitChild
         # testing on 5->7, 2->5, 4->5
         CheckList = self.openfluid.getUnitsChildren(UnitClass, 5)
-        self.assertEquals(CheckList[0][1], 7)
+        self.assertItemsEqual([b for a,b in CheckList], [7])
         CheckList = self.openfluid.getUnitsParents(UnitClass, 5)
         self.assertItemsEqual([b for a,b in CheckList], [2, 4])
 

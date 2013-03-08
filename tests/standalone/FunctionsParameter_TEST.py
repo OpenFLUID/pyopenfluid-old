@@ -21,8 +21,10 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         CheckVal = self.openfluid.getFunctionParam(FuncID, ParamName)
         self.assertTrue(isinstance(CheckVal, str))
 
-        self.assertIsNone(self.openfluid.getFunctionParam("bidon", ParamName))
-        self.assertIsNone(self.openfluid.getFunctionParam(FuncID, "bidon"))
+        self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
+                self.assertIsNone, argObj=("bidon", ParamName) )
+        self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
+                self.assertIsNone, argObj=(FuncID, "bidon") )
 
         NvVal = "testmade_" + Val
         self.openfluid.setFunctionParam(FuncID, ParamName, NvVal)
@@ -45,7 +47,8 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         self.openfluid.setFunctionParam(FuncID, ParamName, Val)
         self.assertEquals(Val, self.openfluid.getFunctionParam(FuncID, ParamName))
         self.openfluid.removeFunctionParam(FuncID, ParamName)
-        self.assertIsNone(self.openfluid.getFunctionParam(FuncID, ParamName))
+        self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
+                self.assertIsNone, argObj=(FuncID, ParamName) )
 
 
 if __name__ == "__main__":

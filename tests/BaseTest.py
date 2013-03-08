@@ -152,4 +152,35 @@ class PyOpenFLUIDTest(unittest.TestCase):
                 if not ValidModel.search(Fichier) is None:
                     break
             else:
-                self.assertTrue(False, "file '{0}' doesn't suit any format.".format(Fichier))
+                self.assertTrue(False, "file '{0}' doesn't suit any format.".
+                        format(Fichier))
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def assertRaisesOrElse(self, exception, callObj, elseMethod,
+            argObj=(), kwObj={}, argMeth=(), kwMeth={} ):
+        if not ( callable(callObj) and callable(elseMethod) and
+                issubclass(exception, Exception) and isinstance(argObj, tuple)
+                and isinstance(kwObj, dict) and isinstance(argMeth, tuple)
+                and isinstance(kwMeth, dict) ):
+            print "1:", callable(callObj)
+            print "2:", callable(elseMethod)
+            print "3:", issubclass(exception, Exception)
+            print "5:", isinstance(argObj, tuple)
+            print "4:", isinstance(kwObj, dict)
+            print "7:", isinstance(argMeth, tuple)
+            print "6:", isinstance(kwMeth, dict)
+            raise TypeError("'assertRaisesOrElse' method called with some wrong\
+ parameter(s)")
+
+        try:
+            TmpRes = callObj(*argObj, **kwObj)
+        except exception:
+            pass
+        except Exception:
+            raise RuntimeError("exception occured wasn't the one excepted")
+        else:
+            return elseMethod(TmpRes, *argMeth, **kwMeth)
