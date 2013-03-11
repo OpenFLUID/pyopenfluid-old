@@ -82,6 +82,21 @@ void printStdErr (std::stringstream& StringStream, int EOL=0);
 
 void printStdErr (std::iostream& IOStream, int EOL=0);
 
+
+// =====================================================================
+// =====================================================================
+
+
+void printWarning (const char* CharMessage, PyObject *PyWarning = NULL);
+
+
+// =====================================================================
+// =====================================================================
+
+
+void printWarning (std::string& Message, PyObject *PyWarning = NULL);
+
+
 } // topython
 
 

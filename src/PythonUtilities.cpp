@@ -165,4 +165,32 @@ void printStdErr (std::iostream& IOStream, int EOL=0)
 }
 
 
+// =====================================================================
+// =====================================================================
+
+
+void printWarning (const char* CharMessage, PyObject *PyWarning)
+{
+  if (PyWarning != NULL)
+    PyErr_WarnEx(PyWarning, CharMessage, 1);
+  else
+  {
+    const char* name = "PyOpenFluid.PyOpenFluidWarning";
+    PyObject* myException = PyErr_NewException((char*)name,
+        PyExc_RuntimeWarning, NULL);
+    PyErr_WarnEx(myException, CharMessage, 1);
+  }
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void printWarning (std::string& Message, PyObject *PyWarning)
+{
+  printWarning(Message.c_str(), PyWarning);
+}
+
+
 } // topython
