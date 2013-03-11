@@ -17,5 +17,5 @@ class PyOpenFLUIDTest_UnitsClasses(PyOpenFLUIDTest):
         self.assertItemsEqual(ListTest, ListUC)
 
 if __name__ == "__main__":
-  ArgList = skipArgFromCL()
-  unittest.main()
+    ArgList = skipArgFromCL()
+    unittest.main()

@@ -24,5 +24,5 @@ class PyOpenFLUIDTest_RunSimulation(PyOpenFLUIDTest):
         self.checkSimulationOutputPath(ObjPyOF.getCurrentOutputDir())
 
 if __name__ == "__main__":
-  ArgList = skipArgFromCL()
-  unittest.main()
+    ArgList = skipArgFromCL()
+    unittest.main()

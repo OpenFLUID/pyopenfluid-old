@@ -11,4 +11,4 @@ class PyOpenFLUIDTest_TestUnit(PyOpenFLUIDTest):
         self.assertTrue(False)
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

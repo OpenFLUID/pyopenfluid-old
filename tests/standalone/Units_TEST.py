@@ -55,4 +55,4 @@ class PyOpenFLUIDTest_Units(PyOpenFLUIDTest):
         self.assertEquals(len(self.openfluid.getUnitsClasses()), 0)
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

@@ -30,5 +30,5 @@ class PyOpenFLUIDTest_InputData(PyOpenFLUIDTest):
 
 
 if __name__ == "__main__":
-  ArgList = skipArgFromCL()
-  unittest.main()
+    ArgList = skipArgFromCL()
+    unittest.main()

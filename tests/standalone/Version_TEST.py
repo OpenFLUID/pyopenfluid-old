@@ -11,4 +11,4 @@ class PyOpenFLUIDTest_Version(PyOpenFLUIDTest):
         self.assertGreaterEqual(self.openfluid.getVersion(), 3)
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

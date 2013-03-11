@@ -17,5 +17,5 @@ class PyOpenFLUIDTest_OpenProject(PyOpenFLUIDTest):
         self.assertNotEquals(OClass, self.openfluid)
 
 if __name__ == "__main__":
-  ArgList = skipArgFromCL()
-  unittest.main()
+    ArgList = skipArgFromCL()
+    unittest.main()
