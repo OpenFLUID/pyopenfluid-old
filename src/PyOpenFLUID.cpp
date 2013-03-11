@@ -1,5 +1,10 @@
 #include <Python.h>
-#include <boost/python.hpp>
+#include <boost/python/str.hpp>
+#include <boost/python/dict.hpp>
+#include <boost/python/list.hpp>
+#include <boost/python/tuple.hpp>
+#include <boost/python/object.hpp>
+
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/exception/all.hpp>

@@ -1,7 +1,20 @@
-#include <boost/python.hpp>
-#include <boost/python/module.hpp>
 #include <boost/python/def.hpp>
+#include <boost/python/scope.hpp>
+#include <boost/python/class.hpp>
+#include <boost/python/module.hpp>
+#include <boost/python/raw_function.hpp>
+#include <boost/python/docstring_options.hpp>
+#include <boost/python/exception_translator.hpp>
+#include <boost/python/return_internal_reference.hpp>
+
+#include <boost/python/str.hpp>
+#include <boost/python/dict.hpp>
+#include <boost/python/list.hpp>
+#include <boost/python/tuple.hpp>
+#include <boost/python/object.hpp>
+
 #include <openfluid/config.hpp>
+
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
 
@@ -54,6 +67,11 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
   boost::python::class_<PyOpenFLUID>("PyOpenFLUID",
                       boost::python::init<>("Create an OpenFLUID class.") )
+
+
+// =====================================================================
+// =====================================================================
+
 
     .def("addExtraFunctionsPaths",
       &PyOpenFLUID::addExtraFunctionsPaths,

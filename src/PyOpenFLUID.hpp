@@ -1,5 +1,8 @@
 #include <Python.h>
-#include <boost/python.hpp>
+#include <boost/python/dict.hpp>
+#include <boost/python/tuple.hpp>
+#include <boost/python/object.hpp>
+
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 
 /*!
