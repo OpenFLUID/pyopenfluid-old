@@ -332,8 +332,6 @@ boost::python::object PyOpenFLUID::getFunctionParam (
     if (Res)
       return boost::python::str(*Res);
   }
-  else
-    throw PyOFException("function doesn't exist", PyExc_ValueError);
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -384,7 +382,7 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
     (*ItModelInfos)->setParameter(ParamNameStr,ParamValueStr);
   }
   else
-    throw PyOFException("function doesn't exist", PyExc_ValueError);
+    topython::printWarning("function doesn't exists");
 }
 
 
@@ -430,7 +428,7 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
   if (ItModelInfos != ModelInfos.end())
     Function->eraseParameter(ParamNameStr);
   else
-    throw PyOFException("function doesn't exist", PyExc_ValueError);
+    topython::printWarning("function doesn't exists");
 }
 
 
@@ -538,7 +536,7 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
       return boost::python::str(*Res);
   }
   else
-    throw PyOFException("generator doesn't exist", PyExc_ValueError);
+    topython::printWarning("generator doesn't exists");
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -597,7 +595,7 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
   if (ItModelInfos != ModelInfos.end())
     GenDescp->setParameter(ParamNameStr, ParamValueStr);
   else
-    throw PyOFException("generator doesn't exist", PyExc_ValueError);
+    topython::printWarning("generator doesn't exists");
 }
 
 
@@ -724,7 +722,7 @@ void PyOpenFLUID::addFunction (boost::python::object FuncID)
 
   /* raising exception if exists, or else adds */
   if (ItModelInfos != ModelInfos.end())
-    throw PyOFException("function id already exists", PyExc_ValueError);
+    throw PyOFException("function id already exists");
   else
   {
     openfluid::fluidx::FunctionDescriptor* NewFunction =
@@ -772,7 +770,7 @@ void PyOpenFLUID::removeFunction (boost::python::object FuncID)
   if (ItModelInfos != ModelInfos.end())
     ModelInfos.erase(ItModelInfos);
   else
-    throw PyOFException("function doesn't exist", PyExc_ValueError);
+    topython::printWarning("function doesn't exist");
 }
 
 
@@ -873,7 +871,7 @@ boost::python::object PyOpenFLUID::getObserverParam (
       return boost::python::str(*Res);
   }
   else
-    throw PyOFException("observer doesn't exist", PyExc_ValueError);
+    topython::printWarning("observer doesn't exist");
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -926,7 +924,7 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
   if (ItModelInfos != ModelInfos.end())
     ObsDescp->setParameter(ParamNameStr, ParamValueStr);
   else
-    throw PyOFException("observer doesn't exist", PyExc_ValueError);
+    topython::printWarning("observer doesn't exist");
 }
 
 
@@ -972,7 +970,7 @@ void PyOpenFLUID::removeObserverParam (boost::python::object ObsID,
   if (ItModelInfos != ModelInfos.end())
     ObsDescp->eraseParameter(ParamNameStr);
   else
-    throw PyOFException("observer doesn't exist", PyExc_ValueError);
+    topython::printWarning("observer doesn't exist");
 }
 
 
@@ -1065,7 +1063,7 @@ void PyOpenFLUID::addObserver (boost::python::object ObsID)
 
   /* raising exception if exists, or else adds */
   if (ItModelInfos != ModelInfos.end())
-    throw PyOFException("observer id already exists", PyExc_ValueError);
+    throw PyOFException("observer id already exists");
   else
   {
     openfluid::fluidx::ObserverDescriptor* NewObserver =
@@ -1113,7 +1111,7 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
   if (ItModelInfos != ModelInfos.end())
     ModelInfos.erase(ItModelInfos);
   else
-    throw PyOFException("observer doesn't exist", PyExc_ValueError);
+    topython::printWarning("observer doesn't exist");
 }
 
 
@@ -1305,7 +1303,7 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
   if (IterUnit != ListUnit.end())
     ListUnit.erase(IterUnit);
   else
-    throw PyOFException("unit doesn't exist", PyExc_ValueError);
+    topython::printWarning("unit doesn't exist");
 }
 
 
@@ -1386,7 +1384,7 @@ void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
     ListUnit.insert(IterUnit, UnitDesp);
   }
   else
-    throw PyOFException("unit doesn't exist", PyExc_ValueError);
+    topython::printWarning("unit doesn't exists");
 }
 
 
@@ -1610,7 +1608,7 @@ void PyOpenFLUID::addUnitChild (
     ListUnit.insert(IterUnitTo, UnitDespTo);
   }
   else
-    throw PyOFException("units are already linked", PyExc_RuntimeWarning);
+    topython::printWarning("units are already linked");
 }
 
 
@@ -1683,7 +1681,7 @@ void PyOpenFLUID::removeUnitChild (
   if (ItUnits != ListUnits.end())
     ItUnits = ListUnits.erase(ItUnits);
   else
-    throw PyOFException("units aren't linked", PyExc_RuntimeWarning);
+    topython::printWarning("units aren't linked");
 }
 
 
@@ -2084,7 +2082,7 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
   this->m_FXDesc.getRunDescriptor().setBeginDate(BDate);
   }
   else
-    throw PyOFException("begin date isn't formatted wright", PyExc_ValueError);
+    topython::printWarning("begin date isn't formatted with good format");
 }
 
 
@@ -2124,7 +2122,7 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
   this->m_FXDesc.getRunDescriptor().setEndDate(BDate);
   }
   else
-    throw PyOFException("end date isn't formatted wright", PyExc_ValueError);
+    topython::printWarning("end date isn't formatted with good format");
 }
 
 

@@ -19,7 +19,7 @@ class PyOpenFLUIDTest_Observer(PyOpenFLUIDTest):
         self.openfluid.setObserverParam(IDParam, ParamName, ParamValue)
         self.assertIsNotNone(self.openfluid.getObserverParam(IDParam, ParamName))
 
-        self.assertRaises(ValueError, self.openfluid.addObserver, IDParam)
+        self.assertRaises(StandardError, self.openfluid.addObserver, IDParam)
 
         self.openfluid.removeObserver(IDParam)
         self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
