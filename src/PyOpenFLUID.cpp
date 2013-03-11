@@ -1861,26 +1861,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
     ResClass->setFluidXDescriptor(FXReader);
 
     return ResClass;
-  }
-  catch (openfluid::base::OFException& E)
-  {
-    throw PyOFException(E.what());
-  }
-  catch (std::bad_alloc& E)
-  {
-    StrError = std::string("MEMORY ALLOCATION ERROR, ") + std::string(E.what())
-        + std::string(". Possibly not enough memory available");
-    throw PyOFException(StrError, PyExc_MemoryError);
-  }
-  catch (std::exception& E)
-  {
-    StrError = std::string("SYSTEM ERROR, ") + std::string(E.what());
-    throw PyOFException(StrError, PyExc_SystemError);
-  }
-  catch (...)
-  {
-    throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError);
-  }
+  } HANDLE_EXCEPTION
 
   return NULL;
 }
@@ -1915,26 +1896,7 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
     boost::python::str BoostPath = boost::python::str(
         openfluid::base::RuntimeEnvironment::getInstance()->getInputDir());
     return this->openDataset(BoostPath);
-  }
-  catch (openfluid::base::OFException& E)
-  {
-    throw PyOFException(E.what());
-  }
-  catch (std::bad_alloc& E)
-  {
-    StrError = std::string("MEMORY ALLOCATION ERROR, ") + std::string(E.what())
-        + std::string(". Possibly not enough memory available");
-    throw PyOFException(StrError, PyExc_MemoryError);
-  }
-  catch (std::exception& E)
-  {
-    StrError = std::string("SYSTEM ERROR, ") + std::string(E.what());
-    throw PyOFException(StrError, PyExc_SystemError);
-  }
-  catch (...)
-  {
-    throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError);
-  }
+  } HANDLE_EXCEPTION
 
   return NULL;
 }
@@ -2150,6 +2112,7 @@ PyOpenFLUID* PyOpenFLUID::runProject (boost::python::object Path)
 boost::python::object PyOpenFLUID::runSimulation ()
 {
   std::string StrError("");
+
   try
   {
     openfluid::base::Init();
@@ -2196,26 +2159,7 @@ boost::python::object PyOpenFLUID::runSimulation ()
     delete Engine;
 
     return boost::python::object(true);
-  }
-  catch (openfluid::base::OFException& E)
-  {
-    throw PyOFException(E.what());
-  }
-  catch (std::bad_alloc& E)
-  {
-    StrError = "MEMORY ALLOCATION ERROR, " + std::string(E.what()) +
-        ". Possibly not enough memory available";
-    throw PyOFException(StrError, PyExc_MemoryError);
-  }
-  catch (std::exception& E)
-  {
-    StrError = "SYSTEM ERROR, " + std::string(E.what());
-    throw PyOFException(StrError, PyExc_SystemError);
-  }
-  catch (...)
-  {
-    throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError);
-  }
+  } HANDLE_EXCEPTION
 
   return boost::python::object(false);
 }
