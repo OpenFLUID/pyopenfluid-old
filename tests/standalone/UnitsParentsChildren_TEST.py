@@ -7,14 +7,25 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of parents and children units functions."""
+
+        # subtest of type's parameters
+        self.assertRaises(TypeError, self.openfluid.addUnit, "testclass", "couc", 0)
+        self.assertRaises(TypeError, self.openfluid.addUnit, "testclass", 0, "inc")
+        self.assertRaises(TypeError, self.openfluid.addUnit, 0, 0, 0)
+        self.assertRaises(TypeError, self.openfluid.addUnitChild, "a", 0, 0, 0)
+        self.assertRaises(TypeError, self.openfluid.addUnitChild, 0, "a", 0, 0)
+        self.assertRaises(TypeError, self.openfluid.addUnitChild, 0, 0, "a", 0)
+        self.assertRaises(TypeError, self.openfluid.addUnitChild, 0, 0, 0, "a")
+
+        #
         UnitClass = "TestClass"
         ProcessOrder = 1
 
         # 0-,
-        # 1-'-2
-        #     |-5,
-        # 3-4-'  |-7
-        # 6------'
+        # 1-'->2
+        #      |->5,
+        # 3->4-'   |->7
+        # 6------ -'
         #              0  1  2  3  4  5  6   7
         UnitLinksTo = (2, 2, 5, 4, 5, 7, 7, None)
 
@@ -25,6 +36,10 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         for UnitFrom, UnitTo in enumerate(UnitLinksTo):
             if not UnitTo is None:
                 self.openfluid.addUnitChild(UnitClass, UnitFrom, UnitClass, UnitTo)
+
+        # subtest of value parameters
+        self.assertRaises(ValueError, self.openfluid.addUnitChild, UnitClass, 20, UnitClass, 0)
+        self.assertRaises(ValueError, self.openfluid.addUnitChild, UnitClass, 0, UnitClass, 20)
 
         # tests of getUnitsChildren
         CheckList = self.openfluid.getUnitsChildren(UnitClass, 0)

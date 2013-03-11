@@ -13,10 +13,13 @@ class PyOpenFLUIDTest_Observer(PyOpenFLUIDTest):
         ParamName = "format.c1.header"
         ParamValue = "test"
 
+        self.assertRaises(TypeError, self.openfluid.addObserver, 9)
         self.openfluid.addObserver(IDParam)
 
         self.openfluid.setObserverParam(IDParam, ParamName, ParamValue)
         self.assertIsNotNone(self.openfluid.getObserverParam(IDParam, ParamName))
+
+        self.assertRaises(ValueError, self.openfluid.addObserver, IDParam)
 
         self.openfluid.removeObserver(IDParam)
         self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
@@ -46,4 +49,4 @@ class PyOpenFLUIDTest_Observer(PyOpenFLUIDTest):
 
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

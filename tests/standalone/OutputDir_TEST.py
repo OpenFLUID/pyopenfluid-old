@@ -21,4 +21,4 @@ class PyOpenFLUIDTest_OutputDir(PyOpenFLUIDTest):
         self.assertEquals(self.openfluid.getCurrentOutputDir(), Path)
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

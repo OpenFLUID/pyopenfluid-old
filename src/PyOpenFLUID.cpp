@@ -1588,8 +1588,8 @@ void PyOpenFLUID::addUnitChild (
     throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
 
   /* if both units exist */
-    UnitDespTo = *IterUnitTo;
-    UnitDespFrom = *IterUnitFrom;
+  UnitDespTo = *IterUnitTo;
+  UnitDespFrom = *IterUnitFrom;
 
   /* check the link */
   ListUnits = UnitDespTo.getUnitsParents();
@@ -1610,7 +1610,7 @@ void PyOpenFLUID::addUnitChild (
     ListUnit.insert(IterUnitTo, UnitDespTo);
   }
   else
-    throw PyOFException("units are already linked", PyExc_ValueError);
+    throw PyOFException("units are already linked", PyExc_RuntimeWarning);
 }
 
 
@@ -1683,7 +1683,7 @@ void PyOpenFLUID::removeUnitChild (
   if (ItUnits != ListUnits.end())
     ItUnits = ListUnits.erase(ItUnits);
   else
-    throw PyOFException("units aren't linked", PyExc_ValueError);
+    throw PyOFException("units aren't linked", PyExc_RuntimeWarning);
 }
 
 
@@ -2083,6 +2083,8 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
       TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
   this->m_FXDesc.getRunDescriptor().setBeginDate(BDate);
   }
+  else
+    throw PyOFException("begin date isn't formatted wright", PyExc_ValueError);
 }
 
 
@@ -2121,6 +2123,8 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
       TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
   this->m_FXDesc.getRunDescriptor().setEndDate(BDate);
   }
+  else
+    throw PyOFException("end date isn't formatted wright", PyExc_ValueError);
 }
 
 

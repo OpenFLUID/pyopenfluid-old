@@ -13,10 +13,13 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
         ParamName = "longparam"
         ParamValue = "12568"
 
+        self.assertRaises(TypeError, self.openfluid.addFunction, 9)
         self.openfluid.addFunction(FuncID)
 
         self.openfluid.setFunctionParam(FuncID, ParamName, ParamValue)
         self.assertIsNotNone(self.openfluid.getFunctionParam(FuncID, ParamName))
+
+        self.assertRaises(ValueError, self.openfluid.addFunction, FuncID)
 
         self.openfluid.removeFunction(FuncID)
         self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
@@ -45,4 +48,4 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
         self.assertEquals(len(self.openfluid.getFunctions()), 0)
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

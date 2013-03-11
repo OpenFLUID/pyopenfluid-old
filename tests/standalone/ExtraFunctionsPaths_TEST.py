@@ -23,15 +23,13 @@ class PyOpenFLUIDTest_ExtraFunctionsPaths(PyOpenFLUIDTest):
         self.openfluid.addExtraFunctionsPaths(Path1)
         Val = self.openfluid.getExtraFunctionsPaths()
         self.assertTrue(isinstance(Val, list))
-        self.assertEquals(Val, [Path1])
+        self.assertItemsEqual(Val, [Path1])
 
         Path2 = "/chemin2"
         Path3 = "/debut/chemin3"
         self.openfluid.addExtraFunctionsPaths(":".join([Path2, Path3]))
         ListA, ListB = self.openfluid.getExtraFunctionsPaths(), [Path1, Path2, Path3]
-        self.assertTrue(isinstance(ListA, list))
-        ListA.sort(); ListB.sort()
-        self.assertEquals(ListA, ListB)
+        self.assertItemsEqual(ListA, ListB)
 
         # tests on resetExtraFunctionsPaths/getExtraFunctionsPaths
         self.openfluid.resetExtraFunctionsPaths()
@@ -41,4 +39,4 @@ class PyOpenFLUIDTest_ExtraFunctionsPaths(PyOpenFLUIDTest):
 
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

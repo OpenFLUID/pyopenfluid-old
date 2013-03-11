@@ -23,15 +23,13 @@ class PyOpenFLUIDTest_ExtraObserversPaths(PyOpenFLUIDTest):
         self.openfluid.addExtraObserversPaths(Path1)
         Val = self.openfluid.getExtraObserversPaths()
         self.assertTrue(isinstance(Val, list))
-        self.assertEquals(Val, [Path1])
+        self.assertItemsEqual(Val, [Path1])
 
         Path2 = "/chemin2"
         Path3 = "/debut/chemin3"
         self.openfluid.addExtraObserversPaths(":".join([Path2, Path3]))
         ListA, ListB = self.openfluid.getExtraObserversPaths(), [Path1, Path2, Path3]
-        self.assertTrue(isinstance(ListA, list))
-        ListA.sort(); ListB.sort()
-        self.assertEquals(ListA, ListB)
+        self.assertItemsEqual(ListA, ListB)
 
         # tests on resetExtraObserversPaths/getExtraObserversPaths
         self.openfluid.resetExtraObserversPaths()
@@ -39,5 +37,6 @@ class PyOpenFLUIDTest_ExtraObserversPaths(PyOpenFLUIDTest):
         self.assertTrue(isinstance(Val, list))
         self.assertEquals(Val, [])
 
+
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

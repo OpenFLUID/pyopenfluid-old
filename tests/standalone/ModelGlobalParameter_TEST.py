@@ -9,9 +9,12 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
         """Test of model global parameters functions."""
         self.assertRaises(TypeError, self.openfluid.getModelGlobalParam, 65)
         self.assertRaises(TypeError, self.openfluid.getModelGlobalParam, None)
+        self.assertRaises(TypeError, self.openfluid.setModelGlobalParam, "b", 9)
+        self.assertRaises(TypeError, self.openfluid.setModelGlobalParam, 9, "b")
 
         # tests on getModelGlobalParam/setModelGlobalParam
-        ParamsList = (("test_bidon","vrai"),("gvalue","37.2"),("wind","60"),("megabidon","??"))
+        ParamsList = (("test_bidon","vrai"),("gvalue","37.2"),("wind","60"),
+                ("megabidon","??"))
         for ParamName, ParamValue in ParamsList:
             self.openfluid.setModelGlobalParam(ParamName, ParamValue)
 
@@ -33,4 +36,4 @@ class PyOpenFLUIDTest_ModelGlobalParameter(PyOpenFLUIDTest):
         self.assertEquals(len(self.openfluid.getModelGlobalParams()), len(ParamsList)-1)
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

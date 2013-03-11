@@ -28,7 +28,5 @@ class PyOpenFLUIDTest_Simulation(PyOpenFLUIDTest):
         FakeOutputFile.close() # destroyed
 
 
-#    self.openfluid.runSimulation()
-
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()

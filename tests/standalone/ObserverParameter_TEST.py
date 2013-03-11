@@ -49,6 +49,22 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
         self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
                 self.assertIsNone, argObj=(IDParam, ParamName) )
 
+        # test of type's parameters
+        self.assertRaises(TypeError, self.openfluid.setObserverParam,
+                IDParam, ParamName, 9)
+        self.assertRaises(TypeError, self.openfluid.setObserverParam,
+                IDParam, 9, Val)
+        self.assertRaises(TypeError, self.openfluid.setObserverParam,
+                9, ParamName, Val)
+        self.assertRaises(TypeError, self.openfluid.getObserverParam,
+                IDParam, 9)
+        self.assertRaises(TypeError, self.openfluid.getObserverParam,
+                9, ParamName)
+        self.assertRaises(TypeError, self.openfluid.removeObserverParam,
+                IDParam, 9)
+        self.assertRaises(TypeError, self.openfluid.removeObserverParam,
+                9, ParamName)
+
 
 if __name__ == "__main__":
   unittest.main()

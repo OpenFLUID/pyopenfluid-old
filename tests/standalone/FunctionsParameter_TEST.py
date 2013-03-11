@@ -50,6 +50,22 @@ class PyOpenFLUIDTest_FunctionsParameter(PyOpenFLUIDTest):
         self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
                 self.assertIsNone, argObj=(FuncID, ParamName) )
 
+        # test of type's parameters
+        self.assertRaises(TypeError, self.openfluid.setFunctionParam,
+                FuncID, ParamName, 9)
+        self.assertRaises(TypeError, self.openfluid.setFunctionParam,
+                FuncID, 9, Val)
+        self.assertRaises(TypeError, self.openfluid.setFunctionParam,
+                9, ParamName, Val)
+        self.assertRaises(TypeError, self.openfluid.getFunctionParam,
+                FuncID, 9)
+        self.assertRaises(TypeError, self.openfluid.getFunctionParam,
+                9, ParamName)
+        self.assertRaises(TypeError, self.openfluid.removeFunctionParam,
+                FuncID, 9)
+        self.assertRaises(TypeError, self.openfluid.removeFunctionParam,
+                9, ParamName)
+
 
 if __name__ == "__main__":
-  unittest.main()
+    unittest.main()
