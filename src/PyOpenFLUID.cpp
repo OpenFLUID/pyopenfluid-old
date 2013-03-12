@@ -63,7 +63,6 @@
 // =====================================================================
 
 
-
 PyOpenFLUID::PyOpenFLUID () : m_FXDesc(NULL)
 {
 }
@@ -806,7 +805,7 @@ void PyOpenFLUID::clearModel ()
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getFunctions ()
+boost::python::object PyOpenFLUID::getFunctionsInModel ()
 {
   boost::python::list ListRes = boost::python::list();
 
@@ -1147,7 +1146,7 @@ void PyOpenFLUID::clearMonitoring ()
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getObservers ()
+boost::python::object PyOpenFLUID::getObserversInMonitoring ()
 {
   boost::python::list ListRes = boost::python::list();
 

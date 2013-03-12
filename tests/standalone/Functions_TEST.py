@@ -25,27 +25,27 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
         self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
                 self.assertIsNone, argObj=(FuncID, ParamName) )
 
-        # test of getFunctions
-        CheckList = self.openfluid.getFunctions()
+        # test of getFunctionsInModel
+        CheckList = self.openfluid.getFunctionsInModel()
         self.assertTrue(isinstance(CheckList, (list, tuple)))
         self.assertEquals(len(CheckList), 0)
         self.openfluid.addFunction(FuncID)
-        CheckList = self.openfluid.getFunctions()
+        CheckList = self.openfluid.getFunctionsInModel()
         self.assertEquals(len(CheckList), 1)
         self.assertItemsEqual(CheckList, [FuncID])
 
         # test of clearModel
         self.openfluid.clearModel()
-        self.assertEquals(len(self.openfluid.getFunctions()), 0)
+        self.assertEquals(len(self.openfluid.getFunctionsInModel()), 0)
 
         ListIDParam = ["export.test.fake1", "export.test.fake2",
             "export.test.fake3", "export.test.fake4"]
         for IDParam in ListIDParam:
             self.openfluid.addFunction(IDParam)
 
-        self.assertItemsEqual(ListIDParam, self.openfluid.getFunctions())
+        self.assertItemsEqual(ListIDParam, self.openfluid.getFunctionsInModel())
         self.openfluid.clearModel()
-        self.assertEquals(len(self.openfluid.getFunctions()), 0)
+        self.assertEquals(len(self.openfluid.getFunctionsInModel()), 0)
 
 if __name__ == "__main__":
     unittest.main()

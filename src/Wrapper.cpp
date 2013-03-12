@@ -18,6 +18,7 @@
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
 
+
 BOOST_PYTHON_MODULE(_pyopenfluid)
 {
 
@@ -434,14 +435,14 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getFunctions",
-      &PyOpenFLUID::getFunctions,
+    .def("getFunctionsInModel",
+      &PyOpenFLUID::getFunctionsInModel,
       "Gets all functions names.\
 \n\nReturns:\
 \na list of function name.\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
-\n>>> funclist = obj.getFunctions()\
+\n>>> funclist = obj.getFunctionsInModel()\
 "
     )
 
@@ -570,13 +571,13 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getObservers", &PyOpenFLUID::getObservers,
+    .def("getObserversInMonitoring", &PyOpenFLUID::getObserversInMonitoring,
       "Gets all observer name.\
 \n\nReturns:\
 \na list of observer name\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
-\n>>> listobs = obj.getObservers()\
+\n>>> listobs = obj.getObserversInMonitoring()\
 "
     )
 

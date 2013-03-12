@@ -361,7 +361,7 @@ class PyOpenFLUID
      * @return
      *    a list of function name.
      */
-    boost::python::object getFunctions ();
+    boost::python::object getFunctionsInModel ();
 
 
 // =====================================================================
@@ -480,7 +480,7 @@ class PyOpenFLUID
      * @return
      *    a list of observer name.
      */
-    boost::python::object getObservers ();
+    boost::python::object getObserversInMonitoring ();
 
 
 // =====================================================================

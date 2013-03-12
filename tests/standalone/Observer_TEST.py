@@ -25,27 +25,27 @@ class PyOpenFLUIDTest_Observer(PyOpenFLUIDTest):
         self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
                 self.assertIsNone, argObj=(IDParam, ParamName) )
 
-        # test of getObservers
-        CheckList = self.openfluid.getObservers()
+        # test of getObserversInMonitoring
+        CheckList = self.openfluid.getObserversInMonitoring()
         self.assertTrue(isinstance(CheckList, (list, tuple)))
         self.assertEquals(len(CheckList), 0)
         self.openfluid.addObserver(IDParam)
-        CheckList = self.openfluid.getObservers()
+        CheckList = self.openfluid.getObserversInMonitoring()
         self.assertEquals(len(CheckList), 1)
         self.assertItemsEqual(CheckList, [IDParam])
 
         # test of clearMonitoring
         self.openfluid.clearMonitoring()
-        self.assertEquals(len(self.openfluid.getObservers()), 0)
+        self.assertEquals(len(self.openfluid.getObserversInMonitoring()), 0)
 
         ListIDParam = ["export.test.fake1", "export.test.fake2",
             "export.test.fake3", "export.test.fake4"]
         for IDParam in ListIDParam:
             self.openfluid.addObserver(IDParam)
 
-        self.assertItemsEqual(ListIDParam, self.openfluid.getObservers())
+        self.assertItemsEqual(ListIDParam, self.openfluid.getObserversInMonitoring())
         self.openfluid.clearMonitoring()
-        self.assertEquals(len(self.openfluid.getObservers()), 0)
+        self.assertEquals(len(self.openfluid.getObserversInMonitoring()), 0)
 
 
 if __name__ == "__main__":
