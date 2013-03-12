@@ -850,6 +850,24 @@ a default value.\
 // =====================================================================
 
 
+    .def("removeInputData", &PyOpenFLUID::removeInputData,
+      ( boost::python::arg("UnitClass"), boost::python::arg("IDataName") ),
+      "Removes an inputdata value for a given spatial unit.\
+\n\nKeyword arguments:\
+\nUnitClass   -- the unit class\
+\nIDataName   -- the name of the inputdata\
+\n\nExamples:\
+\n>>> obj = PyOpenFLUID()\
+\n>>> obj.removeInputData(\"SU\",\"length\")\
+\n>>> obj.removeInputData(\"SU\",\"CODE\")\
+"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("openDataset", &PyOpenFLUID::openDataset,
       ( boost::python::arg("Path") ),
       "Opens a dataset and returns a new simulation definition class\

@@ -144,3 +144,13 @@ ADD_TEST(UnitsParentsChildren_TEST
 SET_TESTS_PROPERTIES(UnitsParentsChildren_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(InputData_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/InputData_TEST.py")
+SET_TESTS_PROPERTIES(InputData_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")

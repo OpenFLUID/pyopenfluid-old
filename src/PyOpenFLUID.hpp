@@ -721,7 +721,6 @@ class PyOpenFLUID
                                         boost::python::object UnitID,
                                         boost::python::object IDataName);
 
-
 // =====================================================================
 // =====================================================================
 
@@ -742,6 +741,24 @@ class PyOpenFLUID
                        boost::python::object UnitID,
                        boost::python::object IDataName,
                        boost::python::object IDataValue);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    /*!
+     * @brief Removes an inputdata value for a given spatial unit.
+     * 
+     * @param UnitClass
+     *    the unit class
+     * @param UnitID
+     *    the unit
+     * @param IDataName
+     *    the name of the inputdata
+     */
+    void removeInputData (boost::python::object UnitClass,
+                          boost::python::object IDataName);
 
 
 // =====================================================================

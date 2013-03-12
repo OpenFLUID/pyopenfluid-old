@@ -63,18 +63,6 @@ SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
 
 
 
-ADD_TEST(InputData_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/InputData_TEST.py"
-         "${TEST_INPUT_FluidXWriter}")
-SET_TESTS_PROPERTIES(InputData_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
 ADD_TEST(UnitsClasses_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/UnitsClasses_TEST.py"
