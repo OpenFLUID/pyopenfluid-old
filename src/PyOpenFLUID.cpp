@@ -15,6 +15,7 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <utility>
 #include <sstream>
 #include <cstdlib>
 #include <iostream>
@@ -45,6 +46,7 @@
 #include <openfluid/fluidx/RunDescriptor.hpp>
 #include <openfluid/fluidx/WareDescriptor.hpp>
 #include <openfluid/fluidx/UnitDescriptor.hpp>
+#include <openfluid/fluidx/IDataDescriptor.hpp>
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/DomainDescriptor.hpp>
 #include <openfluid/fluidx/FunctionDescriptor.hpp>
@@ -1223,7 +1225,7 @@ boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::object UnitClass)
 // =====================================================================
 // =====================================================================
 
-
+// TODO fixed colums order
 void PyOpenFLUID::addUnit (boost::python::object UnitClass,
                            boost::python::object UnitID,
                            boost::python::object PcsOrder)
@@ -1258,15 +1260,74 @@ void PyOpenFLUID::addUnit (boost::python::object UnitClass,
       throw PyOFException("unit already exists", PyExc_ValueError);
   }
 
-  /* adds in unit*/
+  /* adds */
   openfluid::fluidx::UnitDescriptor* NewUnitDesp;
   NewUnitDesp = new openfluid::fluidx::UnitDescriptor();
   NewUnitDesp->getUnitClass().assign(UnitClassStr);
   NewUnitDesp->getUnitID() = UnitIDInt;
   NewUnitDesp->getProcessOrder() = PcsOrderInt;
   ListUnit.push_back(*NewUnitDesp);
-}
 
+  /* -- adds in input data -- */
+  std::list<openfluid::fluidx::InputDataDescriptor>&
+      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
+
+  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
+    ItIData = IData.begin();
+
+  /* searching for unit class */
+  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
+    ++ItIData;
+
+  /* if new unit class */
+  if (ItIData == IData.end())
+  {
+    openfluid::fluidx::InputDataDescriptor* InputDataUnitDespPtr;
+    /* new input data class */
+    InputDataUnitDespPtr = new openfluid::fluidx::InputDataDescriptor();
+    InputDataUnitDespPtr->getUnitsClass().assign(UnitClassStr);
+    InputDataUnitDespPtr->getData() =
+        openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t();
+    InputDataUnitDespPtr->getColumnsOrder() = std::vector<std::string>();
+    IData.push_back(*InputDataUnitDespPtr);
+    ItIData = IData.end();
+    --ItIData;
+  }
+
+  openfluid::fluidx::InputDataDescriptor& InputDataUnitDesp = *ItIData;
+
+  // the class that contains all input datas of an unit
+  openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t
+    InputDataNameValue = 
+      openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t();
+
+  // if there is an unit in the unit class
+  // we fill the list of input data with empty string for each key
+  if (InputDataUnitDesp.getData().size() > 0)
+  {
+    openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t ListKeys =
+        (*InputDataUnitDesp.getData().begin()).second;
+
+    for (openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t::iterator
+        ItKey = ListKeys.begin(); ItKey != ListKeys.end(); ++ItKey)
+      InputDataNameValue.insert(InputDataNameValue.begin(),
+        std::pair<openfluid::core::InputDataName_t,
+                  std::string>
+            ((*ItKey).first, std::string("")));
+  }
+
+  // building the pair to add to the list of ids' input data
+  std::pair<openfluid::core::UnitID_t,
+            openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t>
+    PairInputDataNameValue =
+      std::pair<openfluid::core::UnitID_t,
+                openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t>
+        (UnitIDInt, InputDataNameValue);
+
+  // adding to the end the new unit
+  InputDataUnitDesp.getData().insert(InputDataUnitDesp.getData().end(),
+    PairInputDataNameValue);
+}
 
 // =====================================================================
 // =====================================================================
@@ -1308,6 +1369,42 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
     ListUnit.erase(IterUnit);
   else
     topython::printWarning("unit doesn't exist");
+
+  /* -- removes in input data -- */
+  std::list<openfluid::fluidx::InputDataDescriptor>&
+      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
+
+  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
+    ItIData = IData.begin();
+
+  /* searching for unit class */
+  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
+    ++ItIData;
+
+  /* if unit class exists */
+  if (ItIData != IData.end())
+  {
+    openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t& IDataIDDescp =
+        (*ItIData).getData();
+
+    openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator
+        ItIDataID = IDataIDDescp.begin();
+
+    /* searching for unit id */
+    while (ItIDataID != IDataIDDescp.end() && (*ItIDataID).first
+        != getIntUnitID)
+      ++ItIDataID;
+
+    /* if unit id exists */
+    if (ItIDataID != IDataIDDescp.end())
+    {
+      IDataIDDescp.erase(ItIDataID);
+    }
+    else
+      topython::printWarning("unit id doesn't exist in input data");
+  }
+  else
+    topython::printWarning("unit class doesn't exist in input data");
 }
 
 
@@ -1725,30 +1822,39 @@ void PyOpenFLUID::createInputData (boost::python::object UnitClass,
 
   bool keyExists = TRUE;
 
+  std::cout << "searching for unit class ..";
   /* searching for unit class */
   while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
     ++ItIData;
+  std::cout << "." << std::endl;
 
   /* searching for unit name in the first unit */
   if (ItIData != IData.end())
   {
     if ((*ItIData).getData().size() > 0)
+    {
+      std::cout << "unit class empty" << std::endl;
       keyExists = FALSE;
+    }
     else
     {
+      std::cout << "searching for unit name ..";
       ItUnitData = (*ItIData).getData().begin();
       keyExists = (*ItUnitData).second.find(IDataNameStr) !=
           (*ItUnitData).second.end();
+      std::cout << "." << std::endl;
     }
 
     if (!keyExists)
     {
       /* for all unit id */
+      std::cout << "for all unit id" << std::endl;
       for (ItUnitData = (*ItIData).getData().begin(); ItUnitData !=
           (*ItIData).getData().end(); ++ItUnitData)
       {
         UnitDataName = std::pair<openfluid::core::InputDataName_t,std::string>
             (IDataNameStr, IDataValStr);
+        std::cout << "item: " << (*ItUnitData).first << std::endl;
         (*ItUnitData).second.insert((*ItUnitData).second.end(), UnitDataName);
       }
     }
@@ -1757,6 +1863,8 @@ void PyOpenFLUID::createInputData (boost::python::object UnitClass,
   }
   else
     topython::printWarning("unit class doesn't exist");
+
+  // TODO add key to colums order
 }
 
 
