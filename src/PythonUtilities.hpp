@@ -115,6 +115,9 @@ struct PythonRawFunctionWrapper_t
   boost::python::object operator() (boost::python::tuple BoTuple,
                                     boost::python::dict BoDict);
 
+  PyObject* operator() (PyObject* InTuple,
+                        PyObject* InDict);
+
   PythonRawFunctionWrapper_t (ClassFun InFunction);
 
   private :

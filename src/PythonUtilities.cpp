@@ -210,6 +210,22 @@ boost::python::object PythonRawFunctionWrapper_t<InternalClass>::operator()
     (boost::python::tuple BoTuple,
      boost::python::dict BoDict)
 {
+  PyObject* PyRes = this(BoTuple.ptr(), BoDict.ptr());
+  Py_DECREF(PyRes);
+  boost::python::object BoRes(
+    boost::python::handle<>(boost::python::borrowed(PyRes)));
+  return BoRes;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+template <class InternalClass>
+PyObject* PythonRawFunctionWrapper_t<InternalClass>::operator()
+    (PyObject* InTuple, PyObject* InDict)
+{
   while (1)
   {
     if (this->m_Function == NULL)
@@ -219,8 +235,6 @@ boost::python::object PythonRawFunctionWrapper_t<InternalClass>::operator()
       break;
     }
 
-    PyObject* InTuple = BoTuple.ptr();
-    PyObject* InDict = BoDict.ptr();
     /* check type */
     if (!PyTuple_CheckExact(InTuple))
     {
@@ -254,16 +268,19 @@ boost::python::object PythonRawFunctionWrapper_t<InternalClass>::operator()
     InTuple = PyTuple_GetSlice(InTuple, 1, LenInTuple-1);
 
     /* call function */
-    PyObject* PyRes = this->m_Function(InTuple, InDict);
-    boost::python::object BoRes(
-      boost::python::handle<>(boost::python::borrowed(PyRes)));
-    return BoRes;
+    PyObject* Res = this->m_Function(InTuple, InDict);
+    if (Res != NULL)
+    {
+      Py_INCREF(Res);
+      return Res;
+    }
 
     break;
   }
 
   /* return result NONE */
-  return boost::python::object();
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 
