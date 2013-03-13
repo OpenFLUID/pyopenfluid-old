@@ -5,6 +5,9 @@
 #include <boost/python.hpp>
 #include <Python.h>
 #include <sstream>
+#include <typeinfo>
+
+#include "PythonUtilities.hpp"
 
 
 namespace tools {
@@ -37,7 +40,7 @@ std::string zeroFill (const std::string Input, int MaxLength)
 
 namespace topython {
 
-void printStdOut (std::string& Message, int EOL=0)
+void printStdOut (std::string& Message, int EOL)
 {
   int LenMsg = Message.length();
 
@@ -69,7 +72,7 @@ void printStdOut (std::string& Message, int EOL=0)
 // =====================================================================
 
 
-void printStdErr (std::string& Message, int EOL=0)
+void printStdErr (std::string& Message, int EOL)
 {
   int LenMsg = Message.length();
 
@@ -101,7 +104,7 @@ void printStdErr (std::string& Message, int EOL=0)
 // =====================================================================
 
 
-void printStdOut (const char* CharMessage, int EOL=0)
+void printStdOut (const char* CharMessage, int EOL)
 {
   std::string Message = std::string(CharMessage);
   printStdOut(Message, EOL);
@@ -112,7 +115,7 @@ void printStdOut (const char* CharMessage, int EOL=0)
 // =====================================================================
 
 
-void printStdErr (const char* CharMessage, int EOL=0)
+void printStdErr (const char* CharMessage, int EOL)
 {
   std::string Message = std::string(CharMessage);
   printStdOut(Message, EOL);
@@ -123,7 +126,7 @@ void printStdErr (const char* CharMessage, int EOL=0)
 // =====================================================================
 
 
-void printStdOut (std::stringstream& StringStream, int EOL=0)
+void printStdOut (std::stringstream& StringStream, int EOL)
 {
   std::string Message = StringStream.str();
   printStdOut(Message, EOL);
@@ -134,7 +137,7 @@ void printStdOut (std::stringstream& StringStream, int EOL=0)
 // =====================================================================
 
 
-void printStdErr (std::stringstream& StringStream, int EOL=0)
+void printStdErr (std::stringstream& StringStream, int EOL)
 {
   std::string Message = StringStream.str();
   printStdOut(Message, EOL);
@@ -145,7 +148,7 @@ void printStdErr (std::stringstream& StringStream, int EOL=0)
 // =====================================================================
 
 
-void printStdOut (std::iostream& IOStream, int EOL=0)
+void printStdOut (std::iostream& IOStream, int EOL)
 {
   std::string StringMessage;
   IOStream >> StringMessage;
@@ -157,7 +160,7 @@ void printStdOut (std::iostream& IOStream, int EOL=0)
 // =====================================================================
 
 
-void printStdErr (std::iostream& IOStream, int EOL=0)
+void printStdErr (std::iostream& IOStream, int EOL)
 {
   std::string StringMessage;
   IOStream >> StringMessage;
@@ -192,5 +195,95 @@ void printWarning (std::string& Message, PyObject *PyWarning)
   printWarning(Message.c_str(), PyWarning);
 }
 
+} // boost
 
-} // topython
+
+// =====================================================================
+// =====================================================================
+
+
+namespace pyopenfluid { namespace rawfunction {
+
+
+template <class InternalClass>
+boost::python::object PythonRawFunctionWrapper_t<InternalClass>::operator()
+    (boost::python::tuple BoTuple,
+     boost::python::dict BoDict)
+{
+  while (1)
+  {
+    if (this->m_Function == NULL)
+    {
+      PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper called\
+ but had null pointer function");
+      break;
+    }
+
+    PyObject* InTuple = BoTuple.ptr();
+    PyObject* InDict = BoDict.ptr();
+    /* check type */
+    if (!PyTuple_CheckExact(InTuple))
+    {
+      PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+ without tuple or tuple subtype");
+      break;
+    }
+    else if (!PyDict_CheckExact(InDict))
+    {
+      PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+ without dict or dict subtype");
+      break;
+    }
+
+    /* check class */
+    int LenInTuple = PyTuple_Size(InTuple);
+    if (LenInTuple <= 0)
+    {
+      PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+ without class associated");
+      break;
+    }
+    InternalClass* GetClass = 
+        boost::python::extract<InternalClass*>(PyTuple_GET_ITEM(InTuple, 0));
+    if (!GetClass)
+    {
+      PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+ without class associated");
+      break;
+    }
+    InTuple = PyTuple_GetSlice(InTuple, 1, LenInTuple-1);
+
+    /* call function */
+    PyObject* PyRes = this->m_Function(InTuple, InDict);
+    boost::python::object BoRes(
+      boost::python::handle<>(boost::python::borrowed(PyRes)));
+    return BoRes;
+
+    break;
+  }
+
+  /* return result NONE */
+  return boost::python::object();
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+template <class InternalClass>
+PythonRawFunctionWrapper_t<InternalClass>::PythonRawFunctionWrapper_t
+   (ClassFun InFunction)
+{
+  if (InFunction == NULL)
+    PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper\
+ received null pointer");
+  else
+  {
+    this->m_Function = InFunction;
+  }
+}
+
+
+} // rawfunction
+} // pyopenfluid

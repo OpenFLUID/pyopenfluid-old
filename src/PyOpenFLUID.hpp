@@ -1,3 +1,6 @@
+#ifndef __PYOPENFLUID_HPP__
+#define __PYOPENFLUID_HPP__
+
 #include <Python.h>
 #include <boost/python/dict.hpp>
 #include <boost/python/tuple.hpp>
@@ -23,6 +26,10 @@
 class PyOpenFLUID
 {
   public :
+
+// =====================================================================
+// =====================================================================
+
 
     /*!
      * @brief Create an OpenFLUID class.
@@ -54,6 +61,7 @@ class PyOpenFLUID
      *    the OpenFLUID version number
      */
     boost::python::object getVersion ();
+    PyObject* raw_getVersion (PyObject* InTuple, PyObject* InDict);
 
 
 // =====================================================================
@@ -1034,3 +1042,5 @@ class PyOpenFLUID
     openfluid::fluidx::FluidXDescriptor m_FXDesc;
 
 };
+
+#endif // __PYOPENFLUID_HPP__

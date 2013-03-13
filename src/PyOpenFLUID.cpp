@@ -90,6 +90,11 @@ boost::python::object PyOpenFLUID::getVersion ()
   return StrVersion;
 }
 
+PyObject* PyOpenFLUID::raw_getVersion (PyObject* InTuple, PyObject* InDict)
+{
+  return PyString_FromString((const char*) openfluid::config::FULL_VERSION.c_str());
+}
+
 
 // =====================================================================
 // =====================================================================

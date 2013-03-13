@@ -100,4 +100,30 @@ void printWarning (std::string& Message, PyObject *PyWarning = NULL);
 } // topython
 
 
+// =====================================================================
+// =====================================================================
+
+
+namespace pyopenfluid { namespace rawfunction {
+
+
+template <class InternalClass>
+struct PythonRawFunctionWrapper_t
+{
+  typedef PyObject*(InternalClass::*ClassFun)(PyObject*, PyObject*);
+
+  boost::python::object operator() (boost::python::tuple BoTuple,
+                                    boost::python::dict BoDict);
+
+  PythonRawFunctionWrapper_t (ClassFun InFunction);
+
+  private :
+    ClassFun m_Function;
+};
+
+
+} // rawfunction
+} // pyopenfluid
+
+
 #endif // __PYTHONUTILITIES_HPP__
