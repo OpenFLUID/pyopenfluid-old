@@ -5,9 +5,11 @@
 #include <vector>
 #include <list>
 #include <map>
-#include <boost/python.hpp>
 #include <sstream>
 #include <iostream>
+
+#include <Python.h>
+#include <boost/python.hpp>
 
 
 namespace tools {

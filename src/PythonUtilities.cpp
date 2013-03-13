@@ -2,10 +2,11 @@
 #include <vector>
 #include <list>
 #include <map>
-#include <boost/python.hpp>
-#include <Python.h>
 #include <sstream>
 #include <typeinfo>
+
+#include <Python.h>
+#include <boost/python.hpp>
 
 #include "PythonUtilities.hpp"
 
