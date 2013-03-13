@@ -18,6 +18,5 @@ TARGET_LINK_LIBRARIES(PyOpenFLUID
 SET_TARGET_PROPERTIES(PyOpenFLUID PROPERTIES
   OUTPUT_NAME "pyopenfluid" 
   PREFIX "_"
-  LINK_FLAGS
-  "-Wl,--no-undefined"
+  LINK_FLAGS "-Wl,--no-undefined"
 )

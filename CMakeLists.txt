@@ -14,7 +14,7 @@ FIND_PACKAGE(PythonInterp)
 FIND_PACKAGE(PythonLibs)
 FIND_PACKAGE(Doxygen)
 FIND_PACKAGE(OpenFLUID REQUIRED core base ware tools machine fluidx)
-FIND_PACKAGE(Boost 1.35.0 REQUIRED COMPONENTS python regex)
+FIND_PACKAGE(Boost 1.35.0 REQUIRED COMPONENTS python regex system)
 
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(LibXML2 REQUIRED libxml-2.0)
