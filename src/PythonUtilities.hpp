@@ -1,15 +1,20 @@
 #ifndef __PYTHONUTILITIES_HPP__
 #define __PYTHONUTILITIES_HPP__
 
+#include <map>
+#include <list>
 #include <string>
 #include <vector>
-#include <list>
-#include <map>
 #include <sstream>
 #include <iostream>
 
 #include <Python.h>
-#include <boost/python.hpp>
+#include <boost/python/str.hpp>
+#include <boost/python/dict.hpp>
+#include <boost/python/list.hpp>
+#include <boost/python/tuple.hpp>
+#include <boost/python/object.hpp>
+#include <boost/python/extract.hpp>
 
 
 namespace tools {
@@ -112,15 +117,91 @@ namespace pyopenfluid { namespace rawfunction {
 template <class InternalClass>
 struct PythonRawFunctionWrapper_t
 {
-  typedef PyObject*(InternalClass::*ClassFun)(PyObject*, PyObject*);
+  public :
 
-  boost::python::object operator() (boost::python::tuple BoTuple,
-                                    boost::python::dict BoDict);
+    typedef PyObject*(InternalClass::*ClassFun)(PyObject*, PyObject*);
 
-  PyObject* operator() (PyObject* InTuple,
-                        PyObject* InDict);
+    PyObject* calc (PyObject* InTuple,
+                          PyObject* InDict)
+    {
+      while (1)
+      {
+        if (this->m_Function == NULL)
+        {
+          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper called\
+     but had null pointer function");
+          break;
+        }
 
-  PythonRawFunctionWrapper_t (ClassFun InFunction);
+        /* check type */
+        if (!PyTuple_CheckExact(InTuple))
+        {
+          PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+     without tuple or tuple subtype");
+          break;
+        }
+        else if (!PyDict_CheckExact(InDict))
+        {
+          PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+     without dict or dict subtype");
+          break;
+        }
+
+        /* check class */
+        int LenInTuple = PyTuple_Size(InTuple);
+        if (LenInTuple <= 0)
+        {
+          PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+     without class associated");
+          break;
+        }
+        boost::python::extract<InternalClass*>
+            GetClass(PyTuple_GET_ITEM(InTuple, 0));
+        if (!GetClass)
+        {
+          PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
+     without class associated");
+          break;
+        }
+        InternalClass* ObjectClass = GetClass();
+        InTuple = PyTuple_GetSlice(InTuple, 1, LenInTuple-1);
+
+        /* call function */
+        PyObject* Res = (ObjectClass->*(this->m_Function))(InTuple, InDict);
+        if (Res != NULL)
+        {
+          Py_INCREF(Res);
+          return Res;
+        }
+
+        break;
+      }
+
+      /* return result NONE */
+      Py_INCREF(Py_None);
+      return Py_None;
+    }
+
+    boost::python::object operator() (boost::python::tuple BoTuple,
+                                      boost::python::dict BoDict)
+    {
+      PyObject* PyRes = this->calc(BoTuple.ptr(), BoDict.ptr());
+      Py_DECREF(PyRes);
+      boost::python::object BoRes(
+        boost::python::handle<>(boost::python::borrowed(PyRes)));
+      return BoRes;
+    }
+
+    PythonRawFunctionWrapper_t (ClassFun InFunction)
+    {
+      if (InFunction == NULL)
+        PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper\
+     received null pointer");
+      else
+      {
+        this->m_Function = InFunction;
+      }
+    }
 
   private :
     ClassFun m_Function;
