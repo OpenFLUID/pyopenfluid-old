@@ -1,5 +1,5 @@
 SET(pyopenfluid_source
-    Wrapper.cpp
+    Wrapper.cpp              Wrapper.hpp
     PyOpenFLUID.hpp          PyOpenFLUID.cpp
     PyOpenFLUIDError.hpp     PyOpenFLUIDError.cpp
     PythonUtilities.hpp      PythonUtilities.cpp)

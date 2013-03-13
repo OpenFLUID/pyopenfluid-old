@@ -15,12 +15,10 @@
 
 #include <openfluid/config.hpp>
 
+#include "Wrapper.hpp"
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
 #include "PythonUtilities.hpp"
-
-
-template struct pyopenfluid::rawfunction::PythonRawFunctionWrapper_t<PyOpenFLUID>;
 
 
 BOOST_PYTHON_MODULE(_pyopenfluid)
@@ -185,10 +183,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     )
     .def("raw_getVersion",
         boost::python::raw_function(
-            pyopenfluid::rawfunction::PythonRawFunctionWrapper_t<PyOpenFLUID>(
-              &PyOpenFLUID::raw_getVersion)),
-//              (pyopenfluid::rawfunction::TypePerso)
-//                std::bind1st(std::mem_fun(&PyOpenFLUID::raw_getVersion), &PyOpenFLUID)),
+            RawFunctionPyOpenFLUID(&PyOpenFLUID::raw_getVersion)),
       "no docstring here"
     )
 
