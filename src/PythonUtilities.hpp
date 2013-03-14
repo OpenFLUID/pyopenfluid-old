@@ -121,14 +121,19 @@ struct PythonRawFunctionWrapper_t
 
     typedef PyObject*(InternalClass::*ClassFun)(PyObject*, PyObject*);
 
-    PyObject* calc (PyObject* InTuple,
+
+// =====================================================================
+// =====================================================================
+
+
+    PyObject* operator() (PyObject* InTuple,
                           PyObject* InDict)
     {
       while (1)
       {
         if (this->m_Function == NULL)
         {
-          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper called\
+          PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
      but had null pointer function");
           break;
         }
@@ -137,13 +142,13 @@ struct PythonRawFunctionWrapper_t
         if (!PyTuple_CheckExact(InTuple))
         {
           PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
-     without tuple or tuple subtype");
+ without tuple or tuple subtype");
           break;
         }
         else if (!PyDict_CheckExact(InDict))
         {
           PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
-     without dict or dict subtype");
+ without dict or dict subtype");
           break;
         }
 
@@ -151,19 +156,20 @@ struct PythonRawFunctionWrapper_t
         int LenInTuple = PyTuple_Size(InTuple);
         if (LenInTuple <= 0)
         {
-          PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
-     without class associated");
+          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper \
+called without class associated");
           break;
         }
         boost::python::extract<InternalClass*>
             GetClass(PyTuple_GET_ITEM(InTuple, 0));
         if (!GetClass)
         {
-          PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper called\
-     without class associated");
+          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper \
+called with wrong class associated");
           break;
         }
         InternalClass* ObjectClass = GetClass();
+        /* pop the class from the tuple */
         InTuple = PyTuple_GetSlice(InTuple, 1, LenInTuple-1);
 
         /* call function */
@@ -182,26 +188,42 @@ struct PythonRawFunctionWrapper_t
       return Py_None;
     }
 
+
+// =====================================================================
+// =====================================================================
+
+
     boost::python::object operator() (boost::python::tuple BoTuple,
                                       boost::python::dict BoDict)
     {
-      PyObject* PyRes = this->calc(BoTuple.ptr(), BoDict.ptr());
+      PyObject* PyRes = this->operator()(BoTuple.ptr(), BoDict.ptr());
+      /* decrement because boost::python::raw_function will increase
+         automatically the pyobject pointer */
       Py_DECREF(PyRes);
+      /* allows re-use of the same pyobject pointer */
       boost::python::object BoRes(
         boost::python::handle<>(boost::python::borrowed(PyRes)));
       return BoRes;
     }
 
+
+// =====================================================================
+// =====================================================================
+
+
     PythonRawFunctionWrapper_t (ClassFun InFunction)
     {
       if (InFunction == NULL)
-        PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper\
-     received null pointer");
+        PyErr_SetString(PyExc_TypeError, "PythonRawFunctionWrapper\
+ received null pointer");
       else
-      {
         this->m_Function = InFunction;
-      }
     }
+
+
+// =====================================================================
+// =====================================================================
+
 
   private :
     ClassFun m_Function;
