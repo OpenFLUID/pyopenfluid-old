@@ -173,7 +173,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getVersion", &PyOpenFLUID::getVersion,
+    .def("getVersion",
+        boost::python::raw_function<RawFunctionPyOpenFLUID>(
+            RawFunctionPyOpenFLUID(&PyOpenFLUID::getVersion)),
       "Returns the OpenFLUID version.\
 \n\nReturns:\
 \nthe OpenFLUID version number\
@@ -181,11 +183,6 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 \n>>> obj = PyOpenFLUID()\
 \n>>> v = obj.getVersion()\
 "
-    )
-    .def("raw_getVersion",
-        boost::python::raw_function<RawFunctionPyOpenFLUID>(
-            RawFunctionPyOpenFLUID(&PyOpenFLUID::raw_getVersion)),
-      "no docstring here"
     )
 
 

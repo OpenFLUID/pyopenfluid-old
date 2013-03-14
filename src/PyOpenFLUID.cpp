@@ -1,4 +1,5 @@
 #include <Python.h>
+#include <stdio.h>
 #include <boost/python/str.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/list.hpp>
@@ -83,15 +84,16 @@ PyOpenFLUID::~PyOpenFLUID ()
 /* ----------------------  GENERAL FUNCTIONS  ----------------------- */
 
 
-boost::python::object PyOpenFLUID::getVersion ()
+PyObject* PyOpenFLUID::getVersion (PyObject* PyObSelf, PyObject* InTuple,
+    PyObject* InDict)
 {
-  boost::python::str StrVersion = boost::python::str((const char*)
-    openfluid::config::FULL_VERSION.c_str());
-  return StrVersion;
-}
+  if (PyTuple_Size(InTuple) != 0)
+    throw PyOFException("method called with parameters",
+        PyExc_TypeError);
+  if (PyDict_Size(InDict) != 0)
+    throw PyOFException("method called with keywords parameters",
+        PyExc_TypeError);
 
-PyObject* PyOpenFLUID::raw_getVersion (PyObject* InTuple, PyObject* InDict)
-{
   return PyString_FromString((const char*)
       openfluid::config::FULL_VERSION.c_str());
 }

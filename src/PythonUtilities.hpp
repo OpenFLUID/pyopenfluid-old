@@ -121,7 +121,7 @@ struct PythonRawFunctionWrapper_t
 {
   public :
 
-    typedef PyObject*(InternalClass::*ClassFun)(PyObject*, PyObject*);
+    typedef PyObject*(InternalClass::*ClassFun)(PyObject*, PyObject*, PyObject*);
 
 
 // =====================================================================
@@ -162,8 +162,8 @@ struct PythonRawFunctionWrapper_t
  called without class associated");
           break;
         }
-        boost::python::extract<InternalClass*>
-            GetClass(PyTuple_GET_ITEM(InTuple, 0));
+        PyObject* PyObSelf = PyTuple_GET_ITEM(InTuple, 0);
+        boost::python::extract<InternalClass*> GetClass(PyObSelf);
         if (!GetClass)
         {
           PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper\
@@ -172,10 +172,10 @@ struct PythonRawFunctionWrapper_t
         }
         InternalClass* ObjectClass = GetClass();
         /* pop the class from the tuple */
-        InTuple = PyTuple_GetSlice(InTuple, 1, LenInTuple-1);
+        InTuple = PyTuple_GetSlice(InTuple, 1, LenInTuple);
 
         /* call function */
-        PyObject* Res = (ObjectClass->*(this->m_Function))(InTuple, InDict);
+        PyObject* Res = (ObjectClass->*(this->m_Function))(PyObSelf, InTuple, InDict);
         if (Res != NULL)
         {
           Py_INCREF(Res);

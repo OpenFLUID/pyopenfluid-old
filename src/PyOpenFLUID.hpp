@@ -60,8 +60,9 @@ class PyOpenFLUID
      * @return
      *    the OpenFLUID version number
      */
-    boost::python::object getVersion ();
-    PyObject* raw_getVersion (PyObject* InTuple, PyObject* InDict);
+    PyObject* getVersion (PyObject* PyObSelf,
+                          PyObject* InTuple,
+                          PyObject* InDict);
 
 
 // =====================================================================
