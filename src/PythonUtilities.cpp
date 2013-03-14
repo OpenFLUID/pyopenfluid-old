@@ -1,6 +1,8 @@
 #include "PythonUtilities.hpp"
 
 
+namespace pyopenfluid { 
+
 namespace tools {
 
 std::string stringFill (const std::string Input, const std::string StrFill,
@@ -186,4 +188,6 @@ void printWarning (std::string& Message, PyObject *PyWarning)
   printWarning(Message.c_str(), PyWarning);
 }
 
-} // boost
+} // topython
+
+} // pyopenfluid

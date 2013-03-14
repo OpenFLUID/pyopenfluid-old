@@ -92,7 +92,8 @@ boost::python::object PyOpenFLUID::getVersion ()
 
 PyObject* PyOpenFLUID::raw_getVersion (PyObject* InTuple, PyObject* InDict)
 {
-  return PyString_FromString((const char*) openfluid::config::FULL_VERSION.c_str());
+  return PyString_FromString((const char*)
+      openfluid::config::FULL_VERSION.c_str());
 }
 
 
@@ -289,7 +290,7 @@ void PyOpenFLUID::printSimulationInfo ()
       << this->m_FXDesc.getRunDescriptor().getDeltaT() << std::endl;
 
   /* Printing */
-  topython::printStdOut(SStream);
+  pyopenfluid::topython::printStdOut(SStream);
 }
 
 
@@ -393,7 +394,7 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
     (*ItModelInfos)->setParameter(ParamNameStr,ParamValueStr);
   }
   else
-    topython::printWarning("function doesn't exists");
+    pyopenfluid::topython::printWarning("function doesn't exists");
 }
 
 
@@ -439,7 +440,7 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
   if (ItModelInfos != ModelInfos.end())
     Function->eraseParameter(ParamNameStr);
   else
-    topython::printWarning("function doesn't exists");
+    pyopenfluid::topython::printWarning("function doesn't exists");
 }
 
 
@@ -447,7 +448,8 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getFunctionParams (boost::python::object FuncID)
+boost::python::object PyOpenFLUID::getFunctionParams(
+    boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
   if (!getStringFuncID.check())
@@ -547,7 +549,7 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
       return boost::python::str(*Res);
   }
   else
-    topython::printWarning("generator doesn't exists");
+    pyopenfluid::topython::printWarning("generator doesn't exists");
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -606,7 +608,7 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
   if (ItModelInfos != ModelInfos.end())
     GenDescp->setParameter(ParamNameStr, ParamValueStr);
   else
-    topython::printWarning("generator doesn't exists");
+    pyopenfluid::topython::printWarning("generator doesn't exists");
 }
 
 
@@ -781,7 +783,7 @@ void PyOpenFLUID::removeFunction (boost::python::object FuncID)
   if (ItModelInfos != ModelInfos.end())
     ModelInfos.erase(ItModelInfos);
   else
-    topython::printWarning("function doesn't exist");
+    pyopenfluid::topython::printWarning("function doesn't exist");
 }
 
 
@@ -882,7 +884,7 @@ boost::python::object PyOpenFLUID::getObserverParam (
       return boost::python::str(*Res);
   }
   else
-    topython::printWarning("observer doesn't exist");
+    pyopenfluid::topython::printWarning("observer doesn't exist");
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -935,7 +937,7 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
   if (ItModelInfos != ModelInfos.end())
     ObsDescp->setParameter(ParamNameStr, ParamValueStr);
   else
-    topython::printWarning("observer doesn't exist");
+    pyopenfluid::topython::printWarning("observer doesn't exist");
 }
 
 
@@ -981,7 +983,7 @@ void PyOpenFLUID::removeObserverParam (boost::python::object ObsID,
   if (ItModelInfos != ModelInfos.end())
     ObsDescp->eraseParameter(ParamNameStr);
   else
-    topython::printWarning("observer doesn't exist");
+    pyopenfluid::topython::printWarning("observer doesn't exist");
 }
 
 
@@ -1122,7 +1124,7 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
   if (ItModelInfos != ModelInfos.end())
     ModelInfos.erase(ItModelInfos);
   else
-    topython::printWarning("observer doesn't exist");
+    pyopenfluid::topython::printWarning("observer doesn't exist");
 }
 
 
@@ -1204,7 +1206,8 @@ boost::python::object PyOpenFLUID::getUnitsClasses ()
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getUnitsIDs (boost::python::object UnitClass)
+boost::python::object PyOpenFLUID::getUnitsIDs (
+    boost::python::object UnitClass)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())
@@ -1373,7 +1376,7 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
   if (IterUnit != ListUnit.end())
     ListUnit.erase(IterUnit);
   else
-    topython::printWarning("unit doesn't exist");
+    pyopenfluid::topython::printWarning("unit doesn't exist");
 
   /* -- removes in input data -- */
   std::list<openfluid::fluidx::InputDataDescriptor>&
@@ -1406,10 +1409,12 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
       IDataIDDescp.erase(ItIDataID);
     }
     else
-      topython::printWarning("unit id doesn't exist in input data");
+      pyopenfluid::topython::printWarning(
+          "unit id doesn't exist in input data");
   }
   else
-    topython::printWarning("unit class doesn't exist in input data");
+    pyopenfluid::topython::printWarning(
+        "unit class doesn't exist in input data");
 }
 
 
@@ -1490,7 +1495,7 @@ void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
     ListUnit.insert(IterUnit, UnitDesp);
   }
   else
-    topython::printWarning("unit doesn't exists");
+    pyopenfluid::topython::printWarning("unit doesn't exists");
 }
 
 
@@ -1714,7 +1719,7 @@ void PyOpenFLUID::addUnitChild (
     ListUnit.insert(IterUnitTo, UnitDespTo);
   }
   else
-    topython::printWarning("units are already linked");
+    pyopenfluid::topython::printWarning("units are already linked");
 }
 
 
@@ -1787,7 +1792,7 @@ void PyOpenFLUID::removeUnitChild (
   if (ItUnits != ListUnits.end())
     ItUnits = ListUnits.erase(ItUnits);
   else
-    topython::printWarning("units aren't linked");
+    pyopenfluid::topython::printWarning("units aren't linked");
 }
 
 
@@ -1864,10 +1869,10 @@ void PyOpenFLUID::createInputData (boost::python::object UnitClass,
       }
     }
     else
-      topython::printWarning("input data name exists");
+      pyopenfluid::topython::printWarning("input data name exists");
   }
   else
-    topython::printWarning("unit class doesn't exist");
+    pyopenfluid::topython::printWarning("unit class doesn't exist");
 
   // TODO add key to colums order
 }
@@ -1927,10 +1932,10 @@ boost::python::object PyOpenFLUID::getInputData (
       }
     }
     else
-      topython::printWarning("unit id doesn't exist");
+      pyopenfluid::topython::printWarning("unit id doesn't exist");
   }
   else
-    topython::printWarning("unit class doesn't exist");
+    pyopenfluid::topython::printWarning("unit class doesn't exist");
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -1990,13 +1995,13 @@ void PyOpenFLUID::setInputData (boost::python::object UnitClass,
         (*ItUnitData).second[IDataNameStr] = IDataValStr;
       }
       else
-        topython::printWarning("input data name doesn't exist");
+        pyopenfluid::topython::printWarning("input data name doesn't exist");
     }
     else
-      topython::printWarning("unit id doesn't exist");
+      pyopenfluid::topython::printWarning("unit id doesn't exist");
   }
   else
-    topython::printWarning("unit class doesn't exist");
+    pyopenfluid::topython::printWarning("unit class doesn't exist");
 }
 
 
@@ -2049,10 +2054,10 @@ void PyOpenFLUID::removeInputData (boost::python::object UnitClass,
       }
     }
     else
-      topython::printWarning("input data name doesn't exist");
+      pyopenfluid::topython::printWarning("input data name doesn't exist");
   }
   else
-    topython::printWarning("unit class doesn't exist or it doesn't contain any units");
+    pyopenfluid::topython::printWarning("unit class doesn't exist or it doesn't contain any units");
 }
 
 
@@ -2190,17 +2195,17 @@ boost::python::object PyOpenFLUID::getPeriodBeginDate ()
   openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor()
       .getBeginDate();
   std::stringstream StreamRes(std::stringstream::in | std::stringstream::out);
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getYear()), 1) << "-";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getMonth()), 2) << "-";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getDay()), 2) << " ";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getHour()), 2) << ":";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getMinute()), 2) << ":";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getSecond()), 2);
   return boost::python::str(StreamRes.str().c_str());
 }
@@ -2216,17 +2221,17 @@ boost::python::object PyOpenFLUID::getPeriodEndDate ()
   openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor()
       .getEndDate();
   std::stringstream StreamRes(std::stringstream::in | std::stringstream::out);
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getYear()), 1) << "-";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getMonth()), 2) << "-";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getDay()), 2) << " ";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getHour()), 2) << ":";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getMinute()), 2) << ":";
-  StreamRes << tools::zeroFill(boost::lexical_cast<std::string>(
+  StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
       BrutDate.getSecond()), 2);
   return boost::python::str(StreamRes.str().c_str());
 }
@@ -2268,7 +2273,8 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
   this->m_FXDesc.getRunDescriptor().setBeginDate(BDate);
   }
   else
-    topython::printWarning("begin date isn't formatted with good format");
+    pyopenfluid::topython::printWarning(
+        "begin date isn't formatted with good format");
 }
 
 
@@ -2308,7 +2314,8 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
   this->m_FXDesc.getRunDescriptor().setEndDate(BDate);
   }
   else
-    topython::printWarning("end date isn't formatted with good format");
+    pyopenfluid::topython::printWarning(
+        "end date isn't formatted with good format");
 }
 
 

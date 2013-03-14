@@ -17,6 +17,8 @@
 #include <boost/python/extract.hpp>
 
 
+namespace pyopenfluid { 
+
 namespace tools {
 
 std::string stringFill (const std::string Input, const std::string StrFill,
@@ -111,7 +113,7 @@ void printWarning (std::string& Message, PyObject *PyWarning = NULL);
 // =====================================================================
 
 
-namespace pyopenfluid { namespace rawfunction {
+namespace rawfunction {
 
 
 template <class InternalClass>
@@ -156,16 +158,16 @@ struct PythonRawFunctionWrapper_t
         int LenInTuple = PyTuple_Size(InTuple);
         if (LenInTuple <= 0)
         {
-          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper \
-called without class associated");
+          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper\
+ called without class associated");
           break;
         }
         boost::python::extract<InternalClass*>
             GetClass(PyTuple_GET_ITEM(InTuple, 0));
         if (!GetClass)
         {
-          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper \
-called with wrong class associated");
+          PyErr_SetString(PyExc_EnvironmentError, "PythonRawFunctionWrapper\
+ called with wrong class associated");
           break;
         }
         InternalClass* ObjectClass = GetClass();
@@ -231,6 +233,8 @@ called with wrong class associated");
 
 
 } // rawfunction
+
+
 } // pyopenfluid
 
 
