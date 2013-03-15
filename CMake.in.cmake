@@ -23,7 +23,7 @@ SET(PYOPENFLUID_INPUT_MODULE "${CURRENT_PATH}/module")
 SET(PYOPENFLUID_INPUT_SOURCE "${CURRENT_PATH}/src")
 SET(PYOPENFLUID_INPUT_DOC "${CURRENT_PATH}/doc")
 
-#TODO remove installation for python
+#TODO remove installation later for python official installer
 IF (UNIX)
   SET(PYTHON_LIB_PATH       "lib/python${PYTHON_VERSION}")
 ELSE (UNIX)
@@ -48,7 +48,3 @@ SET(CREATE_DOC_MAN YES)
 # ------ TESTS FILES ------ #
 SET(OPENFLUID_TESTS_PROJECT_1
     "${OpenFLUID_HOME_DIR}/share/doc/openfluid/examples/projects/Primitives")
-SET(OPENFLUID_TESTS_FUNCTIONS_PATH
-    "${OpenFLUID_HOME_DIR}/${FUNCTIONS_PLUGINS_STDDIR}")
-SET(OPENFLUID_TESTS_OBSERVERS_PATH
-    "${OpenFLUID_HOME_DIR}/${OBSERVERS_PLUGINS_STDDIR}")

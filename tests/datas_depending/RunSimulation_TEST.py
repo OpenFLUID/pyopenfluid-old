@@ -7,8 +7,8 @@ class PyOpenFLUIDTest_RunSimulation(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of project functions."""
-        self.preparePyOpenFLUIDClass(ArgList, "funpath", "obspath", "output",
-            "dataset", optional="project")
+        self.preparePyOpenFLUIDClass(ArgList, "output", "dataset",
+            optional=("project","funpath", "obspath"))
 
         Res = self.openfluid.runSimulation()
 

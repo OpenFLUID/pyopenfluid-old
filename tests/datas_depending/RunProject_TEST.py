@@ -9,7 +9,7 @@ class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
         """Test of project functions."""
         Path = ArgList.get("project", None)
         self.assertIsNotNone(Path)
-        self.preparePyOpenFLUIDClass(ArgList, "funpath", "obspath")
+        self.preparePyOpenFLUIDClass(ArgList, optional=("funpath", "obspath"))
 
         OClass = self.openfluid.runProject(Path)
 

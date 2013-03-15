@@ -35,9 +35,7 @@ CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNPROJECT_N
 ADD_TEST(RunProject_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/RunProject_TEST.py"
-         "--project" "${TEST_RUNPROJECT_PATH}"
-         "--funpath" "${TEST_RESSOURCE_FUNCTIONS}"
-         "--obspath" "${TEST_RESSOURCE_OBSERVERS}")
+         "--project" "${TEST_PATH}/${RUNPROJECT_NAME}")
 SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      DEPENDS RunSimulation_TEST
@@ -47,13 +45,14 @@ SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
 
 
 
+SET(RUNSIMULATION_NAME "cmd_runsimulation")
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNSIMULATION_NAME}")
+
 ADD_TEST(RunSimulation_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/RunSimulation_TEST.py"
-         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
-         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT"
-         "--funpath" "${TEST_RESSOURCE_FUNCTIONS}"
-         "--obspath" "${TEST_RESSOURCE_OBSERVERS}")
+         "--dataset" "${TEST_PATH}/${RUNSIMULATION_NAME}/IN"
+         "--output" "${TEST_PATH}/${RUNSIMULATION_NAME}/OUT")
 SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE

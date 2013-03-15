@@ -31,6 +31,7 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
         self.assertRaisesOrElse(ValueError, self.openfluid.getGeneratorParam,
                 self.assertIsNone, argObj=(UnitClass, "bidon", "bidon") )
 
+        print "Val:", Val
         self.assertTrue(isinstance(Val, str))
         self.checkNumeric(Val)
 
