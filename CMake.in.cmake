@@ -10,7 +10,22 @@ SET(CURRENT_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
 SET(PYOPENFLUID_MAIN_NAME "pyopenfluid")
 SET(PYOPENFLUID_DISPLAY_NAME "PyOpenFLUID")
-SET(PYOPENFLUID_VERSION ${OpenFLUID_VERSION})
+
+SET(PYOPENFLUID_MAJOR_VERSION "1")
+SET(PYOPENFLUID_MINOR_VERSION "0")
+SET(PYOPENFLUID_PATCH_VERSION "0")
+SET(PYOPENFLUID_STATUS_VERSION "alpha")
+SET(PYOPENFLUID_VERSION "${PYOPENFLUID_MAJOR_VERSION}.${PYOPENFLUID_MINOR_VERSION}.${PYOPENFLUID_PATCH_VERSION}~${PYOPENFLUID_STATUS_VERSION}")
+
+
+SET(PYOPENFLUID_LICENCE "GPLv3")
+SET(PYOPENFLUID_SHORT_DESCRIPTION "This module allows to load, parameterize, run and analyse OpenFLUID simulations within the Python 2.x environment.")
+SET(PYOPENFLUID_LONG_DESCRIPTION "This module allows to load, parameterize, run and analyse OpenFLUID simulations within the Python 2.x environment. (long version)")
+SET(PYOPENFLUID_AUTHORS_LIST "Bastien VAYSSE")
+SET(PYOPENFLUID_EMAIL_LIST "bastien.vaysse@supagro.inra.fr")
+SET(PYOPENFLUID_MAINTAINER "Bastien VAYSSE")
+SET(PYOPENFLUID_EMAIL_MAINTAINER "bastien.vaysse@supagro.inra.fr")
+SET(PYOPENFLUID_URL "http://www.openfluid-project.org/openfluid/community/index.php/Main_Page")
 
 
 # ------ DIRECTORIES ------ #

@@ -12,8 +12,7 @@ except ImportError, msg:
     raise ImportError, str(msg) + ', please install the python-openfluid package'
 
 # settings constants from library
-CONST_ATTRIBUTES = ["__doc__", "__author__", "__credits__", "__version__",
-    "__license__"]
+CONST_ATTRIBUTES = ["__doc__", "__author__", "__version__", "__license__"]
 for Attr in dir(_pyopenfluid):  
     if Attr in CONST_ATTRIBUTES:
         exec "{0} = _pyopenfluid.{1}".format(Attr, Attr)

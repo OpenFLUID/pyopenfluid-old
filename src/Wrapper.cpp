@@ -19,6 +19,7 @@
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
 #include "PythonUtilities.hpp"
+#include "PyOpenFLUIDConstants.hpp"
 
 
 
@@ -36,26 +37,16 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 /* ------------------------- MODULE CONSTANTS ----------------------- */
 
   boost::python::scope().attr("__version__") = boost::python::str(
-      (const std::string) openfluid::config::FULL_VERSION);
+      PYOPENFLUID_VERSION);
 
   boost::python::scope().attr("__author__") = boost::python::str(
-      "Bastien VAYSSE");
+      PYOPENFLUID_AUTHOR);
 
-  boost::python::list AuthorsList = boost::python::list();
-  AuthorsList.append(
-      boost::python::str("Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>"));
-  AuthorsList.append(
-      boost::python::str("Jean-Christophe FABRE <fabrejc@supagro.inra.fr>"));
-  boost::python::scope().attr("__credits__") = AuthorsList;
+  boost::python::scope().attr("__license__") = boost::python::str(
+      PYOPENFLUID_LICENCE);
 
-  boost::python::scope().attr("__license__") = boost::python::str("GPLv3");
-
-  boost::python::scope().attr("__date__") =
-      boost::python::str("27-02-2013 GMT+0100");
-
-  boost::python::scope().attr("__doc__") =
-      boost::python::str("This module allows to load, parameterize, run and\
- analyse OpenFLUID simulations within the Python 2.x environment.");
+  boost::python::scope().attr("__doc__") = boost::python::str(
+      PYOPENFLUID_DESCRIPTION);
 
 
 // =====================================================================
