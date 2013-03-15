@@ -1,40 +1,37 @@
-# TODO: erase first and second path when install or whenever
-SET(PY_DIR "${PYTHON_MODULE_OUTPUT_PATH}:${CMAKE_CURRENT_SOURCE_DIR}")
-
-# creation of tests datasets and projects
-# datasets
-# TODO: replace by openfluid datasets path
-SET(RESSOURCE_INPUT "/home/vaysseb/Téléchargements/openfluid/resources/tests/datasets")
-# TODO: replace by openfluid binary test ressource
-SET(TEST_INPUT_Generators "${RESSOURCE_INPUT}/OPENFLUID.IN.Generators")
-SET(TEST_INPUT_FluidXWriter "${RESSOURCE_INPUT}/OPENFLUID.IN.FluidXWriter")
-SET(TEST_INPUT_CSVObserver "${RESSOURCE_INPUT}/OPENFLUID.IN.CSVObserver")
-
-# binary functions
-SET(TEST_RESSOURCE_FUNCTIONS "/home/vaysseb/Téléchargements/openfluid/_build/tests-bin")
-SET(TEST_RESSOURCE_GENERATORS "/home/vaysseb/Téléchargements/openfluid/_build/tests-bin")
-
-# projects
-SET(TEST_OUTPUT_PROJECT_A "${TEST_OUTPUT_PATH}/project_A")
-FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PROJECT_A}")
-FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PROJECT_A}/OUT")
-FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PROJECT_A}/IN")
-
-ADD_CUSTOM_TARGET(Tests_Preparation ALL)
-ADD_CUSTOM_COMMAND(TARGET Tests_Preparation POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" "-E"
-    "copy_directory" "${RESSOURCE_INPUT}/OPENFLUID.IN.FluidXWriter"
-    "${TEST_OUTPUT_PROJECT_A}/IN/" VERBATIM)
-# TODO: delete this file (project test)
-ADD_CUSTOM_COMMAND(TARGET Tests_Preparation POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" "-E"
-    "copy" "${CMAKE_CURRENT_SOURCE_DIR}/tmp_ressources/.openfluidprj"
-    "${TEST_OUTPUT_PROJECT_A}/" VERBATIM)
-
 #
+# CMake environment variable for PyOpenFLUID
+#
+# Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
+#
+
+SET(PY_DIR "${PYTHON_MODULE_OUTPUT_PATH}:${CMAKE_CURRENT_SOURCE_DIR}")
+SET(TEST_PATH "${TEST_OUTPUT_PATH}")
+
+# binary paths
+SET(TEST_RESSOURCE_FUNCTIONS "${OPENFLUID_TESTS_FUNCTIONS_PATH}")
+SET(TEST_RESSOURCE_OBSERVERS "${OPENFLUID_TESTS_OBSERVERS_PATH}")
+
+# macro - create a copy of openfluid projet path
+MACRO(CreateOFRepository SOURCE FINALPATH FINALNAME)
+  FILE(COPY "${SOURCE}" DESTINATION "${FINALPATH}")
+  GET_FILENAME_COMPONENT(SOURCENAME ${SOURCE} NAME CACHE)
+  FILE(RENAME "${FINALPATH}/${SOURCENAME}"
+       "${FINALPATH}/${FINALNAME}")
+  FILE(MAKE_DIRECTORY "${FINALPATH}/${FINALNAME}")
+  FILE(MAKE_DIRECTORY "${FINALPATH}/${FINALNAME}/IN")
+  FILE(MAKE_DIRECTORY "${FINALPATH}/${FINALNAME}/OUT")
+ENDMACRO(CreateOFRepository)
+
+# output projects path
+SET(PROJECT_NAME_1        "project_1")
+
+# input projects path (use read-only)
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${PROJECT_NAME_1}")
+
+##
 ADD_TEST(TestOfTestUnit
          ${PYTHON_EXECUTABLE}
-         ${CMAKE_CURRENT_SOURCE_DIR}/TestOfTestUnit.py)
+         "${CMAKE_CURRENT_SOURCE_DIR}/TestOfTestUnit.py")
 SET_TESTS_PROPERTIES(TestOfTestUnit PROPERTIES
                      WILL_FAIL TRUE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")

@@ -1,3 +1,9 @@
+#
+# CMake environment variable for PyOpenFLUID
+#
+# Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
+#
+
 ADD_TEST(Version_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/Version_TEST.py)

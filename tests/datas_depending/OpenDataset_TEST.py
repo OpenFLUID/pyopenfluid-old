@@ -7,7 +7,9 @@ class PyOpenFLUIDTest_OpenDataSet(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of simulation functions."""
-        self.assertEquals(self.loadAllInputDataset(ArgList), len(ArgList))
+        DSPath = ArgList.get("dataset", None)
+        self.assertIsNotNone(DSPath)
+        self.loadInputDataset(DSPath)
 
 if __name__ == "__main__":
     ArgList = skipArgFromCL()

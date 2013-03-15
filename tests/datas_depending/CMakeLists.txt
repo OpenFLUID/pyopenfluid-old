@@ -1,8 +1,14 @@
+#
+# CMake environment variable for PyOpenFLUID
+#
+# Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
+#
+
 ADD_TEST(OpenDataset_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/OpenDataset_TEST.py"
-         "${TEST_INPUT_Generators}"
-         "${TEST_INPUT_FluidXWriter}")
+         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
+         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(OpenDataset_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
@@ -13,7 +19,8 @@ SET_TESTS_PROPERTIES(OpenDataset_TEST PROPERTIES
 ADD_TEST(OpenProject_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/OpenProject_TEST.py"
-         "${TEST_OUTPUT_PROJECT_A}")
+         "--project" "${TEST_PATH}/${PROJECT_NAME_1}"
+         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(OpenProject_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
@@ -22,12 +29,15 @@ SET_TESTS_PROPERTIES(OpenProject_TEST PROPERTIES
 
 
 
+SET(RUNPROJECT_NAME "cmd_runproject")
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNPROJECT_NAME}")
+
 ADD_TEST(RunProject_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/RunProject_TEST.py"
-         "${TEST_OUTPUT_PROJECT_A}"
-         "${TEST_RESSOURCE_FUNCTIONS}"
-         "${TEST_RESSOURCE_GENERATORS}")
+         "--project" "${TEST_RUNPROJECT_PATH}"
+         "--funpath" "${TEST_RESSOURCE_FUNCTIONS}"
+         "--obspath" "${TEST_RESSOURCE_OBSERVERS}")
 SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      DEPENDS RunSimulation_TEST
@@ -40,9 +50,10 @@ SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
 ADD_TEST(RunSimulation_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/RunSimulation_TEST.py"
-         "${TEST_INPUT_Generators}"
-         "${TEST_RESSOURCE_FUNCTIONS}"
-         "${TEST_RESSOURCE_GENERATORS}")
+         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
+         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT"
+         "--funpath" "${TEST_RESSOURCE_FUNCTIONS}"
+         "--obspath" "${TEST_RESSOURCE_OBSERVERS}")
 SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
@@ -54,7 +65,8 @@ SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
 ADD_TEST(GeneratorParameter_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/GeneratorParameter_TEST.py"
-         "${TEST_INPUT_Generators}")
+         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
+         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
@@ -66,7 +78,8 @@ SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
 ADD_TEST(UnitsClasses_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/UnitsClasses_TEST.py"
-         "${TEST_INPUT_FluidXWriter}")
+         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
+         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(UnitsClasses_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
@@ -78,7 +91,8 @@ SET_TESTS_PROPERTIES(UnitsClasses_TEST PROPERTIES
 ADD_TEST(UnitsIDs_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/UnitsIDs_TEST.py"
-         "${TEST_INPUT_FluidXWriter}")
+         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
+         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(UnitsIDs_TEST PROPERTIES
                      DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE

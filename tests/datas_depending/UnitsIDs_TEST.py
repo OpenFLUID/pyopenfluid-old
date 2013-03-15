@@ -7,7 +7,8 @@ class PyOpenFLUIDTest_UnitsIDs(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of units IDs functions."""
-        self.assertEquals(self.loadAllInputDataset(ArgList), 1)
+        self.preparePyOpenFLUIDClass(ArgList, "output", "dataset",
+            optional="project")
 
         # test of unitsA
         ListID = self.openfluid.getUnitsIDs("TestUnits")

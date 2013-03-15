@@ -7,7 +7,8 @@ class PyOpenFLUIDTest_UnitsClasses(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of units classes functions."""
-        self.assertEquals(self.loadAllInputDataset(ArgList), 1)
+        self.preparePyOpenFLUIDClass(ArgList, "output", "dataset",
+            optional="project")
 
         ListUC = self.openfluid.getUnitsClasses()
         self.assertTrue(isinstance(ListUC, list))

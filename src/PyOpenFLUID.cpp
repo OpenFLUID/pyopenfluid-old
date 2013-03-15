@@ -1834,39 +1834,32 @@ void PyOpenFLUID::createInputData (boost::python::object UnitClass,
 
   bool keyExists = TRUE;
 
-  std::cout << "searching for unit class ..";
   /* searching for unit class */
   while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
     ++ItIData;
-  std::cout << "." << std::endl;
 
   /* searching for unit name in the first unit */
   if (ItIData != IData.end())
   {
     if ((*ItIData).getData().size() > 0)
     {
-      std::cout << "unit class empty" << std::endl;
       keyExists = FALSE;
     }
     else
     {
-      std::cout << "searching for unit name ..";
       ItUnitData = (*ItIData).getData().begin();
       keyExists = (*ItUnitData).second.find(IDataNameStr) !=
           (*ItUnitData).second.end();
-      std::cout << "." << std::endl;
     }
 
     if (!keyExists)
     {
       /* for all unit id */
-      std::cout << "for all unit id" << std::endl;
       for (ItUnitData = (*ItIData).getData().begin(); ItUnitData !=
           (*ItIData).getData().end(); ++ItUnitData)
       {
         UnitDataName = std::pair<openfluid::core::InputDataName_t,std::string>
             (IDataNameStr, IDataValStr);
-        std::cout << "item: " << (*ItUnitData).first << std::endl;
         (*ItUnitData).second.insert((*ItUnitData).second.end(), UnitDataName);
       }
     }
