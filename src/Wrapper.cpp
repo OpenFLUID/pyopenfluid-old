@@ -29,7 +29,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 /* ------------------------- BOOST SETTINGS ------------------------- */
 
   // docstring perso - docstring boost(python) - docstring boost(c++)
-  boost::python::docstring_options local_docstring_options(true, false, false);
+  boost::python::docstring_options local_docstring_options(true, true, false);
 
 
 // =====================================================================
@@ -79,7 +79,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("addExtraFunctionsPaths",
       &PyOpenFLUID::addExtraFunctionsPaths,
-      ( boost::python::arg("Paths") ),
+      ( boost::python::arg("self"), boost::python::arg("Paths") ),
       "Adds paths to search for simulation functions.\
 \n\nKeyword arguments:\
 \nPaths  -- the semicolon separated paths to add\
@@ -97,6 +97,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getExtraFunctionsPaths",
       &PyOpenFLUID::getExtraFunctionsPaths,
+      ( boost::python::arg("self") ),
       "Returns the added paths to search for simulation functions.\
 \n\nReturns:\
 \na list of Paths\
@@ -113,6 +114,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("resetExtraFunctionsPaths",
       &PyOpenFLUID::resetExtraFunctionsPaths,
+      ( boost::python::arg("self") ),
       "Reset paths to search for simulation functions.\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
@@ -127,7 +129,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("addExtraObserversPaths",
       &PyOpenFLUID::addExtraObserversPaths,
-      ( boost::python::arg("Paths") ),
+      ( boost::python::arg("self"), boost::python::arg("Paths") ),
       "Adds paths to search for observers.\
 \n\nKeyword arguments:\
 \nPaths  -- the semicolon separated paths to add\
@@ -145,6 +147,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getExtraObserversPaths",
       &PyOpenFLUID::getExtraObserversPaths,
+      ( boost::python::arg("self") ),
       "Returns the added paths to search for observers.\
 \n\nReturns:\
 \na list of Paths\
@@ -161,6 +164,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("resetExtraObserversPaths",
       &PyOpenFLUID::resetExtraObserversPaths,
+      ( boost::python::arg("self") ),
       "Reset paths to search for observers.\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
@@ -192,6 +196,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("printSimulationInfo",
       &PyOpenFLUID::printSimulationInfo,
+      ( boost::python::arg("self") ),
       "Prints informations to screen about simulation definition class (self).\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
@@ -206,7 +211,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getFunctionParam",
       &PyOpenFLUID::getFunctionParam,
-      ( boost::python::arg("FuncID"), boost::python::arg("ParamName") ),
+      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+        boost::python::arg("ParamName") ),
       "Returns a function parameter value.\
 \n\nKeyword arguments:\
 \nFunID      -- the simulation function id\
@@ -226,8 +232,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("setFunctionParam",
       &PyOpenFLUID::setFunctionParam,
-      ( boost::python::arg("FuncID"), boost::python::arg("ParamName"),
-        boost::python::arg("ParamValue") ),
+      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+        boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
       "Sets a function parameter value.\
 \n\nKeyword arguments:\
 \nFunID        -- the simulation function id\
@@ -246,7 +252,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("removeFunctionParam",
       &PyOpenFLUID::removeFunctionParam,
-      ( boost::python::arg("FuncID"), boost::python::arg("ParamName") ),
+      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+        boost::python::arg("ParamName") ),
       "Removes a function parameter.\
 \n\nKeyword arguments:\
 \nFunID        -- the simulation function id\
@@ -264,7 +271,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getFunctionParams",
       &PyOpenFLUID::getFunctionParams,
-      ( boost::python::arg("FuncID") ),
+      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
       "Gets all parameter of a function.\
 \n\nKeyword arguments:\
 \nFunID        -- the simulation function id\
@@ -282,8 +289,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getGeneratorParam", &PyOpenFLUID::getGeneratorParam,
-      ( boost::python::arg("UnitClass"), boost::python::arg("VarName"),
-        boost::python::arg("ParamName") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("VarName"), boost::python::arg("ParamName") ),
       "Returns a generator parameter value.\
 \n\nKeyword arguments:\
 \nUnitClass  -- the unit class to which the generator is applied\
@@ -303,8 +310,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("setGeneratorParam", &PyOpenFLUID::setGeneratorParam,
-      ( boost::python::arg("UnitClass"), boost::python::arg("VarName"),
-        boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("VarName"), boost::python::arg("ParamName"),
+        boost::python::arg("ParamValue") ),
       "Sets a generator parameter value.\
 \n\nKeyword arguments:\
 \nUnitClass   -- the unit class to which the generator is applied\
@@ -324,7 +332,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getModelGlobalParam",
       &PyOpenFLUID::getModelGlobalParam,
-      ( boost::python::arg("ParamName") ),
+      ( boost::python::arg("self"), boost::python::arg("ParamName") ),
       "Returns a model global parameter value.\
 \n\nKeyword arguments:\
 \nParamName  -- the name of the parameter\
@@ -343,7 +351,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("setModelGlobalParam",
       &PyOpenFLUID::setModelGlobalParam,
-      ( boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
+      ( boost::python::arg("self"), boost::python::arg("ParamName"),
+        boost::python::arg("ParamValue") ),
       "Sets a model global parameter value.\
 \n\nKeyword arguments:\
 \nParamName   -- the name of the parameter\
@@ -361,6 +370,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getModelGlobalParams",
       &PyOpenFLUID::getModelGlobalParams,
+      ( boost::python::arg("self") ),
       "Returns all model global parameter.\
 \n\nReturns:\
 \na list of parameter name.\
@@ -377,7 +387,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("removeModelGlobalParam",
       &PyOpenFLUID::removeModelGlobalParam,
-      ( boost::python::arg("ParamName") ),
+      ( boost::python::arg("self"), boost::python::arg("ParamName") ),
       "Removes a model global parameter value.\
 \n\nKeyword arguments:\
 \nParamName   -- the name of the parameter\
@@ -394,7 +404,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("addFunction",
       &PyOpenFLUID::addFunction,
-      ( boost::python::arg("FuncID") ),
+      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
       "Adds a function.\
 \n\nKeyword arguments:\
 \nFunID        -- the simulation function id\
@@ -411,7 +421,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("removeFunction",
       &PyOpenFLUID::removeFunction,
-      ( boost::python::arg("FuncID") ),
+      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
       "Removes a function.\
 \n\nKeyword arguments:\
 \nFunID        -- the simulation function id\
@@ -428,6 +438,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("clearModel",
       &PyOpenFLUID::clearModel,
+      ( boost::python::arg("self") ),
       "Removes all functions.\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
@@ -442,6 +453,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getFunctionsInModel",
       &PyOpenFLUID::getFunctionsInModel,
+      ( boost::python::arg("self") ),
       "Gets all functions names.\
 \n\nReturns:\
 \na list of function name.\
@@ -457,7 +469,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getObserverParam", &PyOpenFLUID::getObserverParam,
-      ( boost::python::arg("ObsID"), boost::python::arg("ParamName") ),
+      ( boost::python::arg("self"), boost::python::arg("ObsID"),
+        boost::python::arg("ParamName") ),
       "Returns an observer parameter value.\
 \n\nKeyword arguments:\
 \nObsID      -- the observer id\
@@ -476,8 +489,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("setObserverParam", &PyOpenFLUID::setObserverParam,
-      ( boost::python::arg("ObsID"), boost::python::arg("ParamName"),
-        boost::python::arg("ParamValue") ),
+      ( boost::python::arg("self"), boost::python::arg("ObsID"),
+        boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
       "Sets an observer parameter value.\
 \n\nKeyword arguments:\
 \nObsID       -- the observer id\
@@ -496,7 +509,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("removeObserverParam",
       &PyOpenFLUID::removeObserverParam,
-      ( boost::python::arg("ObsID"), boost::python::arg("ParamName") ),
+      ( boost::python::arg("self"), boost::python::arg("ObsID"),
+        boost::python::arg("ParamName") ),
       "Removes an observer parameter.\
 \n\nKeyword arguments:\
 \nFunID        -- the simulation function id\
@@ -514,7 +528,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getObserverParams",
       &PyOpenFLUID::getObserverParams,
-      ( boost::python::arg("ObsID") ),
+      ( boost::python::arg("self"), boost::python::arg("ObsID") ),
       "Gets all observer parameters name.\
 \n\nKeyword arguments:\
 \nFunID        -- the simulation function id\
@@ -532,7 +546,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("addObserver", &PyOpenFLUID::addObserver,
-      ( boost::python::arg("ObsID") ),
+      ( boost::python::arg("self"), boost::python::arg("ObsID") ),
       "Adds an observer.\
 \n\nKeyword arguments:\
 \nObsID       -- the observer id\
@@ -548,7 +562,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("removeObserver", &PyOpenFLUID::removeObserver,
-      ( boost::python::arg("ObsID") ),
+      ( boost::python::arg("self"), boost::python::arg("ObsID") ),
       "Removes an observer.\
 \n\nKeyword arguments:\
 \nObsID       -- the observer id\
@@ -564,6 +578,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("clearMonitoring", &PyOpenFLUID::clearMonitoring,
+      ( boost::python::arg("self") ),
       "Removes all observers.\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
@@ -577,6 +592,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getObserversInMonitoring", &PyOpenFLUID::getObserversInMonitoring,
+      ( boost::python::arg("self") ),
       "Gets all observer name.\
 \n\nReturns:\
 \na list of observer name\
@@ -592,6 +608,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getUnitsClasses", &PyOpenFLUID::getUnitsClasses,
+      ( boost::python::arg("self") ),
       "Returns the existing units classes.\
 \n\nReturns:\
 \na list of units classes\
@@ -607,7 +624,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getUnitsIDs", &PyOpenFLUID::getUnitsIDs,
-      ( boost::python::arg("UnitClass") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass") ),
       "Returns the existing units IDs for a given units class.\
 \n\nKeyword arguments:\
 \nUnitClass  -- the unit class\
@@ -625,8 +642,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("addUnit", &PyOpenFLUID::addUnit,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
-        boost::python::arg("PcsOrder") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("PcsOrder") ),
       "Adds an new unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
@@ -644,7 +661,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("removeUnit", &PyOpenFLUID::removeUnit,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
       "Removes an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
@@ -661,7 +679,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("clearUnitClass", &PyOpenFLUID::clearUnitClass,
-      ( boost::python::arg("UnitClass") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass") ),
       "Removes all units from an unit class.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
@@ -677,8 +695,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("setUnitProcessOrder", &PyOpenFLUID::setUnitProcessOrder,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
-        boost::python::arg("PcsOrder") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("PcsOrder") ),
       "Sets the process order of an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
@@ -696,7 +714,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getUnitProcessOrder", &PyOpenFLUID::getUnitProcessOrder,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
       "Gets the process order of an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
@@ -715,7 +734,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getUnitsChildren", &PyOpenFLUID::getUnitsChildren,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
       "Gets children units of an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
@@ -734,7 +754,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("getUnitsParents", &PyOpenFLUID::getUnitsParents,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
       "Gets parents units of an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
@@ -753,8 +774,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("addUnitChild", &PyOpenFLUID::addUnitChild,
-      ( boost::python::arg("UnitClassFrom"), boost::python::arg("UnitIDFrom"),
-      boost::python::arg("UnitClassTo"), boost::python::arg("UnitIDTo") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
+        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
+        boost::python::arg("UnitIDTo") ),
       "Adds a child on an unit.\
 \n\nKeyword arguments:\
 \nUnitClassFrom  -- an unit class (parent)\
@@ -773,8 +795,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("removeUnitChild", &PyOpenFLUID::removeUnitChild,
-      ( boost::python::arg("UnitClassFrom"), boost::python::arg("UnitIDFrom"),
-      boost::python::arg("UnitClassTo"), boost::python::arg("UnitIDTo") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
+        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
+        boost::python::arg("UnitIDTo") ),
       "Removes a child of an unit.\
 \n\nKeyword arguments:\
 \nUnitClassFrom  -- an unit class (parent)\
@@ -793,8 +816,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("createInputData", &PyOpenFLUID::createInputData,
-      ( boost::python::arg("UnitClass"), boost::python::arg("IDataName"),
-        boost::python::arg("IDataValue") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("IDataName"), boost::python::arg("IDataValue") ),
       "Creates an inputdata for alla spatial units of a class, initialized with\
 a default value.\
 \n\nKeyword arguments:\
@@ -814,8 +837,8 @@ a default value.\
 
 
     .def("getInputData", &PyOpenFLUID::getInputData,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
-        boost::python::arg("IDataName") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("IDataName") ),
       "Returns an inputdata value for a given spatial unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- the unit class\
@@ -835,8 +858,9 @@ a default value.\
 
 
     .def("setInputData", &PyOpenFLUID::setInputData,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
-        boost::python::arg("IDataName"), boost::python::arg("IDataValue") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("IDataName"),
+        boost::python::arg("IDataValue") ),
       "Sets an inputdata value for a given spatial unit.\
 \n\nKeyword arguments:\
 \nUnitClass   -- the unit class\
@@ -856,7 +880,8 @@ a default value.\
 
 
     .def("removeInputData", &PyOpenFLUID::removeInputData,
-      ( boost::python::arg("UnitClass"), boost::python::arg("IDataName") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("IDataName") ),
       "Removes an inputdata value for a given spatial unit.\
 \n\nKeyword arguments:\
 \nUnitClass   -- the unit class\
@@ -874,7 +899,7 @@ a default value.\
 
 
     .def("openDataset", &PyOpenFLUID::openDataset,
-      ( boost::python::arg("Path") ),
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
       "Opens a dataset and returns a new simulation definition class\
  (PyOpenFLUID).\
 \nKeyword arguments:\
@@ -893,7 +918,7 @@ a default value.\
 
 
     .def("openProject", &PyOpenFLUID::openProject,
-      ( boost::python::arg("Path") ),
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
       "Opens a project and returns a new simulation definition class\
  (PyOpenFLUID).\
 \n\nKeyword arguments:\
@@ -913,7 +938,7 @@ a default value.\
 
     .def("setCurrentOutputDir",
       &PyOpenFLUID::setCurrentOutputDir,
-      ( boost::python::arg("Path") ),
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
       "Sets the current output directory for simulations.\
 \n\nKeyword arguments:\
 \nPath  -- the output directory path\
@@ -930,6 +955,7 @@ a default value.\
 
     .def("getCurrentOutputDir",
       &PyOpenFLUID::getCurrentOutputDir,
+      ( boost::python::arg("self") ),
       "Gets the current output directory for simulations.\
 \n\nReturns:\
 \nthe output directory path\
@@ -945,6 +971,7 @@ a default value.\
 
 
     .def("getDefaultDeltaT", &PyOpenFLUID::getDefaultDeltaT,
+      ( boost::python::arg("self") ),
       "Returns the simulation time step.\
 \n\nReturns:\
 \nthe time step value in seconds\
@@ -960,7 +987,7 @@ a default value.\
 
 
     .def("setDefaultDeltaT", &PyOpenFLUID::setDefaultDeltaT,
-      ( boost::python::arg("DeltaT") ),
+      ( boost::python::arg("self"), boost::python::arg("DeltaT") ),
       "Sets the simulation time step.\
 \n\nKeyword arguments:\
 \nDefaultDeltaT  -- the time step value in seconds\
@@ -978,6 +1005,7 @@ a default value.\
 
     .def("getPeriodBeginDate",
       &PyOpenFLUID::getPeriodBeginDate,
+      ( boost::python::arg("self") ),
       "Returns the simulation period begin date.\
 \n\nReturns:\
 \nthe begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)\
@@ -993,6 +1021,7 @@ a default value.\
 
 
     .def("getPeriodEndDate", &PyOpenFLUID::getPeriodEndDate,
+      ( boost::python::arg("self") ),
       "Returns the simulation period end date.\
 \n\nReturns:\
 \nthe end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)\
@@ -1008,7 +1037,7 @@ a default value.\
 
 
     .def("setPeriodBeginDate", &PyOpenFLUID::setPeriodBeginDate,
-      ( boost::python::arg("BeginDate") ),
+      ( boost::python::arg("self"), boost::python::arg("BeginDate") ),
       "Sets the simulation period begin date.\
 \n\nKeyword arguments:\
 \nBeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)\
@@ -1024,7 +1053,7 @@ a default value.\
 
 
     .def("setPeriodEndDate", &PyOpenFLUID::setPeriodEndDate,
-      ( boost::python::arg("EndDate") ),
+      ( boost::python::arg("self"), boost::python::arg("EndDate") ),
       "Sets the simulation period end date.\
 \n\nKeyword arguments:\
 \nEndDate  -- the end date as an ISO datetime string\
@@ -1041,7 +1070,7 @@ a default value.\
 
 
     .def("runProject", &PyOpenFLUID::runProject,
-      ( boost::python::arg("Path") ),
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
       "Runs a project and returns a simulation definition class (PyOpenFLUID).\
 \n\nKeyword arguments:\
 \nPath  -- the full path of the project to open\
@@ -1059,6 +1088,7 @@ a default value.\
 
 
     .def("runSimulation", &PyOpenFLUID::runSimulation,
+      ( boost::python::arg("self") ),
       "Runs a simulation from a simulation definition class (self).\
 \n\nReturns:\
 \nTrue if the simulation is runned without problems, False otherwise\
@@ -1116,7 +1146,7 @@ a default value.\
 
 
     .def("_copy", &PyOpenFLUID::copy,
-      ( boost::python::arg("InputClass") ),
+      ( boost::python::arg("self"), boost::python::arg("InputClass") ),
       "Copy all attributs from the parameter in self.\
 \n\nKeyword arguments:\
 \nInputClass  -- the PyOpenFLUID class to copy\
@@ -1132,6 +1162,7 @@ a default value.\
 
 
     .def("__str__", &PyOpenFLUID::getStr,
+      ( boost::python::arg("self") ),
       "Return a description of the class.\
 \n\nReturns:\
 \nA string representation of the class.\
