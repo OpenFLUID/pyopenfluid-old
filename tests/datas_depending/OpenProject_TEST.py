@@ -7,8 +7,8 @@ class PyOpenFLUIDTest_OpenProject(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of project functions."""
-        self.assertEquals(len(ArgList), 1)
-        Path = ArgList[0]
+        Path = ArgList.get("project", None)
+        self.assertIsNotNone(Path)
 
         self.checkDirectory(Path)
         OClass = self.openfluid.openProject(Path)

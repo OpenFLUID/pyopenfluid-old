@@ -11,7 +11,20 @@ def skipArgFromCL():
     """Gets arguments (in line command) away from sys, because unittest will try to use them."""
     Res = sys.argv[1:]
     sys.argv = sys.argv[:1]
-    return Res
+
+    Args = ()
+    Kw = {}
+
+    while len(Res) > 0:
+      Word = Res.pop(0)
+      if Word.startswith("--"):
+        Kw[Word[2:]] = Res.pop(0)
+      else:
+        Args = Args + (Word,)
+    Kw["__unknow__"] = Args
+
+    print Kw
+    return Kw
 
 
 # ########################################################################## #
@@ -76,14 +89,37 @@ class PyOpenFLUIDTest(unittest.TestCase):
 # ########################################################################## #
 
 
-    def loadAllInputDataset(self, List):
-        for DTPath in List:
-            try:
-                self.openfluid = self.loadInputDataset(DTPath)
-            except Exception as e:
-                print "Loading input dataset fail : " + e.message
-        else:
-            return len(List)
+    def preparePyOpenFLUIDClass(self, DictIn, *Args, **Kw):
+        def _actionPreparation(Key, Value):
+            if Key == "dataset":
+                print "Load dataset"
+                self.openfluid = self.loadInputDataset(Value)
+            if Key == "project":
+                print "Load project"
+                self.openfluid = self.loadProject(Value)
+            if Key == "output":
+                print "Change output path"
+                self.checkDirectory(Value)
+                self.openfluid.setCurrentOutputDir(Value)
+            if Key == "funpath":
+                print "Change functions binary path"
+                self.checkDirectory(Value)
+                self.openfluid.addExtraFunctionsPaths(Value)
+            if Key == "obspath":
+                print "Change observers binary path"
+                self.checkDirectory(Value)
+                self.openfluid.addExtraObserversPaths(Value)
+        #
+        for Key in Args:
+            if DictIn.has_key(Key):
+                _actionPreparation(Key, DictIn[Key])
+            else:
+                print "Key not found :", Key
+        #
+        Optional = list(Kw.get("optional", []))
+        for Key in Optional:
+            if DictIn.has_key(Key):
+                _actionPreparation(Key, DictIn[Key])
 
 
 # ########################################################################## #

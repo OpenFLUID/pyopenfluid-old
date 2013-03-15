@@ -1,35 +1,25 @@
-# TODO: erase first and second path when install or whenever
 SET(PY_DIR "${PYTHON_MODULE_OUTPUT_PATH}:${CMAKE_CURRENT_SOURCE_DIR}")
+SET(TEST_PATH "${TEST_OUTPUT_PATH}")
 
-# creation of tests datasets and projects
-# datasets
-# TODO: replace by openfluid datasets path
-SET(RESSOURCE_INPUT "/home/vaysseb/Téléchargements/openfluid/resources/tests/datasets")
-# TODO: replace by openfluid binary test ressource
-SET(TEST_INPUT_Generators "${RESSOURCE_INPUT}/OPENFLUID.IN.Generators")
-SET(TEST_INPUT_FluidXWriter "${RESSOURCE_INPUT}/OPENFLUID.IN.FluidXWriter")
-SET(TEST_INPUT_CSVObserver "${RESSOURCE_INPUT}/OPENFLUID.IN.CSVObserver")
+# binary paths
+SET(TEST_RESSOURCE_FUNCTIONS "${OPENFLUID_TESTS_FUNCTIONS_PATH}")
+SET(TEST_RESSOURCE_OBSERVERS "${OPENFLUID_TESTS_OBSERVERS_PATH}")
 
-# binary functions
-SET(TEST_RESSOURCE_FUNCTIONS "/home/vaysseb/Téléchargements/openfluid/_build/tests-bin")
-SET(TEST_RESSOURCE_GENERATORS "/home/vaysseb/Téléchargements/openfluid/_build/tests-bin")
+# macro - create a copy of openfluid projet path
+MACRO(CreateOFRepository SOURCE FINALPATH)
+  FILE(MAKE_DIRECTORY "${FINALPATH}")
+  FILE(MAKE_DIRECTORY "${FINALPATH}/IN")
+  FILE(MAKE_DIRECTORY "${FINALPATH}/OUT")
+  FILE(COPY "${SOURCE}" DESTINATION "${FINALPATH}")
+ENDMACRO(CreateOFRepository)
 
-# projects
-SET(TEST_OUTPUT_PROJECT_A "${TEST_OUTPUT_PATH}/project_A")
-FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PROJECT_A}")
-FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PROJECT_A}/OUT")
-FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PROJECT_A}/IN")
+# output projects path
+SET(TEST_PATH_PROJECT_1        "${TEST_PATH}/project_1")
+SET(TEST_INPUT_PATH_PROJECT_1  "${TEST_PATH}/project_1/IN")
+SET(TEST_OUTPUT_PATH_PROJECT_1 "${TEST_PATH}/project_1/OUT")
 
-ADD_CUSTOM_TARGET(Tests_Preparation ALL)
-ADD_CUSTOM_COMMAND(TARGET Tests_Preparation POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" "-E"
-    "copy_directory" "${RESSOURCE_INPUT}/OPENFLUID.IN.FluidXWriter"
-    "${TEST_OUTPUT_PROJECT_A}/IN/" VERBATIM)
-# TODO: delete this file (project test)
-ADD_CUSTOM_COMMAND(TARGET Tests_Preparation POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" "-E"
-    "copy" "${CMAKE_CURRENT_SOURCE_DIR}/tmp_ressources/.openfluidprj"
-    "${TEST_OUTPUT_PROJECT_A}/" VERBATIM)
+# input projects path (use read-only)
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH_PROJECT_1}")
 
 #
 ADD_TEST(TestOfTestUnit
