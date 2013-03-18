@@ -65,8 +65,8 @@ ADD_SUBDIRECTORY(doc)
 #
 # Testing
 #
-#ENABLE_TESTING()
-#ADD_SUBDIRECTORY(tests)
+ENABLE_TESTING()
+ADD_SUBDIRECTORY(tests)
 
 #
 # Text informations

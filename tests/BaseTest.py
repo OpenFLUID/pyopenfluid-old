@@ -119,6 +119,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def checkDirectory(self, Path):
+        print "checking:", Path
         self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
         self.assertTrue(os.access(Path, os.R_OK))
 
