@@ -38,13 +38,8 @@ SET(PYOPENFLUID_INPUT_MODULE "${CURRENT_PATH}/module")
 SET(PYOPENFLUID_INPUT_SOURCE "${CURRENT_PATH}/src")
 SET(PYOPENFLUID_INPUT_DOC "${CURRENT_PATH}/doc")
 
-#TODO remove installation later for python official installer
-IF (UNIX)
-  SET(PYTHON_LIB_PATH       "lib/python${PYTHON_VERSION}")
-ELSE (UNIX)
-  SET(PYTHON_LIB_PATH       "Lib")
-ENDIF (UNIX)
-SET(PYTHON_MODULE_PATH      "${PYTHON_LIB_PATH}/site-packages/PyOpenFLUID")
+SET(PYTHON_MODULE_PATH      "pythonsetup")
+SET(PYTHON_MODULE_SRC_PATH  "${PYTHON_MODULE_PATH}/src")
 SET(DOC_PATH                "share/doc")
 SET(TESTS_OUTPUTS_PATH      "tests-outputs")
 

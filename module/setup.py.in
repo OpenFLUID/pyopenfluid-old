@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-PYOPENFLUID_LIBRARY = @PYOPENFLUID_DYNAMIC_LIBRARY@
-
 
 from distutils.core import setup
 
@@ -15,9 +13,9 @@ setup(name='@PYOPENFLUID_DISPLAY_NAME@',
       maintainer='@PYOPENFLUID_MAINTAINER@',
       maintainer_email='@PYOPENFLUID_EMAIL_MAINTAINER@',
       url='@PYOPENFLUID_URL@',
-      licence='@PYOPENFLUID_LICENCE@',
+      license='@PYOPENFLUID_LICENCE@',
       classifiers=[
-          'Development Status :: @PYOPENFLUID_MAJOR_VERSION@ - @PYOPENFLUID_MINOR_VERSION@ - @PYOPENFLUID_PATCH_VERSION@ - @PYOPENFLUID_RELEASE_VERSION@',
+          'Development Status :: @PYOPENFLUID_MAJOR_VERSION@ - @PYOPENFLUID_MINOR_VERSION@ - @PYOPENFLUID_PATCH_VERSION@ - @PYOPENFLUID_STATUS_VERSION@',
           'Environment :: Console',
           'Operating System :: POSIX',
           'Programming Language :: Python',
@@ -26,6 +24,7 @@ setup(name='@PYOPENFLUID_DISPLAY_NAME@',
           'Topic :: Software Development :: Simulation',
           ],
       packages=['PyOpenFLUID'],
-      package_dir={'PyOpenFLUID': './'},
-      package_data={'PyOpenFLUID': ['PyOpenFLUID.py', '__init__.py']},
+      package_dir={'PyOpenFLUID': 'src'},
+      package_data={'PyOpenFLUID': ['PyOpenFLUID.py', '__init__.py',
+        '@PYOPENFLUID_DYNAMIC_LIBRARY_NAME@']},
      )

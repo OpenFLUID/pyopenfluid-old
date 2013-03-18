@@ -7,8 +7,8 @@ SET(pyopenfluid_raw_source
 
 SET(OUTPUT_SOURCE_PATH "${OUTPUT_PATH}/src")
 
-FOREACH(RAW_SOURCE ${pyopenfluid_raw_source})
-  FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/${RAW_SOURCE}"
+FOREACH(raw_source ${pyopenfluid_raw_source})
+  FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/${raw_source}"
        DESTINATION "${OUTPUT_SOURCE_PATH}")
 ENDFOREACH()
 
@@ -43,4 +43,5 @@ SET_TARGET_PROPERTIES(PyOpenFLUID PROPERTIES
   OUTPUT_NAME "pyopenfluid" 
   PREFIX "_"
   LINK_FLAGS "-Wl,--no-undefined"
+  LIBRARY_OUTPUT_DIRECTORY "${PYTHON_OUTPUT_SRC_PATH}"
 )
