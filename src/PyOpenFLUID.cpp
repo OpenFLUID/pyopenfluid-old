@@ -65,6 +65,7 @@
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
 #include "PythonUtilities.hpp"
+#include "PyOpenFLUIDConstants.hpp"
 
 
 // =====================================================================
@@ -1679,7 +1680,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
     return ResClass;
   } HANDLE_EXCEPTION
 
-  return NULL;
+  return NULL; /* security */
 }
 
 
@@ -1714,7 +1715,7 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
     return this->openDataset(BoostPath);
   } HANDLE_EXCEPTION
 
-  return NULL;
+  return NULL; /* security */
 }
 
 
@@ -2032,8 +2033,9 @@ boost::python::object PyOpenFLUID::getStr ()
 {
   std::stringstream SStream(std::stringstream::in | std::stringstream::out);
 
-  /* 'PyOpenFLUID(<<version>>)' */
-  SStream << "PyOpenFLUID(" << openfluid::config::FULL_VERSION.c_str();
+  /* 'PyOpenFLUID(<<version pyof>>, OpenFLUID <<version of>>)' */
+  SStream << "PyOpenFLUID(" << PYOPENFLUID_VERSION;
+  SStream << ", OpenFLUID " << openfluid::config::FULL_VERSION.c_str();
   SStream << ")";
 
   return boost::python::object(SStream.str());
