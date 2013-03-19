@@ -1339,33 +1339,12 @@ void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
   int UnitIDInt = getIntUnitID();
   int ProcessOrderInt = getIntProcessOrder();
 
-  /* looking for position of the unit */
-  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
-
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit = ListUnit.begin();
-
-  openfluid::fluidx::UnitDescriptor UnitDesp;
-
-  while (IterUnit != ListUnit.end())
+  try
   {
-    UnitDesp = *IterUnit;
-    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
-        == UnitIDInt)
-      break;
-    ++IterUnit;
-  }
-
-  /* if exists (=> by position), change its value and replaces it from list */
-  if (IterUnit != ListUnit.end())
-  {
-    UnitDesp.getProcessOrder() = ProcessOrderInt;
-    IterUnit = ListUnit.erase(IterUnit);
-    ListUnit.insert(IterUnit, UnitDesp);
-  }
-  else
-    pyopenfluid::topython::printWarning("unit doesn't exists");
+    openfluid::fluidx::BuilderUnit Unit =
+        this->m_AdvFXDesc.getDomain().getUnit(UnitClassStr, UnitIDInt);
+    Unit.mp_UnitDesc->getProcessOrder() = ProcessOrderInt;
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -1386,27 +1365,12 @@ boost::python::object PyOpenFLUID::getUnitProcessOrder (
   std::string UnitClassStr = getStringUnitClass();
   int UnitIDInt = getIntUnitID();
 
-  /* looking for position of the unit */
-  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
-
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit = ListUnit.begin();
-
-  openfluid::fluidx::UnitDescriptor UnitDesp;
-
-  while (IterUnit != ListUnit.end())
+  try
   {
-    UnitDesp = *IterUnit;
-    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
-        == UnitIDInt)
-      break;
-    ++IterUnit;
-  }
-
-  /* if exists (=> by position), change its value and replaces it from list */
-  if (IterUnit != ListUnit.end())
-    return boost::python::object(UnitDesp.getProcessOrder());
+    openfluid::fluidx::BuilderUnit Unit =
+        this->m_AdvFXDesc.getDomain().getUnit(UnitClassStr, UnitIDInt);
+    return boost::python::object(Unit.mp_UnitDesc->getProcessOrder());
+  } WARNING_OFEXCEPTION
 
   return boost::python::object(); /* makes Python NONE */
 }
