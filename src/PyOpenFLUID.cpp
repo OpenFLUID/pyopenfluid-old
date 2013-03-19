@@ -470,10 +470,10 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
   openfluid::ware::WareParams_t Params;
   openfluid::ware::WareParams_t::iterator ItParam;
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+  std::list<openfluid::fluidx::ModelItemDescriptor*> ModelInfos =
+      this->m_AdvFXDesc.getModel().getItems();
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
+  std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator
       ItModelInfos = ModelInfos.begin();
 
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
@@ -500,8 +500,6 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
     if (Res)
       return boost::python::str(*Res);
   }
-  else
-    pyopenfluid::topython::printWarning("generator doesn't exists");
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -535,10 +533,10 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
   std::string ParamValueStr = getStringParamValue();
 
   /* looking for position of the parameter */
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+  std::list<openfluid::fluidx::ModelItemDescriptor*> ModelInfos =
+      this->m_AdvFXDesc.getModel().getItems();
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
+  std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator
       ItModelInfos = ModelInfos.begin();
 
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
@@ -560,7 +558,7 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
   if (ItModelInfos != ModelInfos.end())
     GenDescp->setParameter(ParamNameStr, ParamValueStr);
   else
-    pyopenfluid::topython::printWarning("generator doesn't exists");
+    throw PyOFException("generator doesn't exists");
 }
 
 
