@@ -765,15 +765,15 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("addUnitChild", &PyOpenFLUID::addUnitChild,
-      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
-        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
-        boost::python::arg("UnitIDTo") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClassParent"),
+        boost::python::arg("UnitIDParent"), boost::python::arg("UnitClassChild"),
+        boost::python::arg("UnitIDChild") ),
       "Adds a child on an unit.\
 \n\nKeyword arguments:\
-\nUnitClassFrom  -- an unit class (parent)\
-\nUnitIDFrom     -- an unit id (parent)\
-\nUnitClassTo    -- an unit class (child)\
-\nUnitIDTo       -- an unit id (child)\
+\nUnitClassParent  -- an unit class (parent)\
+\nUnitIDParent     -- an unit id (parent)\
+\nUnitClassChild    -- an unit class (child)\
+\nUnitIDChild       -- an unit id (child)\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
 \n>>> obj.addUnitChild(\"SU\", 3, \"SU\", 5)\
@@ -786,15 +786,15 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
     .def("removeUnitChild", &PyOpenFLUID::removeUnitChild,
-      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
-        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
-        boost::python::arg("UnitIDTo") ),
+      ( boost::python::arg("self"), boost::python::arg("UnitClassParent"),
+        boost::python::arg("UnitIDParent"), boost::python::arg("UnitClassChild"),
+        boost::python::arg("UnitIDChild") ),
       "Removes a child of an unit.\
 \n\nKeyword arguments:\
-\nUnitClassFrom  -- an unit class (parent)\
-\nUnitIDFrom     -- an unit id (parent)\
-\nUnitClassTo    -- an unit class (child)\
-\nUnitIDTo       -- an unit id (child)\
+\nUnitClassParent  -- an unit class (parent)\
+\nUnitIDParent     -- an unit id (parent)\
+\nUnitClassChild    -- an unit class (child)\
+\nUnitIDChild       -- an unit id (child)\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
 \n>>> obj.removeUnitChild(\"SU\", 3, \"SU\", 5)\

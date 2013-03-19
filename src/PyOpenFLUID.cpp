@@ -1446,88 +1446,41 @@ boost::python::object PyOpenFLUID::getUnitsParents (
 // =====================================================================
 // =====================================================================
 
-// TODO change replace operation
+
 void PyOpenFLUID::addUnitChild (
-    boost::python::object UnitClassFrom, boost::python::object UnitIDFrom,
-    boost::python::object UnitClassTo, boost::python::object UnitIDTo)
+    boost::python::object UnitClassParent, boost::python::object UnitIDParent,
+    boost::python::object UnitClassChild, boost::python::object UnitIDChild)
 {
-  boost::python::extract<std::string> getStringUnitClassFrom(UnitClassFrom);
-  if (!getStringUnitClassFrom.check())
+  boost::python::extract<std::string> getStringUnitClassParent(UnitClassParent);
+  if (!getStringUnitClassParent.check())
     throw PyOFException("needed string for unit class", PyExc_TypeError);
-  boost::python::extract<int> getIntUnitIDFrom(UnitIDFrom);
-  if (!getIntUnitIDFrom.check())
+  boost::python::extract<int> getIntUnitIDParent(UnitIDParent);
+  if (!getIntUnitIDParent.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
 
-  boost::python::extract<std::string> getStringUnitClassTo(UnitClassTo);
-  if (!getStringUnitClassTo.check())
+  boost::python::extract<std::string> getStringUnitClassChild(UnitClassChild);
+  if (!getStringUnitClassChild.check())
     throw PyOFException("needed string for unit class", PyExc_TypeError);
-  boost::python::extract<int> getIntUnitIDTo(UnitIDTo);
-  if (!getIntUnitIDTo.check())
+  boost::python::extract<int> getIntUnitIDChild(UnitIDChild);
+  if (!getIntUnitIDChild.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
 
-  std::string UnitClassFromStr = getStringUnitClassFrom();
-  int UnitIDFromInt = getIntUnitIDFrom();
+  std::string UnitClassParentStr = getStringUnitClassParent();
+  int UnitIDParentInt = getIntUnitIDParent();
 
-  std::string UnitClassToStr = getStringUnitClassTo();
-  int UnitIDToInt = getIntUnitIDTo();
+  std::string UnitClassChildStr = getStringUnitClassChild();
+  int UnitIDChildInt = getIntUnitIDChild();
 
-  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
+  openfluid::core::UnitClassID_t ParentUnit = openfluid::core::UnitClassID_t
+      (UnitClassParentStr, UnitIDParentInt);
+  openfluid::core::UnitClassID_t ChildUnit = openfluid::core::UnitClassID_t
+      (UnitClassChildStr, UnitIDChildInt);
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitFrom;
-
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitTo;
-
-  openfluid::fluidx::UnitDescriptor UnitDespFrom;
-  openfluid::fluidx::UnitDescriptor UnitDespTo;
-
-  std::list<openfluid::core::UnitClassID_t> ListUnits;
-  std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
-
-  /* check (child) unit exists */
-  IterUnitTo = ListUnit.begin();
-  while (IterUnitTo != ListUnit.end() && ((*IterUnitTo).getUnitClass()
-      != UnitClassToStr || (*IterUnitTo).getUnitID() != UnitIDToInt) )
-    ++IterUnitTo;
-
-  /* if child units doesn't exist */
-  if (IterUnitTo == ListUnit.end())
-    throw PyOFException("child unit doesn't exist", PyExc_ValueError);
-
-  /* check (parent) unit exists */
-  IterUnitFrom = ListUnit.begin();
-  while (IterUnitFrom != ListUnit.end() && ((*IterUnitFrom).getUnitClass()
-      != UnitClassFromStr || (*IterUnitFrom).getUnitID() != UnitIDFromInt) )
-    ++IterUnitFrom;
-
-  /* if parent units doesn't exist */
-  if (IterUnitFrom == ListUnit.end())
-    throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
-
-  /* if both units exist */
-  UnitDespTo = *IterUnitTo;
-  UnitDespFrom = *IterUnitFrom;
-
-  /* check the link */
-  ListUnits = UnitDespTo.getUnitsParents();
-  ItUnits = ListUnits.begin();
-  while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
-      || (*ItUnits).second != UnitIDFromInt ))
-    ++ItUnits;
-
-  /* if doesn't exist */
-  if (ItUnits == ListUnits.end())
+  try
   {
-    std::pair<std::string, int> TmpUnit = std::pair<std::string, int>
-        (UnitClassFromStr, UnitIDFromInt);
-
-    /* replacing */
-    UnitDespTo.getUnitsParents().push_back(TmpUnit);
-    IterUnitTo = ListUnit.erase(IterUnitTo);
-    ListUnit.insert(IterUnitTo, UnitDespTo);
-  }
-  else
-    pyopenfluid::topython::printWarning("units are already linked");
+    this->m_AdvFXDesc.getDomain().addParentChildRelation(
+        ParentUnit, ChildUnit);
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -1536,71 +1489,39 @@ void PyOpenFLUID::addUnitChild (
 
 
 void PyOpenFLUID::removeUnitChild (
-    boost::python::object UnitClassFrom, boost::python::object UnitIDFrom,
-    boost::python::object UnitClassTo, boost::python::object UnitIDTo)
+    boost::python::object UnitClassParent, boost::python::object UnitIDParent,
+    boost::python::object UnitClassChild, boost::python::object UnitIDChild)
 {
-  boost::python::extract<std::string> getStringUnitClassFrom(UnitClassFrom);
-  if (!getStringUnitClassFrom.check())
+  boost::python::extract<std::string> getStringUnitClassParent(UnitClassParent);
+  if (!getStringUnitClassParent.check())
     throw PyOFException("needed string for unit class", PyExc_TypeError);
-  boost::python::extract<int> getIntUnitIDFrom(UnitIDFrom);
-  if (!getIntUnitIDFrom.check())
+  boost::python::extract<int> getIntUnitIDParent(UnitIDParent);
+  if (!getIntUnitIDParent.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
 
-  boost::python::extract<std::string> getStringUnitClassTo(UnitClassTo);
-  if (!getStringUnitClassTo.check())
+  boost::python::extract<std::string> getStringUnitClassChild(UnitClassChild);
+  if (!getStringUnitClassChild.check())
     throw PyOFException("needed string for unit class", PyExc_TypeError);
-  boost::python::extract<int> getIntUnitIDTo(UnitIDTo);
-  if (!getIntUnitIDTo.check())
+  boost::python::extract<int> getIntUnitIDChild(UnitIDChild);
+  if (!getIntUnitIDChild.check())
     throw PyOFException("needed integer for unit id", PyExc_TypeError);
 
-  std::string UnitClassFromStr = getStringUnitClassFrom();
-  int UnitIDFromInt = getIntUnitIDFrom();
+  std::string UnitClassParentStr = getStringUnitClassParent();
+  int UnitIDParentInt = getIntUnitIDParent();
 
-  std::string UnitClassToStr = getStringUnitClassTo();
-  int UnitIDToInt = getIntUnitIDTo();
+  std::string UnitClassChildStr = getStringUnitClassChild();
+  int UnitIDChildInt = getIntUnitIDChild();
 
-  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
+  openfluid::core::UnitClassID_t ParentUnit = openfluid::core::UnitClassID_t
+      (UnitClassParentStr, UnitIDParentInt);
+  openfluid::core::UnitClassID_t ChildUnit = openfluid::core::UnitClassID_t
+      (UnitClassChildStr, UnitIDChildInt);
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitFrom;
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnitTo;
-
-  /* check (child) unit exists */
-  IterUnitTo = ListUnit.begin();
-  while (IterUnitTo != ListUnit.end() && ((*IterUnitTo).getUnitClass()
-      != UnitClassToStr || (*IterUnitTo).getUnitID() != UnitIDToInt) )
-    ++IterUnitTo;
-
-  /* if child unit doesn't exist */
-  if (IterUnitTo == ListUnit.end())
-    throw PyOFException("child unit doesn't exist", PyExc_ValueError);
-
-  /* check (parent) unit exists */
-  IterUnitFrom = ListUnit.begin();
-  while (IterUnitFrom != ListUnit.end() && ((*IterUnitFrom).getUnitClass()
-      != UnitClassFromStr || (*IterUnitFrom).getUnitID() != UnitIDFromInt) )
-    ++IterUnitFrom;
-
-  /* if parent unit doesn't exist */
-  if (IterUnitFrom == ListUnit.end())
-    throw PyOFException("parent unit doesn't exist", PyExc_ValueError);
-
-  /* both units exist AT THIS POINT */
-  /* checking the link */
-  std::list<openfluid::core::UnitClassID_t>& ListUnits
-      = (*IterUnitTo).getUnitsParents();
-  std::list<openfluid::core::UnitClassID_t>::iterator ItUnits;
-
-  ItUnits = ListUnits.begin();
-  while (ItUnits != ListUnits.end() && ( (*ItUnits).first != UnitClassFromStr
-      || (*ItUnits).second != UnitIDFromInt ))
-    ++ItUnits;
-
-  /* if exists, removing */
-  if (ItUnits != ListUnits.end())
-    ItUnits = ListUnits.erase(ItUnits);
-  else
-    pyopenfluid::topython::printWarning("units aren't linked");
+  try
+  {
+    this->m_AdvFXDesc.getDomain().removeParentChildRelation(
+        ParentUnit, ChildUnit);
+  } HANDLE_OFEXCEPTION
 }
 
 
