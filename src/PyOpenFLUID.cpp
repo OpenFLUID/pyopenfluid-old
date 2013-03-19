@@ -1415,6 +1415,8 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
   std::string StrError = std::string("");
   std::string StrPath = getStringPath();
 
+  PyOpenFLUID* ResClass = NULL;
+
   try
   {
     openfluid::base::Init();
@@ -1422,16 +1424,18 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
     openfluid::base::IOListener IOListen;
     openfluid::fluidx::FluidXDescriptor FXReader(&IOListen);
 
+    ResClass = new PyOpenFLUID();
+    ResClass->changeFluidXDescriptor(FXReader);
+
     openfluid::base::RuntimeEnvironment::getInstance()->
         setInputDir(std::string(StrPath));
     FXReader.loadFromDirectory(openfluid::base::RuntimeEnvironment::
         getInstance()->getInputDir());
 
-    PyOpenFLUID* ResClass = new PyOpenFLUID();
-    ResClass->changeFluidXDescriptor(FXReader);
-
     return ResClass;
-  } HANDLE_EXCEPTION
+  } HANDLE_EXCEPTION_ACTION(
+    if (ResClass!=NULL)
+      delete ResClass;)
 
   return NULL; /* security */
 }
