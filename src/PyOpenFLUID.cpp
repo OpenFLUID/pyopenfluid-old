@@ -319,38 +319,24 @@ boost::python::object PyOpenFLUID::getFunctionParam (
   std::string FuncIDStr = getStringFuncID();
   std::string ParamNameStr = getStringParamName();
 
-  /* looking for position of the function */
-  openfluid::ware::WareParams_t Params;
-  openfluid::ware::WareParams_t::iterator ItParam;
+  int PosItem = this->m_AdvFXDesc.getModel().getFirstItemIndex(FuncIDStr);
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
-
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::FunctionDescriptor* FuncDescp;
-
-  while (ItModelInfos != ModelInfos.end())
+  if (PosItem >= 0)
   {
-    if ((*ItModelInfos)->isType(
-          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
+    openfluid::fluidx::ModelItemDescriptor* ItemFound =
+        this->m_AdvFXDesc.getModel().getItemAt(PosItem);
+
+    openfluid::fluidx::FunctionDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+
+    if (FuncDescp != NULL)
     {
-      FuncDescp = (openfluid::fluidx::FunctionDescriptor*) *ItModelInfos;
-      if (FuncDescp->getFileID() == FuncIDStr)
-        break;
+      boost::optional<std::string> Res =
+          FuncDescp->getParameters().get_optional<std::string>(ParamNameStr);
+
+      if (Res)
+        return boost::python::str(*Res);
     }
-    ++ItModelInfos;
-  }
-
-  /* if exists (=> by position), gets (if possible) */
-  if (ItModelInfos != ModelInfos.end())
-  {
-    boost::optional<std::string> Res =
-        FuncDescp->getParameters().get_optional<std::string>(ParamNameStr);
-
-    if (Res)
-      return boost::python::str(*Res);
   }
 
   return boost::python::object(); /* makes Python NONE */
@@ -379,30 +365,21 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
   std::string ParamNameStr = getStringParamName();
   std::string ParamValueStr = getStringParamValue();
 
-  /* looking for position of the function */
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+  int PosItem = this->m_AdvFXDesc.getModel().getFirstItemIndex(FuncIDStr);
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  while (ItModelInfos != ModelInfos.end())
+  if (PosItem >= 0)
   {
-    if ((*ItModelInfos)->isType(
-          openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
-        ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID()
-          == FuncIDStr)
-      break;
-    ++ItModelInfos;
-  }
+    openfluid::fluidx::ModelItemDescriptor* ItemFound =
+        this->m_AdvFXDesc.getModel().getItemAt(PosItem);
 
-  /* if exists (=> by position), sets */
-  if (ItModelInfos != ModelInfos.end())
-  {
-    (*ItModelInfos)->setParameter(ParamNameStr,ParamValueStr);
+    openfluid::fluidx::FunctionDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+
+    if (FuncDescp != NULL)
+      FuncDescp->setParameter(ParamNameStr,ParamValueStr);
   }
   else
-    pyopenfluid::topython::printWarning("function doesn't exists");
+    throw PyOFException("function doesn't exists");
 }
 
 
@@ -423,32 +400,21 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
   std::string FuncIDStr = getStringFuncID();
   std::string ParamNameStr = getStringParamName();
 
-  /* looking for position of the function */
-  openfluid::fluidx::FunctionDescriptor* Function;
+  int PosItem = this->m_AdvFXDesc.getModel().getFirstItemIndex(FuncIDStr);
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
-
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  while (ItModelInfos != ModelInfos.end())
+  if (PosItem >= 0)
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
-    {
-      Function = (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos);
-      if (Function->getFileID() == FuncIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
+    openfluid::fluidx::ModelItemDescriptor* ItemFound =
+        this->m_AdvFXDesc.getModel().getItemAt(PosItem);
 
-  /* if exists (=> by position), erase */
-  if (ItModelInfos != ModelInfos.end())
-    Function->eraseParameter(ParamNameStr);
+    openfluid::fluidx::FunctionDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+
+    if (FuncDescp != NULL)
+      FuncDescp->eraseParameter(ParamNameStr);
+  }
   else
-    pyopenfluid::topython::printWarning("function doesn't exists");
+    throw PyOFException("function doesn't exists");
 }
 
 
@@ -467,33 +433,23 @@ boost::python::object PyOpenFLUID::getFunctionParams(
 
   boost::python::list ListRes = boost::python::list();
 
-  /* looking for position of the generator */
-  openfluid::ware::WareParams_t Params;
+  int PosItem = this->m_AdvFXDesc.getModel().getFirstItemIndex(FuncIDStr);
 
-  openfluid::ware::WareParams_t::iterator ItParam;
-
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
-
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos;
-
-  for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
-      ++ItModelInfos)
+  if (PosItem >= 0)
   {
-    if ((*ItModelInfos)->isType(
-          openfluid::fluidx::ModelItemDescriptor::PluggedFunction) &&
-        ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->getFileID()
-          == FuncIDStr)
-      break;
-  }
+    openfluid::fluidx::ModelItemDescriptor* ItemFound =
+        this->m_AdvFXDesc.getModel().getItemAt(PosItem);
 
-  /* if exists (=> by position), gets */
-  if (ItModelInfos != ModelInfos.end())
-  {
-    Params = (*ItModelInfos)->getParameters();
-    for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
-      ListRes.append(boost::python::str((*ItParam).first));
+    openfluid::fluidx::FunctionDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+
+    if (FuncDescp != NULL)
+    {
+      openfluid::ware::WareParams_t Params = FuncDescp->getParameters();
+      openfluid::ware::WareParams_t::iterator ItParam;
+      for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
+        ListRes.append(boost::python::str((*ItParam).first));
+    }
   }
 
   return ListRes;
@@ -720,37 +676,13 @@ void PyOpenFLUID::addFunction (boost::python::object FuncID)
 
   std::string FuncIDStr = getStringFuncID();
 
-  /* looking for position of the function in list */
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t&
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
-
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::FunctionDescriptor* FuncDescp;
-
-  while (ItModelInfos != ModelInfos.end())
-  {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
-    {
-      FuncDescp = (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos);
-      if (FuncDescp->getFileID() == FuncIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
-
-  /* raising exception if exists, or else adds */
-  if (ItModelInfos != ModelInfos.end())
-    throw PyOFException("function id already exists");
-  else
+  try
   {
     openfluid::fluidx::FunctionDescriptor* NewFunction =
         new openfluid::fluidx::FunctionDescriptor(FuncIDStr);
 
-    this->m_FXDesc.getModelDescriptor().appendItem(NewFunction);
-  }
+    this->m_AdvFXDesc.getModel().appendItem(NewFunction);
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -766,32 +698,11 @@ void PyOpenFLUID::removeFunction (boost::python::object FuncID)
 
   std::string FuncIDStr = getStringFuncID();
 
-  /* looking for position of the function in list */
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t&
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
-
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::FunctionDescriptor* FuncDescp;
-
-  while (ItModelInfos != ModelInfos.end())
+  try
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
-    {
-      FuncDescp = (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos);
-      if (FuncDescp->getFileID() == FuncIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
-
-  /* if exists (=> by position), remove */
-  if (ItModelInfos != ModelInfos.end())
-    ModelInfos.erase(ItModelInfos);
-  else
-    pyopenfluid::topython::printWarning("function doesn't exist");
+    this->m_AdvFXDesc.getModel().removeItem(
+      this->m_AdvFXDesc.getModel().getFirstItemIndex(FuncIDStr));
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -801,20 +712,19 @@ void PyOpenFLUID::removeFunction (boost::python::object FuncID)
 
 void PyOpenFLUID::clearModel ()
 {
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t&
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+  std::list<openfluid::fluidx::ModelItemDescriptor*> Items =
+      this->m_AdvFXDesc.getModel().getItems();
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
+  std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator ItItems;
 
-  while (ItModelInfos != ModelInfos.end())
+  try
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
-      ItModelInfos = ModelInfos.erase(ItModelInfos);
-    else
-      ++ItModelInfos;
-  }
+    for (ItItems = Items.begin(); ItItems != Items.end(); ++ItItems)
+      if ((*ItItems)->isType(
+          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
+        this->m_AdvFXDesc.getModel().removeItem(
+          this->m_AdvFXDesc.getModel().getFirstItemIndex(*ItItems));
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -826,19 +736,18 @@ boost::python::object PyOpenFLUID::getFunctionsInModel ()
 {
   boost::python::list ListRes = boost::python::list();
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t&
-      ModelInfos = this->m_FXDesc.getModelDescriptor().getItems();
+  std::list<openfluid::fluidx::ModelItemDescriptor*>
+      ItemList = this->m_AdvFXDesc.getModel().getItems();
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos;
+  std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator
+      ItItemList;
 
-  for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
-      ++ItModelInfos)
-    if ((*ItModelInfos)->isType(
+  for (ItItemList = ItemList.begin(); ItItemList != ItemList.end();
+      ++ItItemList)
+    if ((*ItItemList)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
       ListRes.append(boost::python::str((
-        (openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos)
-        )->getFileID()));
+          (openfluid::fluidx::FunctionDescriptor*)(*ItItemList))->getFileID()));
 
   return ListRes;
 }
@@ -1253,6 +1162,7 @@ boost::python::object PyOpenFLUID::getUnitsChildren (
 
   openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
       (UnitClassStr, UnitIDInt);
+
   std::list<openfluid::core::UnitClassID_t> ListUnit = this->m_AdvFXDesc.
       getDomain().getUnitsChildrenOf(TmpPair);
 

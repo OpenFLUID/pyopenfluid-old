@@ -19,8 +19,6 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
         self.openfluid.setFunctionParam(FuncID, ParamName, ParamValue)
         self.assertIsNotNone(self.openfluid.getFunctionParam(FuncID, ParamName))
 
-        self.assertRaises(StandardError, self.openfluid.addFunction, FuncID)
-
         self.openfluid.removeFunction(FuncID)
         self.assertRaisesOrElse(StandardError, self.openfluid.getFunctionParam,
                 self.assertIsNone, argObj=(FuncID, ParamName) )
