@@ -1518,7 +1518,7 @@ boost::python::object PyOpenFLUID::getCurrentOutputDir ()
 
 boost::python::object PyOpenFLUID::getDefaultDeltaT ()
 {
-  return boost::python::object(this->m_FXDesc.getRunDescriptor().getDeltaT());
+  return boost::python::object(this->m_AdvFXDesc.getRunDescriptor().getDeltaT());
 }
 
 
@@ -1536,7 +1536,7 @@ void PyOpenFLUID::setDefaultDeltaT (boost::python::object DefaultDeltaT)
   if (DefaultDeltaTInt <= 0)
     throw PyOFException("DefaultDeltaT cann't be negative or null",
         PyExc_ValueError);
-  this->m_FXDesc.getRunDescriptor().setDeltaT(DefaultDeltaTInt);
+  this->m_AdvFXDesc.getRunDescriptor().setDeltaT(DefaultDeltaTInt);
 }
 
 
@@ -1547,7 +1547,7 @@ void PyOpenFLUID::setDefaultDeltaT (boost::python::object DefaultDeltaT)
 boost::python::object PyOpenFLUID::getPeriodBeginDate ()
 {
   /* 'yyyy-mm-dd hh:mm:ss' */
-  openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor()
+  openfluid::core::DateTime BrutDate = this->m_AdvFXDesc.getRunDescriptor()
       .getBeginDate();
   std::stringstream StreamRes(std::stringstream::in | std::stringstream::out);
   StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
@@ -1573,7 +1573,7 @@ boost::python::object PyOpenFLUID::getPeriodBeginDate ()
 boost::python::object PyOpenFLUID::getPeriodEndDate ()
 {
   /* 'yyyy-mm-dd hh:mm:ss' */
-  openfluid::core::DateTime BrutDate = this->m_FXDesc.getRunDescriptor()
+  openfluid::core::DateTime BrutDate = this->m_AdvFXDesc.getRunDescriptor()
       .getEndDate();
   std::stringstream StreamRes(std::stringstream::in | std::stringstream::out);
   StreamRes << pyopenfluid::tools::zeroFill(boost::lexical_cast<std::string>(
@@ -1625,7 +1625,7 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
 
   openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0],
       TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
-  this->m_FXDesc.getRunDescriptor().setBeginDate(BDate);
+  this->m_AdvFXDesc.getRunDescriptor().setBeginDate(BDate);
   }
   else
     pyopenfluid::topython::printWarning(
@@ -1666,7 +1666,7 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
 
   openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0],
       TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
-  this->m_FXDesc.getRunDescriptor().setEndDate(BDate);
+  this->m_AdvFXDesc.getRunDescriptor().setEndDate(BDate);
   }
   else
     pyopenfluid::topython::printWarning(
