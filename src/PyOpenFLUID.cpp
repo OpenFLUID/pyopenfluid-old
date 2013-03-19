@@ -209,45 +209,33 @@ void PyOpenFLUID::printSimulationInfo ()
   /* Spatial domain */
   openfluid::core::UnitClass_t ClassName;
 
-  std::map<openfluid::core::UnitClass_t, unsigned int> UnitsInfos;
+  std::map<std::string,std::map<int, openfluid::fluidx::BuilderUnit> >
+      MapUnitClassID = this->m_AdvFXDesc.getDomain().getUnitsByIdByClass();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator bItUnits =
-      this->m_FXDesc.getDomainDescriptor().getUnits().begin();
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator eItUnits =
-      this->m_FXDesc.getDomainDescriptor().getUnits().end();
+  std::map<std::string,std::map<int, openfluid::fluidx::BuilderUnit> >::iterator
+      ItMapUnitClassID;
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator ItUnits;
-  for (ItUnits = bItUnits; ItUnits != eItUnits; ++ItUnits)
-  {
-    ClassName = (*ItUnits).getUnitClass();
-
-    if (UnitsInfos.find(ClassName) == UnitsInfos.end())
-      UnitsInfos[ClassName] = 0;
-    UnitsInfos[ClassName]++;
-  }
-
-  SStream << "Spatial domain is made of "
-      << this->m_FXDesc.getDomainDescriptor().getUnits().size()
+  SStream << "Spatial domain is made of " << MapUnitClassID.size()
       << " spatial units" << std::endl;
 
-  std::map<openfluid::core::UnitClass_t,unsigned int>::iterator ItUnitsInfos;
-  for (ItUnitsInfos = UnitsInfos.begin(); ItUnitsInfos != UnitsInfos.end();
-      ++ItUnitsInfos)
-    SStream << " - " << (*ItUnitsInfos).second << " units of class "
-        << (*ItUnitsInfos).first.c_str() << std::endl;
+  for (ItMapUnitClassID = MapUnitClassID.begin();
+      ItMapUnitClassID != MapUnitClassID.end(); ++ItMapUnitClassID)
+    SStream << " - " << (*ItMapUnitClassID).second.size() << " units of class "
+        << (*ItMapUnitClassID).first << std::endl;
 
 
   /* Model */
   openfluid::fluidx::GeneratorDescriptor* pGenDesc;
 
-  SStream << "Model is made of "
-      << this->m_FXDesc.getModelDescriptor().getItems().size()
-      << " simulation items" << std::endl;
+  std::list<openfluid::fluidx::ModelItemDescriptor*> ModelInfos =
+      this->m_AdvFXDesc.getModel().getItems();
 
-  openfluid::fluidx::CoupledModelDescriptor::SetDescription_t::iterator
-      ItModelInfos;
-  for (ItModelInfos = this->m_FXDesc.getModelDescriptor().getItems().begin();
-       ItModelInfos != this->m_FXDesc.getModelDescriptor().getItems().end();
+  std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator ItModelInfos;
+
+  SStream << "Model is made of "
+      << ModelInfos.size()
+      << " simulation items" << std::endl;
+  for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
        ++ItModelInfos)
   {
     SStream << " - ";
@@ -288,14 +276,14 @@ void PyOpenFLUID::printSimulationInfo ()
 
   /* Time period */
   SStream << "Simulation period from " <<
-      this->m_FXDesc.getRunDescriptor().getBeginDate().getAsISOString().c_str()
+      this->m_AdvFXDesc.getRunDescriptor().getBeginDate().getAsISOString().c_str()
       << " to "
-      << this->m_FXDesc.getRunDescriptor().getEndDate().getAsISOString().c_str()
+      << this->m_AdvFXDesc.getRunDescriptor().getEndDate().getAsISOString().c_str()
       << std::endl;
 
   /* Time step */
   SStream << "Simulation time step : "
-      << this->m_FXDesc.getRunDescriptor().getDeltaT() << std::endl;
+      << this->m_AdvFXDesc.getRunDescriptor().getDeltaT() << std::endl;
 
   /* Printing */
   pyopenfluid::topython::printStdOut(SStream);
