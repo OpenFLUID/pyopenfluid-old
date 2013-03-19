@@ -56,6 +56,10 @@
 #include <openfluid/fluidx/DatastoreDescriptor.hpp>
 #include <openfluid/fluidx/MonitoringDescriptor.hpp>
 #include <openfluid/fluidx/CoupledModelDescriptor.hpp>
+#include <openfluid/fluidx/AdvancedModelDescriptor.hpp>
+#include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
+#include <openfluid/fluidx/AdvancedDomainDescriptor.hpp>
+#include <openfluid/fluidx/AdvancedMonitoringDescriptor.hpp>
 
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
@@ -66,7 +70,7 @@
 // =====================================================================
 
 
-PyOpenFLUID::PyOpenFLUID () : m_FXDesc(NULL)
+PyOpenFLUID::PyOpenFLUID () : m_FXDesc(NULL), m_AdvFXDesc(m_FXDesc)
 {
 }
 
@@ -2082,7 +2086,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
         getInstance()->getInputDir());
 
     PyOpenFLUID* ResClass = new PyOpenFLUID();
-    ResClass->setFluidXDescriptor(FXReader);
+    ResClass->changeFluidXDescriptor(FXReader);
 
     return ResClass;
   } HANDLE_EXCEPTION
@@ -2452,10 +2456,12 @@ boost::python::object PyOpenFLUID::getStr ()
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 
-void PyOpenFLUID::setFluidXDescriptor (
-    openfluid::fluidx::FluidXDescriptor& InputFXD)
+void PyOpenFLUID::changeFluidXDescriptor
+  (openfluid::fluidx::FluidXDescriptor& InputFXD)
 {
   this->m_FXDesc = InputFXD;
+  this->m_AdvFXDesc = openfluid::fluidx::AdvancedFluidXDescriptor(
+      this->m_FXDesc);
 }
 
 
@@ -2463,9 +2469,10 @@ void PyOpenFLUID::setFluidXDescriptor (
 // =====================================================================
 
 
-void PyOpenFLUID::copy (PyOpenFLUID InputClass)
+void PyOpenFLUID::getFromCopyStruct (PyOpenFLUIDCopy_t* CopyStruct)
 {
-  this->m_FXDesc = InputClass.getFluidXDescriptor();
+  this->m_FXDesc = *(CopyStruct->mp_FXDesc);
+  this->m_AdvFXDesc = *(CopyStruct->mp_AdvFXDesc);
 }
 
 
@@ -2473,7 +2480,21 @@ void PyOpenFLUID::copy (PyOpenFLUID InputClass)
 // =====================================================================
 
 
-openfluid::fluidx::FluidXDescriptor& PyOpenFLUID::getFluidXDescriptor ()
+void PyOpenFLUID::putOnCopyStruct (PyOpenFLUIDCopy_t* CopyStruct)
 {
-  return this->m_FXDesc;
+  CopyStruct->mp_FXDesc = &(this->m_FXDesc);
+  CopyStruct->mp_AdvFXDesc = &(this->m_AdvFXDesc);
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void copy (PyOpenFLUID InputClass, PyOpenFLUID OutputClass)
+{
+  PyOpenFLUIDCopy_t* Stc = new PyOpenFLUIDCopy_t();
+  InputClass.putOnCopyStruct(Stc);
+  OutputClass.getFromCopyStruct(Stc);
+  delete Stc;
 }

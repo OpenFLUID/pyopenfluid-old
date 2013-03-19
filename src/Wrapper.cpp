@@ -1136,22 +1136,6 @@ a default value.\
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 
-    .def("_copy", &PyOpenFLUID::copy,
-      ( boost::python::arg("self"), boost::python::arg("InputClass") ),
-      "Copy all attributs from the parameter in self.\
-\n\nKeyword arguments:\
-\nInputClass  -- the PyOpenFLUID class to copy\
-\n\nExamples:\
-\n>>> obj = PyOpenFLUID()\
-\n>>> obj._copy(otherClass)\
-"
-    )
-
-
-// =====================================================================
-// =====================================================================
-
-
     .def("__str__", &PyOpenFLUID::getStr,
       ( boost::python::arg("self") ),
       "Return a description of the class.\
@@ -1164,5 +1148,14 @@ a default value.\
     )
 
 ; /* end of PyOpenFLUID class definition */
+
+
+  boost::python::def("_copy", &copy,
+    ( boost::python::arg("InputClass"), boost::python::arg("OutputClass") )
+  );
+
+
+// =====================================================================
+// =====================================================================
 
 }

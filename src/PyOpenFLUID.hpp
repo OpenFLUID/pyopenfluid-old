@@ -7,6 +7,7 @@
 #include <boost/python/object.hpp>
 
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
+#include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
 
 /*!
  * @file pyopenfluid.cpp
@@ -20,7 +21,7 @@
 
 // =====================================================================
 // =====================================================================
-
+struct PyOpenFLUIDCopy_t;
 
 
 class PyOpenFLUID
@@ -1001,38 +1002,21 @@ class PyOpenFLUID
 /* ------------------------ OTHER FUNCTIONS  ------------------------ */
 
 
-    /*!
-     * @brief Copy all attributs from the parameter in self.
-     * 
-     * @param InputClass
-     *    the PyOpenFLUID class to copy
-     */
-    void copy (PyOpenFLUID InputClass);
-
-// =====================================================================
-// =====================================================================
-
-
-    /*!
-     * @brief Change the internal FluidXDescriptor class.
-     * 
-     * @param InputFXD
-     *    the new FluidXDescriptor class to copy
-     */
-    void setFluidXDescriptor (openfluid::fluidx::FluidXDescriptor& InputFXD);
+    void changeFluidXDescriptor (openfluid::fluidx::FluidXDescriptor& InputFXD);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    /*!
-     * @brief Return the internal FluidXDescriptor by reference.
-     * 
-     * @return 
-     *    a reference FluidXDescriptor
-     */
-    openfluid::fluidx::FluidXDescriptor& getFluidXDescriptor ();
+    void getFromCopyStruct (PyOpenFLUIDCopy_t* CopyStruct);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    void putOnCopyStruct (PyOpenFLUIDCopy_t* CopyStruct);
 
 
 // =====================================================================
@@ -1041,7 +1025,28 @@ class PyOpenFLUID
 
   private :
     openfluid::fluidx::FluidXDescriptor m_FXDesc;
+    openfluid::fluidx::AdvancedFluidXDescriptor m_AdvFXDesc;
 
 };
+
+
+// =====================================================================
+// =====================================================================
+
+
+struct PyOpenFLUIDCopy_t
+{
+  public:
+    openfluid::fluidx::FluidXDescriptor* mp_FXDesc;
+    openfluid::fluidx::AdvancedFluidXDescriptor* mp_AdvFXDesc;
+};
+
+
+// =====================================================================
+// =====================================================================
+
+
+void copy (PyOpenFLUID InputClass, PyOpenFLUID OutputClass);
+
 
 #endif // __PYOPENFLUID_HPP__

@@ -703,7 +703,7 @@ a simulation definition class (PyOpenFLUID)
         Res = pyopenfluid.PyOpenFLUID.openDataset(self, Path)
         if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
             Class = PyOpenFLUID()
-            pyopenfluid.PyOpenFLUID._copy(Class, Res)
+            pyopenfluid._copy(Res, Class)
             return Class
         return None
 
@@ -740,7 +740,7 @@ a simulation definition class (PyOpenFLUID)
         Res = pyopenfluid.PyOpenFLUID.openProject(self, Path)
         if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
             Class = PyOpenFLUID()
-            pyopenfluid.PyOpenFLUID._copy(Class, Res)
+            pyopenfluid._copy(Res, Class)
             return Class
         return None
 
@@ -985,7 +985,7 @@ a simulation definition class (PyOpenFLUID)
         Res = pyopenfluid.PyOpenFLUID.runProject(self, Path)
         if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
             Class = PyOpenFLUID()
-            pyopenfluid.PyOpenFLUID._copy(Class, Res)
+            pyopenfluid._copy(Res, Class)
             return Class
         return None
 
