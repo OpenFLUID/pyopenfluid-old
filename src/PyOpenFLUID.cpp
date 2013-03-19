@@ -861,38 +861,18 @@ boost::python::object PyOpenFLUID::getObserverParam (
   std::string ObsIDStr = getStringObsID();
   std::string ParamNameStr = getStringParamName();
 
-  /* looking for position of the observer */
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::ObserverDescriptor* ObsDescp;
-
-  while (ItModelInfos != ModelInfos.end())
+  try
   {
-    if ((*ItModelInfos)->isType(
-          openfluid::fluidx::ObserverDescriptor::PluggedObserver))
-    {
-      ObsDescp = *ItModelInfos;
-      if (ObsDescp->getID() == ObsIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
+    openfluid::fluidx::ObserverDescriptor ObsDesc =
+       this->m_AdvFXDesc.getMonitoring().getDescriptor(ObsIDStr);
 
-  /* if exists (=> by position), returns if possible */
-  if (ItModelInfos != ModelInfos.end())
-  {
     boost::optional<std::string> Res =
-        ObsDescp->getParameters().get_optional<std::string>(ParamNameStr);
+        ObsDesc.getParameters().get_optional<std::string>(ParamNameStr);
 
     if (Res)
       return boost::python::str(*Res);
-  }
-  else
-    pyopenfluid::topython::printWarning("observer doesn't exist");
+
+  } WARNING_OFEXCEPTION
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -920,32 +900,14 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
   std::string ParamNameStr = getStringParamName();
   std::string ParamValueStr = getStringParamValue();
 
-  /* looking for position of the observer */
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::ObserverDescriptor* ObsDescp;
-
-  while (ItModelInfos != ModelInfos.end())
+  try
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
-    {
-      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
-      if (ObsDescp->getID() == ObsIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
+    openfluid::fluidx::ObserverDescriptor& ObsDesc =
+       this->m_AdvFXDesc.getMonitoring().getDescriptor(ObsIDStr);
 
-  /* if exists (=> by position), sets (possible new) parameter */
-  if (ItModelInfos != ModelInfos.end())
-    ObsDescp->setParameter(ParamNameStr, ParamValueStr);
-  else
-    pyopenfluid::topython::printWarning("observer doesn't exist");
+    ObsDesc.setParameter(ParamNameStr, ParamValueStr);
+
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -966,32 +928,14 @@ void PyOpenFLUID::removeObserverParam (boost::python::object ObsID,
   std::string ObsIDStr = getStringObsID();
   std::string ParamNameStr = getStringParamName();
 
-  /* looking for position of the observer */
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::ObserverDescriptor* ObsDescp;
-
-  while (ItModelInfos != ModelInfos.end())
+  try
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
-    {
-      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
-      if (ObsDescp->getID() == ObsIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
+    openfluid::fluidx::ObserverDescriptor& ObsDesc =
+       this->m_AdvFXDesc.getMonitoring().getDescriptor(ObsIDStr);
 
-  /* if exists (=> by position), removes (possible new) parameter */
-  if (ItModelInfos != ModelInfos.end())
-    ObsDescp->eraseParameter(ParamNameStr);
-  else
-    pyopenfluid::topython::printWarning("observer doesn't exist");
+    ObsDesc.eraseParameter(ParamNameStr);
+
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -1010,40 +954,21 @@ boost::python::object PyOpenFLUID::getObserverParams (
 
   boost::python::list ListRes = boost::python::list();
 
-  /* looking for position of the observer */
-  openfluid::ware::WareParams_t Params;
-
-  openfluid::ware::WareParams_t::iterator ItParam;
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos;
-
-  for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
-      ++ItModelInfos)
+  try
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
-      break;
-  }
+    openfluid::fluidx::ObserverDescriptor ObsDesc =
+       this->m_AdvFXDesc.getMonitoring().getDescriptor(ObsIDStr);
 
-  /* if exists (=> by position), gets all parameters */
-  if (ItModelInfos != ModelInfos.end())
-  {
-      Params = ((openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos))->
-          getParameters();
+    std::map<std::string, std::string> MapInfos = openfluid::fluidx::
+        WareDescriptor::getParamsAsMap(ObsDesc.getParameters());
 
-      std::map<std::string, std::string> MapInfos =
-          openfluid::fluidx::WareDescriptor::getParamsAsMap(Params);
+    std::map<std::string, std::string>::iterator ItMapInfos;
 
-      std::map<std::string, std::string>::iterator ItMapInfos;
+    for (ItMapInfos = MapInfos.begin(); ItMapInfos != MapInfos.end();
+        ++ItMapInfos)
+      ListRes.append(boost::python::str((*ItMapInfos).first));
 
-      for (ItMapInfos = MapInfos.begin(); ItMapInfos != MapInfos.end();
-          ++ItMapInfos)
-        ListRes.append(boost::python::str((*ItMapInfos).first));
-  }
+  } WARNING_OFEXCEPTION
 
   return ListRes;
 }
@@ -1061,37 +986,10 @@ void PyOpenFLUID::addObserver (boost::python::object ObsID)
 
   std::string ObsIDStr = getStringObsID();
 
-  /* looking for position of the observer in list */
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t&
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::ObserverDescriptor* ObsDescp;
-
-  while (ItModelInfos != ModelInfos.end())
+  try
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
-    {
-      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
-      if (ObsDescp->getID() == ObsIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
-
-  /* raising exception if exists, or else adds */
-  if (ItModelInfos != ModelInfos.end())
-    throw PyOFException("observer id already exists");
-  else
-  {
-    openfluid::fluidx::ObserverDescriptor* NewObserver =
-        new openfluid::fluidx::ObserverDescriptor(ObsIDStr);
-
-    this->m_FXDesc.getMonitoringDescriptor().appendItem(NewObserver);
-  }
+    this->m_AdvFXDesc.getMonitoring().addToObserverList(ObsIDStr);
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -1107,32 +1005,10 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
 
   std::string ObsIDStr = getStringObsID();
 
-  /* looking for position of the observer */
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t&
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  openfluid::fluidx::ObserverDescriptor* ObsDescp;
-
-  while (ItModelInfos != ModelInfos.end())
+  try
   {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
-    {
-      ObsDescp = (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos);
-      if (ObsDescp->getID() == ObsIDStr)
-        break;
-    }
-    ++ItModelInfos;
-  }
-
-  /* if exists (=> by position), erases it from descriptor */
-  if (ItModelInfos != ModelInfos.end())
-    ModelInfos.erase(ItModelInfos);
-  else
-    pyopenfluid::topython::printWarning("observer doesn't exist");
+    this->m_AdvFXDesc.getMonitoring().removeFromObserverList(ObsIDStr);
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -1142,20 +1018,9 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
 
 void PyOpenFLUID::clearMonitoring ()
 {
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t&
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
-
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos = ModelInfos.begin();
-
-  while (ItModelInfos != ModelInfos.end())
-  {
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
-      ItModelInfos = ModelInfos.erase(ItModelInfos);
-    else
-      ++ItModelInfos;
-  }
+  std::list<openfluid::fluidx::ObserverDescriptor*> EmptyList =
+      std::list< openfluid::fluidx::ObserverDescriptor * >();
+  this->m_AdvFXDesc.getMonitoring().setItems(EmptyList);
 }
 
 
@@ -1167,18 +1032,14 @@ boost::python::object PyOpenFLUID::getObserversInMonitoring ()
 {
   boost::python::list ListRes = boost::python::list();
 
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t
-      ModelInfos = this->m_FXDesc.getMonitoringDescriptor().getItems();
+  std::list<openfluid::fluidx::ObserverDescriptor*>
+      ObsList = this->m_AdvFXDesc.getMonitoring().getItems();
 
-  openfluid::fluidx::MonitoringDescriptor::SetDescription_t::iterator
-      ItModelInfos;
+  std::list<openfluid::fluidx::ObserverDescriptor*>::iterator
+      ItObsList;
 
-  for (ItModelInfos = ModelInfos.begin(); ItModelInfos != ModelInfos.end();
-      ++ItModelInfos)
-    if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedObserver))
-      ListRes.append(boost::python::str((
-          (openfluid::fluidx::ObserverDescriptor*)(*ItModelInfos))->getID()));
+  for (ItObsList = ObsList.begin(); ItObsList != ObsList.end(); ++ItObsList)
+    ListRes.append(boost::python::str((*ItObsList)->getID()));
 
   return ListRes;
 }
