@@ -1547,56 +1547,11 @@ void PyOpenFLUID::createInputData (boost::python::object UnitClass,
   std::string IDataNameStr = getStringIDataName();
   std::string IDataValStr = getStringIDataValue();
 
-  std::list<openfluid::fluidx::InputDataDescriptor>&
-      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
-
-  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
-    ItIData = IData.begin();
-
-  openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator
-      ItUnitData;
-
-  std::pair<openfluid::core::InputDataName_t,std::string>
-      UnitDataName;
-
-  bool keyExists = TRUE;
-
-  /* searching for unit class */
-  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
-    ++ItIData;
-
-  /* searching for unit name in the first unit */
-  if (ItIData != IData.end())
+  try
   {
-    if ((*ItIData).getData().size() > 0)
-    {
-      keyExists = FALSE;
-    }
-    else
-    {
-      ItUnitData = (*ItIData).getData().begin();
-      keyExists = (*ItUnitData).second.find(IDataNameStr) !=
-          (*ItUnitData).second.end();
-    }
-
-    if (!keyExists)
-    {
-      /* for all unit id */
-      for (ItUnitData = (*ItIData).getData().begin(); ItUnitData !=
-          (*ItIData).getData().end(); ++ItUnitData)
-      {
-        UnitDataName = std::pair<openfluid::core::InputDataName_t,std::string>
-            (IDataNameStr, IDataValStr);
-        (*ItUnitData).second.insert((*ItUnitData).second.end(), UnitDataName);
-      }
-    }
-    else
-      pyopenfluid::topython::printWarning("input data name exists");
-  }
-  else
-    pyopenfluid::topython::printWarning("unit class doesn't exist");
-
-  // TODO add key to colums order
+    this->m_AdvFXDesc.getDomain().addInputData(UnitClassStr, IDataNameStr,
+        IDataValStr);
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -1619,45 +1574,15 @@ boost::python::object PyOpenFLUID::getInputData (
     throw PyOFException("needed string for data name", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
-  std::string IDataNameStr = getStringIDataName();
   int UnitIDInt = getUnitID();
+  std::string IDataNameStr = getStringIDataName();
 
-  std::list<openfluid::fluidx::InputDataDescriptor>&
-      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
-
-  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
-    ItIData = IData.begin();
-
-  openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator
-      ItUnitData;
-
-  openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t::iterator
-      ItUnitDataName;
-
-  /* searching for unit class */
-  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
-    ++ItIData;
-
-  if (ItIData != IData.end())
+  try
   {
-    /* searching for unit id */
-    ItUnitData = (*ItIData).getData().find(UnitIDInt);
-
-    if (ItUnitData != (*ItIData).getData().end())
-    {
-      /* searching for unit name */
-      ItUnitDataName = (*ItUnitData).second.find(IDataNameStr);
-
-      if (ItUnitDataName != (*ItUnitData).second.end())
-      {
-        return boost::python::str((*ItUnitDataName).second);
-      }
-    }
-    else
-      pyopenfluid::topython::printWarning("unit id doesn't exist");
-  }
-  else
-    pyopenfluid::topython::printWarning("unit class doesn't exist");
+    std::string ResIpDt = this->m_AdvFXDesc.getDomain().getInputData(
+        UnitClassStr, UnitIDInt, IDataNameStr);
+    return boost::python::object(ResIpDt);
+  } WARNING_OFEXCEPTION
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -1686,44 +1611,16 @@ void PyOpenFLUID::setInputData (boost::python::object UnitClass,
     throw PyOFException("needed string for data value", PyExc_TypeError);
 
   std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getUnitID();
   std::string IDataNameStr = getStringIDataName();
   std::string IDataValStr = getStringIDataValue();
-  int UnitIDInt = getUnitID();
 
-  std::list<openfluid::fluidx::InputDataDescriptor>&
-      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
-
-  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
-    ItIData = IData.begin();
-
-  openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator
-      ItUnitData;
-
-  /* searching for unit class */
-  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
-    ++ItIData;
-
-  if (ItIData != IData.end())
+  try
   {
-    /* searching for unit id */
-    ItUnitData = (*ItIData).getData().find(UnitIDInt);
-
-    if (ItUnitData != (*ItIData).getData().end())
-    {
-      /* searching for unit name */
-      if ((*ItUnitData).second.find(IDataNameStr) !=
-          (*ItUnitData).second.end())
-      {
-        (*ItUnitData).second[IDataNameStr] = IDataValStr;
-      }
-      else
-        pyopenfluid::topython::printWarning("input data name doesn't exist");
-    }
-    else
-      pyopenfluid::topython::printWarning("unit id doesn't exist");
-  }
-  else
-    pyopenfluid::topython::printWarning("unit class doesn't exist");
+    std::string& ResIpDt = this->m_AdvFXDesc.getDomain().getInputData(
+        UnitClassStr, UnitIDInt, IDataNameStr);
+    ResIpDt.assign(IDataValStr);
+  } HANDLE_OFEXCEPTION
 }
 
 
@@ -1744,42 +1641,10 @@ void PyOpenFLUID::removeInputData (boost::python::object UnitClass,
   std::string UnitClassStr = getStringUnitClass();
   std::string IDataNameStr = getStringIDataName();
 
-  std::list<openfluid::fluidx::InputDataDescriptor>&
-      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
-
-  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
-    ItIData = IData.begin();
-
-  openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator
-      ItUnitData;
-
-  bool keyExists = TRUE;
-
-  /* searching for unit class */
-  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
-    ++ItIData;
-
-  /* searching for unit name in the first unit */
-  if (ItIData != IData.end() && (*ItIData).getData().size() > 0)
+  try
   {
-    ItUnitData = (*ItIData).getData().begin();
-    keyExists = (*ItUnitData).second.find(IDataNameStr) !=
-        (*ItUnitData).second.end();
-
-    if (!keyExists)
-    {
-      /* for all unit id */
-      for (ItUnitData = (*ItIData).getData().begin(); ItUnitData !=
-          (*ItIData).getData().end(); ++ItUnitData)
-      {
-        (*ItUnitData).second.erase((*ItUnitData).second.find(IDataNameStr));
-      }
-    }
-    else
-      pyopenfluid::topython::printWarning("input data name doesn't exist");
-  }
-  else
-    pyopenfluid::topython::printWarning("unit class doesn't exist or it doesn't contain any units");
+    this->m_AdvFXDesc.getDomain().deleteInputData(UnitClassStr, IDataNameStr);
+  } HANDLE_OFEXCEPTION
 }
 
 
