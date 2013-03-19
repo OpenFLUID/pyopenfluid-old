@@ -31,6 +31,18 @@ catch (...) \
   throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError); \
 }
 
+#define HANDLE_OFEXCEPTION \
+catch (openfluid::base::OFException& E) \
+{ \
+  throw PyOFException(E.what()); \
+}
+
+#define WARNING_OFEXCEPTION \
+catch (openfluid::base::OFException& E) \
+{ \
+  pyopenfluid::topython::printWarning(E.what()); \
+}
+
 
 // =====================================================================
 // ====================      GENERAL EXCEPTION      ====================

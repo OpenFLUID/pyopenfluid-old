@@ -12,6 +12,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/optional.hpp>
 
+#include <set>
 #include <map>
 #include <list>
 #include <vector>
@@ -1191,18 +1192,15 @@ boost::python::object PyOpenFLUID::getUnitsClasses ()
   boost::python::list ListClasses = boost::python::list();
   boost::python::str UnitClassStr;
 
-  std::list<openfluid::fluidx::UnitDescriptor> ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
+  boost::python::list ListID = boost::python::list();
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit;
+  std::set<std::string> SetClass = this->m_AdvFXDesc.getDomain().
+    getClassNames();
 
-  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
-  {
-    UnitClassStr = boost::python::str((*IterUnit).getUnitClass());
-    if (!ListClasses.contains(UnitClassStr))
-      ListClasses.append(UnitClassStr);
-  }
+  std::set<std::string>::iterator IterClass;
+
+  for(IterClass = SetClass.begin(); IterClass != SetClass.end(); ++IterClass)
+    ListID.append(boost::python::object(*IterClass));
 
   return ListClasses;
 }
@@ -1223,14 +1221,13 @@ boost::python::object PyOpenFLUID::getUnitsIDs (
 
   boost::python::list ListID = boost::python::list();
 
-  std::list<openfluid::fluidx::UnitDescriptor>
-      ListUnit = this->m_FXDesc.getDomainDescriptor().getUnits();
+  std::set<int> SetID = this->m_AdvFXDesc.getDomain().
+    getIDsOfClass(UnitClassRef);
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit;
+  std::set<int>::iterator IterID;
 
-  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
-    if ((*IterUnit).getUnitClass() == UnitClassRef )
-      ListID.append(boost::python::object((*IterUnit).getUnitID()));
+  for(IterID = SetID.begin(); IterID != SetID.end(); ++IterID)
+    ListID.append(boost::python::object(*IterID));
 
   return ListID;
 }
@@ -1239,7 +1236,7 @@ boost::python::object PyOpenFLUID::getUnitsIDs (
 // =====================================================================
 // =====================================================================
 
-// TODO fixed colums order
+
 void PyOpenFLUID::addUnit (boost::python::object UnitClass,
                            boost::python::object UnitID,
                            boost::python::object PcsOrder)
@@ -1258,89 +1255,17 @@ void PyOpenFLUID::addUnit (boost::python::object UnitClass,
   int UnitIDInt = getIntUnitID();
   int PcsOrderInt = getIntProcessOrder();
 
-  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
-
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator IterUnit;
-
-  openfluid::fluidx::UnitDescriptor UnitDesp;
-
-  /* searches for unique id */
-  for (IterUnit = ListUnit.begin(); IterUnit != ListUnit.end(); ++IterUnit)
-  {
-    UnitDesp = *IterUnit;
-    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
-        == UnitIDInt)
-      throw PyOFException("unit already exists", PyExc_ValueError);
-  }
-
   /* adds */
   openfluid::fluidx::UnitDescriptor* NewUnitDesp;
   NewUnitDesp = new openfluid::fluidx::UnitDescriptor();
   NewUnitDesp->getUnitClass().assign(UnitClassStr);
   NewUnitDesp->getUnitID() = UnitIDInt;
   NewUnitDesp->getProcessOrder() = PcsOrderInt;
-  ListUnit.push_back(*NewUnitDesp);
 
-  /* -- adds in input data -- */
-  std::list<openfluid::fluidx::InputDataDescriptor>&
-      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
-
-  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
-    ItIData = IData.begin();
-
-  /* searching for unit class */
-  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
-    ++ItIData;
-
-  /* if new unit class */
-  if (ItIData == IData.end())
+  try
   {
-    openfluid::fluidx::InputDataDescriptor* InputDataUnitDespPtr;
-    /* new input data class */
-    InputDataUnitDespPtr = new openfluid::fluidx::InputDataDescriptor();
-    InputDataUnitDespPtr->getUnitsClass().assign(UnitClassStr);
-    InputDataUnitDespPtr->getData() =
-        openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t();
-    InputDataUnitDespPtr->getColumnsOrder() = std::vector<std::string>();
-    IData.push_back(*InputDataUnitDespPtr);
-    ItIData = IData.end();
-    --ItIData;
-  }
-
-  openfluid::fluidx::InputDataDescriptor& InputDataUnitDesp = *ItIData;
-
-  // the class that contains all input datas of an unit
-  openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t
-    InputDataNameValue = 
-      openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t();
-
-  // if there is an unit in the unit class
-  // we fill the list of input data with empty string for each key
-  if (InputDataUnitDesp.getData().size() > 0)
-  {
-    openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t ListKeys =
-        (*InputDataUnitDesp.getData().begin()).second;
-
-    for (openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t::iterator
-        ItKey = ListKeys.begin(); ItKey != ListKeys.end(); ++ItKey)
-      InputDataNameValue.insert(InputDataNameValue.begin(),
-        std::pair<openfluid::core::InputDataName_t,
-                  std::string>
-            ((*ItKey).first, std::string("")));
-  }
-
-  // building the pair to add to the list of ids' input data
-  std::pair<openfluid::core::UnitID_t,
-            openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t>
-    PairInputDataNameValue =
-      std::pair<openfluid::core::UnitID_t,
-                openfluid::fluidx::InputDataDescriptor::InputDataNameValue_t>
-        (UnitIDInt, InputDataNameValue);
-
-  // adding to the end the new unit
-  InputDataUnitDesp.getData().insert(InputDataUnitDesp.getData().end(),
-    PairInputDataNameValue);
+    this->m_AdvFXDesc.getDomain().addUnit(NewUnitDesp);
+  } HANDLE_OFEXCEPTION
 }
 
 // =====================================================================
@@ -1360,74 +1285,17 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
   std::string UnitClassStr = getStringUnitClass();
   int UnitIDInt = getIntUnitID();
 
-  /* looking for position of the unit */
-  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
-
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit = ListUnit.begin();
-
-  openfluid::fluidx::UnitDescriptor UnitDesp;
-
-  while (IterUnit != ListUnit.end())
+  try
   {
-    UnitDesp = *IterUnit;
-    if (UnitDesp.getUnitClass() == UnitClassStr && UnitDesp.getUnitID()
-        == UnitIDInt)
-      break;
-    ++IterUnit;
-  }
-
-  /* if exists (=> by position), erases it from descriptor */
-  if (IterUnit != ListUnit.end())
-    ListUnit.erase(IterUnit);
-  else
-    pyopenfluid::topython::printWarning("unit doesn't exist");
-
-  /* -- removes in input data -- */
-  std::list<openfluid::fluidx::InputDataDescriptor>&
-      IData = this->m_FXDesc.getDomainDescriptor().getInputData();
-
-  std::list<openfluid::fluidx::InputDataDescriptor>::iterator
-    ItIData = IData.begin();
-
-  /* searching for unit class */
-  while (ItIData != IData.end() && (*ItIData).getUnitsClass() != UnitClassStr)
-    ++ItIData;
-
-  /* if unit class exists */
-  if (ItIData != IData.end())
-  {
-    openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t& IDataIDDescp =
-        (*ItIData).getData();
-
-    openfluid::fluidx::InputDataDescriptor::UnitIDInputData_t::iterator
-        ItIDataID = IDataIDDescp.begin();
-
-    /* searching for unit id */
-    while (ItIDataID != IDataIDDescp.end() && (*ItIDataID).first
-        != getIntUnitID)
-      ++ItIDataID;
-
-    /* if unit id exists */
-    if (ItIDataID != IDataIDDescp.end())
-    {
-      IDataIDDescp.erase(ItIDataID);
-    }
-    else
-      pyopenfluid::topython::printWarning(
-          "unit id doesn't exist in input data");
-  }
-  else
-    pyopenfluid::topython::printWarning(
-        "unit class doesn't exist in input data");
+    this->m_AdvFXDesc.getDomain().deleteUnit(UnitClassStr, UnitIDInt);
+  } HANDLE_OFEXCEPTION
 }
 
 
 // =====================================================================
 // =====================================================================
 
-// TODO: olso erase link between units !!!
+
 void PyOpenFLUID::clearUnitClass (boost::python::object UnitClass)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
@@ -1436,19 +1304,15 @@ void PyOpenFLUID::clearUnitClass (boost::python::object UnitClass)
 
   std::string UnitClassStr = getStringUnitClass();
 
-  std::list<openfluid::fluidx::UnitDescriptor>& ListUnit =
-      this->m_FXDesc.getDomainDescriptor().getUnits();
+  std::set<int> SetID = this->m_AdvFXDesc.getDomain().
+      getIDsOfClass(UnitClassStr);
 
-  std::list<openfluid::fluidx::UnitDescriptor>::iterator
-      IterUnit = ListUnit.begin();
+  std::set<int>::iterator IterID;
 
-  while (IterUnit != ListUnit.end())
+  for(IterID = SetID.begin(); IterID != SetID.end(); ++IterID)
   {
-    if (((openfluid::fluidx::UnitDescriptor)(*IterUnit)).getUnitClass()
-        == UnitClassStr)
-      IterUnit = ListUnit.erase(IterUnit);
-    else
-      ++IterUnit;
+    this->m_AdvFXDesc.getDomain().deleteUnit(UnitClassStr, *IterID);
+    ++IterID;
   }
 }
 
