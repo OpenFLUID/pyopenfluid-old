@@ -590,7 +590,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParam (
   std::string ParamNameStr = getStringParamName();
 
   /* looking for position of the parameter */
-  openfluid::ware::WareParams_t Params = this->m_FXDesc.getModelDescriptor()
+  openfluid::ware::WareParams_t Params = this->m_AdvFXDesc.getModel()
       .getGlobalParameters();
   openfluid::ware::WareParams_t::iterator ItParam = Params.begin();
 
@@ -624,8 +624,7 @@ void PyOpenFLUID::setModelGlobalParam (boost::python::object ParamName,
   openfluid::ware::WareParamValue_t ParamValueStr =
       (openfluid::ware::WareParamValue_t) getStringParamValue();
 
-  this->m_FXDesc.getModelDescriptor()
-      .setGlobalParameter(ParamNameStr,ParamValueStr);
+  this->m_AdvFXDesc.getModel().setGlobalParameter(ParamNameStr,ParamValueStr);
 }
 
 
@@ -637,7 +636,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParams ()
 {
   boost::python::list ListRes = boost::python::list();
 
-  openfluid::ware::WareParams_t Params = this->m_FXDesc.getModelDescriptor()
+  openfluid::ware::WareParams_t Params = this->m_AdvFXDesc.getModel()
       .getGlobalParameters();
   openfluid::ware::WareParams_t::iterator ItParam;
 
@@ -660,7 +659,7 @@ void PyOpenFLUID::removeModelGlobalParam (boost::python::object ParamName)
 
   std::string ParamNameStr = getStringParamName();
 
-  this->m_FXDesc.getModelDescriptor().eraseGlobalParameter(ParamNameStr);
+  this->m_AdvFXDesc.getModel().eraseGlobalParameter(ParamNameStr);
 }
 
 
