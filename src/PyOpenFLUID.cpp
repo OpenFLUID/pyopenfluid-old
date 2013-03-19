@@ -1190,9 +1190,6 @@ boost::python::object PyOpenFLUID::getObserversInMonitoring ()
 
 boost::python::object PyOpenFLUID::getUnitsClasses ()
 {
-  boost::python::list ListClasses = boost::python::list();
-  boost::python::str UnitClassStr;
-
   boost::python::list ListID = boost::python::list();
 
   std::set<std::string> SetClass = this->m_AdvFXDesc.getDomain().
@@ -1203,7 +1200,7 @@ boost::python::object PyOpenFLUID::getUnitsClasses ()
   for(IterClass = SetClass.begin(); IterClass != SetClass.end(); ++IterClass)
     ListID.append(boost::python::object(*IterClass));
 
-  return ListClasses;
+  return ListID;
 }
 
 

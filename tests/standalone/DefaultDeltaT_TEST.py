@@ -15,7 +15,7 @@ class PyOpenFLUIDTest_DefaultDeltaT(PyOpenFLUIDTest):
         self.assertTrue(isinstance(Val, int))
         self.assertEquals(Val, DeltaT)
 
-        self.assertRaises(ValueError, self.openfluid.setDefaultDeltaT, -90)
+        self.assertRaises(StandardError, self.openfluid.setDefaultDeltaT, -90)
         self.assertRaises(TypeError, self.openfluid.setDefaultDeltaT, "bidon")
         Val = self.openfluid.getDefaultDeltaT()
         self.assertTrue(isinstance(Val, int))

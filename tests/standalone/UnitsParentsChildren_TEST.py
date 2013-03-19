@@ -26,20 +26,20 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         #      |->5,
         # 3->4-'   |->7
         # 6------ -'
-        #              0  1  2  3  4  5  6   7
-        UnitLinksTo = (2, 2, 5, 4, 5, 7, 7, None)
+        #      Parents    0  1  2  3  4  5  6   7
+        UnitLinksChild = (2, 2, 5, 4, 5, 7, 7, None)
 
         # creation of the model
         # tests of addUnitChild
         [self.openfluid.addUnit(UnitClass, i, ProcessOrder)
-            for i in range(len(UnitLinksTo))]
-        for UnitFrom, UnitTo in enumerate(UnitLinksTo):
-            if not UnitTo is None:
-                self.openfluid.addUnitChild(UnitClass, UnitFrom, UnitClass, UnitTo)
+            for i in range(len(UnitLinksChild))]
+        for UnitParent, UnitChild in enumerate(UnitLinksChild):
+            if not UnitChild is None:
+                self.openfluid.addUnitChild(UnitClass, UnitParent, UnitClass, UnitChild)
 
         # subtest of value parameters
-        self.assertRaises(ValueError, self.openfluid.addUnitChild, UnitClass, 20, UnitClass, 0)
-        self.assertRaises(ValueError, self.openfluid.addUnitChild, UnitClass, 0, UnitClass, 20)
+        self.assertRaises(StandardError, self.openfluid.addUnitChild, UnitClass, 20, UnitClass, 0)
+        self.assertRaises(StandardError, self.openfluid.addUnitChild, UnitClass, 0, UnitClass, 20)
 
         # tests of getUnitsChildren
         CheckList = self.openfluid.getUnitsChildren(UnitClass, 0)
@@ -48,12 +48,12 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         self.assertTrue(isinstance(CheckList[0][0], str))
         self.assertTrue(isinstance(CheckList[0][1], int))
 
-        UnitLinksFrom = [[] for i in range(len(UnitLinksTo))]
-        for UnitFrom, UnitTo in enumerate(UnitLinksTo):
-            CheckList = self.openfluid.getUnitsChildren(UnitClass, UnitFrom)
-            if not UnitTo is None:
-                self.assertItemsEqual(CheckList, [(UnitClass, UnitTo)])
-                UnitLinksFrom[UnitTo].append(UnitFrom)
+        UnitLinksParent = [[] for i in range(len(UnitLinksChild))]
+        for UnitParent, UnitChild in enumerate(UnitLinksChild):
+            CheckList = self.openfluid.getUnitsChildren(UnitClass, UnitParent)
+            if not UnitChild is None:
+                self.assertItemsEqual(CheckList, [(UnitClass, UnitChild)])
+                UnitLinksParent[UnitChild].append(UnitParent)
             else:
                 self.assertItemsEqual(CheckList, [])
 
@@ -64,9 +64,9 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         self.assertTrue(isinstance(CheckList[0][0], str))
         self.assertTrue(isinstance(CheckList[0][1], int))
 
-        for UnitTo, UnitsFrom in enumerate(UnitLinksFrom):
-            CheckList = self.openfluid.getUnitsParents(UnitClass, UnitTo)
-            self.assertItemsEqual(UnitsFrom, [b for a,b in CheckList])
+        for UnitChild, UnitsParent in enumerate(UnitLinksParent):
+            CheckList = self.openfluid.getUnitsParents(UnitClass, UnitChild)
+            self.assertItemsEqual(UnitsParent, [b for a,b in CheckList])
 
         # tests of removeUnitChild
         # testing on 5->7, 2->5, 4->5

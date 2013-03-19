@@ -22,7 +22,7 @@ class PyOpenFLUIDTest_Observer(PyOpenFLUIDTest):
         self.assertRaises(StandardError, self.openfluid.addObserver, IDParam)
 
         self.openfluid.removeObserver(IDParam)
-        self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
+        self.assertRaisesOrElse(StandardError, self.openfluid.getObserverParam,
                 self.assertIsNone, argObj=(IDParam, ParamName) )
 
         # test of getObserversInMonitoring

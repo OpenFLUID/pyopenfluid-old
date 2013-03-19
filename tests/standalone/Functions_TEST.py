@@ -22,7 +22,7 @@ class PyOpenFLUIDTest_Functions(PyOpenFLUIDTest):
         self.assertRaises(StandardError, self.openfluid.addFunction, FuncID)
 
         self.openfluid.removeFunction(FuncID)
-        self.assertRaisesOrElse(ValueError, self.openfluid.getFunctionParam,
+        self.assertRaisesOrElse(StandardError, self.openfluid.getFunctionParam,
                 self.assertIsNone, argObj=(FuncID, ParamName) )
 
         # test of getFunctionsInModel

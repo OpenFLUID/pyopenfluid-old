@@ -20,9 +20,9 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
         CheckVal = self.openfluid.getObserverParam(IDParam, ParamName)
         self.assertTrue(isinstance(CheckVal, str))
 
-        self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
+        self.assertRaisesOrElse(StandardError, self.openfluid.getObserverParam,
                 self.assertIsNone, argObj=("bidon", ParamName) )
-        self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
+        self.assertRaisesOrElse(StandardError, self.openfluid.getObserverParam,
                 self.assertIsNone, argObj=(IDParam, "bidon") )
 
         NvVal = "testmade_" + Val
@@ -46,7 +46,7 @@ class PyOpenFLUIDTest_ObserverParameter(PyOpenFLUIDTest):
         self.openfluid.setObserverParam(IDParam, ParamName, Val)
         self.assertEquals(Val, self.openfluid.getObserverParam(IDParam, ParamName))
         self.openfluid.removeObserverParam(IDParam, ParamName)
-        self.assertRaisesOrElse(ValueError, self.openfluid.getObserverParam,
+        self.assertRaisesOrElse(StandardError, self.openfluid.getObserverParam,
                 self.assertIsNone, argObj=(IDParam, ParamName) )
 
         # test of type's parameters
