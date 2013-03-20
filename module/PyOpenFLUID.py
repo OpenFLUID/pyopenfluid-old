@@ -1706,7 +1706,7 @@ IDataVal   -- the value of the inputdata
     # @param UnitClass   the unit class
     # @param IDataName   the inputdata name
     #
-    def removeInputData (self\, UnitClass, IDataName):
+    def removeInputData (self, UnitClass, IDataName):
         """Removes an inputdata value for a given spatial unit.
 
 Keyword arguments:
@@ -2127,4 +2127,4 @@ True if the simulation is runned without problems, False otherwise
     #
     def __str__ (self):
         """Return a description of the class."""
-        return "PyOpenFLUID({0})".format(self.getVersion())
+        return pyopenfluid.PyOpenFLUID.__str__(self)
