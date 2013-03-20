@@ -504,7 +504,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
         boost::python::arg("ParamName") ),
       "Removes an observer parameter.\
 \n\nKeyword arguments:\
-\nFunID        -- the simulation function id\
+\ObsID        -- the simulation observer id\
 \nParamName    -- the name of the parameter\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
@@ -522,7 +522,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       ( boost::python::arg("self"), boost::python::arg("ObsID") ),
       "Gets all observer parameters name.\
 \n\nKeyword arguments:\
-\nFunID        -- the simulation function id\
+\ObsID        -- the simulation observer id\
 \nReturns\
 \na list of parameters name\
 \n\nExamples:\
@@ -657,7 +657,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       "Removes an unit.\
 \n\nKeyword arguments:\
 \nUnitClass  -- an unit class\
-\nUnitID     -- an new unit id for this unit class\
+\nUnitID     -- an unit id for this unit class\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
 \n>>> obj.removeUnit(\"SU\", 3)\
