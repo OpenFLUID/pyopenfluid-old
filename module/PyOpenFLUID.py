@@ -258,7 +258,7 @@ a list of Paths
     #
     # Examples: @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... # open a project or configure the simulation}
+    #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
     #   @LineExSimple{obj.@HLImportant{printSimulationInfo}()}
     #   @LineExResult{Spatial domain is made of ....}
     # @EndExample
@@ -1578,8 +1578,8 @@ UnitIDChild      -- an unit id (child)
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.removeInputData(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") is None}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") is None}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     # @param UnitClass   the unit class
@@ -1616,8 +1616,8 @@ IDataVal   -- the default inputdata value for alla units
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.removeInputData(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 1\, \"area\") is None}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 2\, \"area\") is None}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     # @param UnitClass   the unit class
@@ -1659,8 +1659,8 @@ the inputdata value
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.removeInputData(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") is None}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") is None}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     # @param UnitClass   the unit class
@@ -1699,8 +1699,8 @@ IDataVal   -- the value of the inputdata
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.@HLImportant{removeInputData}(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") is None}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") is None}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     # @param UnitClass   the unit class
@@ -2040,7 +2040,7 @@ a simulation definition class (PyOpenFLUID)
     #
     # Examples: @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... # open a project or configure the simulation}
+    #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
     #   @LineExSimple{res = obj.@HLImportant{runSimulation}()}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{isinstance}(res\, bool)}
     # @EndExample
