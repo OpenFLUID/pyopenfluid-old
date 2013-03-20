@@ -2126,5 +2126,5 @@ True if the simulation is runned without problems, False otherwise
     # @return   a string representation
     #
     def __str__ (self):
-        """Return a description of the class."""
+        """Return a description of the class.\n\nReturns:\nA string representation of the class.\n\nExamples:\n>>> obj = PyOpenFLUID()\n>>> info = str(obj)"""
         return pyopenfluid.PyOpenFLUID.__str__(self)

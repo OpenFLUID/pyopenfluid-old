@@ -504,7 +504,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
         boost::python::arg("ParamName") ),
       "Removes an observer parameter.\
 \n\nKeyword arguments:\
-\ObsID        -- the simulation observer id\
+\nObsID        -- the simulation observer id\
 \nParamName    -- the name of the parameter\
 \n\nExamples:\
 \n>>> obj = PyOpenFLUID()\
@@ -522,7 +522,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       ( boost::python::arg("self"), boost::python::arg("ObsID") ),
       "Gets all observer parameters name.\
 \n\nKeyword arguments:\
-\ObsID        -- the simulation observer id\
+\nObsID        -- the simulation observer id\
 \nReturns\
 \na list of parameters name\
 \n\nExamples:\
