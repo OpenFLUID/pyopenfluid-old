@@ -14,7 +14,7 @@ class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
         self.openfluid.runProject(Path)
 
         # verification dossier sortie
-        self.checkSimulationOutputPath(OClass.getCurrentOutputDir())
+        self.checkSimulationOutputPath(self.openfluid.getCurrentOutputDir())
 
 if __name__ == "__main__":
     ArgList = skipArgFromCL()

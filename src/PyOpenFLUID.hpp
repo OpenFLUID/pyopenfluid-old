@@ -6,6 +6,7 @@
 #include <boost/python/tuple.hpp>
 #include <boost/python/object.hpp>
 
+#include <openfluid/base/IOListener.hpp>
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
 
@@ -1002,8 +1003,9 @@ class PyOpenFLUID
 
 
   private :
-    openfluid::fluidx::FluidXDescriptor m_FXDesc;
-    openfluid::fluidx::AdvancedFluidXDescriptor m_AdvFXDesc;
+    openfluid::base::IOListener* mp_IOL;
+    openfluid::fluidx::FluidXDescriptor* mp_FXDesc;
+    openfluid::fluidx::AdvancedFluidXDescriptor* mp_AdvFXDesc;
 
 };
 

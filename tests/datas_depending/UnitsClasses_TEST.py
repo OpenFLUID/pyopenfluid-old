@@ -13,7 +13,7 @@ class PyOpenFLUIDTest_UnitsClasses(PyOpenFLUIDTest):
         ListUC = self.openfluid.getUnitsClasses()
         self.assertTrue(isinstance(ListUC, list))
 
-        ListTest = ['TestUnits', 'ParentTestUnits']
+        ListTest = ['unitsA', 'unitsB']
 
         self.assertItemsEqual(ListTest, ListUC)
 
