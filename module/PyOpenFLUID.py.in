@@ -1215,6 +1215,80 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
+    # 
+    #
+    # @param UnitClass   an unit class
+    # @param UnitID      an unit id for this unit class
+    #
+    # @return   ?
+    #
+    def getUnitTos (self, UnitClass, UnitID):
+        """@DOCSTRING_python_GETUNITSTOS@"""
+        return pyopenfluid.PyOpenFLUID.getUnitTos(self, UnitClass,
+            UnitID)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
+    # 
+    #
+    # @param UnitClass   an unit class
+    # @param UnitID      an unit id for this unit class
+    #
+    # @return   ?
+    #
+    def getUnitFroms (self, UnitClass, UnitID):
+        """@DOCSTRING_python_GETUNITSFROMS@"""
+        return pyopenfluid.PyOpenFLUID.getUnitFroms(self, UnitClass,
+            UnitID)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
+    # 
+    #
+    # @param UnitClassFrom   an unit class (from)
+    # @param UnitIDFrom      an unit id (from)
+    # @param UnitClassTo     an unit class (to)
+    # @param UnitIDTo        an unit id (to)
+    #
+    def addFromToConnection (self, UnitClassFrom, UnitIDFrom, UnitClassTo,
+                      UnitIDTo):
+        """@DOCSTRING_python_ADDFROMTOCONNECTION@"""
+        return pyopenfluid.PyOpenFLUID.addFromToConnection(self, UnitClassFrom,
+            UnitIDFrom, UnitClassTo, UnitIDTo)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
+    # 
+    #
+    # @param UnitClassFrom   an unit class (from)
+    # @param UnitIDFrom      an unit id (from)
+    # @param UnitClassTo     an unit class (to)
+    # @param UnitIDTo        an unit id (to)
+    #
+    def removeFromToConnection (self, UnitClassFrom, UnitIDFrom, UnitClassTo,
+                         UnitIDTo):
+        """@DOCSTRING_python_REMOVEFROMTOCONNECTION@"""
+        return pyopenfluid.PyOpenFLUID.removeFromToConnection(self, UnitClassFrom,
+            UnitIDFrom, UnitClassTo, UnitIDTo)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
     # Gets children units of an unit.
     #
     # Examples: @StartExample

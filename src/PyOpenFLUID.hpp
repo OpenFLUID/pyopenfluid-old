@@ -318,6 +318,42 @@ class PyOpenFLUID
 // =====================================================================
 
 
+    boost::python::object getUnitTos (boost::python::object UnitClass,
+                                      boost::python::object UnitID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    boost::python::object getUnitFroms (boost::python::object UnitClass,
+                                        boost::python::object UnitID);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    void addFromToConnection (boost::python::object UnitClassFrom,
+                              boost::python::object UnitIDFrom,
+                              boost::python::object UnitClassTo,
+                              boost::python::object UnitIDTo);
+
+
+// =====================================================================
+// =====================================================================
+
+
+    void removeFromToConnection (boost::python::object UnitClassFrom,
+                                 boost::python::object UnitIDFrom,
+                                 boost::python::object UnitClassTo,
+                                 boost::python::object UnitIDTo);
+
+
+// =====================================================================
+// =====================================================================
+
+
     boost::python::object getUnitsChildren (boost::python::object UnitClass,
                                             boost::python::object UnitID);
 

@@ -291,7 +291,7 @@ SET(DOCSTRINGRAW_GETUNITPROCESSORDER
 
 Keyword arguments:
 UnitClass  -- an unit class
-UnitID  -- an unit id for this unit class
+UnitID     -- an unit id for this unit class
 
 Returns:
 the process order")
@@ -302,7 +302,7 @@ SET(DOCSTRINGRAW_GETUNITSCHILDREN
 
 Keyword arguments:
 UnitClass  -- an unit class
-UnitID  -- an unit id for this unit class
+UnitID     -- an unit id for this unit class
 
 Returns:
 a list of tuple of units classes and units")
@@ -313,7 +313,7 @@ SET(DOCSTRINGRAW_GETUNITSPARENTS
 
 Keyword arguments:
 UnitClass  -- an unit class
-UnitID  -- an unit id for this unit class
+UnitID     -- an unit id for this unit class
 
 Returns:
 a list of tuple of units classes and units")
@@ -472,8 +472,51 @@ Examples:
 >>> obj = PyOpenFLUID()
 >>> info = str(obj)")
 
+
 SET(DOCSTRINGRAW_CONSTRUCTOR
 "Create an OpenFLUID class.")
+
+
+SET(DOCSTRINGRAW_GETUNITTOS
+"Gets tos units of an unit.
+
+Keyword arguments:
+UnitClass  -- an unit class
+UnitID     -- an unit id for this unit class
+
+Returns:
+a list of tuple of units classes and units")
+
+
+SET(DOCSTRINGRAW_GETUNITFROMS
+"Gets froms units of an unit.
+
+Keyword arguments:
+UnitClass  -- an unit class
+UnitID     -- an unit id for this unit class
+
+Returns:
+a list of tuple of units classes and units")
+
+
+SET(DOCSTRINGRAW_ADDFROMTOCONNECTION
+"Adds a from/to connection.
+
+Keyword arguments:
+UnitClassFrom   -- an unit class (from)
+UnitIDFrom      -- an unit id (from)
+UnitClassTo     -- an unit class (to)
+UnitIDTo        -- an unit id (to)")
+
+
+SET(DOCSTRINGRAW_REMOVEFROMTOCONNECTION
+"Removes a from/to connection.
+
+Keyword arguments:
+UnitClassFrom   -- an unit class (from)
+UnitIDFrom      -- an unit id (from)
+UnitClassTo     -- an unit class (to)
+UnitIDTo        -- an unit id (to)")
 
 
 # list of function
@@ -493,4 +536,5 @@ CREATEINPUTDATA GETINPUTDATA SETINPUTDATA REMOVEINPUTDATA
 OPENDATASET OPENPROJECT SETCURRENTOUTPUTDIR GETCURRENTOUTPUTDIR
 GETDEFAULTDELTAT SETDEFAULTDELTAT
 GETPERIODBEGINDATE GETPERIODENDDATE SETPERIODBEGINDATE SETPERIODENDDATE
-RUNPROJECT RUNSIMULATION GETSTR CONSTRUCTOR)
+RUNPROJECT RUNSIMULATION GETSTR CONSTRUCTOR
+GETUNITTOS GETUNITFROMS ADDFROMTOCONNECTION REMOVEFROMTOCONNECTION)

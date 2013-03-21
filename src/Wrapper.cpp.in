@@ -474,6 +474,52 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("getUnitTos", &PyOpenFLUID::getUnitTos,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_GETUNITTOS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitFroms", &PyOpenFLUID::getUnitFroms,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_GETUNITFROMS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addFromToConnection", &PyOpenFLUID::addFromToConnection,
+      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
+        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
+        boost::python::arg("UnitIDTo") ),
+      "@DOCSTRING_boost_ADDFROMTOCONNECTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeFromToConnection", &PyOpenFLUID::removeFromToConnection,
+      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
+        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
+        boost::python::arg("UnitIDTo") ),
+      "@DOCSTRING_boost_REMOVEFROMTOCONNECTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("getUnitsChildren", &PyOpenFLUID::getUnitsChildren,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
         boost::python::arg("UnitID") ),

@@ -1158,6 +1158,159 @@ boost::python::object PyOpenFLUID::getUnitProcessOrder (
 // =====================================================================
 
 
+boost::python::object PyOpenFLUID::getUnitTos (
+    boost::python::object UnitClass, boost::python::object UnitID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+
+  boost::python::list ListRes = boost::python::list();
+
+  openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
+      (UnitClassStr, UnitIDInt);
+
+  std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
+      getDomain().getUnitsToOf(TmpPair);
+
+  std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
+
+  for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+    ListRes.append(boost::python::make_tuple(
+        boost::python::object((*ItListUnit).first),
+        boost::python::object((*ItListUnit).second) ));
+
+  return ListRes;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::getUnitFroms (
+    boost::python::object UnitClass, boost::python::object UnitID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitID(UnitID);
+  if (!getIntUnitID.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassStr = getStringUnitClass();
+  int UnitIDInt = getIntUnitID();
+
+  boost::python::list ListRes = boost::python::list();
+
+  openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
+      (UnitClassStr, UnitIDInt);
+  std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
+      getDomain().getUnitsFromOf(TmpPair);
+
+  std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
+
+  for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+    ListRes.append(boost::python::make_tuple(
+        boost::python::object((*ItListUnit).first),
+        boost::python::object((*ItListUnit).second) ));
+
+  return ListRes;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::addFromToConnection (
+    boost::python::object UnitClassFrom, boost::python::object UnitIDFrom,
+    boost::python::object UnitClassTo, boost::python::object UnitIDTo)
+{
+  boost::python::extract<std::string> getStringUnitClassFrom(UnitClassFrom);
+  if (!getStringUnitClassFrom.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitIDFrom(UnitIDFrom);
+  if (!getIntUnitIDFrom.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  boost::python::extract<std::string> getStringUnitClassTo(UnitClassTo);
+  if (!getStringUnitClassTo.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitIDTo(UnitIDTo);
+  if (!getIntUnitIDTo.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassFromStr = getStringUnitClassFrom();
+  int UnitIDFromInt = getIntUnitIDFrom();
+
+  std::string UnitClassToStr = getStringUnitClassTo();
+  int UnitIDToInt = getIntUnitIDTo();
+
+  openfluid::core::UnitClassID_t FromUnit = openfluid::core::UnitClassID_t
+      (UnitClassFromStr, UnitIDFromInt);
+  openfluid::core::UnitClassID_t ToUnit = openfluid::core::UnitClassID_t
+      (UnitClassToStr, UnitIDToInt);
+
+  try
+  {
+    this->mp_AdvFXDesc->getDomain().addFromToRelation(
+        FromUnit, ToUnit);
+  } HANDLE_OFEXCEPTION
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::removeFromToConnection (
+    boost::python::object UnitClassFrom, boost::python::object UnitIDFrom,
+    boost::python::object UnitClassTo, boost::python::object UnitIDTo)
+{
+  boost::python::extract<std::string> getStringUnitClassFrom(UnitClassFrom);
+  if (!getStringUnitClassFrom.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitIDFrom(UnitIDFrom);
+  if (!getIntUnitIDFrom.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  boost::python::extract<std::string> getStringUnitClassTo(UnitClassTo);
+  if (!getStringUnitClassTo.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<int> getIntUnitIDTo(UnitIDTo);
+  if (!getIntUnitIDTo.check())
+    throw PyOFException("needed integer for unit id", PyExc_TypeError);
+
+  std::string UnitClassFromStr = getStringUnitClassFrom();
+  int UnitIDFromInt = getIntUnitIDFrom();
+
+  std::string UnitClassToStr = getStringUnitClassTo();
+  int UnitIDToInt = getIntUnitIDTo();
+
+  openfluid::core::UnitClassID_t FromUnit = openfluid::core::UnitClassID_t
+      (UnitClassFromStr, UnitIDFromInt);
+  openfluid::core::UnitClassID_t ToUnit = openfluid::core::UnitClassID_t
+      (UnitClassToStr, UnitIDToInt);
+
+  try
+  {
+    this->mp_AdvFXDesc->getDomain().removeFromToRelation(
+        FromUnit, ToUnit);
+  } HANDLE_OFEXCEPTION
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
 boost::python::object PyOpenFLUID::getUnitsChildren (
     boost::python::object UnitClass, boost::python::object UnitID)
 {
