@@ -1311,7 +1311,7 @@ void PyOpenFLUID::removeFromToConnection (
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getUnitsChildren (
+boost::python::object PyOpenFLUID::getUnitChildren (
     boost::python::object UnitClass, boost::python::object UnitID)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
@@ -1347,7 +1347,7 @@ boost::python::object PyOpenFLUID::getUnitsChildren (
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getUnitsParents (
+boost::python::object PyOpenFLUID::getUnitParents (
     boost::python::object UnitClass, boost::python::object UnitID)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);

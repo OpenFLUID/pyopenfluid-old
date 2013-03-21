@@ -1295,18 +1295,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitChildren}(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitChildren}(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.addParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitsParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsChildren}(\"SU\"\, 1) == [(\"SU\"\, 2)]}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitChildren}(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitChildren}(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.removeParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitChildren}(\"SU\"\, 1)) == 0}
     # @EndExample
     #
     # @param UnitClass   an unit class
@@ -1314,9 +1314,9 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @return   a list of tuple of units classes and units
     #
-    def getUnitsChildren (self, UnitClass, UnitID):
-        """@DOCSTRING_python_GETUNITSCHILDREN@"""
-        return pyopenfluid.PyOpenFLUID.getUnitsChildren(self, UnitClass,
+    def getUnitChildren (self, UnitClass, UnitID):
+        """@DOCSTRING_python_GETUNITCHILDREN@"""
+        return pyopenfluid.PyOpenFLUID.getUnitChildren(self, UnitClass,
             UnitID)
 
 
@@ -1331,18 +1331,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsParents}(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsParents}(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitParents}(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitParents}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.addParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsParents}(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsParents}(\"SU\"\, 2) == [(\"SU\"\, 1)]}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitsChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitParents}(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitParents}(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.removeParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsParents}(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitParents}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
     # @EndExample
     #
     # @param UnitClass   an unit class
@@ -1350,9 +1350,9 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @return   a list of tuple of units classes and units
     #
-    def getUnitsParents (self, UnitClass, UnitID):
-        """@DOCSTRING_python_GETUNITSPARENTS@"""
-        return pyopenfluid.PyOpenFLUID.getUnitsParents(self, UnitClass,
+    def getUnitParents (self, UnitClass, UnitID):
+        """@DOCSTRING_python_GETUNITPARENTS@"""
+        return pyopenfluid.PyOpenFLUID.getUnitParents(self, UnitClass,
             UnitID)
 
 
@@ -1367,18 +1367,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.@HLImportant{addParentChildConnection}(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitsParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitsChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.removeParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
     # @EndExample
     #
     # @param UnitClassParent   an unit class (parent)
@@ -1404,18 +1404,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.addParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitsParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitsChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 2)) == 0}
     #   @LineExSimple{obj.@HLImportant{removeParentChildConnection}(\"SU\"\, 1\, \"SU\"\, 2)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitParents(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
     # @EndExample
     #
     # @param UnitClassParent   an unit class (parent)

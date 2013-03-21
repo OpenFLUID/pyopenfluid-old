@@ -41,8 +41,8 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         self.assertRaises(StandardError, self.openfluid.addParentChildConnection, UnitClass, 20, UnitClass, 0)
         self.assertRaises(StandardError, self.openfluid.addParentChildConnection, UnitClass, 0, UnitClass, 20)
 
-        # tests of getUnitsChildren
-        CheckList = self.openfluid.getUnitsChildren(UnitClass, 0)
+        # tests of getUnitChildren
+        CheckList = self.openfluid.getUnitChildren(UnitClass, 0)
         self.assertTrue(isinstance(CheckList, (tuple, list)))
         self.assertTrue(isinstance(CheckList[0], (tuple, list)))
         self.assertTrue(isinstance(CheckList[0][0], str))
@@ -50,38 +50,38 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
 
         UnitLinksParent = [[] for i in range(len(UnitLinksChild))]
         for UnitParent, UnitChild in enumerate(UnitLinksChild):
-            CheckList = self.openfluid.getUnitsChildren(UnitClass, UnitParent)
+            CheckList = self.openfluid.getUnitChildren(UnitClass, UnitParent)
             if not UnitChild is None:
                 self.assertItemsEqual(CheckList, [(UnitClass, UnitChild)])
                 UnitLinksParent[UnitChild].append(UnitParent)
             else:
                 self.assertItemsEqual(CheckList, [])
 
-        # tests of getUnitsParents
-        CheckList = self.openfluid.getUnitsParents(UnitClass, 7)
+        # tests of getUnitParents
+        CheckList = self.openfluid.getUnitParents(UnitClass, 7)
         self.assertTrue(isinstance(CheckList, (tuple, list)))
         self.assertTrue(isinstance(CheckList[0], (tuple, list)))
         self.assertTrue(isinstance(CheckList[0][0], str))
         self.assertTrue(isinstance(CheckList[0][1], int))
 
         for UnitChild, UnitsParent in enumerate(UnitLinksParent):
-            CheckList = self.openfluid.getUnitsParents(UnitClass, UnitChild)
+            CheckList = self.openfluid.getUnitParents(UnitClass, UnitChild)
             self.assertItemsEqual(UnitsParent, [b for a,b in CheckList])
 
         # tests of removeParentChildConnection
         # testing on 5->7, 2->5, 4->5
-        CheckList = self.openfluid.getUnitsChildren(UnitClass, 5)
+        CheckList = self.openfluid.getUnitChildren(UnitClass, 5)
         self.assertItemsEqual([b for a,b in CheckList], [7])
-        CheckList = self.openfluid.getUnitsParents(UnitClass, 5)
+        CheckList = self.openfluid.getUnitParents(UnitClass, 5)
         self.assertItemsEqual([b for a,b in CheckList], [2, 4])
 
         self.openfluid.removeParentChildConnection(UnitClass, 5, UnitClass, 7)
         self.openfluid.removeParentChildConnection(UnitClass, 4, UnitClass, 5)
         self.openfluid.removeParentChildConnection(UnitClass, 2, UnitClass, 5)
 
-        CheckList = self.openfluid.getUnitsChildren(UnitClass, 5)
+        CheckList = self.openfluid.getUnitChildren(UnitClass, 5)
         self.assertEquals(len(CheckList), 0)
-        CheckList = self.openfluid.getUnitsParents(UnitClass, 5)
+        CheckList = self.openfluid.getUnitParents(UnitClass, 5)
         self.assertEquals(len(CheckList), 0)
 
 

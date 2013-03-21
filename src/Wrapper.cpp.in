@@ -520,10 +520,10 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getUnitsChildren", &PyOpenFLUID::getUnitsChildren,
+    .def("getUnitChildren", &PyOpenFLUID::getUnitChildren,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
         boost::python::arg("UnitID") ),
-      "@DOCSTRING_boost_GETUNITSCHILDREN@"
+      "@DOCSTRING_boost_GETUNITCHILDREN@"
     )
 
 
@@ -531,10 +531,10 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getUnitsParents", &PyOpenFLUID::getUnitsParents,
+    .def("getUnitParents", &PyOpenFLUID::getUnitParents,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
         boost::python::arg("UnitID") ),
-      "@DOCSTRING_boost_GETUNITSPARENTS@"
+      "@DOCSTRING_boost_GETUNITPARENTS@"
     )
 
 

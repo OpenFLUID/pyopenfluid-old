@@ -354,7 +354,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    boost::python::object getUnitsChildren (boost::python::object UnitClass,
+    boost::python::object getUnitChildren (boost::python::object UnitClass,
                                             boost::python::object UnitID);
 
 
@@ -362,7 +362,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    boost::python::object getUnitsParents (boost::python::object UnitClass,
+    boost::python::object getUnitParents (boost::python::object UnitClass,
                                            boost::python::object UnitID);
 
 
