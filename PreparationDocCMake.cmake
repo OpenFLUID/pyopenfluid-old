@@ -4,7 +4,7 @@
 # Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
 #
 
-INCLUDE(DocStrings.txt)
+INCLUDE(DocStrings.cmake)
 
 FUNCTION(ADAPT_DOCSTRING FUNCTIONNAME DOCSTRINGRAW)
   STRING(REPLACE "\n" "\\n" TMPBUFFER "${DOCSTRINGRAW}")

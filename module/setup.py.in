@@ -15,7 +15,6 @@ setup(name='@PYOPENFLUID_DISPLAY_NAME@',
       url='@PYOPENFLUID_URL@',
       license='@PYOPENFLUID_LICENCE@',
       classifiers=[
-          'Development Status :: @PYOPENFLUID_MAJOR_VERSION@ - @PYOPENFLUID_MINOR_VERSION@ - @PYOPENFLUID_PATCH_VERSION@ - @PYOPENFLUID_STATUS_VERSION@',
           'Environment :: Console',
           'Operating System :: POSIX',
           'Programming Language :: Python',

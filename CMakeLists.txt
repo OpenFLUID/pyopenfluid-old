@@ -37,7 +37,7 @@ IF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
   INCLUDE(CMake.in.local.cmake)
 ENDIF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
 
-# TODO: change python library path 
+
 SET(PYTHON_OUTPUT_PATH             "${OUTPUT_PATH}/${PYTHON_MODULE_PATH}")
 SET(PYTHON_OUTPUT_SRC_PATH         "${OUTPUT_PATH}/${PYTHON_MODULE_SRC_PATH}")
 SET(DOC_OUTPUT_PATH                "${BUILD_PATH}/${DOC_PATH}")
@@ -54,7 +54,7 @@ FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PATH}")
 #
 # Browsing
 #
-INCLUDE(PreparationDocCMake.txt)
+INCLUDE(PreparationDocCMake.cmake)
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(module)
 
