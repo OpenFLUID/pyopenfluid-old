@@ -271,9 +271,9 @@ UnitID     -- an unit id for this unit class")
 
 
 SET(DOCSTRINGRAW_CLEARALLUNITS
-"Removes all units from an unit class.
+"Removes all units from an unit class or all units in the domain.
 
-Keyword arguments:
+Optional arguments:
 UnitClass  -- an unit class")
 
 

@@ -2,6 +2,7 @@
 #include <boost/python/scope.hpp>
 #include <boost/python/class.hpp>
 #include <boost/python/module.hpp>
+#include <boost/python/overloads.hpp>
 #include <boost/python/raw_function.hpp>
 #include <boost/python/docstring_options.hpp>
 #include <boost/python/exception_translator.hpp>
@@ -22,6 +23,8 @@
 #include "PyOpenFLUIDConstants.hpp"
 
 
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(clearAllUnits_overloads,
+    clearAllUnits, 0, 1)
 
 BOOST_PYTHON_MODULE(_pyopenfluid)
 {
@@ -453,9 +456,10 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("clearAllUnits", &PyOpenFLUID::clearAllUnits,
-      ( boost::python::arg("self"), boost::python::arg("UnitClass") ),
-      "@DOCSTRING_boost_CLEARALLUNITS@"
+    .def("clearAllUnits", &PyOpenFLUID::clearAllUnits, clearAllUnits_overloads(
+      ( boost::python::arg("self"),
+        boost::python::arg("UnitClass") ),
+      "@DOCSTRING_boost_CLEARALLUNITS@")
     )
 
 

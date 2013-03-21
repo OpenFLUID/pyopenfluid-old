@@ -1113,19 +1113,26 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
 
 void PyOpenFLUID::clearAllUnits (boost::python::object UnitClass)
 {
-  boost::python::extract<std::string> getStringUnitClass(UnitClass);
-  if (!getStringUnitClass.check())
-    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  if (UnitClass.ptr() == Py_None)
+  {
+    this->mp_AdvFXDesc->getDomain().clearDomain();
+  }
+  else
+  {
+    boost::python::extract<std::string> getStringUnitClass(UnitClass);
+    if (!getStringUnitClass.check())
+      throw PyOFException("needed string for unit class", PyExc_TypeError);
 
-  std::string UnitClassStr = getStringUnitClass();
+    std::string UnitClassStr = getStringUnitClass();
 
-  std::set<int> SetID = this->mp_AdvFXDesc->getDomain().
-      getIDsOfClass(UnitClassStr);
+    std::set<int> SetID = this->mp_AdvFXDesc->getDomain().
+        getIDsOfClass(UnitClassStr);
 
-  std::set<int>::iterator IterID;
+    std::set<int>::iterator IterID;
 
-  for(IterID = SetID.begin(); IterID != SetID.end(); ++IterID)
-    this->mp_AdvFXDesc->getDomain().deleteUnit(UnitClassStr, *IterID);
+    for(IterID = SetID.begin(); IterID != SetID.end(); ++IterID)
+      this->mp_AdvFXDesc->getDomain().deleteUnit(UnitClassStr, *IterID);
+  }
 }
 
 
@@ -1207,18 +1214,21 @@ boost::python::object PyOpenFLUID::getUnitTos (
 
   boost::python::list ListRes = boost::python::list();
 
-  openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
-      (UnitClassStr, UnitIDInt);
+  try
+  {
+    openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
+        (UnitClassStr, UnitIDInt);
 
-  std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
-      getDomain().getUnitsToOf(TmpPair);
+    std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
+        getDomain().getUnitsToOf(TmpPair);
 
-  std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
+    std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
 
-  for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
-    ListRes.append(boost::python::make_tuple(
-        boost::python::object((*ItListUnit).first),
-        boost::python::object((*ItListUnit).second) ));
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+      ListRes.append(boost::python::make_tuple(
+          boost::python::object((*ItListUnit).first),
+          boost::python::object((*ItListUnit).second) ));
+  } WARNING_OFEXCEPTION
 
   return ListRes;
 }
@@ -1243,17 +1253,21 @@ boost::python::object PyOpenFLUID::getUnitFroms (
 
   boost::python::list ListRes = boost::python::list();
 
-  openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
-      (UnitClassStr, UnitIDInt);
-  std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
-      getDomain().getUnitsFromOf(TmpPair);
+  try
+  {
+    openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
+        (UnitClassStr, UnitIDInt);
 
-  std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
+    std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
+        getDomain().getUnitsFromOf(TmpPair);
 
-  for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
-    ListRes.append(boost::python::make_tuple(
-        boost::python::object((*ItListUnit).first),
-        boost::python::object((*ItListUnit).second) ));
+    std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
+
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+      ListRes.append(boost::python::make_tuple(
+          boost::python::object((*ItListUnit).first),
+          boost::python::object((*ItListUnit).second) ));
+  } WARNING_OFEXCEPTION
 
   return ListRes;
 }
@@ -1360,18 +1374,21 @@ boost::python::object PyOpenFLUID::getUnitChildren (
 
   boost::python::list ListRes = boost::python::list();
 
-  openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
-      (UnitClassStr, UnitIDInt);
+  try
+  {
+    openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
+        (UnitClassStr, UnitIDInt);
 
-  std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
-      getDomain().getUnitsChildrenOf(TmpPair);
+    std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
+        getDomain().getUnitsChildrenOf(TmpPair);
 
-  std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
+    std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
 
-  for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
-    ListRes.append(boost::python::make_tuple(
-        boost::python::object((*ItListUnit).first),
-        boost::python::object((*ItListUnit).second) ));
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+      ListRes.append(boost::python::make_tuple(
+          boost::python::object((*ItListUnit).first),
+          boost::python::object((*ItListUnit).second) ));
+  } WARNING_OFEXCEPTION
 
   return ListRes;
 }
@@ -1396,17 +1413,20 @@ boost::python::object PyOpenFLUID::getUnitParents (
 
   boost::python::list ListRes = boost::python::list();
 
-  openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
-      (UnitClassStr, UnitIDInt);
-  std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
-      getDomain().getUnitsParentsOf(TmpPair);
+  try
+  {
+    openfluid::core::UnitClassID_t TmpPair = openfluid::core::UnitClassID_t
+        (UnitClassStr, UnitIDInt);
+    std::list<openfluid::core::UnitClassID_t> ListUnit = this->mp_AdvFXDesc->
+        getDomain().getUnitsParentsOf(TmpPair);
 
-  std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
+    std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
 
-  for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
-    ListRes.append(boost::python::make_tuple(
-        boost::python::object((*ItListUnit).first),
-        boost::python::object((*ItListUnit).second) ));
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+      ListRes.append(boost::python::make_tuple(
+          boost::python::object((*ItListUnit).first),
+          boost::python::object((*ItListUnit).second) ));
+  } WARNING_OFEXCEPTION
 
   return ListRes;
 }

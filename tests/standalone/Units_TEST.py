@@ -49,9 +49,31 @@ class PyOpenFLUIDTest_Units(PyOpenFLUIDTest):
         ListVal = self.openfluid.getUnitsIDs("TestClass")
         self.assertItemsEqual(ListVal, [])
 
-        # tests of clearAllUnits
+        # tests of clearAllUnits by unitclass
         self.openfluid.clearAllUnits(Units[0][0])
         self.assertEquals(len(self.openfluid.getUnitsIDs("TestClass")), 0)
+        self.assertEquals(len(self.openfluid.getUnitsClasses()), 0)
+
+        # tests of clearAllUnits
+        self.openfluid.addUnit("SU",10,1)
+        self.openfluid.addUnit("OTH",11,1)
+        self.openfluid.addUnit("FK",12,1)
+        self.openfluid.addParentChildConnection("SU",10,"OTH",11)
+        self.openfluid.addFromToConnection("OTH",11,"FK",12)
+        self.assertEquals(self.openfluid.getUnitsIDs("SU"), [10])
+        self.assertEquals(self.openfluid.getUnitsIDs("OTH"), [11])
+        self.assertEquals(self.openfluid.getUnitsIDs("FK"), [12])
+        self.assertEquals(self.openfluid.getUnitTos("OTH",11), [("FK", 12)])
+        self.assertEquals(self.openfluid.getUnitChildren("SU",10), [("OTH", 11)])
+        self.assertEquals(self.openfluid.getUnitParents("OTH",11), [("SU", 10)])
+        self.assertItemsEqual(self.openfluid.getUnitsClasses(), ["SU", "OTH", "FK"])
+        self.openfluid.clearAllUnits()
+        self.assertEquals(len(self.openfluid.getUnitsIDs("SU")), 0)
+        self.assertEquals(len(self.openfluid.getUnitsIDs("OTH")), 0)
+        self.assertEquals(len(self.openfluid.getUnitsIDs("FK")), 0)
+        self.assertEquals(len(self.openfluid.getUnitTos("OTH",11)), 0)
+        self.assertEquals(len(self.openfluid.getUnitChildren("SU",10)), 0)
+        self.assertEquals(len(self.openfluid.getUnitParents("OTH",11)), 0)
         self.assertEquals(len(self.openfluid.getUnitsClasses()), 0)
 
 if __name__ == "__main__":

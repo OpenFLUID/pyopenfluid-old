@@ -11,6 +11,9 @@
 #include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
 
 
+const boost::python::object BOOST_NONE = boost::python::object();
+
+
 // =====================================================================
 // =====================================================================
 
@@ -301,7 +304,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void clearAllUnits (boost::python::object UnitClass);
+    void clearAllUnits (boost::python::object UnitClass = BOOST_NONE);
 
 
 // =====================================================================

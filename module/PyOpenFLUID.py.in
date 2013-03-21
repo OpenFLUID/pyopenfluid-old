@@ -1135,7 +1135,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
-    # Removes all units from an unit class.
+    # Removes all units from an unit class or all units in the domain.
     #
     # Examples: @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1166,9 +1166,9 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
     #
-    # @param UnitClass   an unit class
+    # @param UnitClass   an unit class (optional)
     #
-    def clearAllUnits (self, UnitClass):
+    def clearAllUnits (self, UnitClass=None):
         """@DOCSTRING_python_CLEARALLUNITS@"""
         return pyopenfluid.PyOpenFLUID.clearAllUnits(self, UnitClass)
 
