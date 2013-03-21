@@ -54,6 +54,7 @@ FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PATH}")
 #
 # Browsing
 #
+INCLUDE(PreparationDocCMake.txt)
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(module)
 

@@ -1,20 +1,26 @@
+SET(OUTPUT_SOURCE_PATH "${OUTPUT_PATH}/src")
+
 # preparation
 SET(pyopenfluid_raw_source
-    Wrapper.cpp              Wrapper.hpp
+    Wrapper.hpp
     PyOpenFLUID.hpp          PyOpenFLUID.cpp
     PyOpenFLUIDError.hpp     PyOpenFLUIDError.cpp
     PythonUtilities.hpp      PythonUtilities.cpp)
-
-SET(OUTPUT_SOURCE_PATH "${OUTPUT_PATH}/src")
-
-FOREACH(raw_source ${pyopenfluid_raw_source})
-  FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/${raw_source}"
+FOREACH(RAW_SOURCE ${pyopenfluid_raw_source})
+  FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/${RAW_SOURCE}"
        DESTINATION "${OUTPUT_SOURCE_PATH}")
 ENDFOREACH()
 
-# configuration
-CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/PyOpenFLUIDConstants.hpp.in"
-    "${OUTPUT_SOURCE_PATH}/PyOpenFLUIDConstants.hpp" @ONLY)
+
+## configuration
+SET(pyopenfluid_files_config_required
+    Wrapper.cpp
+    PyOpenFLUIDConstants.hpp)
+FOREACH(RAW_SOURCE ${pyopenfluid_files_config_required})
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${RAW_SOURCE}.in"
+    "${OUTPUT_SOURCE_PATH}/${RAW_SOURCE}" @ONLY)
+ENDFOREACH()
+
 
 ## add library
 SET(pyopenfluid_files

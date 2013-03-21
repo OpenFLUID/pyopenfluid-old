@@ -17,11 +17,11 @@ try:
 except ImportError, msg:
     raise ImportError, str(msg) + ', please install the python-openfluid package'
 
-# settings constants from library
-__doc__ = pyopenfluid.__doc__
-__author__ = pyopenfluid.__author__
-__version__ = pyopenfluid.__version__
-__license__ = pyopenfluid.__license__
+# constants
+__doc__ = "@PYOPENFLUID_SHORT_DESCRIPTION@"
+__author__ = "@PYOPENFLUID_AUTHORS_LIST@"
+__version__ = "@PYOPENFLUID_VERSION@"
+__license__ = "@PYOPENFLUID_LICENCE@"
 __all__ = ["PyOpenFLUID"]
 
 
@@ -48,7 +48,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     #
     def __init__ (self):
-        """Create an OpenFLUID class."""
+        """@DOCSTRING_python_CONSTRUCTOR@"""
         pyopenfluid.PyOpenFLUID.__init__(self)
 
 
@@ -67,11 +67,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @return   the OpenFLUID version number
     #
     def getVersion (self):
-        """Returns the OpenFLUID version.
-
-Returns:
-the OpenFLUID version number
-"""
+        """@DOCSTRING_python_GETVERSION@"""
         return pyopenfluid.PyOpenFLUID.getVersion(self)
 
 
@@ -98,11 +94,7 @@ the OpenFLUID version number
     # @param Paths   the semicolon separated paths to add
     #
     def addExtraFunctionsPaths (self, Paths):
-        """Adds paths to search for simulation functions.
-
-Keyword arguments:
-Paths  -- the semicolon separated paths to add
-"""
+        """@DOCSTRING_python_ADDEXTRAFUNCTIONSPATHS@"""
         pyopenfluid.PyOpenFLUID.addExtraFunctionsPaths(self, Paths)
 
 
@@ -127,7 +119,7 @@ Paths  -- the semicolon separated paths to add
     # @EndExample
     #
     def resetExtraFunctionsPaths (self):
-        """Reset paths to search for simulation functions."""
+        """@DOCSTRING_python_RESETEXTRAFUNCTIONSPATHS@"""
         pyopenfluid.PyOpenFLUID.resetExtraFunctionsPaths(self)
 
 
@@ -154,11 +146,7 @@ Paths  -- the semicolon separated paths to add
     # @return   a list of Paths
     #
     def getExtraFunctionsPaths (self):
-        """Returns the added paths to search for simulation functions.
-
-Returns:
-a list of Paths
-"""
+        """@DOCSTRING_python_GETEXTRAFUNCTIONSPATHS@"""
         return pyopenfluid.PyOpenFLUID.getExtraFunctionsPaths(self)
 
 
@@ -185,11 +173,7 @@ a list of Paths
     # @param Paths   the semicolon separated paths to add
     #
     def addExtraObserversPaths (self, Paths):
-        """Adds paths to search for observers.
-
-Keyword arguments:
-Paths  -- the semicolon separated paths to add
-"""
+        """@DOCSTRING_python_ADDEXTRAOBSERVERSPATHS@"""
         pyopenfluid.PyOpenFLUID.addExtraObserversPaths(self, Paths)
 
 
@@ -214,7 +198,7 @@ Paths  -- the semicolon separated paths to add
     # @EndExample
     #
     def resetExtraObserversPaths (self):
-        """Reset paths to search for observers."""
+        """@DOCSTRING_python_RESETEXTRAOBSERVERSPATHS@"""
         pyopenfluid.PyOpenFLUID.resetExtraObserversPaths(self)
 
 
@@ -241,11 +225,7 @@ Paths  -- the semicolon separated paths to add
     # @return   a list of Paths
     #
     def getExtraObserversPaths (self):
-        """Returns the added paths to search for observers.
-
-Returns:
-a list of Paths
-"""
+        """@DOCSTRING_python_GETEXTRAOBSERVERSPATHS@"""
         return pyopenfluid.PyOpenFLUID.getExtraObserversPaths(self)
 
 
@@ -264,7 +244,7 @@ a list of Paths
     # @EndExample
     #
     def printSimulationInfo (self):
-        """Prints informations to screen about simulation definition class (self)."""
+        """@DOCSTRING_python_PRINTSIMULATIONINFO@"""
         pyopenfluid.PyOpenFLUID.printSimulationInfo(self)
 
 
@@ -298,15 +278,7 @@ a list of Paths
     # @return   the parameter value
     #
     def getFunctionParam (self, FunID, ParamName):
-        """Returns a function parameter value.
-
-Keyword arguments:
-FunID      -- the simulation function id
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value
-"""
+        """@DOCSTRING_python_GETFUNCTIONPARAM@"""
         return pyopenfluid.PyOpenFLUID.getFunctionParam(self, FunID, ParamName)
 
 
@@ -339,13 +311,7 @@ the parameter value
     # @param ParamValue   the parameter value
     #
     def setFunctionParam (self, FunID, ParamName, ParamValue):
-        """Sets a function parameter value.
-
-Keyword arguments:
-FunID        -- the simulation function id
-ParamName    -- the name of the parameter
-ParamValue   -- the parameter value
-"""
+        """@DOCSTRING_python_SETFUNCTIONPARAM@"""
         pyopenfluid.PyOpenFLUID.setFunctionParam(self, FunID, ParamName,
             ParamValue)
 
@@ -378,12 +344,7 @@ ParamValue   -- the parameter value
     # @param ParamName    the name of the parameter
     #
     def removeFunctionParam (self, FunID, ParamName):
-        """Removes a function parameter value.
-
-Keyword arguments:
-FunID        -- the simulation function id
-ParamName    -- the name of the parameter
-"""
+        """@DOCSTRING_python_REMOVEFUNCTIONPARAM@"""
         pyopenfluid.PyOpenFLUID.removeFunctionParam(self, FunID, ParamName)
 
 
@@ -415,14 +376,7 @@ ParamName    -- the name of the parameter
     # @return   a list of parameter
     #
     def getFunctionParams (self, FunID):
-        """Returns all functions parameters.
-
-Keyword arguments:
-FunID      -- the simulation function id
-
-Returns:
-a list of parameter
-"""
+        """@DOCSTRING_python_GETFUNCTIONPARAMS@"""
         return pyopenfluid.PyOpenFLUID.getFunctionParams(self, FunID)
 
 
@@ -448,16 +402,7 @@ a list of parameter
     # @return   the parameter value
     #
     def getGeneratorParam (self, UnitClass, VarName, ParamName):
-        """Returns a generator parameter value.
-
-Keyword arguments:
-UnitClass  -- the unit class to which the generator is applied
-VarName    -- the variable name to which the generator is applied
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value
-"""
+        """@DOCSTRING_python_GETGENERATORPARAM@"""
         return pyopenfluid.PyOpenFLUID.getGeneratorParam(self, UnitClass,
             VarName, ParamName)
 
@@ -483,14 +428,7 @@ the parameter value
     # @param ParamValue   the parameter value
     #
     def setGeneratorParam (self, UnitClass, VarName, ParamName, ParamValue):
-        """Sets a generator parameter value.
-
-Keyword arguments:
-UnitClass   -- the unit class to which the generator is applied
-VarName     -- the variable name to which the generator is applied
-ParamName   -- the name of the parameter
-ParamValue  -- the parameter value
-"""
+        """@DOCSTRING_python_SETGENERATORPARAM@"""
         return pyopenfluid.PyOpenFLUID.setGeneratorParam(self, UnitClass,
             VarName, ParamName, ParamValue)
 
@@ -523,14 +461,7 @@ ParamValue  -- the parameter value
     # @return   the parameter value
     #
     def getModelGlobalParam (self, ParamName):
-        """Returns a model global parameter value.
-
-Keyword arguments:
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value
-"""
+        """@DOCSTRING_python_GETMODELGLOBALPARAM@"""
         return pyopenfluid.PyOpenFLUID.getModelGlobalParam(self, ParamName)
 
 
@@ -561,12 +492,7 @@ the parameter value
     # @param ParamValue   the parameter value
     #
     def setModelGlobalParam (self, ParamName, ParamValue):
-        """Sets a model global parameter value.
-
-Keyword arguments:
-ParamName   -- the name of the parameter
-ParamValue  -- the parameter value
-"""
+        """@DOCSTRING_python_SETMODELGLOBALPARAM@"""
         return pyopenfluid.PyOpenFLUID.setModelGlobalParam(self, ParamName,
             ParamValue)
 
@@ -595,11 +521,7 @@ ParamValue  -- the parameter value
     # @EndExample
     #
     def getModelGlobalParams (self):
-        """Returns all model global parameter.
-
-Returns:
-a list of parameter name.
-"""
+        """@DOCSTRING_python_GETMODELGLOBALPARAMS@"""
         return pyopenfluid.PyOpenFLUID.getModelGlobalParams(self)
 
 
@@ -629,11 +551,7 @@ a list of parameter name.
     # @param ParamName    the name of the parameter
     #
     def removeModelGlobalParam (self, ParamName):
-        """Returns all model global parameter.
-
-Keyword arguments:
-ParamName   -- the name of the parameter
-"""
+        """@DOCSTRING_python_REMOVEMODELGLOBALPARAM@"""
         return pyopenfluid.PyOpenFLUID.removeModelGlobalParam(self, ParamName)
 
 
@@ -665,11 +583,7 @@ ParamName   -- the name of the parameter
     # @param FuncID       the simulation function id
     #
     def addFunction (self, FuncID):
-        """Adds a function.
-
-Keyword arguments:
-FuncID   -- the simulation function id
-"""
+        """@DOCSTRING_python_ADDFUNCTION@"""
         return pyopenfluid.PyOpenFLUID.addFunction(self, FuncID)
 
 
@@ -701,11 +615,7 @@ FuncID   -- the simulation function id
     # @param FuncID       the simulation function id
     #
     def removeFunction (self, FuncID):
-        """Removes a function.
-
-Keyword arguments:
-FuncID   -- the simulation function id
-"""
+        """@DOCSTRING_python_REMOVEFUNCTION@"""
         return pyopenfluid.PyOpenFLUID.removeFunction(self, FuncID)
 
 
@@ -735,7 +645,7 @@ FuncID   -- the simulation function id
     # @EndExample
     #
     def clearModel (self):
-        """Removes all functions."""
+        """@DOCSTRING_python_CLEARMODEL@"""
         return pyopenfluid.PyOpenFLUID.clearModel(self)
 
 
@@ -767,11 +677,7 @@ FuncID   -- the simulation function id
     # @return   a list of function name
     #
     def getFunctionsInModel (self):
-        """Gets all functions names.
-
-Returns:
-a list of function name
-"""
+        """@DOCSTRING_python_GETFUNCTIONSINMODEL@"""
         return pyopenfluid.PyOpenFLUID.getFunctionsInModel(self)
 
 
@@ -805,15 +711,7 @@ a list of function name
     # @return   the parameter value
     #
     def getObserverParam (self, ObsID, ParamName):
-        """Returns an observer parameter value.
-
-Keyword arguments:
-ObsID      -- the observer id
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value
-"""
+        """@DOCSTRING_python_GETOBSERVERPARAM@"""
         return pyopenfluid.PyOpenFLUID.getObserverParam(self, ObsID, ParamName)
 
 
@@ -846,13 +744,7 @@ the parameter value
     # @param ParamValue  the parameter value
     #
     def setObserverParam (self, ObsID, ParamName, ParamValue):
-        """Sets an observer parameter value.
-
-Keyword arguments:
-ObsID       -- the observer id
-ParamName   -- the name of the parameter
-ParamValue  -- the parameter value
-"""
+        """@DOCSTRING_python_SETOBSERVERPARAM@"""
         return pyopenfluid.PyOpenFLUID.setObserverParam(self, ObsID, ParamName,
             ParamValue)
 
@@ -885,12 +777,7 @@ ParamValue  -- the parameter value
     # @param ParamName   the name of the parameter
     #
     def removeObserverParam (self, ObsID, ParamName):
-        """Removes an observer parameter.
-
-Keyword arguments:
-ObsID       -- the observer id
-ParamName   -- the name of the parameter
-"""
+        """@DOCSTRING_python_REMOVEOBSERVERPARAM@"""
         return pyopenfluid.PyOpenFLUID.removeObserverParam(self, ObsID,
             ParamName)
 
@@ -922,14 +809,7 @@ ParamName   -- the name of the parameter
     # @param ObsID       the observer id
     #
     def getObserverParams (self, ObsID):
-        """Gets all observer parameters name.
-
-Keyword arguments:
-ObsID       -- the observer id
-
-Returns:
-a list of observer parameters name.
-"""
+        """@DOCSTRING_python_GETOBSERVERPARAMS@"""
         return pyopenfluid.PyOpenFLUID.getObserverParams(self, ObsID)
 
 
@@ -961,11 +841,7 @@ a list of observer parameters name.
     # @param ObsID       the observer id
     #
     def addObserver (self, ObsID):
-        """Adds an observer.
-
-Keyword arguments:
-ObsID       -- the observer id
-"""
+        """@DOCSTRING_python_ADDOBSERVER@"""
         return pyopenfluid.PyOpenFLUID.addObserver(self, ObsID)
 
 
@@ -997,11 +873,7 @@ ObsID       -- the observer id
     # @param ObsID       the observer id
     #
     def removeObserver (self, ObsID):
-        """Removes an observer.
-
-Keyword arguments:
-ObsID       -- the observer id
-"""
+        """@DOCSTRING_python_REMOVEOBSERVER@"""
         return pyopenfluid.PyOpenFLUID.removeObserver(self, ObsID)
 
 
@@ -1031,8 +903,7 @@ ObsID       -- the observer id
     # @EndExample
     #
     def clearMonitoring (self):
-        """Removes all observers.
-"""
+        """@DOCSTRING_python_CLEARMONITORING@"""
         return pyopenfluid.PyOpenFLUID.clearMonitoring(self)
 
 
@@ -1062,11 +933,7 @@ ObsID       -- the observer id
     # @EndExample
     #
     def getObserversInMonitoring (self):
-        """Gets all observer name.
-
-Returns:
-a list of observer name
-"""
+        """@DOCSTRING_python_GETOBSERVERSINMONITORING@"""
         return pyopenfluid.PyOpenFLUID.getObserversInMonitoring(self)
 
 
@@ -1109,11 +976,7 @@ a list of observer name
     # @return   a list of units classes
     #
     def getUnitsClasses (self):
-        """Returns the existing units classes.
-
-Returns:
-a list of units classes
-"""
+        """@DOCSTRING_python_GETUNITSCLASSES@"""
         return pyopenfluid.PyOpenFLUID.getUnitsClasses(self)
 
 
@@ -1158,14 +1021,7 @@ a list of units classes
     # @return   a list of units IDs
     #
     def getUnitsIDs (self, UnitClass):
-        """Returns the existing units IDs for a given units class.
-
-Keyword arguments:
-UnitClass  -- the unit class
-
-Returns:
-a list of units IDs
-"""
+        """@DOCSTRING_python_GETUNITSIDS@"""
         return pyopenfluid.PyOpenFLUID.getUnitsIDs(self, UnitClass)
 
 
@@ -1210,13 +1066,7 @@ a list of units IDs
     # @param PcsOrder    a process order
     #
     def addUnit (self, UnitClass, UnitID, PcsOrder):
-        """Adds an new unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an new unit id for this unit class
-PcsOrder   -- a process order
-"""
+        """@DOCSTRING_python_ADDUNIT@"""
         return pyopenfluid.PyOpenFLUID.addUnit(self, UnitClass,
             UnitID, PcsOrder)
 
@@ -1261,12 +1111,7 @@ PcsOrder   -- a process order
     # @param UnitID      an unit id for this unit class
     #
     def removeUnit (self, UnitClass, UnitID):
-        """Removes an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-"""
+        """@DOCSTRING_python_REMOVEUNIT@"""
         return pyopenfluid.PyOpenFLUID.removeUnit(self, UnitClass,
             UnitID)
 
@@ -1310,11 +1155,7 @@ UnitID     -- an unit id for this unit class
     # @param UnitClass   an unit class
     #
     def clearUnitClass (self, UnitClass):
-        """Removes all units from an unit class.
-
-Keyword arguments:
-UnitClass  -- an unit class
-"""
+        """@DOCSTRING_python_CLEARUNITCLASS@"""
         return pyopenfluid.PyOpenFLUID.clearUnitClass(self, UnitClass)
 
 
@@ -1338,13 +1179,7 @@ UnitClass  -- an unit class
     # @param PcsOrder    a process order
     #
     def setUnitProcessOrder (self, UnitClass, UnitID, PcsOrder):
-        """Sets the process order of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-PcsOrder   -- a process order
-"""
+        """@DOCSTRING_python_SETUNITPROCESSORDER@"""
         return pyopenfluid.PyOpenFLUID.setUnitProcessOrder(self, UnitClass,
             UnitID, PcsOrder)
 
@@ -1370,15 +1205,7 @@ PcsOrder   -- a process order
     # @return   the process order
     #
     def getUnitProcessOrder (self, UnitClass, UnitID):
-        """Gets the process order of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID  -- an unit id for this unit class
-
-Returns:
-the process order
-"""
+        """@DOCSTRING_python_GETUNITPROCESSORDER@"""
         return pyopenfluid.PyOpenFLUID.getUnitProcessOrder(self, UnitClass,
             UnitID)
 
@@ -1414,15 +1241,7 @@ the process order
     # @return   a list of tuple of units classes and units
     #
     def getUnitsChildren (self, UnitClass, UnitID):
-        """Gets children units of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID  -- an unit id for this unit class
-
-Returns:
-a list of tuple of units classes and units
-"""
+        """@DOCSTRING_python_GETUNITSCHILDREN@"""
         return pyopenfluid.PyOpenFLUID.getUnitsChildren(self, UnitClass,
             UnitID)
 
@@ -1458,15 +1277,7 @@ a list of tuple of units classes and units
     # @return   a list of tuple of units classes and units
     #
     def getUnitsParents (self, UnitClass, UnitID):
-        """Gets parents units of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID  -- an unit id for this unit class
-
-Returns:
-a list of tuple of units classes and units
-"""
+        """@DOCSTRING_python_GETUNITSPARENTS@"""
         return pyopenfluid.PyOpenFLUID.getUnitsParents(self, UnitClass,
             UnitID)
 
@@ -1503,14 +1314,7 @@ a list of tuple of units classes and units
     #
     def addUnitChild (self, UnitClassParent, UnitIDParent, UnitClassChild,
                       UnitIDChild):
-        """Adds a child on an unit.
-
-Keyword arguments:
-UnitClassParent  -- an unit class (parent)
-UnitIDParent     -- an unit id (parent)
-UnitClassChild   -- an unit class (child)
-UnitIDChild      -- an unit id (child)
-"""
+        """@DOCSTRING_python_ADDUNITCHILD@"""
         return pyopenfluid.PyOpenFLUID.addUnitChild(self, UnitClassParent,
             UnitIDParent, UnitClassChild, UnitIDChild)
 
@@ -1547,14 +1351,7 @@ UnitIDChild      -- an unit id (child)
     #
     def removeUnitChild (self, UnitClassParent, UnitIDParent, UnitClassChild,
                          UnitIDChild):
-        """Removes a child of an unit.
-
-Keyword arguments:
-UnitClassParent  -- an unit class (parent)
-UnitIDParent     -- an unit id (parent)
-UnitClassChild   -- an unit class (child)
-UnitIDChild      -- an unit id (child)
-"""
+        """@DOCSTRING_python_REMOVEUNITCHILD@"""
         return pyopenfluid.PyOpenFLUID.removeUnitChild(self, UnitClassParent,
             UnitIDParent, UnitClassChild, UnitIDChild)
 
@@ -1587,13 +1384,7 @@ UnitIDChild      -- an unit id (child)
     # @param IDataVal    the default inputdata value for alla units
     #
     def createInputData (self, UnitClass, IDataName, IDataVal):
-        """Creates an inputdata for alla spatial units of a class, initialized with a default value.
-
-Keyword arguments:
-UnitClass  -- the unit class
-IDataName  -- the inputdata name
-IDataVal   -- the default inputdata value for alla units
-"""
+        """@DOCSTRING_python_CREATEINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.createInputData(self, UnitClass,
             IDataName, IDataVal)
 
@@ -1627,16 +1418,7 @@ IDataVal   -- the default inputdata value for alla units
     # @return   the inputdata value
     #
     def getInputData (self, UnitClass, UnitID, IDataName):
-        """Returns an inputdata value for a given spatial unit.
-
-Keyword arguments:
-UnitClass  -- the unit class
-UnitID     -- the unit
-IDataName  -- the name of the inputdata
-
-Returns:
-the inputdata value
-"""
+        """@DOCSTRING_python_GETINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.getInputData(self, UnitClass,
             UnitID, IDataName)
 
@@ -1669,14 +1451,7 @@ the inputdata value
     # @param IDataVal    the value of the inputdata
     #
     def setInputData (self, UnitClass, UnitID, IDataName, IDataVal):
-        """Sets an inputdata value for a given spatial unit.
-
-Keyword arguments:
-UnitClass  -- the unit class
-UnitID     -- the unit ID
-IDataName  -- the name of the inputdata
-IDataVal   -- the value of the inputdata
-"""
+        """@DOCSTRING_python_SETINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.setInputData(self, UnitClass, UnitID,
             IDataName, IDataVal)
 
@@ -1707,12 +1482,7 @@ IDataVal   -- the value of the inputdata
     # @param IDataName   the inputdata name
     #
     def removeInputData (self, UnitClass, IDataName):
-        """Removes an inputdata value for a given spatial unit.
-
-Keyword arguments:
-UnitClass  -- the unit class
-IDataName  -- the name of the inputdata
-"""
+        """@DOCSTRING_python_REMOVEINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.removeInputData(self, UnitClass,
             IDataName)
 
@@ -1736,14 +1506,7 @@ IDataName  -- the name of the inputdata
     # @return   a simulation definition class (PyOpenFLUID)
     #
     def openDataset (self, Path):
-        """Opens a dataset and returns a simulation definition class (self).
-
-Keyword arguments:
-Path  -- the full path of the dataset to open
-
-Returns:
-a simulation definition class (PyOpenFLUID)
-"""
+        """@DOCSTRING_python_OPENDATASET@"""
         Res = pyopenfluid.PyOpenFLUID.openDataset(self, Path)
         if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
             Class = PyOpenFLUID()
@@ -1771,14 +1534,7 @@ a simulation definition class (PyOpenFLUID)
     # @return   a simulation definition class (PyOpenFLUID)
     #
     def openProject (self, Path):
-        """Opens a project and returns a simulation definition class (PyOpenFLUID).
-
-Keyword arguments:
-Path  -- the full path of the project to open
-
-Returns:
-a simulation definition class (PyOpenFLUID)
-"""
+        """@DOCSTRING_python_OPENPROJECT@"""
         Res = pyopenfluid.PyOpenFLUID.openProject(self, Path)
         if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
             Class = PyOpenFLUID()
@@ -1805,11 +1561,7 @@ a simulation definition class (PyOpenFLUID)
     # @param Path   the output directory path
     #
     def setCurrentOutputDir (self, Path):
-        """Sets the current output directory for simulations.
-
-Keyword arguments:
-Path  -- the output directory path
-"""
+        """@DOCSTRING_python_SETCURRENTOUTPUTDIR@"""
         pyopenfluid.PyOpenFLUID.setCurrentOutputDir(self, Path)
 
 
@@ -1831,11 +1583,7 @@ Path  -- the output directory path
     # @return   the output directory path
     #
     def getCurrentOutputDir (self):
-        """Gets the current output directory for simulations.
-
-Returns:
-the output directory path
-"""
+        """@DOCSTRING_python_GETCURRENTOUTPUTDIR@"""
         return pyopenfluid.PyOpenFLUID.getCurrentOutputDir(self)
 
 
@@ -1857,11 +1605,7 @@ the output directory path
     # @return   the time step value in seconds
     #
     def getDefaultDeltaT (self):
-        """Returns the simulation time step.
-
-Returns:
-the time step value in seconds
-"""
+        """@DOCSTRING_python_GETDEFAULTDELTAT@"""
         return pyopenfluid.PyOpenFLUID.getDefaultDeltaT(self)
 
 
@@ -1883,11 +1627,7 @@ the time step value in seconds
     # @param DefaultDeltaT   the time step value in seconds
     #
     def setDefaultDeltaT (self, DefaultDeltaT):
-        """Sets the simulation time step.
-
-Keyword arguments:
-DefaultDeltaT  -- the time step value in seconds
-"""
+        """@DOCSTRING_python_SETDEFAULTDELTAT@"""
         pyopenfluid.PyOpenFLUID.setDefaultDeltaT(self, DefaultDeltaT)
 
 
@@ -1909,11 +1649,7 @@ DefaultDeltaT  -- the time step value in seconds
     # @return   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def getPeriodBeginDate (self):
-        """Returns the simulation period begin date.
-
-Returns:
-the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
-"""
+        """@DOCSTRING_python_GETPERIODBEGINDATE@"""
         return pyopenfluid.PyOpenFLUID.getPeriodBeginDate(self)
 
 
@@ -1935,11 +1671,7 @@ the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     # @return   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def getPeriodEndDate (self):
-        """Returns the simulation period end date.
-
-Returns:
-the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
-"""
+        """@DOCSTRING_python_GETPERIODENDDATE@"""
         return pyopenfluid.PyOpenFLUID.getPeriodEndDate(self)
 
 
@@ -1961,11 +1693,7 @@ the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     # @param BeginDate   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def setPeriodBeginDate (self, BeginDate):
-        """Sets the simulation period begin date.
-
-  Keyword arguments:
-  BeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
-"""
+        """@DOCSTRING_python_SETPERIODBEGINDATE@"""
         return pyopenfluid.PyOpenFLUID.setPeriodBeginDate(self, BeginDate)
 
 
@@ -1987,11 +1715,7 @@ the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     # @param EndDate   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def setPeriodEndDate (self, EndDate):
-        """Sets the simulation period end date.
-
-Keyword arguments:
-EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
-"""
+        """@DOCSTRING_python_SETPERIODENDDATE@"""
         return pyopenfluid.PyOpenFLUID.setPeriodEndDate(self, EndDate)
 
 
@@ -2015,14 +1739,7 @@ EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     # @return   a simulation definition class (PyOpenFLUID)
     #
     def runProject (self, Path):
-        """Runs a project and returns a simulation definition class (PyOpenFLUID).
-
-Keyword arguments:
-Path  -- the full path of the project to open
-
-Returns:
-a simulation definition class (PyOpenFLUID)
-"""
+        """@DOCSTRING_python_RUNPROJECT@"""
         Res = pyopenfluid.PyOpenFLUID.runProject(self, Path)
         if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
             Class = PyOpenFLUID()
@@ -2048,11 +1765,7 @@ a simulation definition class (PyOpenFLUID)
     # @return   True if the simulation is runned without problems, False otherwise
     #
     def runSimulation (self):
-        """Runs a simulation from a simulation definition class (self).
-
-Returns:
-True if the simulation is runned without problems, False otherwise
-"""
+        """@DOCSTRING_python_RUNSIMULATION@"""
         return bool(pyopenfluid.PyOpenFLUID.runSimulation(self))
 
 
@@ -2126,5 +1839,5 @@ True if the simulation is runned without problems, False otherwise
     # @return   a string representation
     #
     def __str__ (self):
-        """Return a description of the class.\n\nReturns:\nA string representation of the class.\n\nExamples:\n>>> obj = PyOpenFLUID()\n>>> info = str(obj)"""
+        """@DOCSTRING_python_GETSTR@"""
         return pyopenfluid.PyOpenFLUID.__str__(self)

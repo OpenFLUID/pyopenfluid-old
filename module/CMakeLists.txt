@@ -1,11 +1,16 @@
+#
+# CMake build for PyOpenFLUID
+#
+# Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
+#
 SET(pyopenfluid_script
     __init__.py
     PyOpenFLUID.py)
 
 # copy PyOpenFLUID module (python files) of the library
 FOREACH(script ${pyopenfluid_script})
-  FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/${script}"
-       DESTINATION "${PYTHON_OUTPUT_SRC_PATH}")
+  CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${script}.in"
+      "${PYTHON_OUTPUT_SRC_PATH}/${script}" @ONLY)
 ENDFOREACH(script)
 
 
