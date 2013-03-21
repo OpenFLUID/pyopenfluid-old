@@ -567,8 +567,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("openDataset", &PyOpenFLUID::openDataset,
       ( boost::python::arg("self"), boost::python::arg("Path") ),
-      "@DOCSTRING_boost_OPENDATASET@",
-      boost::python::return_internal_reference<>()
+      "@DOCSTRING_boost_OPENDATASET@"
     )
 
 
@@ -578,8 +577,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("openProject", &PyOpenFLUID::openProject,
       ( boost::python::arg("self"), boost::python::arg("Path") ),
-      "@DOCSTRING_boost_OPENPROJECT@",
-      boost::python::return_internal_reference<>()
+      "@DOCSTRING_boost_OPENPROJECT@"
     )
 
 
@@ -672,8 +670,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("runProject", &PyOpenFLUID::runProject,
       ( boost::python::arg("self"), boost::python::arg("Path") ),
-      "@DOCSTRING_boost_RUNPROJECT@",
-      boost::python::return_internal_reference<>()
+      "@DOCSTRING_boost_RUNPROJECT@"
     )
 
 
@@ -739,11 +736,6 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     )
 
 ; /* end of PyOpenFLUID class definition */
-
-
-  boost::python::def("_copy", &copy,
-    ( boost::python::arg("InputClass"), boost::python::arg("OutputClass") )
-  );
 
 
 // =====================================================================

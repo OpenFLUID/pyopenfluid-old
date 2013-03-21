@@ -1406,7 +1406,7 @@ void PyOpenFLUID::removeInputData (boost::python::object UnitClass,
 /* --------------------  INPUT OUTPUT FUNCTIONS  -------------------- */
 
 
-PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
+void PyOpenFLUID::openDataset (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
@@ -1415,8 +1415,6 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
   std::string StrError = std::string("");
   std::string StrPath = getStringPath();
 
-  PyOpenFLUID* ResClass = NULL;
-
   try
   {
     openfluid::base::Init();
@@ -1424,20 +1422,12 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
     openfluid::base::IOListener IOListen;
     openfluid::fluidx::FluidXDescriptor FXReader(&IOListen);
 
-    ResClass = new PyOpenFLUID();
-    ResClass->changeFluidXDescriptor(FXReader);
-
     openfluid::base::RuntimeEnvironment::getInstance()->
         setInputDir(std::string(StrPath));
     FXReader.loadFromDirectory(openfluid::base::RuntimeEnvironment::
         getInstance()->getInputDir());
 
-    return ResClass;
-  } HANDLE_EXCEPTION_ACTION(
-    if (ResClass!=NULL)
-      delete ResClass;)
-
-  return NULL; /* security */
+  } HANDLE_EXCEPTION
 }
 
 
@@ -1445,7 +1435,7 @@ PyOpenFLUID* PyOpenFLUID::openDataset (boost::python::object Path)
 // =====================================================================
 
 
-PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
+void PyOpenFLUID::openProject (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
@@ -1469,10 +1459,9 @@ PyOpenFLUID* PyOpenFLUID::openProject (boost::python::object Path)
 
     boost::python::str BoostPath = boost::python::str(
         openfluid::base::RuntimeEnvironment::getInstance()->getInputDir());
-    return this->openDataset(BoostPath);
-  } HANDLE_EXCEPTION
 
-  return NULL; /* security */
+    this->openDataset(BoostPath);
+  } HANDLE_EXCEPTION
 }
 
 
@@ -1668,16 +1657,10 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
 // =====================================================================
 
 
-PyOpenFLUID* PyOpenFLUID::runProject (boost::python::object Path)
+void PyOpenFLUID::runProject (boost::python::object Path)
 {
-  PyOpenFLUID* project = this->openProject(Path);
-
-  if (project != NULL)
-  {
-    project->runSimulation();
-  }
-
-  return project;
+  this->openProject(Path);
+  this->runSimulation();
 }
 
 
@@ -1790,58 +1773,8 @@ boost::python::object PyOpenFLUID::getStr ()
 {
   std::stringstream SStream(std::stringstream::in | std::stringstream::out);
 
-  /* 'PyOpenFLUID(<<version pyof>>, OpenFLUID <<version of>>)' */
-  SStream << "PyOpenFLUID(" << PYOPENFLUID_VERSION;
-  SStream << ", OpenFLUID " << openfluid::config::FULL_VERSION.c_str();
-  SStream << ")";
+  /* 'PyOpenFLUID(<<version pyof>>)' */
+  SStream << "PyOpenFLUID(" << PYOPENFLUID_VERSION << ")";
 
   return boost::python::object(SStream.str());
-}
-
-
-// =====================================================================
-/* ------------------------ OTHER FUNCTIONS  ------------------------ */
-
-
-void PyOpenFLUID::changeFluidXDescriptor
-  (openfluid::fluidx::FluidXDescriptor& InputFXD)
-{
-  this->m_FXDesc = InputFXD;
-  this->m_AdvFXDesc = openfluid::fluidx::AdvancedFluidXDescriptor(
-      this->m_FXDesc);
-}
-
-
-// =====================================================================
-// =====================================================================
-
-
-void PyOpenFLUID::getFromCopyStruct (PyOpenFLUIDCopy_t* CopyStruct)
-{
-  this->m_FXDesc = *(CopyStruct->mp_FXDesc);
-  this->m_AdvFXDesc = *(CopyStruct->mp_AdvFXDesc);
-}
-
-
-// =====================================================================
-// =====================================================================
-
-
-void PyOpenFLUID::putOnCopyStruct (PyOpenFLUIDCopy_t* CopyStruct)
-{
-  CopyStruct->mp_FXDesc = &(this->m_FXDesc);
-  CopyStruct->mp_AdvFXDesc = &(this->m_AdvFXDesc);
-}
-
-
-// =====================================================================
-// =====================================================================
-
-
-void copy (PyOpenFLUID InputClass, PyOpenFLUID OutputClass)
-{
-  PyOpenFLUIDCopy_t* Stc = new PyOpenFLUIDCopy_t();
-  InputClass.putOnCopyStruct(Stc);
-  OutputClass.getFromCopyStruct(Stc);
-  delete Stc;
 }

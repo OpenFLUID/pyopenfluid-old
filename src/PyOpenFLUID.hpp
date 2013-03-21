@@ -21,7 +21,6 @@
 
 // =====================================================================
 // =====================================================================
-struct PyOpenFLUIDCopy_t;
 
 
 class PyOpenFLUID
@@ -784,7 +783,7 @@ class PyOpenFLUID
      * @return
      *    a simulation definition class (PyOpenFLUID)
      */
-    PyOpenFLUID* openDataset (boost::python::object Path);
+    void openDataset (boost::python::object Path);
 
 
 // =====================================================================
@@ -801,7 +800,7 @@ class PyOpenFLUID
      * @return
      *    a simulation definition class (PyOpenFLUID)
      */
-    PyOpenFLUID* openProject (boost::python::object Path);
+    void openProject (boost::python::object Path);
 
 
 // =====================================================================
@@ -921,7 +920,7 @@ class PyOpenFLUID
      * @return
      *    a simulation definition class (PyOpenFLUID)
      */
-    PyOpenFLUID* runProject (boost::python::object Path);
+    void runProject (boost::python::object Path);
 
 
 // =====================================================================
@@ -954,7 +953,7 @@ class PyOpenFLUID
      * @return
      *    a dataframe containing the simulation results
      */
-//    PyOpenFLUID* loadResult (boost::python::object UnitClass,
+//    void loadResult (boost::python::object UnitClass,
 //                             boost::python::object UnitID,
 //                             boost::python::object Suffix);
 
@@ -972,7 +971,7 @@ class PyOpenFLUID
      * @return
      *    a dataframe containing the simulation results
      */
-//    PyOpenFLUID* loadResultFile (boost::python::object FilePath);
+//    void loadResultFile (boost::python::object FilePath);
 
 
 // =====================================================================
@@ -999,27 +998,6 @@ class PyOpenFLUID
 
 
 // =====================================================================
-/* ------------------------ OTHER FUNCTIONS  ------------------------ */
-
-
-    void changeFluidXDescriptor (openfluid::fluidx::FluidXDescriptor& InputFXD);
-
-
-// =====================================================================
-// =====================================================================
-
-
-    void getFromCopyStruct (PyOpenFLUIDCopy_t* CopyStruct);
-
-
-// =====================================================================
-// =====================================================================
-
-
-    void putOnCopyStruct (PyOpenFLUIDCopy_t* CopyStruct);
-
-
-// =====================================================================
 // =====================================================================
 
 
@@ -1028,25 +1006,6 @@ class PyOpenFLUID
     openfluid::fluidx::AdvancedFluidXDescriptor m_AdvFXDesc;
 
 };
-
-
-// =====================================================================
-// =====================================================================
-
-
-struct PyOpenFLUIDCopy_t
-{
-  public:
-    openfluid::fluidx::FluidXDescriptor* mp_FXDesc;
-    openfluid::fluidx::AdvancedFluidXDescriptor* mp_AdvFXDesc;
-};
-
-
-// =====================================================================
-// =====================================================================
-
-
-void copy (PyOpenFLUID InputClass, PyOpenFLUID OutputClass);
 
 
 #endif // __PYOPENFLUID_HPP__

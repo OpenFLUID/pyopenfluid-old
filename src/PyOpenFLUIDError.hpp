@@ -32,38 +32,6 @@ catch (...) \
 }
 
 
-#define HANDLE_EXCEPTION_ACTION(actions) \
-catch (openfluid::base::OFException& E) \
-{ \
-  actions \
-  throw PyOFException(E.what()); \
-} \
-catch (std::bad_alloc& E) \
-{ \
-  actions \
-  throw PyOFException(std::string("MEMORY ALLOCATION ERROR, ") \
-      + std::string(E.what()) \
-      + std::string(". Possibly not enough memory available"), \
-      PyExc_MemoryError); \
-} \
-catch (PyOFException& E) \
-{ \
-  actions \
-  throw E; \
-} \
-catch (std::exception& E) \
-{ \
-  actions \
-  throw PyOFException(std::string("SYSTEM ERROR, ") + std::string(E.what()), \
-      PyExc_SystemError); \
-} \
-catch (...) \
-{ \
-  actions \
-  throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError); \
-}
-
-
 #define HANDLE_OFEXCEPTION \
 catch (openfluid::base::OFException& E) \
 { \

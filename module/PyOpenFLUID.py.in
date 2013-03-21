@@ -1492,27 +1492,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
-    # Opens a dataset and returns a simulation definition class (self).
+    # Opens a dataset.
     #
     # Examples: @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{otherClass = obj.@HLImportant{openDataset}(\"/path/to/dataset\")}
-    #   @LineExSimple{@HLReserv{assert} obj != otherClass}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{isinstance}(otherClass\, PyOpenFLUID)}
+    #   @LineExSimple{obj.@HLImportant{openDataset}(\"/path/to/dataset\")}
     # @EndExample
     #
     # @param Path   the full path of the dataset to open
     #
-    # @return   a simulation definition class (PyOpenFLUID)
-    #
     def openDataset (self, Path):
         """@DOCSTRING_python_OPENDATASET@"""
-        Res = pyopenfluid.PyOpenFLUID.openDataset(self, Path)
-        if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
-            Class = PyOpenFLUID()
-            pyopenfluid._copy(Res, Class)
-            return Class
-        return None
+        pyopenfluid.PyOpenFLUID.openDataset(self, Path)
 
 
 # ########################################################################## #
@@ -1520,27 +1511,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
-    # Opens a project and returns a simulation definition class (PyOpenFLUID).
+    # Opens an existing project.
     #
     # Examples: @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{otherClass = obj.@HLImportant{openProject}(\"/path/to/project\")}
-    #   @LineExSimple{@HLReserv{assert} obj != otherClass}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{isinstance}(otherClass\, PyOpenFLUID)}
+    #   @LineExSimple{obj.@HLImportant{openProject}(\"/path/to/project\")}
     # @EndExample
     #
     # @param Path   the full path of the project to open
     #
-    # @return   a simulation definition class (PyOpenFLUID)
-    #
     def openProject (self, Path):
         """@DOCSTRING_python_OPENPROJECT@"""
-        Res = pyopenfluid.PyOpenFLUID.openProject(self, Path)
-        if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
-            Class = PyOpenFLUID()
-            pyopenfluid._copy(Res, Class)
-            return Class
-        return None
+        pyopenfluid.PyOpenFLUID.openProject(self, Path)
 
 
 # ########################################################################## #
@@ -1724,28 +1706,18 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
-    # Runs a project and returns a simulation definition class (PyOpenFLUID).
+    # Runs an existing project.
     #
     # Examples: @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{ofsim = obj.@HLImportant{runProject}(\"/path/to/dataset\")}
-    #   @LineExSimple{@HLReserv{assert} obj != ofsim}
-    #   @LineExSimple{@HLReserv{assert} not (obj is ofsim)}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{isinstance}(ofsim\, PyOpenFLUID)}
+    #   @LineExSimple{obj.@HLImportant{runProject}(\"/path/to/dataset\")}
     # @EndExample
     #
     # @param Path   the full path of the project to open
     #
-    # @return   a simulation definition class (PyOpenFLUID)
-    #
     def runProject (self, Path):
         """@DOCSTRING_python_RUNPROJECT@"""
-        Res = pyopenfluid.PyOpenFLUID.runProject(self, Path)
-        if not Res is None and isinstance(Res, pyopenfluid.PyOpenFLUID):
-            Class = PyOpenFLUID()
-            pyopenfluid._copy(Res, Class)
-            return Class
-        return None
+        pyopenfluid.PyOpenFLUID.runProject(self, Path)
 
 
 # ########################################################################## #

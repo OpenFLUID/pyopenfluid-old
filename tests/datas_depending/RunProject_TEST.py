@@ -11,10 +11,7 @@ class PyOpenFLUIDTest_RunProject(PyOpenFLUIDTest):
         self.assertIsNotNone(Path)
         self.preparePyOpenFLUIDClass(ArgList, optional=("funpath", "obspath"))
 
-        OClass = self.openfluid.runProject(Path)
-
-        self.assertTrue(isinstance(OClass, PyOpenFLUID.PyOpenFLUID))
-        self.assertNotEquals(OClass, self.openfluid)
+        self.openfluid.runProject(Path)
 
         # verification dossier sortie
         self.checkSimulationOutputPath(OClass.getCurrentOutputDir())

@@ -11,10 +11,7 @@ class PyOpenFLUIDTest_OpenProject(PyOpenFLUIDTest):
         self.assertIsNotNone(Path)
 
         self.checkDirectory(Path)
-        OClass = self.openfluid.openProject(Path)
-
-        self.assertTrue(isinstance(OClass, PyOpenFLUID.PyOpenFLUID))
-        self.assertNotEquals(OClass, self.openfluid)
+        self.openfluid.openProject(Path)
 
 if __name__ == "__main__":
     ArgList = skipArgFromCL()

@@ -72,7 +72,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
     def loadInputDataset(self, Path):
         self.checkDirectory(Path)
-        return self.openfluid.openDataset(Path)
+        self.openfluid.openDataset(Path)
 
 
 # ########################################################################## #
@@ -81,7 +81,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
     def loadProject(self, Path):
         self.checkDirectory(Path)
-        return self.openfluid.openProject(Path)
+        self.openfluid.openProject(Path)
 
 
 # ########################################################################## #
@@ -91,16 +91,16 @@ class PyOpenFLUIDTest(unittest.TestCase):
     def preparePyOpenFLUIDClass(self, DictIn, *Args, **Kw):
         def _actionPreparation(Key, Value):
             if Key == "dataset":
-                self.openfluid = self.loadInputDataset(Value)
-            if Key == "project":
-                self.openfluid = self.loadProject(Value)
-            if Key == "output":
+                self.loadInputDataset(Value)
+            elif Key == "project":
+                self.loadProject(Value)
+            elif Key == "output":
                 self.checkDirectory(Value)
                 self.openfluid.setCurrentOutputDir(Value)
-            if Key == "funpath":
+            elif Key == "funpath":
                 self.checkDirectory(Value)
                 self.openfluid.addExtraFunctionsPaths(Value)
-            if Key == "obspath":
+            elif Key == "obspath":
                 self.checkDirectory(Value)
                 self.openfluid.addExtraObserversPaths(Value)
         #
@@ -119,7 +119,6 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def checkDirectory(self, Path):
-        print "checking:", Path
         self.assertTrue(os.path.exists(Path) and (os.path.isdir(Path) or os.path.isfile(Path)))
         self.assertTrue(os.access(Path, os.R_OK))
 

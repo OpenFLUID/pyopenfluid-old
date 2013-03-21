@@ -379,23 +379,17 @@ IDataName  -- the name of the inputdata")
 
 
 SET(DOCSTRINGRAW_OPENDATASET
-"Opens a dataset and returns a simulation definition class (self).
+"Opens a dataset.
 
 Keyword arguments:
-Path  -- the full path of the dataset to open
-
-Returns:
-a simulation definition class (PyOpenFLUID)")
+Path  -- the full path of the dataset to open")
 
 
 SET(DOCSTRINGRAW_OPENPROJECT
-"Opens a project and returns a simulation definition class (PyOpenFLUID).
+"Opens an existing project.
 
 Keyword arguments:
-Path  -- the full path of the project to open
-
-Returns:
-a simulation definition class (PyOpenFLUID)")
+Path  -- the full path of the project to open")
 
 
 SET(DOCSTRINGRAW_SETCURRENTOUTPUTDIR
@@ -455,13 +449,10 @@ EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
 
 
 SET(DOCSTRINGRAW_RUNPROJECT
-"Runs a project and returns a simulation definition class (PyOpenFLUID).
+"Runs an existing project.
 
 Keyword arguments:
-Path  -- the full path of the project to open
-
-Returns:
-a simulation definition class (PyOpenFLUID)")
+Path  -- the full path of the project to open")
 
 
 SET(DOCSTRINGRAW_RUNSIMULATION
