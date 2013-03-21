@@ -453,9 +453,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("clearUnitClass", &PyOpenFLUID::clearUnitClass,
+    .def("clearAllUnits", &PyOpenFLUID::clearAllUnits,
       ( boost::python::arg("self"), boost::python::arg("UnitClass") ),
-      "@DOCSTRING_boost_CLEARUNITCLASS@"
+      "@DOCSTRING_boost_CLEARALLUNITS@"
     )
 
 

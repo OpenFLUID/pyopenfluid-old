@@ -301,7 +301,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void clearUnitClass (boost::python::object UnitClass);
+    void clearAllUnits (boost::python::object UnitClass);
 
 
 // =====================================================================

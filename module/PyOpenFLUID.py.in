@@ -982,7 +982,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"SU\"\, \"WQ\"]}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
     #   @LineExResult{[2]}
-    #   @LineExSimple{obj.clearUnitClass(\"SU\")}
+    #   @LineExSimple{obj.clearAllUnits(\"SU\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
@@ -1025,7 +1025,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"SU\"\, \"WQ\"]}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsIDs}(\"SU\")}
     #   @LineExResult{[2]}
-    #   @LineExSimple{obj.clearUnitClass(\"SU\")}
+    #   @LineExSimple{obj.clearAllUnits(\"SU\")}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
@@ -1070,7 +1070,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"SU\"\, \"WQ\"]}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
     #   @LineExResult{[2]}
-    #   @LineExSimple{obj.clearUnitClass(\"SU\")}
+    #   @LineExSimple{obj.clearAllUnits(\"SU\")}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
@@ -1116,7 +1116,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"SU\"\, \"WQ\"]}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
     #   @LineExResult{[2]}
-    #   @LineExSimple{obj.clearUnitClass(\"SU\")}
+    #   @LineExSimple{obj.clearAllUnits(\"SU\")}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
@@ -1161,16 +1161,16 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"SU\"\, \"WQ\"]}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
     #   @LineExResult{[2]}
-    #   @LineExSimple{obj.@HLImportant{clearUnitClass}(\"SU\")}
+    #   @LineExSimple{obj.@HLImportant{clearAllUnits}(\"SU\")}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
     #
     # @param UnitClass   an unit class
     #
-    def clearUnitClass (self, UnitClass):
-        """@DOCSTRING_python_CLEARUNITCLASS@"""
-        return pyopenfluid.PyOpenFLUID.clearUnitClass(self, UnitClass)
+    def clearAllUnits (self, UnitClass):
+        """@DOCSTRING_python_CLEARALLUNITS@"""
+        return pyopenfluid.PyOpenFLUID.clearAllUnits(self, UnitClass)
 
 
 # ########################################################################## #

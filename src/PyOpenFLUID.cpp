@@ -1111,7 +1111,7 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
 // =====================================================================
 
 
-void PyOpenFLUID::clearUnitClass (boost::python::object UnitClass)
+void PyOpenFLUID::clearAllUnits (boost::python::object UnitClass)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);
   if (!getStringUnitClass.check())

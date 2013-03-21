@@ -49,8 +49,8 @@ class PyOpenFLUIDTest_Units(PyOpenFLUIDTest):
         ListVal = self.openfluid.getUnitsIDs("TestClass")
         self.assertItemsEqual(ListVal, [])
 
-        # tests of clearUnitClass
-        self.openfluid.clearUnitClass(Units[0][0])
+        # tests of clearAllUnits
+        self.openfluid.clearAllUnits(Units[0][0])
         self.assertEquals(len(self.openfluid.getUnitsIDs("TestClass")), 0)
         self.assertEquals(len(self.openfluid.getUnitsClasses()), 0)
 
