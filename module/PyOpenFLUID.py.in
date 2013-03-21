@@ -1225,12 +1225,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.addUnitChild(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.addParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitsParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsChildren}(\"SU\"\, 1) == [(\"SU\"\, 2)]}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.removeUnitChild(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.removeParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsChildren}(\"SU\"\, 1)) == 0}
     # @EndExample
@@ -1261,12 +1261,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsParents}(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.addUnitChild(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.addParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsParents}(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsParents}(\"SU\"\, 2) == [(\"SU\"\, 1)]}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitsChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.removeUnitChild(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.removeParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsParents}(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
     # @EndExample
@@ -1297,12 +1297,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.@HLImportant{addUnitChild}(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.@HLImportant{addParentChildConnection}(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitsParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitsChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.removeUnitChild(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.removeParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
     # @EndExample
@@ -1312,10 +1312,10 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @param UnitClassChild    an unit class (child)
     # @param UnitIDChild       an unit id (child)
     #
-    def addUnitChild (self, UnitClassParent, UnitIDParent, UnitClassChild,
+    def addParentChildConnection (self, UnitClassParent, UnitIDParent, UnitClassChild,
                       UnitIDChild):
-        """@DOCSTRING_python_ADDUNITCHILD@"""
-        return pyopenfluid.PyOpenFLUID.addUnitChild(self, UnitClassParent,
+        """@DOCSTRING_python_ADDPARENTCHILDCONNECTION@"""
+        return pyopenfluid.PyOpenFLUID.addParentChildConnection(self, UnitClassParent,
             UnitIDParent, UnitClassChild, UnitIDChild)
 
 
@@ -1334,12 +1334,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.addUnitChild(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.addParentChildConnection(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 1)) == 0}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitsParents(\"SU\"\, 2) == [(\"SU\"\, 1)]}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitsChildren(\"SU\"\, 1) == [(\"SU\"\, 2)]}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 2)) == 0}
-    #   @LineExSimple{obj.@HLImportant{removeUnitChild}(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{obj.@HLImportant{removeParentChildConnection}(\"SU\"\, 1\, \"SU\"\, 2)}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsParents(\"SU\"\, 2)) == 0}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsChildren(\"SU\"\, 1)) == 0}
     # @EndExample
@@ -1349,10 +1349,10 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @param UnitClassChild    an unit class (child)
     # @param UnitIDChild       an unit id (child)
     #
-    def removeUnitChild (self, UnitClassParent, UnitIDParent, UnitClassChild,
+    def removeParentChildConnection (self, UnitClassParent, UnitIDParent, UnitClassChild,
                          UnitIDChild):
-        """@DOCSTRING_python_REMOVEUNITCHILD@"""
-        return pyopenfluid.PyOpenFLUID.removeUnitChild(self, UnitClassParent,
+        """@DOCSTRING_python_REMOVEPARENTCHILDCONNECTION@"""
+        return pyopenfluid.PyOpenFLUID.removeParentChildConnection(self, UnitClassParent,
             UnitIDParent, UnitClassChild, UnitIDChild)
 
 

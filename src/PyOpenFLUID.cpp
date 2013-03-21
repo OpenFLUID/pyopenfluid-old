@@ -1229,7 +1229,7 @@ boost::python::object PyOpenFLUID::getUnitsParents (
 // =====================================================================
 
 
-void PyOpenFLUID::addUnitChild (
+void PyOpenFLUID::addParentChildConnection (
     boost::python::object UnitClassParent, boost::python::object UnitIDParent,
     boost::python::object UnitClassChild, boost::python::object UnitIDChild)
 {
@@ -1270,7 +1270,7 @@ void PyOpenFLUID::addUnitChild (
 // =====================================================================
 
 
-void PyOpenFLUID::removeUnitChild (
+void PyOpenFLUID::removeParentChildConnection (
     boost::python::object UnitClassParent, boost::python::object UnitIDParent,
     boost::python::object UnitClassChild, boost::python::object UnitIDChild)
 {

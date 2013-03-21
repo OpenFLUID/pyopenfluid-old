@@ -12,10 +12,10 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         self.assertRaises(TypeError, self.openfluid.addUnit, "testclass", "couc", 0)
         self.assertRaises(TypeError, self.openfluid.addUnit, "testclass", 0, "inc")
         self.assertRaises(TypeError, self.openfluid.addUnit, 0, 0, 0)
-        self.assertRaises(TypeError, self.openfluid.addUnitChild, "a", 0, 0, 0)
-        self.assertRaises(TypeError, self.openfluid.addUnitChild, 0, "a", 0, 0)
-        self.assertRaises(TypeError, self.openfluid.addUnitChild, 0, 0, "a", 0)
-        self.assertRaises(TypeError, self.openfluid.addUnitChild, 0, 0, 0, "a")
+        self.assertRaises(TypeError, self.openfluid.addParentChildConnection, "a", 0, 0, 0)
+        self.assertRaises(TypeError, self.openfluid.addParentChildConnection, 0, "a", 0, 0)
+        self.assertRaises(TypeError, self.openfluid.addParentChildConnection, 0, 0, "a", 0)
+        self.assertRaises(TypeError, self.openfluid.addParentChildConnection, 0, 0, 0, "a")
 
         #
         UnitClass = "TestClass"
@@ -30,16 +30,16 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
         UnitLinksChild = (2, 2, 5, 4, 5, 7, 7, None)
 
         # creation of the model
-        # tests of addUnitChild
+        # tests of addParentChildConnection
         [self.openfluid.addUnit(UnitClass, i, ProcessOrder)
             for i in range(len(UnitLinksChild))]
         for UnitParent, UnitChild in enumerate(UnitLinksChild):
             if not UnitChild is None:
-                self.openfluid.addUnitChild(UnitClass, UnitParent, UnitClass, UnitChild)
+                self.openfluid.addParentChildConnection(UnitClass, UnitParent, UnitClass, UnitChild)
 
         # subtest of value parameters
-        self.assertRaises(StandardError, self.openfluid.addUnitChild, UnitClass, 20, UnitClass, 0)
-        self.assertRaises(StandardError, self.openfluid.addUnitChild, UnitClass, 0, UnitClass, 20)
+        self.assertRaises(StandardError, self.openfluid.addParentChildConnection, UnitClass, 20, UnitClass, 0)
+        self.assertRaises(StandardError, self.openfluid.addParentChildConnection, UnitClass, 0, UnitClass, 20)
 
         # tests of getUnitsChildren
         CheckList = self.openfluid.getUnitsChildren(UnitClass, 0)
@@ -68,16 +68,16 @@ class PyOpenFLUIDTest_UnitsParentsChildren(PyOpenFLUIDTest):
             CheckList = self.openfluid.getUnitsParents(UnitClass, UnitChild)
             self.assertItemsEqual(UnitsParent, [b for a,b in CheckList])
 
-        # tests of removeUnitChild
+        # tests of removeParentChildConnection
         # testing on 5->7, 2->5, 4->5
         CheckList = self.openfluid.getUnitsChildren(UnitClass, 5)
         self.assertItemsEqual([b for a,b in CheckList], [7])
         CheckList = self.openfluid.getUnitsParents(UnitClass, 5)
         self.assertItemsEqual([b for a,b in CheckList], [2, 4])
 
-        self.openfluid.removeUnitChild(UnitClass, 5, UnitClass, 7)
-        self.openfluid.removeUnitChild(UnitClass, 4, UnitClass, 5)
-        self.openfluid.removeUnitChild(UnitClass, 2, UnitClass, 5)
+        self.openfluid.removeParentChildConnection(UnitClass, 5, UnitClass, 7)
+        self.openfluid.removeParentChildConnection(UnitClass, 4, UnitClass, 5)
+        self.openfluid.removeParentChildConnection(UnitClass, 2, UnitClass, 5)
 
         CheckList = self.openfluid.getUnitsChildren(UnitClass, 5)
         self.assertEquals(len(CheckList), 0)

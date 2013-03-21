@@ -496,11 +496,11 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("addUnitChild", &PyOpenFLUID::addUnitChild,
+    .def("addParentChildConnection", &PyOpenFLUID::addParentChildConnection,
       ( boost::python::arg("self"), boost::python::arg("UnitClassParent"),
         boost::python::arg("UnitIDParent"), boost::python::arg("UnitClassChild"),
         boost::python::arg("UnitIDChild") ),
-      "@DOCSTRING_boost_ADDUNITCHILD@"
+      "@DOCSTRING_boost_ADDPARENTCHILDCONNECTION@"
     )
 
 
@@ -508,11 +508,11 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("removeUnitChild", &PyOpenFLUID::removeUnitChild,
+    .def("removeParentChildConnection", &PyOpenFLUID::removeParentChildConnection,
       ( boost::python::arg("self"), boost::python::arg("UnitClassParent"),
         boost::python::arg("UnitIDParent"), boost::python::arg("UnitClassChild"),
         boost::python::arg("UnitIDChild") ),
-      "@DOCSTRING_boost_REMOVEUNITCHILD@"
+      "@DOCSTRING_boost_REMOVEPARENTCHILDCONNECTION@"
     )
 
 
