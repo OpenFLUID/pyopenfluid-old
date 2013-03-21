@@ -271,6 +271,17 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("getModelItems",
+      &PyOpenFLUID::getModelItems,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETMODELITEMS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("addFunction",
       &PyOpenFLUID::addFunction,
       ( boost::python::arg("self"), boost::python::arg("FuncID") ),

@@ -560,6 +560,20 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
+    # ?
+    #
+    # @return    ?
+    #
+    def getModelItems (self):
+        """@DOCSTRING_python_GETMODELITEMS@"""
+        return pyopenfluid.PyOpenFLUID.getModelItems(self)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
     # Adds a function.
     #
     # Examples: @StartExample

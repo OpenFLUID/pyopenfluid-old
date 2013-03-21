@@ -681,6 +681,40 @@ void PyOpenFLUID::removeModelGlobalParam (boost::python::object ParamName)
 // =====================================================================
 
 
+boost::python::object PyOpenFLUID::getModelItems ()
+{
+  boost::python::list ListRes = boost::python::list();
+
+  std::list<openfluid::fluidx::ModelItemDescriptor*> ListItem =
+      this->mp_AdvFXDesc->getModel().getItems();
+
+  std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator ItListItem;
+
+  openfluid::fluidx::FunctionDescriptor* FuncDescp;
+  openfluid::fluidx::GeneratorDescriptor* GenDescp;
+
+  for(ItListItem = ListItem.begin(); ItListItem != ListItem.end(); ++ItListItem)
+    if ((*ItListItem)->isType(
+          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
+    {
+      FuncDescp = (openfluid::fluidx::FunctionDescriptor*) *ItListItem;
+      ListRes.append(boost::python::object(FuncDescp->getFileID()));
+    }
+    else if ((*ItListItem)->isType(
+          openfluid::fluidx::GeneratorDescriptor::Generator))
+    {
+      GenDescp = (openfluid::fluidx::GeneratorDescriptor*) *ItListItem;
+      ListRes.append(boost::python::object(GenDescp->getGeneratedID()));
+    }
+
+  return ListRes;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
 void PyOpenFLUID::addFunction (boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
