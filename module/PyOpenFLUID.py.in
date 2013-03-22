@@ -1633,6 +1633,21 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
+    # Saves an existing project.
+    #
+    #
+    # @param Path   the full path of the project to save
+    #
+    def saveProject (self, Path):
+        """@DOCSTRING_python_SAVEPROJECT@"""
+        pyopenfluid.PyOpenFLUID.saveProject(self, Path)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
     # Sets the current output directory for simulations.
     #
     # Examples: @StartExample

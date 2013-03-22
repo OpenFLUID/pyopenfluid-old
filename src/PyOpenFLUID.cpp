@@ -10,6 +10,8 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include <boost/optional.hpp>
 
 #include <set>
@@ -1719,6 +1721,55 @@ void PyOpenFLUID::openProject (boost::python::object Path)
         openfluid::base::RuntimeEnvironment::getInstance()->getInputDir());
 
     this->openDataset(BoostPath);
+  } HANDLE_EXCEPTION
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::saveProject (boost::python::object Path)
+{
+  boost::python::extract<std::string> getStringPath(Path);
+  if (!getStringPath.check())
+    throw PyOFException("needed string for project path", PyExc_TypeError);
+
+  std::string ProjectPath = boost::filesystem::path(getStringPath()).string();
+
+  std::string DatasetPath = boost::filesystem::path(ProjectPath +
+      std::string("/IN")).string();
+
+  std::string ResultPath = boost::filesystem::path(ProjectPath +
+      std::string("/OUT")).string();
+
+  try
+  {
+    /* directories */
+    if (!boost::filesystem::exists(ProjectPath))
+    {
+      boost::filesystem::create_directory(ProjectPath);
+      if (!boost::filesystem::exists(ProjectPath))
+        throw PyOFException("error creating project directory");
+    }
+
+    if (!boost::filesystem::exists(DatasetPath))
+    {
+      boost::filesystem::create_directory(DatasetPath);
+      if (!boost::filesystem::exists(DatasetPath))
+        throw PyOFException("error creating dataset directory");
+    }
+
+    if (!boost::filesystem::exists(ResultPath))
+    {
+      boost::filesystem::create_directory(ResultPath);
+      if (!boost::filesystem::exists(ResultPath))
+        throw PyOFException("error creating result directory");
+    }
+
+    /* dataset */
+    this->mp_FXDesc->writeToManyFiles(DatasetPath);
+
   } HANDLE_EXCEPTION
 }
 

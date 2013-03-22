@@ -657,6 +657,16 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
+    .def("saveProject", &PyOpenFLUID::saveProject,
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
+      "@DOCSTRING_boost_SAVEPROJECT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
     .def("setCurrentOutputDir",
       &PyOpenFLUID::setCurrentOutputDir,
       ( boost::python::arg("self"), boost::python::arg("Path") ),
