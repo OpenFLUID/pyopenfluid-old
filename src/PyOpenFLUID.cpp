@@ -82,6 +82,17 @@ PyOpenFLUID::PyOpenFLUID ()
     this->mp_FXDesc = new openfluid::fluidx::FluidXDescriptor(this->mp_IOL);
     this->mp_AdvFXDesc = new openfluid::fluidx::AdvancedFluidXDescriptor(
         *(this->mp_FXDesc));
+
+    openfluid::fluidx::RunDescriptor runDescp = this->mp_FXDesc->
+      getRunDescriptor();
+
+    runDescp.setSimulationID(std::string(""));
+    runDescp.setValuesBufferSize(1024*10); /* TODO what the hell ? */
+    runDescp.setFilesBufferSizeInKB(1024*1024); /* TODO what the hell ? */
+    runDescp.setDeltaT((unsigned int)60);
+    runDescp.setBeginDate(openfluid::core::DateTime(2012, 1, 1, 0, 0, 0));
+    runDescp.setEndDate(openfluid::core::DateTime(2012, 1, 1, 0, 1, 0));
+    runDescp.setFilled(true);
   }
   catch (openfluid::base::OFException& E)
   {
@@ -1687,6 +1698,8 @@ void PyOpenFLUID::saveDataset (boost::python::object Path)
 
   try
   {
+    /* TODO check if correct */
+    this->mp_FXDesc->getRunDescriptor().setFilled(true);
     this->mp_FXDesc->writeToManyFiles(StrPath);
   } HANDLE_EXCEPTION
 }

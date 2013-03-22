@@ -4,25 +4,12 @@
 # Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
 #
 
-ADD_TEST(OpenDataset_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/OpenDataset_TEST.py"
-         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
-         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
-SET_TESTS_PROPERTIES(OpenDataset_TEST PROPERTIES
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
 ADD_TEST(OpenProject_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/OpenProject_TEST.py"
          "--project" "${TEST_PATH}/${PROJECT_NAME_1}"
          "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(OpenProject_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -37,7 +24,6 @@ ADD_TEST(RunProject_TEST
          "${CMAKE_CURRENT_SOURCE_DIR}/RunProject_TEST.py"
          "--project" "${TEST_PATH}/${RUNPROJECT_NAME}")
 SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
                      DEPENDS RunSimulation_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
@@ -54,7 +40,6 @@ ADD_TEST(RunSimulation_TEST
          "--dataset" "${TEST_PATH}/${RUNSIMULATION_NAME}/IN"
          "--output" "${TEST_PATH}/${RUNSIMULATION_NAME}/OUT")
 SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -67,7 +52,6 @@ ADD_TEST(GeneratorParameter_TEST
          "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
          "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -80,7 +64,6 @@ ADD_TEST(UnitsClasses_TEST
          "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
          "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(UnitsClasses_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -93,6 +76,5 @@ ADD_TEST(UnitsIDs_TEST
          "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
          "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
 SET_TESTS_PROPERTIES(UnitsIDs_TEST PROPERTIES
-                     DEPENDS OpenDataset_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
