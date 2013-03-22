@@ -623,12 +623,23 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
 // =====================================================================
-// =====================================================================
+/* --------------------  INPUT OUTPUT FUNCTIONS  -------------------- */
+
 
 
     .def("openDataset", &PyOpenFLUID::openDataset,
       ( boost::python::arg("self"), boost::python::arg("Path") ),
       "@DOCSTRING_boost_OPENDATASET@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("saveDataset", &PyOpenFLUID::saveDataset,
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
+      "@DOCSTRING_boost_SAVEDATASET@"
     )
 
 

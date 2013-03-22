@@ -1676,6 +1676,25 @@ void PyOpenFLUID::openDataset (boost::python::object Path)
 // =====================================================================
 
 
+void PyOpenFLUID::saveDataset (boost::python::object Path)
+{
+  boost::python::extract<std::string> getStringPath(Path);
+  if (!getStringPath.check())
+    throw PyOFException("needed string", PyExc_TypeError);
+
+  std::string StrPath = getStringPath();
+
+  try
+  {
+    this->mp_FXDesc->writeToManyFiles(StrPath);
+  } HANDLE_EXCEPTION
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
 void PyOpenFLUID::openProject (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);

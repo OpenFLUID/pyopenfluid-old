@@ -1599,6 +1599,21 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ##
+    # Saves a dataset.
+    #
+    #
+    # @param Path   the full path of the directory to save
+    #
+    def saveDataset (self, Path):
+        """@DOCSTRING_python_SAVEDATASET@"""
+        pyopenfluid.PyOpenFLUID.saveDataset(self, Path)
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    ##
     # Opens an existing project.
     #
     # Examples: @StartExample
