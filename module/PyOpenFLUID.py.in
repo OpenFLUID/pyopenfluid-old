@@ -43,7 +43,7 @@ __all__ = ["PyOpenFLUID"]
 #
 class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     """This class provides OpenFLUID simulations, by loading, parameterizing and running them. It uses the OpenFLUID framework to do simulations."""
-    ##
+    ## @DOCSTRING_doxygen_CONSTRUCTOR@
     # Initialize a new PyOpenFLUID class.
     #
     #
@@ -56,10 +56,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ###############              GENERAL FUNCTIONS             ############### #
 
 
-    ##
-    # Returns the OpenFLUID version.
-    #
-    # @return   the OpenFLUID version number
+    ## @DOCSTRING_doxygen_GETVERSION@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -75,8 +72,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Adds paths to search for simulation functions.
+    ## @DOCSTRING_doxygen_ADDEXTRAFUNCTIONSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -91,8 +87,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @param Paths   the semicolon separated paths to add
-    #
     def addExtraFunctionsPaths (self, Paths):
         """@DOCSTRING_python_ADDEXTRAFUNCTIONSPATHS@"""
         pyopenfluid.PyOpenFLUID.addExtraFunctionsPaths(self, Paths)
@@ -102,8 +96,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Reset paths to search for simulation functions.
+    ## @DOCSTRING_doxygen_RESETEXTRAFUNCTIONSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -127,8 +120,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns the added paths to search for simulation functions.
+    ## @DOCSTRING_doxygen_GETEXTRAFUNCTIONSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -143,8 +135,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @return   a list of Paths
-    #
     def getExtraFunctionsPaths (self):
         """@DOCSTRING_python_GETEXTRAFUNCTIONSPATHS@"""
         return pyopenfluid.PyOpenFLUID.getExtraFunctionsPaths(self)
@@ -154,8 +144,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Adds paths to search for observers.
+    ## @DOCSTRING_doxygen_ADDEXTRAOBSERVERSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -170,8 +159,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @param Paths   the semicolon separated paths to add
-    #
     def addExtraObserversPaths (self, Paths):
         """@DOCSTRING_python_ADDEXTRAOBSERVERSPATHS@"""
         pyopenfluid.PyOpenFLUID.addExtraObserversPaths(self, Paths)
@@ -181,8 +168,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Reset paths to search for observers.
+    ## @DOCSTRING_doxygen_RESETEXTRAOBSERVERSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -206,8 +192,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns the added paths to search for observers.
+    ## @DOCSTRING_doxygen_GETEXTRAOBSERVERSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -222,7 +207,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @return   a list of Paths
     #
     def getExtraObserversPaths (self):
         """@DOCSTRING_python_GETEXTRAOBSERVERSPATHS@"""
@@ -233,8 +217,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Prints informations to screen about simulation definition class (self).
+    ## @DOCSTRING_doxygen_PRINTSIMULATIONINFO@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -252,8 +235,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ###############               MODEL FUNCTIONS              ############### #
 
 
-    ##
-    # Returns a function parameter value.
+    ## @DOCSTRING_doxygen_GETFUNCTIONPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -272,11 +254,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"tolerance\"]}
     # @EndExample
     #
-    # @param FunID       the simulation function id
-    # @param ParamName   the name of the parameter
-    #
-    # @return   the parameter value
-    #
     def getFunctionParam (self, FunID, ParamName):
         """@DOCSTRING_python_GETFUNCTIONPARAM@"""
         return pyopenfluid.PyOpenFLUID.getFunctionParam(self, FunID, ParamName)
@@ -286,8 +263,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets a function parameter value.
+    ## @DOCSTRING_doxygen_SETFUNCTIONPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -306,10 +282,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"tolerance\"]}
     # @EndExample
     #
-    # @param FunID        the simulation function id
-    # @param ParamName    the name of the parameter
-    # @param ParamValue   the parameter value
-    #
     def setFunctionParam (self, FunID, ParamName, ParamValue):
         """@DOCSTRING_python_SETFUNCTIONPARAM@"""
         pyopenfluid.PyOpenFLUID.setFunctionParam(self, FunID, ParamName,
@@ -320,8 +292,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes a function parameter value.
+    ## @DOCSTRING_doxygen_REMOVEFUNCTIONPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -340,9 +311,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"tolerance\"]}
     # @EndExample
     #
-    # @param FunID        the simulation function id
-    # @param ParamName    the name of the parameter
-    #
     def removeFunctionParam (self, FunID, ParamName):
         """@DOCSTRING_python_REMOVEFUNCTIONPARAM@"""
         pyopenfluid.PyOpenFLUID.removeFunctionParam(self, FunID, ParamName)
@@ -351,8 +319,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## # ########################################################################## #
 
 
-    ##
-    # Returns all functions parameters.
+    ## @DOCSTRING_doxygen_GETFUNCTIONPARAMS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -371,10 +338,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"tolerance\"]}
     # @EndExample
     #
-    # @param FunID       the simulation function id
-    #
-    # @return   a list of parameter
-    #
     def getFunctionParams (self, FunID):
         """@DOCSTRING_python_GETFUNCTIONPARAMS@"""
         return pyopenfluid.PyOpenFLUID.getFunctionParams(self, FunID)
@@ -384,8 +347,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns a generator parameter value.
+    ## @DOCSTRING_doxygen_GETGENERATORPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -394,12 +356,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj.setGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\") == \"12.3\"}
     # @EndExample
-    #
-    # @param UnitClass   the unit class to which the generator is applied
-    # @param VarName     the variable name to which the generator is applied
-    # @param ParamName   the name of the parameter
-    #
-    # @return   the parameter value
     #
     def getGeneratorParam (self, UnitClass, VarName, ParamName):
         """@DOCSTRING_python_GETGENERATORPARAM@"""
@@ -411,8 +367,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets a generator parameter value.
+    ## @DOCSTRING_doxygen_SETGENERATORPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -421,11 +376,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj.@HLImportant{setGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
     #   @LineExSimple{@HLReserv{assert} obj.getGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\") == \"12.3\"}
     # @EndExample
-    #
-    # @param UnitClass    the unit class to which the generator is applied
-    # @param VarName      the variable name to which the generator is applied
-    # @param ParamName    the name of the parameter
-    # @param ParamValue   the parameter value
     #
     def setGeneratorParam (self, UnitClass, VarName, ParamName, ParamValue):
         """@DOCSTRING_python_SETGENERATORPARAM@"""
@@ -437,8 +387,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns a model global parameter value.
+    ## @DOCSTRING_doxygen_GETMODELGLOBALPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -456,10 +405,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"bluesky\"]}
     # @EndExample
     #
-    # @param ParamName   the name of the parameter
-    #
-    # @return   the parameter value
-    #
     def getModelGlobalParam (self, ParamName):
         """@DOCSTRING_python_GETMODELGLOBALPARAM@"""
         return pyopenfluid.PyOpenFLUID.getModelGlobalParam(self, ParamName)
@@ -469,8 +414,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets a model global parameter value.
+    ## @DOCSTRING_doxygen_SETMODELGLOBALPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -488,9 +432,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"bluesky\"]}
     # @EndExample
     #
-    # @param ParamName    the name of the parameter
-    # @param ParamValue   the parameter value
-    #
     def setModelGlobalParam (self, ParamName, ParamValue):
         """@DOCSTRING_python_SETMODELGLOBALPARAM@"""
         return pyopenfluid.PyOpenFLUID.setModelGlobalParam(self, ParamName,
@@ -501,8 +442,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns all model global parameter.
+    ## @DOCSTRING_doxygen_GETMODELGLOBALPARAMS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -529,8 +469,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns all model global parameter.
+    ## @DOCSTRING_doxygen_REMOVEMODELGLOBALPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -548,8 +487,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"bluesky\"]}
     # @EndExample
     #
-    # @param ParamName    the name of the parameter
-    #
     def removeModelGlobalParam (self, ParamName):
         """@DOCSTRING_python_REMOVEMODELGLOBALPARAM@"""
         return pyopenfluid.PyOpenFLUID.removeModelGlobalParam(self, ParamName)
@@ -559,10 +496,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # ?
-    #
-    # @return    ?
+    ## @DOCSTRING_doxygen_GETMODELITEMS@
     #
     def getModelItems (self):
         """@DOCSTRING_python_GETMODELITEMS@"""
@@ -573,8 +507,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Adds a function.
+    ## @DOCSTRING_doxygen_ADDFUNCTION@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -594,8 +527,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @param FuncID       the simulation function id
-    #
     def addFunction (self, FuncID):
         """@DOCSTRING_python_ADDFUNCTION@"""
         return pyopenfluid.PyOpenFLUID.addFunction(self, FuncID)
@@ -605,8 +536,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes a function.
+    ## @DOCSTRING_doxygen_REMOVEFUNCTION@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -626,8 +556,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @param FuncID       the simulation function id
-    #
     def removeFunction (self, FuncID):
         """@DOCSTRING_python_REMOVEFUNCTION@"""
         return pyopenfluid.PyOpenFLUID.removeFunction(self, FuncID)
@@ -637,8 +565,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes all functions.
+    ## @DOCSTRING_doxygen_CLEARMODEL@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -667,8 +594,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Gets all functions names.
+    ## @DOCSTRING_doxygen_GETFUNCTIONSINMODEL@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -688,8 +614,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @return   a list of function name
-    #
     def getFunctionsInModel (self):
         """@DOCSTRING_python_GETFUNCTIONSINMODEL@"""
         return pyopenfluid.PyOpenFLUID.getFunctionsInModel(self)
@@ -699,8 +623,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ###############             MONITORING FUNCTIONS           ############### #
 
 
-    ##
-    # Returns an observer parameter value.
+    ## @DOCSTRING_doxygen_GETOBSERVERPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -719,11 +642,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"format.f1.maxwidth\"]}
     # @EndExample
     #
-    # @param ObsID       the observer id
-    # @param ParamName   the name of the parameter
-    #
-    # @return   the parameter value
-    #
     def getObserverParam (self, ObsID, ParamName):
         """@DOCSTRING_python_GETOBSERVERPARAM@"""
         return pyopenfluid.PyOpenFLUID.getObserverParam(self, ObsID, ParamName)
@@ -733,8 +651,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets an observer parameter value.
+    ## @DOCSTRING_doxygen_SETOBSERVERPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -753,10 +670,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"format.f1.maxwidth\"]}
     # @EndExample
     #
-    # @param ObsID       the observer id
-    # @param ParamName   the name of the parameter
-    # @param ParamValue  the parameter value
-    #
     def setObserverParam (self, ObsID, ParamName, ParamValue):
         """@DOCSTRING_python_SETOBSERVERPARAM@"""
         return pyopenfluid.PyOpenFLUID.setObserverParam(self, ObsID, ParamName,
@@ -767,8 +680,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes an observer parameter.
+    ## @DOCSTRING_doxygen_REMOVEOBSERVERPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -787,9 +699,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"format.f1.maxwidth\"]}
     # @EndExample
     #
-    # @param ObsID       the observer id
-    # @param ParamName   the name of the parameter
-    #
     def removeObserverParam (self, ObsID, ParamName):
         """@DOCSTRING_python_REMOVEOBSERVERPARAM@"""
         return pyopenfluid.PyOpenFLUID.removeObserverParam(self, ObsID,
@@ -800,8 +709,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Gets all observer parameters name.
+    ## @DOCSTRING_doxygen_GETOBSERVERPARAMS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -820,8 +728,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"format.f1.maxwidth\"]}
     # @EndExample
     #
-    # @param ObsID       the observer id
-    #
     def getObserverParams (self, ObsID):
         """@DOCSTRING_python_GETOBSERVERPARAMS@"""
         return pyopenfluid.PyOpenFLUID.getObserverParams(self, ObsID)
@@ -831,8 +737,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Adds an observer.
+    ## @DOCSTRING_doxygen_ADDOBSERVER@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -852,8 +757,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @param ObsID       the observer id
-    #
     def addObserver (self, ObsID):
         """@DOCSTRING_python_ADDOBSERVER@"""
         return pyopenfluid.PyOpenFLUID.addObserver(self, ObsID)
@@ -863,8 +766,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes an observer.
+    ## @DOCSTRING_doxygen_REMOVEOBSERVER@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -884,8 +786,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[]}
     # @EndExample
     #
-    # @param ObsID       the observer id
-    #
     def removeObserver (self, ObsID):
         """@DOCSTRING_python_REMOVEOBSERVER@"""
         return pyopenfluid.PyOpenFLUID.removeObserver(self, ObsID)
@@ -895,8 +795,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes all observers.
+    ## @DOCSTRING_doxygen_CLEARMONITORING@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -925,8 +824,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Gets all observer name.
+    ## @DOCSTRING_doxygen_GETOBSERVERSINMONITORING@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -955,8 +853,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ###############           SPATIAL DOMAIN FUNCTIONS         ############### #
 
 
-    ##
-    # Returns the existing units classes.
+    ## @DOCSTRING_doxygen_GETUNITSCLASSES@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -987,8 +884,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
     #
-    # @return   a list of units classes
-    #
     def getUnitsClasses (self):
         """@DOCSTRING_python_GETUNITSCLASSES@"""
         return pyopenfluid.PyOpenFLUID.getUnitsClasses(self)
@@ -998,8 +893,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns the existing units IDs for a given units class.
+    ## @DOCSTRING_doxygen_GETUNITSIDS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1030,10 +924,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
     #
-    # @param UnitClass   the unit class
-    #
-    # @return   a list of units IDs
-    #
     def getUnitsIDs (self, UnitClass):
         """@DOCSTRING_python_GETUNITSIDS@"""
         return pyopenfluid.PyOpenFLUID.getUnitsIDs(self, UnitClass)
@@ -1043,8 +933,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Adds an new unit.
+    ## @DOCSTRING_doxygen_ADDUNIT@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1075,10 +964,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
     #
-    # @param UnitClass   an unit class
-    # @param UnitID      an new unit id for this unit class
-    # @param PcsOrder    a process order
-    #
     def addUnit (self, UnitClass, UnitID, PcsOrder):
         """@DOCSTRING_python_ADDUNIT@"""
         return pyopenfluid.PyOpenFLUID.addUnit(self, UnitClass,
@@ -1089,8 +974,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes an unit.
+    ## @DOCSTRING_doxygen_REMOVEUNIT@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1121,9 +1005,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
     #
-    # @param UnitClass   an unit class
-    # @param UnitID      an unit id for this unit class
-    #
     def removeUnit (self, UnitClass, UnitID):
         """@DOCSTRING_python_REMOVEUNIT@"""
         return pyopenfluid.PyOpenFLUID.removeUnit(self, UnitClass,
@@ -1134,8 +1015,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes all units from an unit class or all units in the domain.
+    ## @DOCSTRING_doxygen_CLEARALLUNITS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1166,8 +1046,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExResult{[\"WQ\"]}
     # @EndExample
     #
-    # @param UnitClass   an unit class (optional)
-    #
     def clearAllUnits (self, UnitClass=None):
         """@DOCSTRING_python_CLEARALLUNITS@"""
         return pyopenfluid.PyOpenFLUID.clearAllUnits(self, UnitClass)
@@ -1177,8 +1055,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets the process order of an unit.
+    ## @DOCSTRING_doxygen_SETUNITPROCESSORDER@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1187,10 +1064,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj.@HLImportant{setUnitProcessOrder}(\"SU\"\, 1\, 5)}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitProcessOrder(\"SU\"\, 1) == 5}
     # @EndExample
-    #
-    # @param UnitClass   an unit class
-    # @param UnitID      an unit id for this unit class
-    # @param PcsOrder    a process order
     #
     def setUnitProcessOrder (self, UnitClass, UnitID, PcsOrder):
         """@DOCSTRING_python_SETUNITPROCESSORDER@"""
@@ -1202,8 +1075,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Gets the process order of an unit.
+    ## @DOCSTRING_doxygen_GETUNITPROCESSORDER@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1212,11 +1084,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{obj.setUnitProcessOrder(\"SU\"\, 1\, 5)}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitProcessOrder}(\"SU\"\, 1) == 5}
     # @EndExample
-    #
-    # @param UnitClass   an unit class
-    # @param UnitID      an unit id for this unit class
-    #
-    # @return   the process order
     #
     def getUnitProcessOrder (self, UnitClass, UnitID):
         """@DOCSTRING_python_GETUNITPROCESSORDER@"""
@@ -1228,13 +1095,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # 
-    #
-    # @param UnitClass   an unit class
-    # @param UnitID      an unit id for this unit class
-    #
-    # @return   ?
+    ## @DOCSTRING_doxygen_GETUNITSTOS@
     #
     def getUnitTos (self, UnitClass, UnitID):
         """@DOCSTRING_python_GETUNITSTOS@"""
@@ -1246,13 +1107,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # 
-    #
-    # @param UnitClass   an unit class
-    # @param UnitID      an unit id for this unit class
-    #
-    # @return   ?
+    ## @DOCSTRING_doxygen_GETUNITSFROMS@
     #
     def getUnitFroms (self, UnitClass, UnitID):
         """@DOCSTRING_python_GETUNITSFROMS@"""
@@ -1264,13 +1119,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # 
-    #
-    # @param UnitClassFrom   an unit class (from)
-    # @param UnitIDFrom      an unit id (from)
-    # @param UnitClassTo     an unit class (to)
-    # @param UnitIDTo        an unit id (to)
+    ## @DOCSTRING_doxygen_ADDFROMTOCONNECTION@
     #
     def addFromToConnection (self, UnitClassFrom, UnitIDFrom, UnitClassTo,
                       UnitIDTo):
@@ -1283,13 +1132,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # 
-    #
-    # @param UnitClassFrom   an unit class (from)
-    # @param UnitIDFrom      an unit id (from)
-    # @param UnitClassTo     an unit class (to)
-    # @param UnitIDTo        an unit id (to)
+    ## @DOCSTRING_doxygen_REMOVEFROMTOCONNECTION@
     #
     def removeFromToConnection (self, UnitClassFrom, UnitIDFrom, UnitClassTo,
                          UnitIDTo):
@@ -1302,8 +1145,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Gets children units of an unit.
+    ## @DOCSTRING_doxygen_GETUNITCHILDREN@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1323,11 +1165,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitChildren}(\"SU\"\, 1)) == 0}
     # @EndExample
     #
-    # @param UnitClass   an unit class
-    # @param UnitID      an unit id for this unit class
-    #
-    # @return   a list of tuple of units classes and units
-    #
     def getUnitChildren (self, UnitClass, UnitID):
         """@DOCSTRING_python_GETUNITCHILDREN@"""
         return pyopenfluid.PyOpenFLUID.getUnitChildren(self, UnitClass,
@@ -1338,8 +1175,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Gets parents units of an unit.
+    ## @DOCSTRING_doxygen_GETUNITPARENTS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1359,11 +1195,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
     # @EndExample
     #
-    # @param UnitClass   an unit class
-    # @param UnitID      an unit id for this unit class
-    #
-    # @return   a list of tuple of units classes and units
-    #
     def getUnitParents (self, UnitClass, UnitID):
         """@DOCSTRING_python_GETUNITPARENTS@"""
         return pyopenfluid.PyOpenFLUID.getUnitParents(self, UnitClass,
@@ -1374,8 +1205,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Adds a child on an unit.
+    ## @DOCSTRING_doxygen_ADDPARENTCHILDCONNECTION@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1395,11 +1225,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
     # @EndExample
     #
-    # @param UnitClassParent   an unit class (parent)
-    # @param UnitIDParent      an unit id (parent)
-    # @param UnitClassChild    an unit class (child)
-    # @param UnitIDChild       an unit id (child)
-    #
     def addParentChildConnection (self, UnitClassParent, UnitIDParent, UnitClassChild,
                       UnitIDChild):
         """@DOCSTRING_python_ADDPARENTCHILDCONNECTION@"""
@@ -1411,8 +1236,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes a child of an unit.
+    ## @DOCSTRING_doxygen_REMOVEPARENTCHILDCONNECTION@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1432,11 +1256,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitChildren(\"SU\"\, 1)) == 0}
     # @EndExample
     #
-    # @param UnitClassParent   an unit class (parent)
-    # @param UnitIDParent      an unit id (parent)
-    # @param UnitClassChild    an unit class (child)
-    # @param UnitIDChild       an unit id (child)
-    #
     def removeParentChildConnection (self, UnitClassParent, UnitIDParent, UnitClassChild,
                          UnitIDChild):
         """@DOCSTRING_python_REMOVEPARENTCHILDCONNECTION@"""
@@ -1448,9 +1267,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Creates an inputdata for alla spatial units of a class\,
-    #  initialized with a default value.
+    ## @DOCSTRING_doxygen_CREATEINPUTDATA@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1467,10 +1284,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
-    # @param UnitClass   the unit class
-    # @param IDataName   the inputdata name
-    # @param IDataVal    the default inputdata value for alla units
-    #
     def createInputData (self, UnitClass, IDataName, IDataVal):
         """@DOCSTRING_python_CREATEINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.createInputData(self, UnitClass,
@@ -1481,8 +1294,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns an inputdata value for a given spatial unit.
+    ## @DOCSTRING_doxygen_GETINPUTDATA@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1499,12 +1311,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
-    # @param UnitClass   the unit class
-    # @param UnitID      the unit
-    # @param IDataName   the inputdata name
-    #
-    # @return   the inputdata value
-    #
     def getInputData (self, UnitClass, UnitID, IDataName):
         """@DOCSTRING_python_GETINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.getInputData(self, UnitClass,
@@ -1515,8 +1321,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets an inputdata value for a given spatial unit.
+    ## @DOCSTRING_doxygen_SETINPUTDATA@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1533,11 +1338,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
-    # @param UnitClass   the unit class
-    # @param UnitID      the unit
-    # @param IDataName   the inputdata name
-    # @param IDataVal    the value of the inputdata
-    #
     def setInputData (self, UnitClass, UnitID, IDataName, IDataVal):
         """@DOCSTRING_python_SETINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.setInputData(self, UnitClass, UnitID,
@@ -1548,8 +1348,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Removes an inputdata value for a given spatial unit.
+    ## @DOCSTRING_doxygen_REMOVEINPUTDATA@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1566,9 +1365,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
-    # @param UnitClass   the unit class
-    # @param IDataName   the inputdata name
-    #
     def removeInputData (self, UnitClass, IDataName):
         """@DOCSTRING_python_REMOVEINPUTDATA@"""
         return pyopenfluid.PyOpenFLUID.removeInputData(self, UnitClass,
@@ -1579,15 +1375,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ###############            INPUT OUTPUT FUNCTIONS          ############### #
 
 
-    ##
-    # Opens a dataset.
+    ## @DOCSTRING_doxygen_OPENDATASET@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{openDataset}(\"/path/to/dataset\")}
     # @EndExample
-    #
-    # @param Path   the full path of the dataset to open
     #
     def openDataset (self, Path):
         """@DOCSTRING_python_OPENDATASET@"""
@@ -1598,11 +1391,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Saves a dataset.
-    #
-    #
-    # @param Path   the full path of the directory to save
+    ## @DOCSTRING_doxygen_SAVEDATASET@
     #
     def saveDataset (self, Path):
         """@DOCSTRING_python_SAVEDATASET@"""
@@ -1613,15 +1402,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Opens an existing project.
+    ## @DOCSTRING_doxygen_OPENPROJECT@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{openProject}(\"/path/to/project\")}
     # @EndExample
-    #
-    # @param Path   the full path of the project to open
     #
     def openProject (self, Path):
         """@DOCSTRING_python_OPENPROJECT@"""
@@ -1632,11 +1418,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Saves an existing project.
-    #
-    #
-    # @param Path   the full path of the project to save
+    ## @DOCSTRING_doxygen_SAVEPROJECT@
     #
     def saveProject (self, Path):
         """@DOCSTRING_python_SAVEPROJECT@"""
@@ -1647,8 +1429,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets the current output directory for simulations.
+    ## @DOCSTRING_doxygen_SETCURRENTOUTPUTDIR@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1657,8 +1438,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} path}
     #   @LineExResult{\"/path/to/output\"}
     # @EndExample
-    #
-    # @param Path   the output directory path
     #
     def setCurrentOutputDir (self, Path):
         """@DOCSTRING_python_SETCURRENTOUTPUTDIR@"""
@@ -1669,8 +1448,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Gets the current output directory for simulations.
+    ## @DOCSTRING_doxygen_GETCURRENTOUTPUTDIR@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1679,8 +1457,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} path}
     #   @LineExResult{\"/path/to/output\"}
     # @EndExample
-    #
-    # @return   the output directory path
     #
     def getCurrentOutputDir (self):
         """@DOCSTRING_python_GETCURRENTOUTPUTDIR@"""
@@ -1691,8 +1467,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ###############             SIMULATION FUNCTIONS           ############### #
 
 
-    ##
-    # Returns the simulation time step.
+    ## @DOCSTRING_doxygen_GETDEFAULTDELTAT@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1701,8 +1476,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} deltat}
     #   @LineExResult{60}
     # @EndExample
-    #
-    # @return   the time step value in seconds
     #
     def getDefaultDeltaT (self):
         """@DOCSTRING_python_GETDEFAULTDELTAT@"""
@@ -1713,8 +1486,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets the simulation time step.
+    ## @DOCSTRING_doxygen_SETDEFAULTDELTAT@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1723,8 +1495,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} deltat}
     #   @LineExResult{60}
     # @EndExample
-    #
-    # @param DefaultDeltaT   the time step value in seconds
     #
     def setDefaultDeltaT (self, DefaultDeltaT):
         """@DOCSTRING_python_SETDEFAULTDELTAT@"""
@@ -1735,8 +1505,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns the simulation period begin date.
+    ## @DOCSTRING_doxygen_GETPERIODBEGINDATE@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1745,8 +1514,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} bdate}
     #   @LineExSimple{\"1997-06-05 04:00:00\"}
     # @EndExample
-    #
-    # @return   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def getPeriodBeginDate (self):
         """@DOCSTRING_python_GETPERIODBEGINDATE@"""
@@ -1757,8 +1524,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Returns the simulation period end date.
+    ## @DOCSTRING_doxygen_GETPERIODENDDATE@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1767,8 +1533,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} bdate}
     #   @LineExResult{\"1997-06-05 04:00:00\"}
     # @EndExample
-    #
-    # @return   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def getPeriodEndDate (self):
         """@DOCSTRING_python_GETPERIODENDDATE@"""
@@ -1779,8 +1543,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets the simulation period begin date.
+    ## @DOCSTRING_doxygen_SETPERIODBEGINDATE@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1789,8 +1552,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} bdate}
     #   @LineExSimple{\"1997-06-05 04:00:00\"}
     # @EndExample
-    #
-    # @param BeginDate   the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def setPeriodBeginDate (self, BeginDate):
         """@DOCSTRING_python_SETPERIODBEGINDATE@"""
@@ -1801,8 +1562,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Sets the simulation period end date.
+    ## @DOCSTRING_doxygen_SETPERIODENDDATE@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1811,8 +1571,6 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} bdate}
     #   @LineExResult{\"1997-06-05 04:00:00\"}
     # @EndExample
-    #
-    # @param EndDate   the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)
     #
     def setPeriodEndDate (self, EndDate):
         """@DOCSTRING_python_SETPERIODENDDATE@"""
@@ -1823,15 +1581,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Runs an existing project.
+    ## @DOCSTRING_doxygen_RUNPROJECT@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{runProject}(\"/path/to/dataset\")}
     # @EndExample
-    #
-    # @param Path   the full path of the project to open
     #
     def runProject (self, Path):
         """@DOCSTRING_python_RUNPROJECT@"""
@@ -1842,8 +1597,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ##
-    # Runs a project from a simulation definition class (PyOpenFLUID).
+    ## @DOCSTRING_doxygen_RUNSIMULATION@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
@@ -1852,81 +1606,22 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{isinstance}(res\, bool)}
     # @EndExample
     #
-    # @return   True if the simulation is runned without problems, False otherwise
-    #
     def runSimulation (self):
         """@DOCSTRING_python_RUNSIMULATION@"""
         return bool(pyopenfluid.PyOpenFLUID.runSimulation(self))
 
 
 # ########################################################################## #
-# ########################################################################## #
-
-
-    # #
-    # Loads results as a dataframe, giving output dataset informations.
-    #
-    # @param UnitClass   the unit class
-    # @param UnitID      the unit ID
-    # @param Suffix      the output dataset suffix
-    #
-    # @return   a dataframe containing the simulation results
-    #
-#    def loadResult (self, UnitClass, UnitID, Suffix):
-#        """Loads results as a dataframe, giving output dataset informations.
-
-#Keyword arguments:
-#UnitClass  -- the unit class
-#UnitID     -- the unit ID
-#Suffix     -- the output dataset suffix
-
-#Returns:
-#a dataframe containing the simulation results
-#"""
-#        return pyopenfluid.PyOpenFLUID.loadResult(self, UnitClass, UnitID,
-#           Suffix)
-
-
-# ########################################################################## #
-# ########################################################################## #
-
-
-    # #
-    # Loads results as a dataframe, giving output file name.
-    #
-    # @param FilePath   the full path of the file to load
-    #
-    # @return   a dataframe containing the simulation results
-    #
-#    def loadResultFile (self, FilePath):
-#        """Loads results as a dataframe, giving output file name.
-
-#FilePath  -- the full path of the file to load
-
-#Returns:
-#a dataframe containing the simulation results
-#"""
-#        return pyopenfluid.PyOpenFLUID.loadResultFile(self, FilePath)
-
-
-# ########################################################################## #
-# ###                           OTHER FUNCTIONS                          ### #
-
-
-# ########################################################################## #
 # ###                     PYTHON specifics functions                     ### #
 
 
-    ##
-    # Return a description of the class.
+    ## @DOCSTRING_doxygen_GETSTR@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{v = @HLSpecial{str}(obj)}
     #   @LineExSimple{@HLReserv{print} obj}
     # @EndExample
-    #
-    # @return   a string representation
     #
     def __str__ (self):
         """@DOCSTRING_python_GETSTR@"""

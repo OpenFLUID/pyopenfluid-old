@@ -5,543 +5,706 @@
 #
 
 
-SET(DOCSTRINGRAW_GETVERSION
-"Return a description of the class.
+# ======== model ========
+SET(DOCSTRINGRAW_DESCRIPTION_MODEL "")
+SET(DOCSTRINGRAW_RETURN_MODEL "")
+SET(DOCSTRINGRAW_PARAMETERS_MODEL)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_MODEL)
+SET(DOCSTRINGRAW_EXAMPLES_MODEL "")
 
-Returns:
-A string representation of the class.
+# ======== getVersion ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETVERSION "Return a description of the class.")
+SET(DOCSTRINGRAW_RETURN_GETVERSION "A string representation of the class.")
+SET(DOCSTRINGRAW_PARAMETERS_GETVERSION)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETVERSION)
+SET(DOCSTRINGRAW_EXAMPLES_GETVERSION
+">>> obj = PyOpenFLUID()
+>>> info = str(obj)")
 
-Examples:
+
+# ======== addExtraFunctionsPaths ========
+SET(DOCSTRINGRAW_DESCRIPTION_ADDEXTRAFUNCTIONSPATHS
+    "Adds paths to search for simulation functions.")
+SET(DOCSTRINGRAW_RETURN_ADDEXTRAFUNCTIONSPATHS "")
+SET(DOCSTRINGRAW_PARAMETERS_ADDEXTRAFUNCTIONSPATHS
+    "Paths  -- the semicolon separated paths to add")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_ADDEXTRAFUNCTIONSPATHS)
+SET(DOCSTRINGRAW_EXAMPLES_ADDEXTRAFUNCTIONSPATHS "")
+
+
+# ======== resetExtraFunctionsPaths ========
+SET(DOCSTRINGRAW_DESCRIPTION_RESETEXTRAFUNCTIONSPATHS
+    "Reset paths to search for simulation functions.")
+SET(DOCSTRINGRAW_RETURN_RESETEXTRAFUNCTIONSPATHS "")
+SET(DOCSTRINGRAW_PARAMETERS_RESETEXTRAFUNCTIONSPATHS)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_RESETEXTRAFUNCTIONSPATHS)
+SET(DOCSTRINGRAW_EXAMPLES_RESETEXTRAFUNCTIONSPATHS "")
+
+
+# ======== getExtraFunctionsPaths ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETEXTRAFUNCTIONSPATHS
+    "Returns the added paths to search for simulation functions.")
+SET(DOCSTRINGRAW_RETURN_GETEXTRAFUNCTIONSPATHS "a list of Paths")
+SET(DOCSTRINGRAW_PARAMETERS_GETEXTRAFUNCTIONSPATHS)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETEXTRAFUNCTIONSPATHS)
+SET(DOCSTRINGRAW_EXAMPLES_GETEXTRAFUNCTIONSPATHS "")
+
+
+# ======== addExtraObserversPaths ========
+SET(DOCSTRINGRAW_DESCRIPTION_ADDEXTRAOBSERVERSPATHS
+    "Adds paths to search for observers.")
+SET(DOCSTRINGRAW_RETURN_ADDEXTRAOBSERVERSPATHS "")
+SET(DOCSTRINGRAW_PARAMETERS_ADDEXTRAOBSERVERSPATHS
+    "Paths  -- the semicolon separated paths to add")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_ADDEXTRAOBSERVERSPATHS)
+SET(DOCSTRINGRAW_EXAMPLES_ADDEXTRAOBSERVERSPATHS "")
+
+
+# ======== resetExtraObserversPaths ========
+SET(DOCSTRINGRAW_DESCRIPTION_RESETEXTRAOBSERVERSPATHS
+    "Reset paths to search for observers.")
+SET(DOCSTRINGRAW_RETURN_RESETEXTRAOBSERVERSPATHS "")
+SET(DOCSTRINGRAW_PARAMETERS_RESETEXTRAOBSERVERSPATHS)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_RESETEXTRAOBSERVERSPATHS)
+SET(DOCSTRINGRAW_EXAMPLES_RESETEXTRAOBSERVERSPATHS "")
+
+
+# ======== getExtraObserversPaths ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETEXTRAOBSERVERSPATHS
+    "Returns the added paths to search for observers.")
+SET(DOCSTRINGRAW_RETURN_GETEXTRAOBSERVERSPATHS "a list of Paths")
+SET(DOCSTRINGRAW_PARAMETERS_GETEXTRAOBSERVERSPATHS)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETEXTRAOBSERVERSPATHS)
+SET(DOCSTRINGRAW_EXAMPLES_GETEXTRAOBSERVERSPATHS "")
+
+
+# ======== printSimulationInfo ========
+SET(DOCSTRINGRAW_DESCRIPTION_PRINTSIMULATIONINFO
+    "Prints informations to screen about simulation definition class (self).")
+SET(DOCSTRINGRAW_RETURN_PRINTSIMULATIONINFO "")
+SET(DOCSTRINGRAW_PARAMETERS_PRINTSIMULATIONINFO)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_PRINTSIMULATIONINFO)
+SET(DOCSTRINGRAW_EXAMPLES_PRINTSIMULATIONINFO "")
+
+
+# ======== getFunctionParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETFUNCTIONPARAM
+    "Returns a function parameter value.")
+SET(DOCSTRINGRAW_RETURN_GETFUNCTIONPARAM "the parameter value")
+SET(DOCSTRINGRAW_PARAMETERS_GETFUNCTIONPARAM
+    "FunID      -- the simulation function id"
+    "ParamName  -- the name of the parameter")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETFUNCTIONPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_GETFUNCTIONPARAM "")
+
+
+# ======== setFunctionParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETFUNCTIONPARAM
+    "Sets a function parameter value.")
+SET(DOCSTRINGRAW_RETURN_SETFUNCTIONPARAM "")
+SET(DOCSTRINGRAW_PARAMETERS_SETFUNCTIONPARAM
+    "FunID      -- the simulation function id"
+    "ParamName  -- the name of the parameter"
+    "ParamValue   -- the parameter value")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETFUNCTIONPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_SETFUNCTIONPARAM "")
+
+
+# ======== removeFunctionParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEFUNCTIONPARAM
+    "Removes a function parameter.")
+SET(DOCSTRINGRAW_RETURN_REMOVEFUNCTIONPARAM "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEFUNCTIONPARAM
+    "FunID      -- the simulation function id"
+    "ParamName  -- the name of the parameter")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEFUNCTIONPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEFUNCTIONPARAM "")
+
+
+# ======== getFunctionParams ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETFUNCTIONPARAMS
+    "Removes all functions parameters.")
+SET(DOCSTRINGRAW_RETURN_GETFUNCTIONPARAMS "a list of parameter")
+SET(DOCSTRINGRAW_PARAMETERS_GETFUNCTIONPARAMS
+    "FunID      -- the simulation function id")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETFUNCTIONPARAMS)
+SET(DOCSTRINGRAW_EXAMPLES_GETFUNCTIONPARAMS "")
+
+
+# ======== getGeneratorParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETGENERATORPARAM
+    "Returns a generator parameter value.")
+SET(DOCSTRINGRAW_RETURN_GETGENERATORPARAM "the parameter value")
+SET(DOCSTRINGRAW_PARAMETERS_GETGENERATORPARAM
+    "UnitClass  -- the unit class to which the generator is applied"
+    "VarName    -- the variable name to which the generator is applied"
+    "ParamName  -- the name of the parameter")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETGENERATORPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_GETGENERATORPARAM "")
+
+
+# ======== setGeneratorParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETGENERATORPARAM
+    "Sets a generator parameter value.")
+SET(DOCSTRINGRAW_RETURN_SETGENERATORPARAM "")
+SET(DOCSTRINGRAW_PARAMETERS_SETGENERATORPARAM
+    "UnitClass  -- the unit class to which the generator is applied"
+    "VarName    -- the variable name to which the generator is applied"
+    "ParamName  -- the name of the parameter"
+    "ParamValue  -- the parameter value")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETGENERATORPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_SETGENERATORPARAM "")
+
+
+# ======== getModelGlobalParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETMODELGLOBALPARAM
+    "Returns a model global parameter value.")
+SET(DOCSTRINGRAW_RETURN_GETMODELGLOBALPARAM "the parameter value")
+SET(DOCSTRINGRAW_PARAMETERS_GETMODELGLOBALPARAM
+    "ParamName  -- the name of the parameter")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETMODELGLOBALPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_GETMODELGLOBALPARAM "")
+
+
+# ======== setModelGlobalParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETMODELGLOBALPARAM
+    "Sets a model global parameter value.")
+SET(DOCSTRINGRAW_RETURN_SETMODELGLOBALPARAM)
+SET(DOCSTRINGRAW_PARAMETERS_SETMODELGLOBALPARAM
+    "ParamName  -- the name of the parameter"
+    "ParamValue  -- the parameter value")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETMODELGLOBALPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_SETMODELGLOBALPARAM "")
+
+
+# ======== removeModelGlobalParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEMODELGLOBALPARAM
+    "Returns all model global parameters.")
+SET(DOCSTRINGRAW_RETURN_REMOVEMODELGLOBALPARAM )
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEMODELGLOBALPARAM
+    "ParamName  -- the name of the parameter")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEMODELGLOBALPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEMODELGLOBALPARAM "")
+
+
+# ======== getModelGlobalParams ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETMODELGLOBALPARAMS
+    "Returns all model global parameters.")
+SET(DOCSTRINGRAW_RETURN_GETMODELGLOBALPARAMS "a list of parameter name")
+SET(DOCSTRINGRAW_PARAMETERS_GETMODELGLOBALPARAMS)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETMODELGLOBALPARAMS)
+SET(DOCSTRINGRAW_EXAMPLES_GETMODELGLOBALPARAMS "")
+
+
+# ======== addFunction ========
+SET(DOCSTRINGRAW_DESCRIPTION_ADDFUNCTION
+    "Adds a function.")
+SET(DOCSTRINGRAW_RETURN_ADDFUNCTION "")
+SET(DOCSTRINGRAW_PARAMETERS_ADDFUNCTION
+    "FuncID   -- the simulation function id")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_ADDFUNCTION)
+SET(DOCSTRINGRAW_EXAMPLES_ADDFUNCTION "")
+
+
+# ======== removeFunction ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEFUNCTION
+    "Removes a function.")
+SET(DOCSTRINGRAW_RETURN_REMOVEFUNCTION "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEFUNCTION
+    "FuncID   -- the simulation function id")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEFUNCTION)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEFUNCTION "")
+
+
+# ======== clearModel ========
+SET(DOCSTRINGRAW_DESCRIPTION_CLEARMODEL
+    "Removes all functions.")
+SET(DOCSTRINGRAW_RETURN_CLEARMODEL "")
+SET(DOCSTRINGRAW_PARAMETERS_CLEARMODEL)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CLEARMODEL)
+SET(DOCSTRINGRAW_EXAMPLES_CLEARMODEL "")
+
+
+# ======== getFunctionsInModel ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETFUNCTIONSINMODEL
+    "Gets all functions names.")
+SET(DOCSTRINGRAW_RETURN_GETFUNCTIONSINMODEL "a list of function name")
+SET(DOCSTRINGRAW_PARAMETERS_GETFUNCTIONSINMODEL)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETFUNCTIONSINMODEL)
+SET(DOCSTRINGRAW_EXAMPLES_GETFUNCTIONSINMODEL "")
+
+
+# ======== getObserverParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETOBSERVERPARAM
+    "Returns an observer parameter value.")
+SET(DOCSTRINGRAW_RETURN_GETOBSERVERPARAM "the parameter value")
+SET(DOCSTRINGRAW_PARAMETERS_GETOBSERVERPARAM
+    "ObsID      -- the observer id"
+    "ParamName  -- the name of the parameter")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETOBSERVERPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_GETOBSERVERPARAM "")
+
+
+# ======== setObserverParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETOBSERVERPARAM
+    "Sets an observer parameter value.")
+SET(DOCSTRINGRAW_RETURN_SETOBSERVERPARAM "")
+SET(DOCSTRINGRAW_PARAMETERS_SETOBSERVERPARAM
+    "ObsID      -- the observer id"
+    "ParamName  -- the name of the parameter"
+    "ParamValue  -- the parameter value")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETOBSERVERPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_SETOBSERVERPARAM "")
+
+
+# ======== removeObserverParam ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEOBSERVERPARAM
+    "Sets an observer parameter value.")
+SET(DOCSTRINGRAW_RETURN_REMOVEOBSERVERPARAM "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEOBSERVERPARAM
+    "ObsID      -- the observer id"
+    "ParamName  -- the name of the parameter")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEOBSERVERPARAM)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEOBSERVERPARAM "")
+
+
+# ======== getObserverParams ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETOBSERVERPARAMS
+    "Gets all observer parameters name.")
+SET(DOCSTRINGRAW_RETURN_GETOBSERVERPARAMS "a list of observer parameters name")
+SET(DOCSTRINGRAW_PARAMETERS_GETOBSERVERPARAMS
+    "ObsID      -- the observer id")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETOBSERVERPARAMS)
+SET(DOCSTRINGRAW_EXAMPLES_GETOBSERVERPARAMS "")
+
+
+# ======== addObserver ========
+SET(DOCSTRINGRAW_DESCRIPTION_ADDOBSERVER
+    "Adds an observer.")
+SET(DOCSTRINGRAW_RETURN_ADDOBSERVER "")
+SET(DOCSTRINGRAW_PARAMETERS_ADDOBSERVER
+    "ObsID      -- the observer id")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_ADDOBSERVER)
+SET(DOCSTRINGRAW_EXAMPLES_ADDOBSERVER "")
+
+
+# ======== removeObserver ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEOBSERVER
+    "Removes an observer.")
+SET(DOCSTRINGRAW_RETURN_REMOVEOBSERVER "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEOBSERVER
+    "ObsID      -- the observer id")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEOBSERVER)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEOBSERVER "")
+
+
+# ======== clearMonitoring ========
+SET(DOCSTRINGRAW_DESCRIPTION_CLEARMONITORING
+    "Removes all observers.")
+SET(DOCSTRINGRAW_RETURN_CLEARMONITORING "")
+SET(DOCSTRINGRAW_PARAMETERS_CLEARMONITORING)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CLEARMONITORING)
+SET(DOCSTRINGRAW_EXAMPLES_CLEARMONITORING "")
+
+
+# ======== getObserversInMonitoring ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETOBSERVERSINMONITORING
+    "Gets all observer name.")
+SET(DOCSTRINGRAW_RETURN_GETOBSERVERSINMONITORING "a list of observer name")
+SET(DOCSTRINGRAW_PARAMETERS_GETOBSERVERSINMONITORING)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETOBSERVERSINMONITORING)
+SET(DOCSTRINGRAW_EXAMPLES_GETOBSERVERSINMONITORING "")
+
+
+# ======== getUnitsClasses ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETUNITSCLASSES
+    "Returns the existing units classes.")
+SET(DOCSTRINGRAW_RETURN_GETUNITSCLASSES "a list of units classes")
+SET(DOCSTRINGRAW_PARAMETERS_GETUNITSCLASSES)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETUNITSCLASSES)
+SET(DOCSTRINGRAW_EXAMPLES_GETUNITSCLASSES "")
+
+
+# ======== getUnitsIDs ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETUNITSIDS
+    "Returns the existing units IDs for a given units class.")
+SET(DOCSTRINGRAW_RETURN_GETUNITSIDS "a list of units IDs")
+SET(DOCSTRINGRAW_PARAMETERS_GETUNITSIDS
+    "UnitClass  -- the unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETUNITSIDS)
+SET(DOCSTRINGRAW_EXAMPLES_GETUNITSIDS "")
+
+
+# ======== addUnit ========
+SET(DOCSTRINGRAW_DESCRIPTION_ADDUNIT
+    "Adds an new unit.")
+SET(DOCSTRINGRAW_RETURN_ADDUNIT "")
+SET(DOCSTRINGRAW_PARAMETERS_ADDUNIT
+    "UnitClass  -- an unit class"
+    "UnitID     -- an new unit id for this unit class"
+    "PcsOrder   -- a process order")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_ADDUNIT)
+SET(DOCSTRINGRAW_EXAMPLES_ADDUNIT "")
+
+
+# ======== removeUnit ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEUNIT
+    "Removes an unit.")
+SET(DOCSTRINGRAW_RETURN_REMOVEUNIT "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEUNIT
+    "UnitClass  -- an unit class"
+    "UnitID     -- an unit id for this unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEUNIT)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEUNIT "")
+
+
+# ======== clearAllUnits ========
+SET(DOCSTRINGRAW_DESCRIPTION_CLEARALLUNITS
+    "Removes all units from an unit class or all units in the domain.")
+SET(DOCSTRINGRAW_RETURN_CLEARALLUNITS "")
+SET(DOCSTRINGRAW_PARAMETERS_CLEARALLUNITS
+    "UnitClass  -- an unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CLEARALLUNITS)
+SET(DOCSTRINGRAW_EXAMPLES_CLEARALLUNITS "")
+
+
+# ======== setUnitProcessOrder ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETUNITPROCESSORDER
+    "Sets the process order of an unit.")
+SET(DOCSTRINGRAW_RETURN_SETUNITPROCESSORDER "")
+SET(DOCSTRINGRAW_PARAMETERS_SETUNITPROCESSORDER
+    "UnitClass  -- an unit class"
+    "UnitID     -- an unit id for this unit class"
+    "PcsOrder   -- a process order")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETUNITPROCESSORDER)
+SET(DOCSTRINGRAW_EXAMPLES_SETUNITPROCESSORDER "")
+
+
+# ======== getUnitProcessOrder ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETUNITPROCESSORDER
+    "Gets the process order of an unit.")
+SET(DOCSTRINGRAW_RETURN_GETUNITPROCESSORDER "the process order")
+SET(DOCSTRINGRAW_PARAMETERS_GETUNITPROCESSORDER
+    "UnitClass  -- an unit class"
+    "UnitID     -- an unit id for this unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETUNITPROCESSORDER)
+SET(DOCSTRINGRAW_EXAMPLES_GETUNITPROCESSORDER "")
+
+
+# ======== getUnitChildren ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETUNITCHILDREN
+    "Gets children units of an unit.")
+SET(DOCSTRINGRAW_RETURN_GETUNITCHILDREN
+    "a list of tuple of units classes and units")
+SET(DOCSTRINGRAW_PARAMETERS_GETUNITCHILDREN
+    "UnitClass  -- an unit class"
+    "UnitID     -- an unit id for this unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETUNITCHILDREN)
+SET(DOCSTRINGRAW_EXAMPLES_GETUNITCHILDREN "")
+
+
+# ======== getUnitParents ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETUNITPARENTS
+    "Gets parents units of an unit.")
+SET(DOCSTRINGRAW_RETURN_GETUNITPARENTS
+    "a list of tuple of units classes and units")
+SET(DOCSTRINGRAW_PARAMETERS_GETUNITPARENTS
+    "UnitClass  -- an unit class"
+    "UnitID     -- an unit id for this unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETUNITPARENTS)
+SET(DOCSTRINGRAW_EXAMPLES_GETUNITPARENTS "")
+
+
+# ======== addParentChildConnection ========
+SET(DOCSTRINGRAW_DESCRIPTION_ADDPARENTCHILDCONNECTION
+    "Adds a child on an unit.")
+SET(DOCSTRINGRAW_RETURN_ADDPARENTCHILDCONNECTION "")
+SET(DOCSTRINGRAW_PARAMETERS_ADDPARENTCHILDCONNECTION
+    "UnitClassParent  -- an unit class (parent)"
+    "UnitIDParent     -- an unit id (parent)"
+    "UnitClassChild   -- an unit class (child)"
+    "UnitIDChild      -- an unit id (child)")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_ADDPARENTCHILDCONNECTION)
+SET(DOCSTRINGRAW_EXAMPLES_ADDPARENTCHILDCONNECTION "")
+
+
+# ======== removeParentChildConnection ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEPARENTCHILDCONNECTION
+    "Removes a child on an unit.")
+SET(DOCSTRINGRAW_RETURN_REMOVEPARENTCHILDCONNECTION "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEPARENTCHILDCONNECTION
+    "UnitClassParent  -- an unit class (parent)"
+    "UnitIDParent     -- an unit id (parent)"
+    "UnitClassChild   -- an unit class (child)"
+    "UnitIDChild      -- an unit id (child)")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEPARENTCHILDCONNECTION)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEPARENTCHILDCONNECTION "")
+
+
+# ======== getUnitTos ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETUNITTOS
+    "Gets tos units of an unit.")
+SET(DOCSTRINGRAW_RETURN_GETUNITTOS
+    "a list of tuple of units classes and units")
+SET(DOCSTRINGRAW_PARAMETERS_GETUNITTOS
+    "UnitClass  -- an unit class"
+    "UnitID     -- an unit id for this unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETUNITTOS)
+SET(DOCSTRINGRAW_EXAMPLES_GETUNITTOS "")
+
+
+# ======== getUnitTos ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETUNITFROMS
+    "Gets froms units of an unit.")
+SET(DOCSTRINGRAW_RETURN_GETUNITFROMS
+    "a list of tuple of units classes and units")
+SET(DOCSTRINGRAW_PARAMETERS_GETUNITFROMS
+    "UnitClass  -- an unit class"
+    "UnitID     -- an unit id for this unit class")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETUNITFROMS)
+SET(DOCSTRINGRAW_EXAMPLES_GETUNITFROMS "")
+
+
+# ======== addFromToConnection ========
+SET(DOCSTRINGRAW_DESCRIPTION_ADDFROMTOCONNECTION
+    "Adds a from/to connection.")
+SET(DOCSTRINGRAW_RETURN_ADDFROMTOCONNECTION "")
+SET(DOCSTRINGRAW_PARAMETERS_ADDFROMTOCONNECTION
+    "UnitClassFrom  -- an unit class (from)"
+    "UnitIDFrom     -- an unit id (from)"
+    "UnitClassTo    -- an unit class (child)"
+    "UnitIDTo       -- an unit id (to)")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_ADDFROMTOCONNECTION)
+SET(DOCSTRINGRAW_EXAMPLES_ADDFROMTOCONNECTION "")
+
+
+# ======== removeFromToConnection ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEFROMTOCONNECTION
+    "Removes a from/to connection.")
+SET(DOCSTRINGRAW_RETURN_REMOVEFROMTOCONNECTION "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEFROMTOCONNECTION
+    "UnitClassFrom  -- an unit class (from)"
+    "UnitIDFrom     -- an unit id (from)"
+    "UnitClassTo   -- an unit class (to)"
+    "UnitIDTo      -- an unit id (to)")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEFROMTOCONNECTION)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEFROMTOCONNECTION "")
+
+
+# ======== createInputData ========
+SET(DOCSTRINGRAW_DESCRIPTION_CREATEINPUTDATA
+    "Creates an inputdata for alla spatial units of a class, initialized with a default value.")
+SET(DOCSTRINGRAW_RETURN_CREATEINPUTDATA "")
+SET(DOCSTRINGRAW_PARAMETERS_CREATEINPUTDATA
+    "UnitClass  -- the unit class"
+    "IDataName  -- the inputdata name"
+    "IDataVal   -- the default inputdata value for alla units")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CREATEINPUTDATA)
+SET(DOCSTRINGRAW_EXAMPLES_CREATEINPUTDATA "")
+
+
+# ======== getInputData ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETINPUTDATA
+    "Returns an inputdata value for a given spatial unit.")
+SET(DOCSTRINGRAW_RETURN_GETINPUTDATA "the inputdata value")
+SET(DOCSTRINGRAW_PARAMETERS_GETINPUTDATA
+    "UnitClass  -- the unit class"
+    "UnitID     -- the unit"
+    "IDataName  -- the name of the inputdata")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETINPUTDATA)
+SET(DOCSTRINGRAW_EXAMPLES_GETINPUTDATA "")
+
+
+# ======== setInputData ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETINPUTDATA
+    "Sets an inputdata value for a given spatial unit.")
+SET(DOCSTRINGRAW_RETURN_SETINPUTDATA "")
+SET(DOCSTRINGRAW_PARAMETERS_SETINPUTDATA
+    "UnitClass  -- the unit class"
+    "UnitID     -- the unit"
+    "IDataName  -- the name of the inputdata"
+    "IDataVal   -- the value of the inputdata")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETINPUTDATA)
+SET(DOCSTRINGRAW_EXAMPLES_SETINPUTDATA "")
+
+
+# ======== setInputData ========
+SET(DOCSTRINGRAW_DESCRIPTION_REMOVEINPUTDATA
+    "Removes an inputdata value for a given spatial unit.")
+SET(DOCSTRINGRAW_RETURN_REMOVEINPUTDATA "")
+SET(DOCSTRINGRAW_PARAMETERS_REMOVEINPUTDATA
+    "UnitClass  -- the unit class"
+    "IDataName  -- the name of the inputdata")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEINPUTDATA)
+SET(DOCSTRINGRAW_EXAMPLES_REMOVEINPUTDATA "")
+
+
+# ======== openDataset ========
+SET(DOCSTRINGRAW_DESCRIPTION_OPENDATASET
+    "Opens a dataset.")
+SET(DOCSTRINGRAW_RETURN_OPENDATASET "")
+SET(DOCSTRINGRAW_PARAMETERS_OPENDATASET
+    "Path  -- the full path of the dataset to open")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_OPENDATASET)
+SET(DOCSTRINGRAW_EXAMPLES_OPENDATASET "")
+
+
+# ======== openProject ========
+SET(DOCSTRINGRAW_DESCRIPTION_OPENPROJECT
+    "Opens an existing project.")
+SET(DOCSTRINGRAW_RETURN_OPENPROJECT "")
+SET(DOCSTRINGRAW_PARAMETERS_OPENPROJECT
+    "Path  -- the full path of the project to open")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_OPENPROJECT)
+SET(DOCSTRINGRAW_EXAMPLES_OPENPROJECT "")
+
+
+# ======== saveDataset ========
+SET(DOCSTRINGRAW_DESCRIPTION_SAVEDATASET
+    "Saves a dataset in a directory.")
+SET(DOCSTRINGRAW_RETURN_SAVEDATASET "")
+SET(DOCSTRINGRAW_PARAMETERS_SAVEDATASET
+    "Path  -- the output directory")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SAVEDATASET)
+SET(DOCSTRINGRAW_EXAMPLES_SAVEDATASET "")
+
+
+# ======== saveProject ========
+SET(DOCSTRINGRAW_DESCRIPTION_SAVEPROJECT
+    "Saves a project in a directory.")
+SET(DOCSTRINGRAW_RETURN_SAVEPROJECT "")
+SET(DOCSTRINGRAW_PARAMETERS_SAVEPROJECT
+    "Path  -- the output directory")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SAVEPROJECT)
+SET(DOCSTRINGRAW_EXAMPLES_SAVEPROJECT "")
+
+
+# ======== setCurrentOutputDir ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETCURRENTOUTPUTDIR
+    "Sets the current output directory for simulations.")
+SET(DOCSTRINGRAW_RETURN_SETCURRENTOUTPUTDIR "")
+SET(DOCSTRINGRAW_PARAMETERS_SETCURRENTOUTPUTDIR
+    "Path  -- the output directory path")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETCURRENTOUTPUTDIR)
+SET(DOCSTRINGRAW_EXAMPLES_SETCURRENTOUTPUTDIR "")
+
+
+# ======== getCurrentOutputDir ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETCURRENTOUTPUTDIR
+    "Gets the current output directory for simulations.")
+SET(DOCSTRINGRAW_RETURN_GETCURRENTOUTPUTDIR "the output directory path")
+SET(DOCSTRINGRAW_PARAMETERS_GETCURRENTOUTPUTDIR)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETCURRENTOUTPUTDIR)
+SET(DOCSTRINGRAW_EXAMPLES_GETCURRENTOUTPUTDIR "")
+
+
+# ======== getDefaultDeltaT ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETDEFAULTDELTAT
+    "Returns the default simulation time step.")
+SET(DOCSTRINGRAW_RETURN_GETDEFAULTDELTAT "the time step value in seconds")
+SET(DOCSTRINGRAW_PARAMETERS_GETDEFAULTDELTAT)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETDEFAULTDELTAT)
+SET(DOCSTRINGRAW_EXAMPLES_GETDEFAULTDELTAT "")
+
+
+# ======== setDefaultDeltaT ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETDEFAULTDELTAT
+    "Sets the default simulation time step.")
+SET(DOCSTRINGRAW_RETURN_SETDEFAULTDELTAT "")
+SET(DOCSTRINGRAW_PARAMETERS_SETDEFAULTDELTAT
+    "DefaultDeltaT  -- the time step value in seconds")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETDEFAULTDELTAT)
+SET(DOCSTRINGRAW_EXAMPLES_GETDEFAULTDELTAT "")
+
+
+# ======== getPeriodBeginDate ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETPERIODBEGINDATE
+    "Returns the simulation period begin date.")
+SET(DOCSTRINGRAW_RETURN_GETPERIODBEGINDATE
+    "the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
+SET(DOCSTRINGRAW_PARAMETERS_GETPERIODBEGINDATE)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETPERIODBEGINDATE)
+SET(DOCSTRINGRAW_EXAMPLES_GETPERIODBEGINDATE "")
+
+
+# ======== getPeriodEndDate ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETPERIODENDDATE
+    "Returns the simulation period end date.")
+SET(DOCSTRINGRAW_RETURN_GETPERIODENDDATE
+    "the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
+SET(DOCSTRINGRAW_PARAMETERS_GETPERIODENDDATE)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETPERIODENDDATE)
+SET(DOCSTRINGRAW_EXAMPLES_GETPERIODENDDATE "")
+
+
+# ======== setPeriodBeginDate ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETPERIODBEGINDATE
+    "Sets the simulation period begin date.")
+SET(DOCSTRINGRAW_RETURN_SETPERIODBEGINDATE "")
+SET(DOCSTRINGRAW_PARAMETERS_SETPERIODBEGINDATE
+    "BeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETPERIODBEGINDATE)
+SET(DOCSTRINGRAW_EXAMPLES_SETPERIODBEGINDATE "")
+
+
+# ======== setPeriodEndDate ========
+SET(DOCSTRINGRAW_DESCRIPTION_SETPERIODENDDATE
+    "Sets the simulation period end date.")
+SET(DOCSTRINGRAW_RETURN_SETPERIODENDDATE "")
+SET(DOCSTRINGRAW_PARAMETERS_SETPERIODENDDATE
+    "EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SETPERIODENDDATE)
+SET(DOCSTRINGRAW_EXAMPLES_SETPERIODENDDATE "")
+
+
+# ======== runProject ========
+SET(DOCSTRINGRAW_DESCRIPTION_RUNPROJECT "Runs an existing project.")
+SET(DOCSTRINGRAW_RETURN_RUNPROJECT "")
+SET(DOCSTRINGRAW_PARAMETERS_RUNPROJECT
+    "Path  -- the full path of the project to open")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_RUNPROJECT)
+SET(DOCSTRINGRAW_EXAMPLES_RUNPROJECT "")
+
+
+# ======== runSimulation ========
+SET(DOCSTRINGRAW_DESCRIPTION_RUNSIMULATION
+    "Runs a simulation from a simulation definition class (self).")
+SET(DOCSTRINGRAW_RETURN_RUNSIMULATION
+    "True if the simulation is runned without problems, False otherwise")
+SET(DOCSTRINGRAW_PARAMETERS_RUNSIMULATION)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_RUNSIMULATION)
+SET(DOCSTRINGRAW_EXAMPLES_RUNSIMULATION "")
+
+
+# ======== getStr ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETSTR "Return a description of the class.")
+SET(DOCSTRINGRAW_RETURN_GETSTR "A string representation of the class.")
+SET(DOCSTRINGRAW_PARAMETERS_GETSTR)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETSTR)
+SET(DOCSTRINGRAW_EXAMPLES_GETSTR "
 >>> obj = PyOpenFLUID()
 >>> info = str(obj)")
 
 
-SET(DOCSTRINGRAW_ADDEXTRAFUNCTIONSPATHS
-"Adds paths to search for simulation functions.
-
-Keyword arguments:
-Paths  -- the semicolon separated paths to add")
-
-
-SET(DOCSTRINGRAW_RESETEXTRAFUNCTIONSPATHS
-"Reset paths to search for simulation functions.")
-
-
-SET(DOCSTRINGRAW_GETEXTRAFUNCTIONSPATHS
-"Returns the added paths to search for simulation functions.
-
-Returns:
-a list of Paths")
-
-
-SET(DOCSTRINGRAW_ADDEXTRAOBSERVERSPATHS
-"Adds paths to search for observers.
-
-Keyword arguments:
-Paths  -- the semicolon separated paths to add")
-
-
-SET(DOCSTRINGRAW_RESETEXTRAOBSERVERSPATHS
-"Reset paths to search for observers.")
-
-
-SET(DOCSTRINGRAW_GETEXTRAOBSERVERSPATHS
-"Returns the added paths to search for observers.
-
-Returns:
-a list of Paths")
-
-
-SET(DOCSTRINGRAW_PRINTSIMULATIONINFO
-"Prints informations to screen about simulation definition class (self).")
-
-
-SET(DOCSTRINGRAW_GETFUNCTIONPARAM
-"Returns a function parameter value.
-
-Keyword arguments:
-FunID      -- the simulation function id
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value")
-
-
-SET(DOCSTRINGRAW_SETFUNCTIONPARAM
-"Sets a function parameter value.
-
-Keyword arguments:
-FunID        -- the simulation function id
-ParamName    -- the name of the parameter
-ParamValue   -- the parameter value")
-
-
-SET(DOCSTRINGRAW_REMOVEFUNCTIONPARAM
-"Removes a function parameter value.
-
-Keyword arguments:
-FunID        -- the simulation function id
-ParamName    -- the name of the parameter")
-
-
-SET(DOCSTRINGRAW_GETFUNCTIONPARAMS
-"Returns all functions parameters.
-
-Keyword arguments:
-FunID      -- the simulation function id
-
-Returns:
-a list of parameter")
-
-
-SET(DOCSTRINGRAW_GETGENERATORPARAM
-"Returns a generator parameter value.
-
-Keyword arguments:
-UnitClass  -- the unit class to which the generator is applied
-VarName    -- the variable name to which the generator is applied
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value")
-
-
-SET(DOCSTRINGRAW_SETGENERATORPARAM
-"Sets a generator parameter value.
-
-Keyword arguments:
-UnitClass   -- the unit class to which the generator is applied
-VarName     -- the variable name to which the generator is applied
-ParamName   -- the name of the parameter
-ParamValue  -- the parameter value")
-
-
-SET(DOCSTRINGRAW_GETMODELGLOBALPARAM
-"Returns a model global parameter value.
-
-Keyword arguments:
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value")
-
-
-SET(DOCSTRINGRAW_SETMODELGLOBALPARAM
-"Sets a model global parameter value.
-
-Keyword arguments:
-ParamName   -- the name of the parameter
-ParamValue  -- the parameter value")
-
-
-SET(DOCSTRINGRAW_REMOVEMODELGLOBALPARAM
-"Returns all model global parameter.
-
-Keyword arguments:
-ParamName   -- the name of the parameter")
-
-
-SET(DOCSTRINGRAW_GETMODELGLOBALPARAMS
-"Returns all model global parameter.
-
-Returns:
-a list of parameter name.")
-
-
-SET(DOCSTRINGRAW_ADDFUNCTION
-"Adds a function.
-
-Keyword arguments:
-FuncID   -- the simulation function id")
-
-
-SET(DOCSTRINGRAW_REMOVEFUNCTION
-"Removes a function.
-
-Keyword arguments:
-FuncID   -- the simulation function id")
-
-
-SET(DOCSTRINGRAW_CLEARMODEL
-"Removes all functions.")
-
-
-SET(DOCSTRINGRAW_GETFUNCTIONSINMODEL
-"Gets all functions names.
-
-Returns:
-a list of function name")
-
-
-SET(DOCSTRINGRAW_GETOBSERVERPARAM
-"Returns an observer parameter value.
-
-Keyword arguments:
-ObsID      -- the observer id
-ParamName  -- the name of the parameter
-
-Returns:
-the parameter value")
-
-
-SET(DOCSTRINGRAW_SETOBSERVERPARAM
-"Sets an observer parameter value.
-
-Keyword arguments:
-ObsID       -- the observer id
-ParamName   -- the name of the parameter
-ParamValue  -- the parameter value")
-
-
-SET(DOCSTRINGRAW_REMOVEOBSERVERPARAM
-"Removes an observer parameter.
-
-Keyword arguments:
-ObsID       -- the observer id
-ParamName   -- the name of the parameter")
-
-
-SET(DOCSTRINGRAW_GETOBSERVERPARAMS
-"Gets all observer parameters name.
-
-Keyword arguments:
-ObsID       -- the observer id
-
-Returns:
-a list of observer parameters name.")
-
-
-SET(DOCSTRINGRAW_ADDOBSERVER
-"Adds an observer.
-
-Keyword arguments:
-ObsID       -- the observer id")
-
-
-SET(DOCSTRINGRAW_REMOVEOBSERVER
-"Removes an observer.
-
-Keyword arguments:
-ObsID       -- the observer id")
-
-
-SET(DOCSTRINGRAW_CLEARMONITORING
-"Removes all observers.")
-
-
-SET(DOCSTRINGRAW_GETOBSERVERSINMONITORING
-"Gets all observer name.
-
-Returns:
-a list of observer name")
-
-
-SET(DOCSTRINGRAW_GETUNITSCLASSES
-"Returns the existing units classes.
-
-Returns:
-a list of units classes")
-
-
-SET(DOCSTRINGRAW_GETUNITSIDS
-"Returns the existing units IDs for a given units class.
-
-Keyword arguments:
-UnitClass  -- the unit class
-
-Returns:
-a list of units IDs")
-
-
-SET(DOCSTRINGRAW_ADDUNIT
-"Adds an new unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an new unit id for this unit class
-PcsOrder   -- a process order")
-
-
-SET(DOCSTRINGRAW_REMOVEUNIT
-"Removes an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class")
-
-
-SET(DOCSTRINGRAW_CLEARALLUNITS
-"Removes all units from an unit class or all units in the domain.
-
-Optional arguments:
-UnitClass  -- an unit class")
-
-
-SET(DOCSTRINGRAW_SETUNITPROCESSORDER
-"Sets the process order of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-PcsOrder   -- a process order")
-
-
-SET(DOCSTRINGRAW_GETUNITPROCESSORDER
-"Gets the process order of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-
-Returns:
-the process order")
-
-
-SET(DOCSTRINGRAW_GETUNITCHILDREN
-"Gets children units of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-
-Returns:
-a list of tuple of units classes and units")
-
-
-SET(DOCSTRINGRAW_GETUNITPARENTS
-"Gets parents units of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-
-Returns:
-a list of tuple of units classes and units")
-
-
-SET(DOCSTRINGRAW_ADDPARENTCHILDCONNECTION
-"Adds a child on an unit.
-
-Keyword arguments:
-UnitClassParent  -- an unit class (parent)
-UnitIDParent     -- an unit id (parent)
-UnitClassChild   -- an unit class (child)
-UnitIDChild      -- an unit id (child)")
-
-
-SET(DOCSTRINGRAW_REMOVEPARENTCHILDCONNECTION
-"Removes a child of an unit.
-
-Keyword arguments:
-UnitClassParent  -- an unit class (parent)
-UnitIDParent     -- an unit id (parent)
-UnitClassChild   -- an unit class (child)
-UnitIDChild      -- an unit id (child)")
-
-
-SET(DOCSTRINGRAW_CREATEINPUTDATA
-"Creates an inputdata for alla spatial units of a class, initialized with a default value.
-
-Keyword arguments:
-UnitClass  -- the unit class
-IDataName  -- the inputdata name
-IDataVal   -- the default inputdata value for alla units")
-
-
-SET(DOCSTRINGRAW_GETINPUTDATA
-"Returns an inputdata value for a given spatial unit.
-
-Keyword arguments:
-UnitClass  -- the unit class
-UnitID     -- the unit
-IDataName  -- the name of the inputdata
-
-Returns:
-the inputdata value")
-
-
-SET(DOCSTRINGRAW_SETINPUTDATA
-"Sets an inputdata value for a given spatial unit.
-
-Keyword arguments:
-UnitClass  -- the unit class
-UnitID     -- the unit ID
-IDataName  -- the name of the inputdata
-IDataVal   -- the value of the inputdata")
-
-
-SET(DOCSTRINGRAW_REMOVEINPUTDATA
-"Removes an inputdata value for a given spatial unit.
-
-Keyword arguments:
-UnitClass  -- the unit class
-IDataName  -- the name of the inputdata")
-
-
-SET(DOCSTRINGRAW_OPENDATASET
-"Opens a dataset.
-
-Keyword arguments:
-Path  -- the full path of the dataset to open")
-
-
-SET(DOCSTRINGRAW_OPENPROJECT
-"Opens an existing project.
-
-Keyword arguments:
-Path  -- the full path of the project to open")
-
-
-SET(DOCSTRINGRAW_SETCURRENTOUTPUTDIR
-"Sets the current output directory for simulations.
-
-Keyword arguments:
-Path  -- the output directory path")
-
-
-SET(DOCSTRINGRAW_GETCURRENTOUTPUTDIR
-"Gets the current output directory for simulations.
-
-Returns:
-the output directory path")
-
-
-SET(DOCSTRINGRAW_GETDEFAULTDELTAT
-"Returns the simulation time step.
-
-Returns:
-the time step value in seconds")
-
-
-SET(DOCSTRINGRAW_SETDEFAULTDELTAT
-"Sets the simulation time step.
-
-Keyword arguments:
-DefaultDeltaT  -- the time step value in seconds")
-
-
-SET(DOCSTRINGRAW_GETPERIODBEGINDATE
-"Returns the simulation period begin date.
-
-Returns:
-the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
-
-
-SET(DOCSTRINGRAW_GETPERIODENDDATE
-"Returns the simulation period end date.
-
-Returns:
-the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
-
-
-SET(DOCSTRINGRAW_SETPERIODBEGINDATE
-"Sets the simulation period begin date.
-
-  Keyword arguments:
-  BeginDate  -- the begin date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
-
-
-SET(DOCSTRINGRAW_SETPERIODENDDATE
-"Sets the simulation period end date.
-
-Keyword arguments:
-EndDate  -- the end date as an ISO datetime string (%Y-%m-%d %H:%M:%S)")
-
-
-SET(DOCSTRINGRAW_RUNPROJECT
-"Runs an existing project.
-
-Keyword arguments:
-Path  -- the full path of the project to open")
-
-
-SET(DOCSTRINGRAW_RUNSIMULATION
-"Runs a simulation from a simulation definition class (self).
-
-Returns:
-True if the simulation is runned without problems, False otherwise")
-
-
-SET(DOCSTRINGRAW_GETSTR
-"Return a description of the class.
-
-Returns:
-A string representation of the class.
-
-Examples:
->>> obj = PyOpenFLUID()
->>> info = str(obj)")
-
-
-SET(DOCSTRINGRAW_CONSTRUCTOR
-"Create an OpenFLUID class.")
-
-
-SET(DOCSTRINGRAW_GETUNITTOS
-"Gets tos units of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-
-Returns:
-a list of tuple of units classes and units")
-
-
-SET(DOCSTRINGRAW_GETUNITFROMS
-"Gets froms units of an unit.
-
-Keyword arguments:
-UnitClass  -- an unit class
-UnitID     -- an unit id for this unit class
-
-Returns:
-a list of tuple of units classes and units")
-
-
-SET(DOCSTRINGRAW_ADDFROMTOCONNECTION
-"Adds a from/to connection.
-
-Keyword arguments:
-UnitClassFrom   -- an unit class (from)
-UnitIDFrom      -- an unit id (from)
-UnitClassTo     -- an unit class (to)
-UnitIDTo        -- an unit id (to)")
-
-
-SET(DOCSTRINGRAW_REMOVEFROMTOCONNECTION
-"Removes a from/to connection.
-
-Keyword arguments:
-UnitClassFrom   -- an unit class (from)
-UnitIDFrom      -- an unit id (from)
-UnitClassTo     -- an unit class (to)
-UnitIDTo        -- an unit id (to)")
-
-
-SET(DOCSTRINGRAW_GETMODELITEMS
-"Gets an ordered list of functions and generators id.
-
-Returns:
-a list of id")
-
-
-SET(DOCSTRINGRAW_SAVEDATASET
-"Saves a dataset in a directory
-
-Keyword arguments:
-Path   -- the output directory")
-
-
-SET(DOCSTRINGRAW_SAVEPROJECT
-"Saves a project in a directory
-
-Keyword arguments:
-Path   -- the output directory")
-
-
-# list of function
-SET(DOCSTRING_ALL_FUNCTION GETVERSION PRINTSIMULATIONINFO
+# ======== constructor ========
+SET(DOCSTRINGRAW_DESCRIPTION_CONSTRUCTOR "Create an OpenFLUID class.")
+SET(DOCSTRINGRAW_RETURN_CONSTRUCTOR "")
+SET(DOCSTRINGRAW_PARAMETERS_CONSTRUCTOR)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CONSTRUCTOR)
+SET(DOCSTRINGRAW_EXAMPLES_CONSTRUCTOR "")
+
+
+# ======== getModelItems ========
+SET(DOCSTRINGRAW_DESCRIPTION_GETMODELITEMS
+    "Gets an ordered list of functions and generators id.")
+SET(DOCSTRINGRAW_RETURN_GETMODELITEMS "a list of id")
+SET(DOCSTRINGRAW_PARAMETERS_GETMODELITEMS)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETMODELITEMS)
+SET(DOCSTRINGRAW_EXAMPLES_GETMODELITEMS "")
+
+
+# list of function of simple method
+SET(DOCSTRING_ALL_FUNCTION_ADVANCED PRINTSIMULATIONINFO GETVERSION
 ADDEXTRAFUNCTIONSPATHS GETEXTRAFUNCTIONSPATHS RESETEXTRAFUNCTIONSPATHS
 ADDEXTRAOBSERVERSPATHS GETEXTRAOBSERVERSPATHS RESETEXTRAOBSERVERSPATHS
 GETFUNCTIONPARAM SETFUNCTIONPARAM REMOVEFUNCTIONPARAM GETFUNCTIONPARAMS
