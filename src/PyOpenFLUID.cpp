@@ -1142,7 +1142,7 @@ void PyOpenFLUID::clearAllUnits (boost::python::object UnitClass)
 // =====================================================================
 
 //TODO change replace operation
-void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
+void PyOpenFLUID::setProcessOrder (boost::python::object UnitClass,
                                        boost::python::object UnitID,
                                        boost::python::object PcsOrder)
 {
@@ -1173,7 +1173,7 @@ void PyOpenFLUID::setUnitProcessOrder (boost::python::object UnitClass,
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getUnitProcessOrder (
+boost::python::object PyOpenFLUID::getProcessOrder (
     boost::python::object UnitClass, boost::python::object UnitID)
 {
   boost::python::extract<std::string> getStringUnitClass(UnitClass);

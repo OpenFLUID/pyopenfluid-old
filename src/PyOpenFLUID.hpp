@@ -311,7 +311,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void setUnitProcessOrder (boost::python::object UnitClass,
+    void setProcessOrder (boost::python::object UnitClass,
                               boost::python::object UnitID,
                               boost::python::object PcsOrder);
 
@@ -320,7 +320,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    boost::python::object getUnitProcessOrder (boost::python::object UnitClass,
+    boost::python::object getProcessOrder (boost::python::object UnitClass,
                                                boost::python::object UnitID);
 
 

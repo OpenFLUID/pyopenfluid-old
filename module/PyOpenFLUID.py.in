@@ -1055,19 +1055,19 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_SETUNITPROCESSORDER@
+    ## @DOCSTRING_doxygen_SETPROCESSORDER@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitProcessOrder(\"SU\"\, 1) == 1}
-    #   @LineExSimple{obj.@HLImportant{setUnitProcessOrder}(\"SU\"\, 1\, 5)}
-    #   @LineExSimple{@HLReserv{assert} obj.getUnitProcessOrder(\"SU\"\, 1) == 5}
+    #   @LineExSimple{@HLReserv{assert} obj.getProcessOrder(\"SU\"\, 1) == 1}
+    #   @LineExSimple{obj.@HLImportant{setProcessOrder}(\"SU\"\, 1\, 5)}
+    #   @LineExSimple{@HLReserv{assert} obj.getProcessOrder(\"SU\"\, 1) == 5}
     # @EndExample
     #
-    def setUnitProcessOrder (self, UnitClass, UnitID, PcsOrder):
-        """@DOCSTRING_python_SETUNITPROCESSORDER@"""
-        return pyopenfluid.PyOpenFLUID.setUnitProcessOrder(self, UnitClass,
+    def setProcessOrder (self, UnitClass, UnitID, PcsOrder):
+        """@DOCSTRING_python_SETPROCESSORDER@"""
+        return pyopenfluid.PyOpenFLUID.setProcessOrder(self, UnitClass,
             UnitID, PcsOrder)
 
 
@@ -1075,19 +1075,19 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_GETUNITPROCESSORDER@
+    ## @DOCSTRING_doxygen_GETPROCESSORDER@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitProcessOrder}(\"SU\"\, 1) == 1}
-    #   @LineExSimple{obj.setUnitProcessOrder(\"SU\"\, 1\, 5)}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitProcessOrder}(\"SU\"\, 1) == 5}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getProcessOrder}(\"SU\"\, 1) == 1}
+    #   @LineExSimple{obj.setProcessOrder(\"SU\"\, 1\, 5)}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getProcessOrder}(\"SU\"\, 1) == 5}
     # @EndExample
     #
-    def getUnitProcessOrder (self, UnitClass, UnitID):
-        """@DOCSTRING_python_GETUNITPROCESSORDER@"""
-        return pyopenfluid.PyOpenFLUID.getUnitProcessOrder(self, UnitClass,
+    def getProcessOrder (self, UnitClass, UnitID):
+        """@DOCSTRING_python_GETPROCESSORDER@"""
+        return pyopenfluid.PyOpenFLUID.getProcessOrder(self, UnitClass,
             UnitID)
 
 
