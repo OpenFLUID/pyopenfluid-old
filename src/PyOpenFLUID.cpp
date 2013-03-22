@@ -1647,7 +1647,6 @@ void PyOpenFLUID::openDataset (boost::python::object Path)
   if (!getStringPath.check())
     throw PyOFException("needed string", PyExc_TypeError);
 
-  std::string StrError = std::string("");
   std::string StrPath = getStringPath();
 
   try
@@ -1701,7 +1700,6 @@ void PyOpenFLUID::openProject (boost::python::object Path)
   if (!getStringPath.check())
     throw PyOFException("needed string", PyExc_TypeError);
 
-  std::string StrError = std::string("");
   std::string StrPath = getStringPath();
 
   try
@@ -1931,8 +1929,6 @@ void PyOpenFLUID::runProject (boost::python::object Path)
 
 boost::python::object PyOpenFLUID::runSimulation ()
 {
-  std::string StrError("");
-
   try
   {
     openfluid::base::Init();
@@ -1946,7 +1942,6 @@ boost::python::object PyOpenFLUID::runSimulation ()
 
     openfluid::machine::Engine* Engine;
     openfluid::machine::SimulationBlob SBlob;
-    openfluid::base::RuntimeEnvironment* RunEnv;
     openfluid::machine::MachineListener* MachineListen =
         new openfluid::machine::MachineListener();
 

@@ -54,6 +54,7 @@ FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PATH}")
 #
 # Browsing
 #
+SET(CMAKE_CXX_FLAGS "-Wall")
 INCLUDE(PreparationDocCMake.cmake)
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(module)

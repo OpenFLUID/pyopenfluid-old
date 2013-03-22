@@ -6,7 +6,7 @@ namespace pyopenfluid {
 namespace tools {
 
 std::string stringFill (const std::string Input, const std::string StrFill,
-    int MaxLength)
+    unsigned int MaxLength)
 {
   std::string Res = std::string(Input);
   while (Res.length() < MaxLength)
@@ -19,7 +19,7 @@ std::string stringFill (const std::string Input, const std::string StrFill,
 // =====================================================================
 
 
-std::string zeroFill (const std::string Input, int MaxLength)
+std::string zeroFill (const std::string Input, unsigned int MaxLength)
 {
   return stringFill(Input, std::string("0"), MaxLength);
 }

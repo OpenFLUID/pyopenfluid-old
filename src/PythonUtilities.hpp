@@ -22,14 +22,14 @@ namespace pyopenfluid {
 namespace tools {
 
 std::string stringFill (const std::string Input, const std::string StrFill,
-    int MaxLength);
+    unsigned int MaxLength);
 
 
 // =====================================================================
 // =====================================================================
 
 
-std::string zeroFill (const std::string Input, int MaxLength);
+std::string zeroFill (const std::string Input, unsigned int MaxLength);
 
 } // tools
 
