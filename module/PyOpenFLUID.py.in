@@ -1280,8 +1280,8 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.removeInputData(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     def createInputData (self, UnitClass, IDataName, IDataVal):
@@ -1307,8 +1307,8 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.removeInputData(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 1\, \"area\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getInputData}(\"SU\"\, 2\, \"area\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     def getInputData (self, UnitClass, UnitID, IDataName):
@@ -1334,8 +1334,8 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.removeInputData(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     def setInputData (self, UnitClass, UnitID, IDataName, IDataVal):
@@ -1361,8 +1361,8 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") == \"162\"}
     #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") == \"1.0\"}
     #   @LineExSimple{obj.@HLImportant{removeInputData}(\"SU\"\, \"area\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 1\, \\"area\\") @HLReserv{is} @HLValue{None}}
-    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\\"SU\\"\, 2\, \\"area\\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 1\, \"area\") @HLReserv{is} @HLValue{None}}
+    #   @LineExSimple{@HLReserv{assert} obj.getInputData(\"SU\"\, 2\, \"area\") @HLReserv{is} @HLValue{None}}
     # @EndExample
     #
     def removeInputData (self, UnitClass, IDataName):

@@ -362,9 +362,9 @@ SET(DOCSTRINGRAW_EXAMPLES_REMOVEUNIT "")
 SET(DOCSTRINGRAW_DESCRIPTION_CLEARALLUNITS
     "Removes all units from an unit class or all units in the domain.")
 SET(DOCSTRINGRAW_RETURN_CLEARALLUNITS "")
-SET(DOCSTRINGRAW_PARAMETERS_CLEARALLUNITS
+SET(DOCSTRINGRAW_PARAMETERS_CLEARALLUNITS)
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CLEARALLUNITS
     "UnitClass  -- an unit class")
-SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CLEARALLUNITS)
 SET(DOCSTRINGRAW_EXAMPLES_CLEARALLUNITS "")
 
 
@@ -485,20 +485,20 @@ SET(DOCSTRINGRAW_RETURN_REMOVEFROMTOCONNECTION "")
 SET(DOCSTRINGRAW_PARAMETERS_REMOVEFROMTOCONNECTION
     "UnitClassFrom  -- an unit class (from)"
     "UnitIDFrom     -- an unit id (from)"
-    "UnitClassTo   -- an unit class (to)"
-    "UnitIDTo      -- an unit id (to)")
+    "UnitClassTo    -- an unit class (to)"
+    "UnitIDTo       -- an unit id (to)")
 SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_REMOVEFROMTOCONNECTION)
 SET(DOCSTRINGRAW_EXAMPLES_REMOVEFROMTOCONNECTION "")
 
 
 # ======== createInputData ========
 SET(DOCSTRINGRAW_DESCRIPTION_CREATEINPUTDATA
-    "Creates an inputdata for alla spatial units of a class, initialized with a default value.")
+    "Creates an inputdata for all spatial units of a class, initialized with a default value.")
 SET(DOCSTRINGRAW_RETURN_CREATEINPUTDATA "")
 SET(DOCSTRINGRAW_PARAMETERS_CREATEINPUTDATA
     "UnitClass  -- the unit class"
     "IDataName  -- the inputdata name"
-    "IDataVal   -- the default inputdata value for alla units")
+    "IDataVal   -- the default inputdata value for all units")
 SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_CREATEINPUTDATA)
 SET(DOCSTRINGRAW_EXAMPLES_CREATEINPUTDATA "")
 
@@ -681,8 +681,8 @@ SET(DOCSTRINGRAW_DESCRIPTION_GETSTR "Return a description of the class.")
 SET(DOCSTRINGRAW_RETURN_GETSTR "A string representation of the class.")
 SET(DOCSTRINGRAW_PARAMETERS_GETSTR)
 SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_GETSTR)
-SET(DOCSTRINGRAW_EXAMPLES_GETSTR "
->>> obj = PyOpenFLUID()
+SET(DOCSTRINGRAW_EXAMPLES_GETSTR
+">>> obj = PyOpenFLUID()
 >>> info = str(obj)")
 
 

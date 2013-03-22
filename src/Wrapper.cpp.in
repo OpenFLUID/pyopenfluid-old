@@ -712,7 +712,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("getPeriodBeginDate",
       &PyOpenFLUID::getPeriodBeginDate,
       ( boost::python::arg("self") ),
-      "@DOCSTRING_boost_GETPERDIODBEGINDATE@"
+      "@DOCSTRING_boost_GETPERIODBEGINDATE@"
     )
 
 
@@ -722,7 +722,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getPeriodEndDate", &PyOpenFLUID::getPeriodEndDate,
       ( boost::python::arg("self") ),
-      "@DOCSTRING_boost_GETPERDIODENDDATE@"
+      "@DOCSTRING_boost_GETPERIODENDDATE@"
     )
 
 
@@ -732,7 +732,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("setPeriodBeginDate", &PyOpenFLUID::setPeriodBeginDate,
       ( boost::python::arg("self"), boost::python::arg("BeginDate") ),
-      "@DOCSTRING_boost_SETPERDIODBEGINDATE@"
+      "@DOCSTRING_boost_SETPERIODBEGINDATE@"
     )
 
 
@@ -742,7 +742,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("setPeriodEndDate", &PyOpenFLUID::setPeriodEndDate,
       ( boost::python::arg("self"), boost::python::arg("EndDate") ),
-      "@DOCSTRING_boost_SETPERDIODENDDATE@"
+      "@DOCSTRING_boost_SETPERIODENDDATE@"
     )
 
 

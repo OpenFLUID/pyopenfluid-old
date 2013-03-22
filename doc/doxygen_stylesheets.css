@@ -957,15 +957,22 @@ dl.citelist dd {
 .example .ex_bloc
 {
   line-height : 120%;
-  padding : 3px 5px;
   margin-top : 3px;
   color : #333333;
   border-width : 1px medium;
   border-style : solid none;
   border-image : none;
-  border-color : #AACC99;
-  background : none repeat scroll 0 0 #EEFFCC;
 /*  letter-spacing : 0.8px;*/
+/* ---- style 1 ---- */
+  padding : 3px 5px;
+/*  border-color :  #AACC99;*/
+/*  background : none repeat scroll 0 0 #EEFFCC;*/
+/* ---- style 2 ---- */
+  padding : 6px 5px;
+  border-radius : 8px;
+  border-color : #222222;
+  background : none;
+  display : inline-block;
 }
 
 
