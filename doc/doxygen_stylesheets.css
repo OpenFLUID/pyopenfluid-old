@@ -951,14 +951,14 @@ dl.citelist dd {
 /* EXAMPLE */
 .example
 {
-  line-height : 130%;
-  text-align : justify;
+  margin-right : 5px;
 }
 
-.example .highlight
+.example .ex_bloc
 {
   line-height : 120%;
-  padding : 5px;
+  padding : 3px 5px;
+  margin-top : 3px;
   color : #333333;
   border-width : 1px medium;
   border-style : solid none;

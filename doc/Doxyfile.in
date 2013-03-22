@@ -233,8 +233,8 @@ SEARCHENGINE           = YES
 #---------------------------------------------------------------------------
 # Aliases for custom render
 #---------------------------------------------------------------------------
-ALIASES += StartExample="<div class='example'><div class='highlight'>"
-ALIASES += EndExample="</div></div>"
+ALIASES += StartExample="<dl class='example'><dt><b>Examples:</b></dt><dd class='ex_bloc'>"
+ALIASES += EndExample="</dd></dl>"
 
 ALIASES += LineExSimple{1}="<div><span class='gp'>&gt;&gt;&gt; </span><span class='n'>\1</span></div>"
 # => ">>> {0}" - bleu puis normal

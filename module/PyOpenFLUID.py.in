@@ -59,12 +59,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the OpenFLUID version.
     #
-    # Examples: @StartExample
+    # @return   the OpenFLUID version number
+    #
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{v = obj.@HLImportant{getVersion}()}
     # @EndExample
-    #
-    # @return   the OpenFLUID version number
     #
     def getVersion (self):
         """@DOCSTRING_python_GETVERSION@"""
@@ -78,7 +78,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Adds paths to search for simulation functions.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{addExtraFunctionsPaths}(\"/first/path/to/add\")}
     #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
@@ -105,7 +105,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Reset paths to search for simulation functions.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addExtraFunctionsPaths(\"/first/path/to/add\")}
     #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
@@ -130,7 +130,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the added paths to search for simulation functions.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addExtraFunctionsPaths(\"/first/path/to/add\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraFunctionsPaths}()}
@@ -157,7 +157,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Adds paths to search for observers.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{addExtraObserversPaths}(\"/first/path/to/add\")}
     #   @LineExSimple{@HLReserv{print} obj.getExtraObserversPaths()}
@@ -184,7 +184,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Reset paths to search for observers.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addExtraObserversPaths(\"/first/path/to/add\")}
     #   @LineExSimple{@HLReserv{print} obj.getExtraObserversPaths()}
@@ -209,7 +209,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the added paths to search for observers.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addExtraObserversPaths(\"/first/path/to/add\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraObserversPaths}()}
@@ -236,7 +236,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Prints informations to screen about simulation definition class (self).
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
     #   @LineExSimple{obj.@HLImportant{printSimulationInfo}()}
@@ -255,7 +255,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns a function parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParam}s(\"my.function\")}
@@ -289,7 +289,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets a function parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
     #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
@@ -323,7 +323,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes a function parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
     #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
@@ -354,7 +354,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns all functions parameters.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParams}(\"my.function\")}
@@ -387,7 +387,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns a generator parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{@LineExComment{obj.addGenerator(\"SU\"\\, \"var\")}}
@@ -414,7 +414,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets a generator parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{@LineExComment{obj.addGenerator(\"SU\"\\, \"var\")}}
@@ -440,7 +440,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns a model global parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParam}s()}
     #   @LineExResult{[]}
@@ -472,7 +472,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets a model global parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
     #   @LineExResult{[]}
@@ -504,7 +504,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns all model global parameter.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParams}()}
     #   @LineExResult{[]}
@@ -532,7 +532,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns all model global parameter.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
     #   @LineExResult{[]}
@@ -576,7 +576,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Adds a function.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
     #   @LineExResult{[]}
@@ -608,7 +608,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes a function.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
     #   @LineExResult{[]}
@@ -640,7 +640,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes all functions.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
     #   @LineExResult{[]}
@@ -670,7 +670,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Gets all functions names.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionsInModel}()}
     #   @LineExResult{[]}
@@ -702,7 +702,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns an observer parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParam}s(\"export.test.fake\")}
@@ -736,7 +736,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets an observer parameter value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
     #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
@@ -770,7 +770,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes an observer parameter.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
     #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
@@ -803,7 +803,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Gets all observer parameters name.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParams}(\"export.test.fake\")}
@@ -834,7 +834,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Adds an observer.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
     #   @LineExResult{[]}
@@ -866,7 +866,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes an observer.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
     #   @LineExResult{[]}
@@ -898,7 +898,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes all observers.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
     #   @LineExResult{[]}
@@ -928,7 +928,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Gets all observer name.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserversInMonitoring}()}
     #   @LineExResult{[]}
@@ -958,7 +958,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the existing units classes.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
     #   @LineExResult{[]}
@@ -1001,7 +1001,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the existing units IDs for a given units class.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[]}
@@ -1046,7 +1046,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Adds an new unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[]}
@@ -1092,7 +1092,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes an unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[]}
@@ -1137,7 +1137,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes all units from an unit class or all units in the domain.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
     #   @LineExResult{[]}
@@ -1180,7 +1180,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets the process order of an unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{@HLReserv{assert} obj.getUnitProcessOrder(\"SU\"\, 1) == 1}
@@ -1205,7 +1205,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Gets the process order of an unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitProcessOrder}(\"SU\"\, 1) == 1}
@@ -1305,7 +1305,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Gets children units of an unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1341,7 +1341,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Gets parents units of an unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1377,7 +1377,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Adds a child on an unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1414,7 +1414,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes a child of an unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1452,7 +1452,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # Creates an inputdata for alla spatial units of a class\,
     #  initialized with a default value.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1484,7 +1484,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns an inputdata value for a given spatial unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1518,7 +1518,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets an inputdata value for a given spatial unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1551,7 +1551,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Removes an inputdata value for a given spatial unit.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
@@ -1582,7 +1582,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Opens a dataset.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{openDataset}(\"/path/to/dataset\")}
     # @EndExample
@@ -1616,7 +1616,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Opens an existing project.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{openProject}(\"/path/to/project\")}
     # @EndExample
@@ -1650,7 +1650,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets the current output directory for simulations.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{setCurrentOutputDir}(\"/path/to/output\")}
     #   @LineExSimple{path = obj.getCurrentOutputDir()}
@@ -1672,7 +1672,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Gets the current output directory for simulations.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setCurrentOutputDir(\"/path/to/output\")}
     #   @LineExSimple{path = obj.@HLImportant{getCurrentOutputDir}()}
@@ -1694,7 +1694,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the simulation time step.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setDefaultDeltaT(60)}
     #   @LineExSimple{deltat = obj.@HLImportant{getDefaultDeltaT}()}
@@ -1716,7 +1716,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets the simulation time step.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{setDefaultDeltaT}(60)}
     #   @LineExSimple{deltat = obj.getDefaultDeltaT()}
@@ -1738,7 +1738,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the simulation period begin date.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setPeriodBeginDate(\"1997-06-05 04:00:00\")}
     #   @LineExSimple{bdate = obj.@HLImportant{getPeriodBeginDate}()}
@@ -1760,7 +1760,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Returns the simulation period end date.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setPeriodEndDate(\"1997-06-05 04:00:00\")}
     #   @LineExSimple{bdate = obj.@HLImportant{getPeriodEndDate}()}
@@ -1782,7 +1782,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets the simulation period begin date.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{setPeriodBeginDate}(\"1997-06-05 04:00:00\")}
     #   @LineExSimple{bdate = obj.getPeriodBeginDate()}
@@ -1804,7 +1804,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Sets the simulation period end date.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{setPeriodEndDate}(\"1997-06-05 04:00:00\")}
     #   @LineExSimple{bdate = obj.getPeriodEndDate()}
@@ -1826,7 +1826,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Runs an existing project.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{runProject}(\"/path/to/dataset\")}
     # @EndExample
@@ -1845,7 +1845,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Runs a project from a simulation definition class (PyOpenFLUID).
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
     #   @LineExSimple{res = obj.@HLImportant{runSimulation}()}
@@ -1920,7 +1920,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ##
     # Return a description of the class.
     #
-    # Examples: @StartExample
+    # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{v = @HLSpecial{str}(obj)}
     #   @LineExSimple{@HLReserv{print} obj}
