@@ -1645,7 +1645,7 @@ void PyOpenFLUID::openDataset (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
-    throw PyOFException("needed string", PyExc_TypeError);
+    throw PyOFException("needed string for dataset path", PyExc_TypeError);
 
   std::string StrPath = getStringPath();
 
@@ -1679,7 +1679,7 @@ void PyOpenFLUID::saveDataset (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
-    throw PyOFException("needed string", PyExc_TypeError);
+    throw PyOFException("needed string for dataset path", PyExc_TypeError);
 
   std::string StrPath = getStringPath();
 
@@ -1698,7 +1698,7 @@ void PyOpenFLUID::openProject (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
-    throw PyOFException("needed string", PyExc_TypeError);
+    throw PyOFException("needed string for project path", PyExc_TypeError);
 
   std::string StrPath = getStringPath();
 
@@ -1731,7 +1731,7 @@ void PyOpenFLUID::setCurrentOutputDir (boost::python::object Path)
 {
   boost::python::extract<std::string> getStringPath(Path);
   if (!getStringPath.check())
-    throw PyOFException("needed string", PyExc_TypeError);
+    throw PyOFException("needed string for output path", PyExc_TypeError);
 
   openfluid::base::RuntimeEnvironment::getInstance()->
       setOutputDir(getStringPath());
@@ -1768,11 +1768,11 @@ void PyOpenFLUID::setDefaultDeltaT (boost::python::object DefaultDeltaT)
 {
   boost::python::extract<int> getDefaultDeltaT(DefaultDeltaT);
   if (!getDefaultDeltaT.check())
-    throw PyOFException("needed integer", PyExc_TypeError);
+    throw PyOFException("needed integer for default delta t", PyExc_TypeError);
 
   const int DefaultDeltaTInt = getDefaultDeltaT();
   if (DefaultDeltaTInt <= 0)
-    throw PyOFException("DefaultDeltaT cann't be negative or null",
+    throw PyOFException("default delta t cann't be negative or null",
         PyExc_ValueError);
   this->mp_AdvFXDesc->getRunDescriptor().setDeltaT(DefaultDeltaTInt);
 }
@@ -1838,7 +1838,7 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
 {
   boost::python::extract<std::string> getStringBDate(BDate);
   if (!getStringBDate.check())
-    throw PyOFException("needed string", PyExc_TypeError);
+    throw PyOFException("needed string for period begin date", PyExc_TypeError);
 
   /* 'yyyy-mm-dd hh:mm:ss' */
   std::string Pattern = std::string(
@@ -1879,7 +1879,7 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
 {
   boost::python::extract<std::string> getStringEDate(EDate);
   if (!getStringEDate.check())
-    throw PyOFException("needed string", PyExc_TypeError);
+    throw PyOFException("needed string for period end date", PyExc_TypeError);
 
   /* 'yyyy-mm-dd hh:mm:ss' */
   std::string Pattern = std::string(
