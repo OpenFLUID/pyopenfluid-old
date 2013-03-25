@@ -193,3 +193,13 @@ ADD_TEST(ModelItems_TEST
 SET_TESTS_PROPERTIES(ModelItems_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(UnitsIDsClasses_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/UnitsIDsClasses_TEST.py")
+SET_TESTS_PROPERTIES(UnitsIDsClasses_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")

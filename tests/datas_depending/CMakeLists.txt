@@ -54,27 +54,3 @@ ADD_TEST(GeneratorParameter_TEST
 SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
-ADD_TEST(UnitsClasses_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/UnitsClasses_TEST.py"
-         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
-         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
-SET_TESTS_PROPERTIES(UnitsClasses_TEST PROPERTIES
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
-ADD_TEST(UnitsIDs_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/UnitsIDs_TEST.py"
-         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
-         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
-SET_TESTS_PROPERTIES(UnitsIDs_TEST PROPERTIES
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
