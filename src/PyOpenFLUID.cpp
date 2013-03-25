@@ -17,6 +17,7 @@
 #include <set>
 #include <map>
 #include <list>
+#include <ctime>
 #include <vector>
 #include <string>
 #include <utility>
@@ -86,12 +87,14 @@ PyOpenFLUID::PyOpenFLUID ()
     openfluid::fluidx::RunDescriptor runDescp = this->mp_FXDesc->
       getRunDescriptor();
 
-    runDescp.setSimulationID(std::string(""));
-    runDescp.setValuesBufferSize(1024*10); /* TODO what the hell ? */
-    runDescp.setFilesBufferSizeInKB(1024*1024); /* TODO what the hell ? */
+    std::time_t t = time(0);   // get time now
+    struct std::tm *Now = localtime( &t );
+
     runDescp.setDeltaT((unsigned int)60);
-    runDescp.setBeginDate(openfluid::core::DateTime(2012, 1, 1, 0, 0, 0));
-    runDescp.setEndDate(openfluid::core::DateTime(2012, 1, 1, 0, 1, 0));
+    runDescp.setBeginDate(openfluid::core::DateTime(Now->tm_year+1900,\
+        Now->tm_mon+1, Now->tm_mday, 0, 0, 0));
+    runDescp.setEndDate(openfluid::core::DateTime(Now->tm_year+1900,\
+        Now->tm_mon+1, Now->tm_mday, 1, 0, 0));
     runDescp.setFilled(true);
   }
   catch (openfluid::base::OFException& E)
@@ -1698,7 +1701,13 @@ void PyOpenFLUID::saveDataset (boost::python::object Path)
 
   try
   {
-    /* TODO check if correct */
+    if (!boost::filesystem::exists(StrPath))
+    {
+      boost::filesystem::create_directory(StrPath);
+      if (!boost::filesystem::exists(StrPath))
+        throw PyOFException("error creating dataset directory");
+    }
+
     this->mp_FXDesc->getRunDescriptor().setFilled(true);
     this->mp_FXDesc->writeToManyFiles(StrPath);
   } HANDLE_EXCEPTION

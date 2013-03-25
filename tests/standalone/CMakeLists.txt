@@ -174,19 +174,6 @@ SET_TESTS_PROPERTIES(InputData_TEST PROPERTIES
 
 
 
-SET(DATASETTEST_NAME "cmd_dataset")
-FILE(MAKE_DIRECTORY "${TEST_PATH}/${DATASETTEST_NAME}")
-ADD_TEST(Dataset_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/Dataset_TEST.py"
-         "--dataset" "${TEST_PATH}/${DATASETTEST_NAME}/IN")
-SET_TESTS_PROPERTIES(Dataset_TEST PROPERTIES
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
 ADD_TEST(ModelItems_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/ModelItems_TEST.py")
@@ -201,5 +188,30 @@ ADD_TEST(UnitsIDsClasses_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/UnitsIDsClasses_TEST.py")
 SET_TESTS_PROPERTIES(UnitsIDsClasses_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+SET(DATASETTEST_NAME "cmd_dataset")
+FILE(MAKE_DIRECTORY "${TEST_PATH}/${DATASETTEST_NAME}")
+ADD_TEST(Dataset_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/Dataset_TEST.py"
+         "--dataset" "${TEST_PATH}/${DATASETTEST_NAME}/IN")
+SET_TESTS_PROPERTIES(Dataset_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+SET(PROJECTTEST_NAME "cmd_project")
+ADD_TEST(Project_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/Project_TEST.py"
+         "--project" "${TEST_PATH}/${PROJECTTEST_NAME}")
+SET_TESTS_PROPERTIES(Project_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")

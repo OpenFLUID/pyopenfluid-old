@@ -4,18 +4,6 @@
 # Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
 #
 
-ADD_TEST(OpenProject_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/OpenProject_TEST.py"
-         "--project" "${TEST_PATH}/${PROJECT_NAME_1}"
-         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
-SET_TESTS_PROPERTIES(OpenProject_TEST PROPERTIES
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
 SET(RUNPROJECT_NAME "cmd_runproject")
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNPROJECT_NAME}")
 
