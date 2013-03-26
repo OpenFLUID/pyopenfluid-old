@@ -576,10 +576,10 @@ SET(DOCSTRINGRAW_RETURN_SAVEPROJECT "")
 SET(DOCSTRINGRAW_PARAMETERS_SAVEPROJECT
     "path        -- the output directory"
     "kw          -- optional keyword values")
-SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SAVEPROJECT)
-#    "name        -- the name of the project"
-#    "description -- a short description of the project"
-#    "authors     -- a string of author(s)")
+SET(DOCSTRINGRAW_OPTIONAL_PARAMETERS_SAVEPROJECT
+    "name        -- the name of the project"
+    "description -- a short description of the project"
+    "authors     -- a string of author(s)")
 SET(DOCSTRINGRAW_EXAMPLES_SAVEPROJECT "")
 
 

@@ -256,3 +256,8 @@ ALIASES += HLNumber{1}="<span class='nn'>\1</span>"   # nombre
 
 ALIASES += Bold{1}="<b>\1</b>"
 ALIASES += Emph{1}="<em>\1</em>"
+
+
+ALIASES += StartOptionalParam="<dl class='example'><dt><b>Optional parameters:</b></dt><dd><table class='params'>"
+ALIASES += EndOptionalParam="</table></dd></dl>"
+ALIASES += OptionalParam{2}="<tr><td class='paramname'>\1</td><td>\2</td></tr>"
