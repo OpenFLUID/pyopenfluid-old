@@ -1779,24 +1779,6 @@ PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
 
   Glib::ustring GUProjectPath = Glib::ustring(CharPath);
 
-  Glib::ustring GUName;
-  if (CharName != NULL)
-    GUName = Glib::ustring(CharName);
-  else
-    GUName = Glib::ustring("");
-
-  Glib::ustring GUDescp;
-  if (CharDescp != NULL)
-    GUDescp = Glib::ustring(CharDescp);
-  else
-    GUDescp = Glib::ustring("");
-
-  Glib::ustring GUAuthors;
-  if (CharAuth != NULL)
-    GUAuthors = Glib::ustring(CharAuth);
-  else
-    GUAuthors = Glib::ustring("");
-
   std::string StrProjectPath = boost::filesystem::path(CharPath).string();
 
   openfluid::base::ProjectManager* ProjectManager =
@@ -1812,32 +1794,66 @@ PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
         throw PyOFException("error creating project directory");
     }
 
-    /* project */ /* automatically saves it */
-    if (!ProjectManager->
-        create(GUProjectPath, GUName, GUDescp, GUAuthors, true))
-      throw PyOFException("ProjectManager::create, error creating\
+    /* project */
+    /* if exists */
+    if (ProjectManager->isProject(GUProjectPath))
+    {
+      if(!ProjectManager->open(GUProjectPath))
+        throw PyOFException("ProjectManager::open, error opening project");
+
+      if (CharName != NULL)
+      {
+        Glib::ustring GUTmpName = Glib::ustring(CharName);
+        ProjectManager->setName(GUTmpName);
+      }
+      if (CharDescp != NULL)
+      {
+        Glib::ustring GUTmpDescp = Glib::ustring(CharDescp);
+        ProjectManager->setDescription(GUTmpDescp);
+      }
+      if (CharAuth != NULL)
+      {
+        Glib::ustring GUTmpAuthors = Glib::ustring(CharAuth);
+        ProjectManager->setAuthors(GUTmpAuthors);
+      }
+
+      if (!ProjectManager->save())
+        throw PyOFException("ProjectManager::save, error saving project");
+    }
+    /* if creates */
+    else
+    {
+      Glib::ustring GUTmpName;
+      if (CharName != NULL)
+        GUTmpName = Glib::ustring(CharName);
+      else
+        GUTmpName = Glib::ustring("");
+
+      Glib::ustring GUTmpDescp;
+      if (CharDescp != NULL)
+        GUTmpDescp = Glib::ustring(CharDescp);
+      else
+        GUTmpDescp = Glib::ustring("");
+
+      Glib::ustring GUTmpAuthors;
+      if (CharAuth != NULL)
+        GUTmpAuthors = Glib::ustring(CharAuth);
+      else
+        GUTmpAuthors = Glib::ustring("");
+
+      if (!ProjectManager->
+          create(GUProjectPath, GUTmpName, GUTmpDescp, GUTmpAuthors, true))
+        throw PyOFException("ProjectManager::create, error creating\
  and saving project");
+    }
 
     std::string InputDir = ProjectManager->getInputDir().raw();
     std::string OuputDir = ProjectManager->getOutputDir().raw();
 
-    /* directories */
-    if (!boost::filesystem::exists(InputDir))
-    {
-      boost::filesystem::create_directory(InputDir);
-      if (!boost::filesystem::exists(InputDir))
-        throw PyOFException("error creating dataset directory");
-    }
-
-    if (!boost::filesystem::exists(OuputDir))
-    {
-      boost::filesystem::create_directory(OuputDir);
-      if (!boost::filesystem::exists(OuputDir))
-        throw PyOFException("error creating result directory");
-    }
-
     /* dataset */
     this->mp_FXDesc->writeToManyFiles(InputDir);
+
+    ProjectManager->close();
 
   } HANDLE_EXCEPTION
 
