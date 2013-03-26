@@ -26,6 +26,8 @@
 #include <iostream>
 #include <exception>
 
+#include <glibmm/ustring.h>
+
 #include <openfluid/config.hpp>
 
 #include <openfluid/base/Init.hpp>
@@ -1751,48 +1753,94 @@ void PyOpenFLUID::openProject (boost::python::object Path)
 // =====================================================================
 
 
-void PyOpenFLUID::saveProject (boost::python::object Path)
+PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
+    PyObject* InDict)
+//void PyOpenFLUID::saveProject (boost::python::object Path)
 {
-  boost::python::extract<std::string> getStringPath(Path);
-  if (!getStringPath.check())
-    throw PyOFException("needed string for project path", PyExc_TypeError);
+  char* Keywords[] = {(char*) std::string("path").c_str(),\
+      (char*) std::string("name").c_str(),\
+      (char*) std::string("description").c_str(),\
+      (char*) std::string("authors").c_str()}; /* C++ style */
+//  char* Keywords[] = {"path", "name", "description", "authors"}; /* C style */
+  char* CharPath = NULL;
+  char* CharName = NULL;
+  char* CharDescp = NULL;
+  char* CharAuth = NULL;
+  if (!PyArg_ParseTupleAndKeywords(InTuple, InDict, "s|sss", Keywords,\
+      &CharPath, &CharName, &CharDescp, &CharAuth))
+  {
+    if (CharPath == NULL)
+      throw PyOFException("project output path not given");
+    throw PyOFException("error getting parameters");
+  }
 
-  std::string ProjectPath = boost::filesystem::path(getStringPath()).string();
+  Glib::ustring GUProjectPath = Glib::ustring(CharPath);
 
-  std::string DatasetPath = boost::filesystem::path(ProjectPath +
-      std::string("/IN")).string();
+  Glib::ustring GUName;
+  if (CharName != NULL)
+    GUName = Glib::ustring(CharName);
+  else
+    GUName = Glib::ustring("");
 
-  std::string ResultPath = boost::filesystem::path(ProjectPath +
-      std::string("/OUT")).string();
+  Glib::ustring GUDescp;
+  if (CharDescp != NULL)
+    GUDescp = Glib::ustring(CharDescp);
+  else
+    GUDescp = Glib::ustring("");
+
+  Glib::ustring GUAuthors;
+  if (CharAuth != NULL)
+    GUAuthors = Glib::ustring(CharAuth);
+  else
+    GUAuthors = Glib::ustring("");
+
+  std::string StrProjectPath = boost::filesystem::path(CharPath).string();
+
+  openfluid::base::ProjectManager* ProjectManager =
+      openfluid::base::ProjectManager::getInstance();
 
   try
   {
     /* directories */
-    if (!boost::filesystem::exists(ProjectPath))
+    if (!boost::filesystem::exists(StrProjectPath))
     {
-      boost::filesystem::create_directory(ProjectPath);
-      if (!boost::filesystem::exists(ProjectPath))
+      boost::filesystem::create_directory(StrProjectPath);
+      if (!boost::filesystem::exists(StrProjectPath))
         throw PyOFException("error creating project directory");
     }
 
-    if (!boost::filesystem::exists(DatasetPath))
+    /* project */ /* automatically saves it */
+    if (!ProjectManager->
+        create(GUProjectPath, GUName, GUDescp, GUAuthors, true))
+      throw PyOFException("ProjectManager::create, error creating\
+ and saving project");
+
+    std::string InputDir = ProjectManager->getInputDir().raw();
+    std::string OuputDir = ProjectManager->getOutputDir().raw();
+
+    /* directories */
+    if (!boost::filesystem::exists(InputDir))
     {
-      boost::filesystem::create_directory(DatasetPath);
-      if (!boost::filesystem::exists(DatasetPath))
+      boost::filesystem::create_directory(InputDir);
+      if (!boost::filesystem::exists(InputDir))
         throw PyOFException("error creating dataset directory");
     }
 
-    if (!boost::filesystem::exists(ResultPath))
+    if (!boost::filesystem::exists(OuputDir))
     {
-      boost::filesystem::create_directory(ResultPath);
-      if (!boost::filesystem::exists(ResultPath))
+      boost::filesystem::create_directory(OuputDir);
+      if (!boost::filesystem::exists(OuputDir))
         throw PyOFException("error creating result directory");
     }
 
     /* dataset */
-    this->mp_FXDesc->writeToManyFiles(DatasetPath);
+    this->mp_FXDesc->writeToManyFiles(InputDir);
 
   } HANDLE_EXCEPTION
+
+  /* return */
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 

@@ -1420,9 +1420,9 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
     ## @DOCSTRING_doxygen_SAVEPROJECT@
     #
-    def saveProject (self, Path):
+    def saveProject (self, path, **kw):
         """@DOCSTRING_python_SAVEPROJECT@"""
-        pyopenfluid.PyOpenFLUID.saveProject(self, Path)
+        pyopenfluid.PyOpenFLUID.saveProject(self, path, **kw)
 
 
 # ########################################################################## #

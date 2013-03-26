@@ -456,7 +456,8 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void saveProject (boost::python::object Path);
+    PyObject* saveProject (PyObject* PyObSelf, PyObject* InTuple,
+                           PyObject* InDict);
 
 
 // =====================================================================

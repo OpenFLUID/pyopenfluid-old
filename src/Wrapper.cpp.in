@@ -657,8 +657,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("saveProject", &PyOpenFLUID::saveProject,
-      ( boost::python::arg("self"), boost::python::arg("Path") ),
+    .def("saveProject", 
+        boost::python::raw_function<RawFunctionPyOpenFLUID>(
+            RawFunctionPyOpenFLUID(&PyOpenFLUID::saveProject)),
       "@DOCSTRING_boost_SAVEPROJECT@"
     )
 
