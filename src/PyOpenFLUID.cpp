@@ -1759,11 +1759,12 @@ PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
     PyObject* InDict)
 //void PyOpenFLUID::saveProject (boost::python::object Path)
 {
-  char* Keywords[] = {(char*) std::string("path").c_str(),\
-      (char*) std::string("name").c_str(),\
-      (char*) std::string("description").c_str(),\
-      (char*) std::string("authors").c_str()}; /* C++ style */
-//  char* Keywords[] = {"path", "name", "description", "authors"}; /* C style */
+  char* Keywords[5];
+  Keywords[0] = (char*) "path";
+  Keywords[1] = (char*) "name";
+  Keywords[2] = (char*) "description";
+  Keywords[3] = (char*) "authors";
+  Keywords[4] = NULL;
   char* CharPath = NULL;
   char* CharName = NULL;
   char* CharDescp = NULL;
