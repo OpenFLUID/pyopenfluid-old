@@ -86,7 +86,7 @@ PyOpenFLUID::PyOpenFLUID ()
     this->mp_AdvFXDesc = new openfluid::fluidx::AdvancedFluidXDescriptor(
         *(this->mp_FXDesc));
 
-    openfluid::fluidx::RunDescriptor runDescp = this->mp_FXDesc->
+    openfluid::fluidx::RunDescriptor& runDescp = this->mp_FXDesc->
       getRunDescriptor();
 
     std::time_t t = time(0);   // get time now
@@ -1710,7 +1710,9 @@ void PyOpenFLUID::saveDataset (boost::python::object Path)
         throw PyOFException("error creating dataset directory");
     }
 
-    this->mp_FXDesc->getRunDescriptor().setFilled(true);
+    openfluid::fluidx::RunDescriptor& RunDescp =
+        this->mp_FXDesc->getRunDescriptor();
+    RunDescp.setFilled(true);
     this->mp_FXDesc->writeToManyFiles(StrPath);
   } HANDLE_EXCEPTION
 }
