@@ -215,3 +215,17 @@ ADD_TEST(Project_TEST
 SET_TESTS_PROPERTIES(Project_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+SET(RUNPROJECT_NAME "cmd_runproject")
+FILE(MAKE_DIRECTORY "${TEST_PATH}/${RUNPROJECT_NAME}")
+ADD_TEST(RunProject_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/RunProject_TEST.py"
+         "--project" "${TEST_PATH}/${RUNPROJECT_NAME}")
+SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
+                     DEPENDS RunSimulation_TEST
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")

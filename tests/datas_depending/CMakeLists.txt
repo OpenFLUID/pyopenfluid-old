@@ -4,21 +4,6 @@
 # Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
 #
 
-SET(RUNPROJECT_NAME "cmd_runproject")
-CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNPROJECT_NAME}")
-
-ADD_TEST(RunProject_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/RunProject_TEST.py"
-         "--project" "${TEST_PATH}/${RUNPROJECT_NAME}")
-SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
-                     DEPENDS RunSimulation_TEST
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
 SET(RUNSIMULATION_NAME "cmd_runsimulation")
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNSIMULATION_NAME}")
 

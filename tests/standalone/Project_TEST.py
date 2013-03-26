@@ -41,11 +41,11 @@ class PyOpenFLUIDTest_Project(PyOpenFLUIDTest):
         loadOpenFLUIDConfig(Config, self.openfluid)
         checkOpenFLUIDConfig(Config, self.openfluid)
 
-        # tests of saveDataset
+        # tests of saveProject
         self.openfluid.saveProject(PPath)
         clearOpenFLUIDconfig(self.openfluid)
 
-        # tests of openDataset
+        # tests of openProject
         self.checkDirectory(PPath)
         self.openfluid.openProject(PPath)
 
