@@ -1912,7 +1912,7 @@ void PyOpenFLUID::setDefaultDeltaT (boost::python::object DefaultDeltaT)
 
   const int DefaultDeltaTInt = getDefaultDeltaT();
   if (DefaultDeltaTInt <= 0)
-    throw PyOFException("default delta t cann't be negative or null",
+    throw PyOFException("default delta t can't be negative or null",
         PyExc_ValueError);
   this->mp_AdvFXDesc->getRunDescriptor().setDeltaT(DefaultDeltaTInt);
 }

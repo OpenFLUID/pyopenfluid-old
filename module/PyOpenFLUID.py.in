@@ -218,7 +218,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... @LineExComment{\\ open a project or configure the simulation}}
+    #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
     #   @LineExSimple{obj.@HLImportant{printSimulationInfo}()}
     #   @LineExResult{Spatial domain @HLReserv{is} made of ....}
     # @EndExample
@@ -333,7 +333,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@LineExComment{\\obj.addGenerator(\"SU\"\\, \"var\")}}
+    #   @LineExSimple{@LineExComment{ obj.addGenerator(\"SU\"\\, \"var\")}}
     #   @LineExSimple{obj.setGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\") == \"12.3\"}
     # @EndExample
@@ -353,7 +353,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@LineExComment{\\obj.addGenerator(\"SU\"\\, \"var\")}}
+    #   @LineExSimple{@LineExComment{ obj.addGenerator(\"SU\"\\, \"var\")}}
     #   @LineExSimple{obj.@HLImportant{setGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
     #   @LineExSimple{@HLReserv{assert} obj.getGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\") == \"12.3\"}
     # @EndExample
@@ -1335,7 +1335,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... @LineExComment{\\ configure the simulation}}
+    #   @LineExSimple{... @LineExComment{ configure the simulation}}
     #   @LineExSimple{obj.@HLImportant{saveDataset}(\"/path/to/dataset\")}
     # @EndExample
     #
@@ -1368,7 +1368,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... @LineExComment{\\ configure the simulation}}
+    #   @LineExSimple{... @LineExComment{ configure the simulation}}
     #   @LineExSimple{obj.@HLImportant{saveProject}(\"/path/to/project\")}
     # @EndExample
     #
@@ -1537,7 +1537,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... @LineExComment{\\ open a project or configure the simulation}}
+    #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
     #   @LineExSimple{res = obj.@HLImportant{runSimulation}()}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{isinstance}(res\, bool)}
     # @EndExample
