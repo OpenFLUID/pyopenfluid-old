@@ -15,8 +15,6 @@ from multiprocessing import Process, Queue
 def Simulate(PyOFClass, ResStorage):
     try:
         Res = PyOFClass.runSimulation()
-        import time
-        time.sleep(6)
     except Exception as e:
         ResStorage.put_nowait(False)
         ResStorage.put_nowait(e.message)
