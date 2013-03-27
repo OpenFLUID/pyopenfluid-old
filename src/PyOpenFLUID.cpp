@@ -2006,8 +2006,8 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
   this->mp_AdvFXDesc->getRunDescriptor().setBeginDate(BDate);
   }
   else
-    pyopenfluid::topython::printWarning(
-        "begin date isn't formatted with good format");
+    throw PyOFException("begin date isn't formatted with good format",
+        PyExc_ValueError);
 }
 
 
@@ -2047,8 +2047,8 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
   this->mp_AdvFXDesc->getRunDescriptor().setEndDate(BDate);
   }
   else
-    pyopenfluid::topython::printWarning(
-        "end date isn't formatted with good format");
+    throw PyOFException("end date isn't formatted with good format",
+        PyExc_ValueError);
 }
 
 

@@ -13,6 +13,4 @@ IF(DOXYGEN)
       "${DOXYGEN}" "${OUTPUT_PATH}/Doxyfile"
       VERBATIM)
 
-  ADD_DEPENDENCIES(PyOpenFLUID_Documentation PyOpenFLUID)
-
 ENDIF(DOXYGEN)

@@ -37,8 +37,7 @@ class PyOpenFLUIDTest_BeginPeriodDate(PyOpenFLUIDTest):
 
         # tests of setPeriodBeginDate/getPeriodBeginDate
         for FailDate in ListFailDate:
-            self.openfluid.setPeriodBeginDate(FailDate)
-            self.assertEquals(self.openfluid.getPeriodBeginDate(), PassDate)
+            self.assertRaises(ValueError, self.openfluid.setPeriodBeginDate, FailDate)
 
 
 if __name__ == "__main__":

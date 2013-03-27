@@ -37,8 +37,7 @@ class PyOpenFLUIDTest_EndPeriodDate(PyOpenFLUIDTest):
 
         # tests of setPeriodEndDate/getPeriodEndDate
         for FailDate in ListFailDate:
-            self.openfluid.setPeriodEndDate(FailDate)
-            self.assertEquals(self.openfluid.getPeriodEndDate(), PassDate)
+            self.assertRaises(ValueError, self.openfluid.setPeriodEndDate, FailDate)
 
 
 if __name__ == "__main__":
