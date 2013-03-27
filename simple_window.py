@@ -8,28 +8,32 @@ import tkMessageBox
 import PyOpenFLUID
 
 import os
-from threading import Thread
+from threading import Thread, Event
 from multiprocessing import Process, Queue
 
 
 def Simulate(PyOFClass, ResStorage):
     try:
         Res = PyOFClass.runSimulation()
+        import time
+        time.sleep(6)
     except Exception as e:
         ResStorage.put_nowait(False)
         ResStorage.put_nowait(e.message)
     else:
         ResStorage.put_nowait(Res)
 
-class WindowPyOF:
 
+class WindowPyOF:
     def __init__(self):
         ### =======  INTERNAL  ======= ###
         self.ProjectPath = None
         self.PyOpenFLUID = PyOpenFLUID.PyOpenFLUID()
         self.ResultSimu = None
         self.ErrorMessage = None
-        self.IsSimulationRunned = False
+        self.IsSimulationRunned = Event()
+        self.IsSimulationRunned.set() # <=> True
+        self.NbSimu = 0
 
         ### =======  GRAPHICS PART  ======= ###
         # creation of the window
@@ -111,9 +115,19 @@ class WindowPyOF:
 
     ## event function
     def quit(self, Event=None):
+        if not self.IsSimulationRunned.isSet():
+            tkMessageBox._show(parent=self.Fen,\
+                message="You can't close the window during a simulation.",\
+                _icon=tkMessageBox.WARNING, _type=tkMessageBox.OK,\
+                title="PyOpenFLUID simulation running")
+            return
+
         self.Fen.destroy()
 
     def open(self, Event=None):
+        if not self.IsSimulationRunned.isSet():
+            return
+
         if self.ProjectPath is None:
             TmpRoot = os.getcwd()
         else:
@@ -138,9 +152,14 @@ class WindowPyOF:
         self.openProject(InputDir)
 
     def startSimulation(self, Event=None):
-        if self.ProjectPath is None or self.IsSimulationRunned:
+        if self.ProjectPath is None:
+            return
+        if not self.IsSimulationRunned.isSet():
+            return
+        if self.NbSimu >= 1:
             return
 
+        self.NbSimu += 1
         self.hideLogText()
         self.Elements["workFrame"].pack_forget()
         self.Elements["simulationFrame"].pack(\
@@ -154,10 +173,36 @@ class WindowPyOF:
         Th = Thread(target=self._launchSimulation,\
             name="OpenFLUID simulation process launcher")
         Th.start()
-        self.IsSimulationRunned = True
+        Th = Thread(target=self._endSimulation,\
+            name="end of simulation thread")
+        Th.start()
 
-    def endSimulation(self, Event=None):
-        if self.ResultSimu is None or not self.IsSimulationRunned:
+    def _launchSimulation(self):
+        self.IsSimulationRunned.clear()
+        #
+        ResQueue = Queue()
+        ProcessSimu = Process(target=Simulate,\
+            args=(self.PyOpenFLUID, ResQueue,),\
+            name="OpenFLUID simulation process")
+        ProcessSimu.start()
+        self.ResultSimu = ProcessSimu.join()
+        self.ErrorMessage = None
+        if self.ResultSimu is None:
+            try:
+                self.ResultSimu = ResQueue.get_nowait()
+                if self.ResultSimu is False:
+                    self.ErrorMessage = ResQueue.get_nowait()
+            except:
+                self.ResultSimu = False
+                self.ErrorMessage = None
+        #
+        del ResQueue
+        del ProcessSimu
+        self.IsSimulationRunned.set()
+
+    def _endSimulation(self, Event=None):
+        self.IsSimulationRunned.wait()
+        if self.ResultSimu is None:
             return
         #
         self.Elements["simulationFrame"].pack_forget()
@@ -178,32 +223,13 @@ class WindowPyOF:
         #
         self.ResultSimu = None
 
-    def _launchSimulation(self):
-        ResQueue = Queue()
-        ProcessSimu = Process(target=Simulate,\
-            args=(self.PyOpenFLUID, ResQueue,),\
-            name="OpenFLUID simulation process")
-        ProcessSimu.start()
-        self.ResultSimu = ProcessSimu.join()
-        self.ErrorMessage = None
-        if self.ResultSimu is None:
-            try:
-                self.ResultSimu = ResQueue.get_nowait()
-                if self.ResultSimu is False:
-                    self.ErrorMessage = ResQueue.get_nowait()
-            except:
-                self.ResultSimu = False
-                self.ErrorMessage = None
-        #
-        del ResQueue
-        del ProcessSimu
-        self.endSimulation()
-
     ## manage functions
     def openProject(self, Path):
         # Path must exist and be correct
         self.ProjectPath = Path
-        self.IsSimulationRunned = False
+        self.NbSimu = 0
+        if not self.IsSimulationRunned.isSet():
+            return
         #
         self.hideLogText()
         self.Elements["textvarPath"].set(Path)
