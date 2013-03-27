@@ -36,6 +36,4 @@ SET_TESTS_PROPERTIES(TestOfTestUnit PROPERTIES
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
 #
-ADD_SUBDIRECTORY(standalone)
-
-ADD_SUBDIRECTORY(datas_depending)
+ADD_SUBDIRECTORY(scripts)
