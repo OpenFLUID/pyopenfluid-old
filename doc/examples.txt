@@ -1,0 +1,293 @@
+
+--------------------------------------------------------------------------------
+ - addExtraFunctionsPaths/getExtraFunctionsPaths/resetExtraFunctionsPaths
+>>> obj = PyOpenFLUID()
+>>> obj.addExtraFunctionsPaths("/first/path/to/add")
+>>> print obj.getExtraFunctionsPaths()
+["/first/path/to/add"]
+>>> obj.addExtraFunctionsPaths("/second/path/to/add:/third/path/to/add")
+>>> print obj.getExtraFunctionsPaths()
+["/second/path/to/add:/third/path/to/add:/first/path/to/add"]
+>>> obj.resetExtraFunctionsPaths()
+>>> assert len(obj.getExtraFunctionsPaths()) == 0
+
+
+--------------------------------------------------------------------------------
+ - addExtraObserversPaths/getExtraObserversPaths/resetExtraObserversPaths
+>>> obj = PyOpenFLUID()
+>>> obj.addExtraObserversPaths("/first/path/to/add")
+>>> print obj.getExtraObserversPaths()
+["/first/path/to/add"]
+>>> obj.addExtraObserversPaths("/second/path/to/add:/third/path/to/add")
+>>> print obj.getExtraObserversPaths()
+["/second/path/to/add:/third/path/to/add:/first/path/to/add"]
+>>> obj.resetExtraObserversPaths()
+>>> assert len(obj.getExtraObserversPaths()) == 0
+
+
+--------------------------------------------------------------------------------
+ - getDefaultDeltaT/setDefaultDeltaT
+>>> obj = PyOpenFLUID()
+>>> obj.setDefaultDeltaT(60)
+>>> assert obj.getDefaultDeltaT() == 60
+
+
+--------------------------------------------------------------------------------
+ - getPeriodBeginDate/setPeriodBeginDate
+>>> obj = PyOpenFLUID()
+>>> obj.setPeriodBeginDate("1997-06-05 04:00:00")
+>>> assert obj.getPeriodBeginDate() == "1997-06-05 04:00:00"
+
+
+--------------------------------------------------------------------------------
+ - getPeriodEndDate/setPeriodEndDate
+>>> obj = PyOpenFLUID()
+>>> obj.setPeriodEndDate("1997-06-05 04:00:00")
+>>> assert obj.getPeriodEndDate() = "1997-06-05 04:00:00"
+
+
+--------------------------------------------------------------------------------
+ - runProject
+>>> obj = PyOpenFLUID()
+>>> obj.runProject("/path/to/dataset")
+
+
+--------------------------------------------------------------------------------
+ - runSimulation
+>>> obj = PyOpenFLUID()
+>>> ... # open a project or configure the simulation
+>>> res = obj.runSimulation()
+>>> assert isinstance(res, bool)
+
+
+--------------------------------------------------------------------------------
+ - __str__
+>>> obj = PyOpenFLUID()
+>>> v = str(obj)
+>>> print obj
+
+
+--------------------------------------------------------------------------------
+ - getVersion
+>>> obj = PyOpenFLUID()
+>>> v = obj.getVersion()
+
+
+--------------------------------------------------------------------------------
+ - printSimulationInfo
+>>> obj = PyOpenFLUID()
+>>> ... # open a project or configure the simulation
+>>> obj.printSimulationInfo()
+Spatial domain is made of ....
+
+
+--------------------------------------------------------------------------------
+ - addFunction/removeFunction/clearModel/getFunctionsInModel
+>>> obj = PyOpenFLUID()
+>>> assert len(obj.getFunctionsInModel()) == 0
+>>> obj.addFunction("firstFunc")
+>>> assert obj.getFunctionsInModel() == ["firstFunc"]
+>>> obj.addFunction("secFunc")
+>>> assert obj.getFunctionsInModel() == ["firstFunc", "secFunc"]
+>>> obj.removeFunction("firstFunc")
+>>> assert obj.getFunctionsInModel() == ["secFunc"]
+>>> obj.clearModel()
+>>> assert len(obj.getFunctionsInModel()) == 0
+
+
+--------------------------------------------------------------------------------
+ - addObserver/removeObserver/clearMonitoring/getObserversInMonitoring
+>>> obj = PyOpenFLUID()
+>>> assert len(obj.getObserversInMonitoring()) == 0
+>>> obj.addObserver("export.test.firstObs")
+>>> assert obj.getObserversInMonitoring() == ["export.test.firstObs"]
+>>> obj.addObserver("export.test2.secObs")
+>>> assert obj.getObserversInMonitoring() == ["export.test.firstObs", "export.test2.secObs"]
+>>> obj.removeObserver("export.test.firstObs")
+>>> assert obj.getObserversInMonitoring() == ["export.test2.secObs"]
+>>> obj.clearMonitoring()
+>>> assert len(obj.getObserversInMonitoring() == 0
+
+
+--------------------------------------------------------------------------------
+ - getFunctionParam/setFunctionParam/removeFunctionParam/getFunctionParams
+>>> obj = PyOpenFLUID()
+>>> obj.addFunction("my.function")
+>>> assert len(obj.getFunctionParams("my.function")) == 0
+>>> obj.setFunctionParam("my.function","coeff","3")
+>>> assert obj.getFunctionParam("my_function", "coeff") == "3"
+>>> assert obj.getFunctionParams("my.function") == ["coeff"]
+>>> obj.setFunctionParam("my.function","tolerance","0.2")
+>>> assert obj.getFunctionParams("my.function") == ["coeff", "tolerance"]
+>>> obj.removeFunctionParam("my.function", "coeff")
+>>> assert obj.getFunctionParams("my.function") == ["tolerance"]
+
+
+--------------------------------------------------------------------------------
+ - getGeneratorParam/setGeneratorParam
+>>> obj = PyOpenFLUID()
+>>> obj.addUnit("SU", 1, 1)
+>>> # obj.addGenerator("SU", "var")
+>>> obj.setGeneratorParam("SU","var.flux","fixedvalue","12.3")
+>>> assert obj.getGeneratorParam("SU","var.flux","fixedvalue") == "12.3"
+
+
+--------------------------------------------------------------------------------
+ - getModelGlobalParam/setModelGlobalParam/removeModelGlobalParam/getModelGlobalParams
+>>> obj = PyOpenFLUID()
+>>> assert len(obj.getModelGlobalParams()) == 0
+>>> obj.setModelGlobalParam("gvalue","37.2")
+>>> assert obj.getModelGlobalParam("gvalue") == "37.2"
+>>> assert obj.getModelGlobalParams() == ["gvalue"]
+>>> obj.setModelGlobalParam("bluesky","YES")
+>>> assert obj.getModelGlobalParams() == ["gvalue", "bluesky"]
+>>> obj.removeModelGlobalParam("gvalue")
+>>> assert obj.getModelGlobalParams() == ["bluesky"]
+
+
+--------------------------------------------------------------------------------
+ - getObserverParam/setObserverParam/removeObserverParam/getObserverParams
+>>> obj = PyOpenFLUID()
+>>> obj.addObserver("export.test.fake")
+>>> assert len(obj.getObserverParams("export.test.fake")) == 0
+>>> obj.setObserverParam("getObserverParams", "format.f1.header", "colsname")
+>>> assert obj.getObserverParam("getObserverParams", "format.f1.header") == "colsname"
+>>> assert obj.getObserverParams("export.test.fake") == ["format.f1.header"]
+>>> obj.setObserverParam("getObserverParams", "format.f1.maxwidth", "50")
+>>> assert obj.getObserverParams("export.test.fake") == ["format.f1.header", "format.f1.maxwidth"]
+>>> obj.removeObserverParam("export.test.fake", "format.f1.header")
+>>> assert obj.getObserverParams("export.test.fake") == ["format.f1.maxwidth"]
+
+
+--------------------------------------------------------------------------------
+ - getUnitsClasses/getUnitsIDs
+ - addUnit/removeUnit/clearAllUnits
+>>> obj = PyOpenFLUID()
+>>> assert len(obj.getUnitsClasses()) == 0
+>>> obj.addUnit("SU", 1, 1)
+>>> assert obj.getUnitsClasses() == ["SU"]
+>>> assert obj.getUnitsIDs("SU") == [1]
+>>> obj.addUnit("SU", 2, 1)
+>>> assert obj.getUnitsClasses() == ["SU"]
+>>> assert obj.getUnitsIDs("SU") == [1, 2]
+>>> obj.addUnit("WQ", 1, 1)
+>>> assert obj.getUnitsClasses() == ["SU", "WQ"]
+>>> assert obj.getUnitsIDs("WQ") == [1]
+>>> obj.removeUnit("SU", 1)
+>>> assert obj.getUnitsClasses() == ["SU", "WQ"]
+>>> assert obj.getUnitsIDs("SU") == [2]
+>>> obj.clearAllUnits("SU")
+>>> assert obj.getUnitsClasses() == ["WQ"]
+
+
+--------------------------------------------------------------------------------
+ - createInputData/getInputData/setInputData/removeInputData
+>>> obj = PyOpenFLUID()
+>>> obj.addUnit("SU", 1, 1)
+>>> obj.addUnit("SU", 2, 1)
+>>> obj.createInputData("SU", "area", "1.0")
+>>> assert obj.getInputData("SU", 1, "area") == "1.0"
+>>> assert obj.getInputData("SU", 2, "area") == "1.0"
+>>> obj.setInputData("SU", 1, "area", "162")
+>>> assert obj.getInputData("SU", 1, "area") == "162"
+>>> assert obj.getInputData("SU", 2, "area") == "1.0"
+>>> obj.removeInputData("SU", "area")
+>>> assert obj.getInputData("SU", 1, "area") is None
+>>> assert obj.getInputData("SU", 2, "area") is None
+
+
+--------------------------------------------------------------------------------
+ - addParentChildConnection/removeParentChildConnection/getUnitChildren/getUnitParents
+>>> obj = PyOpenFLUID()
+>>> obj.addUnit("SU", 1, 1)
+>>> obj.addUnit("SU", 2, 1)
+>>> assert len(obj.getUnitParents("SU", 1)) == 0
+>>> assert len(obj.getUnitParents("SU", 2)) == 0
+>>> assert len(obj.getUnitChildren("SU", 1)) == 0
+>>> assert len(obj.getUnitChildren("SU", 2)) == 0
+>>> obj.addParentChildConnection("SU", 1, "SU", 2)
+>>> assert len(obj.getUnitParents("SU", 1)) == 0
+>>> assert obj.getUnitParents("SU", 2) == [("SU", 1)]
+>>> assert obj.getUnitChildren("SU", 1) == [("SU", 2)]
+>>> assert len(obj.getUnitChildren("SU", 2)) == 0
+>>> obj.removeParentChildConnection("SU", 1, "SU", 2)
+>>> assert len(obj.getUnitParents("SU", 2)) == 0
+>>> assert len(obj.getUnitChildren("SU", 1)) == 0
+
+
+--------------------------------------------------------------------------------
+ - addFromToConnection/removeFromToConnection/getUnitFroms/getUnitTos
+>>> obj = PyOpenFLUID()
+>>> obj.addUnit("SU", 1, 1)
+>>> obj.addUnit("SU", 2, 1)
+>>> assert len(obj.getUnitFroms("SU", 1)) == 0
+>>> assert len(obj.getUnitFroms("SU", 2)) == 0
+>>> assert len(obj.getUnitTos("SU", 1)) == 0
+>>> assert len(obj.getUnitTos("SU", 2)) == 0
+>>> obj.addFromToConnection("SU", 1, "SU", 2)
+>>> assert len(obj.getUnitFroms("SU", 1)) == 0
+>>> assert obj.getUnitFroms("SU", 2) == [("SU", 1)]
+>>> assert obj.getUnitTos("SU", 1) == [("SU", 2)]
+>>> assert len(obj.getUnitTos("SU", 2)) == 0
+>>> obj.removeFromToConnection("SU", 1, "SU", 2)
+>>> assert len(obj.getUnitFroms("SU", 2)) == 0
+>>> assert len(obj.getUnitTos("SU", 1)) == 0
+
+
+--------------------------------------------------------------------------------
+ - getProcessOrder/setProcessOrder
+>>> obj = PyOpenFLUID()
+>>> obj.addUnit("SU", 1, 1)
+>>> assert obj.getProcessOrder("SU", 1) == 1
+>>> obj.setProcessOrder("SU", 1, 5)
+>>> assert obj.getProcessOrder("SU", 1) == 5
+
+
+--------------------------------------------------------------------------------
+ - openDataset
+>>> obj = PyOpenFLUID()
+>>> obj.openDataset("/path/to/dataset")
+
+
+--------------------------------------------------------------------------------
+ - openProject
+>>> obj = PyOpenFLUID()
+>>> obj.openProject("/path/to/project")
+
+
+--------------------------------------------------------------------------------
+ - saveDataset
+>>> obj = PyOpenFLUID()
+>>> ... # configure the simulation
+>>> obj.saveDataset("/path/to/dataset")
+
+
+--------------------------------------------------------------------------------
+ - saveProject
+>>> obj = PyOpenFLUID()
+>>> ... # configure the simulation
+>>> obj.saveProject("/path/to/project")
+
+
+--------------------------------------------------------------------------------
+ - getCurrentOutputDir/setCurrentOutputDir
+>>> obj = PyOpenFLUID()
+>>> obj.setCurrentOutputDir("/path/to/output")
+>>> assert obj.getCurrentOutputDir() == "/path/to/output"
+
+
+--------------------------------------------------------------------------------
+ - constructor
+>>> obj = PyOpenFLUID()
+
+
+--------------------------------------------------------------------------------
+ - getModelItems
+>>> obj = PyOpenFLUID()
+>>> obj.addFunction("examples.primitives.unitsA.prod")
+>>> obj.addFunction("examples.primitives.unitsB.prod")
+>>> obj.addFunction("examples.primitives.unitsA.up")
+>>> print obj.getModelItems()
+["examples.primitives.unitsA.prod", "examples.primitives.unitsB.prod", "examples.primitives.unitsA.up"]
+
+
