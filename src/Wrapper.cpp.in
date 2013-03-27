@@ -470,7 +470,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("setProcessOrder", &PyOpenFLUID::setProcessOrder,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
         boost::python::arg("UnitID"), boost::python::arg("PcsOrder") ),
-      "@DOCSTRING_boost_SETUNITPROCESSORDER@"
+      "@DOCSTRING_boost_SETPROCESSORDER@"
     )
 
 
@@ -481,7 +481,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("getProcessOrder", &PyOpenFLUID::getProcessOrder,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
         boost::python::arg("UnitID") ),
-      "@DOCSTRING_boost_GETUNITPROCESSORDER@"
+      "@DOCSTRING_boost_GETPROCESSORDER@"
     )
 
 

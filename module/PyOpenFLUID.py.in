@@ -46,6 +46,9 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     ## @DOCSTRING_doxygen_CONSTRUCTOR@
     # Initialize a new PyOpenFLUID class.
     #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    # @EndExample
     #
     def __init__ (self):
         """@DOCSTRING_python_CONSTRUCTOR@"""
@@ -83,8 +86,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
     #   @LineExSimple{obj.resetExtraFunctionsPaths()}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraFunctionsPaths()) == 0}
     # @EndExample
     #
     def addExtraFunctionsPaths (self, Paths):
@@ -107,8 +109,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
     #   @LineExSimple{obj.@HLImportant{resetExtraFunctionsPaths}()}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraFunctionsPaths()) == 0}
     # @EndExample
     #
     def resetExtraFunctionsPaths (self):
@@ -131,8 +132,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraFunctionsPaths}()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
     #   @LineExSimple{obj.resetExtraFunctionsPaths()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraFunctionsPaths}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getExtraFunctionsPaths}()) == 0}
     # @EndExample
     #
     def getExtraFunctionsPaths (self):
@@ -155,8 +155,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} obj.getExtraObserversPaths()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
     #   @LineExSimple{obj.resetExtraObserversPaths()}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraObserversPaths()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraObserversPaths()) == 0}
     # @EndExample
     #
     def addExtraObserversPaths (self, Paths):
@@ -179,8 +178,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} obj.getExtraObserversPaths()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
     #   @LineExSimple{obj.@HLImportant{resetExtraObserversPaths}()}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraObserversPaths()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraObserversPaths()) == 0}
     # @EndExample
     #
     def resetExtraObserversPaths (self):
@@ -203,8 +201,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraObserversPaths}()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
     #   @LineExSimple{obj.resetExtraObserversPaths()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraObserversPaths}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getExtraObserversPaths}()) == 0}
     # @EndExample
     #
     #
@@ -221,9 +218,9 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
+    #   @LineExSimple{... @LineExComment{\\ open a project or configure the simulation}}
     #   @LineExSimple{obj.@HLImportant{printSimulationInfo}()}
-    #   @LineExResult{Spatial domain is made of ....}
+    #   @LineExResult{Spatial domain @HLReserv{is} made of ....}
     # @EndExample
     #
     def printSimulationInfo (self):
@@ -240,18 +237,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParam}s(\"my.function\")}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionParams(\"my.function\")) == 0}
     #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"coeff\"\,\"3\")}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParam}(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParam}s(\"my.function\")}
-    #   @LineExResult{[\"coeff\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"]}
     #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParam}s(\"my.function\")}
-    #   @LineExResult{[\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
     #   @LineExSimple{obj.removeFunctionParam(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParam}s(\"my.function\")}
-    #   @LineExResult{[\"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
     def getFunctionParam (self, FunID, ParamName):
@@ -268,18 +261,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionParams(\"my.function\")) == 0}
     #   @LineExSimple{obj.@HLImportant{setFunctionParam}(\"my.function\"\,\"coeff\"\,\"3\")}
     #   @LineExSimple{@HLReserv{assert} obj.getFunctionParam(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[\"coeff\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"]}
     #   @LineExSimple{obj.@HLImportant{setFunctionParam}(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
     #   @LineExSimple{obj.removeFunctionParam(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[\"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
     def setFunctionParam (self, FunID, ParamName, ParamValue):
@@ -297,18 +286,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionParams(\"my.function\")) == 0}
     #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"coeff\"\,\"3\")}
     #   @LineExSimple{@HLReserv{assert} obj.getFunctionParam(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[\"coeff\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"]}
     #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
     #   @LineExSimple{obj.@HLImportant{removeFunctionParam}(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionParams(\"my.function\")}
-    #   @LineExResult{[\"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
     def removeFunctionParam (self, FunID, ParamName):
@@ -324,18 +309,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParams}(\"my.function\")}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getFunctionParams}(\"my.function\")) == 0}
     #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"coeff\"\,\"3\")}
     #   @LineExSimple{@HLReserv{assert} obj.getFunctionParam(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParams}(\"my.function\")}
-    #   @LineExResult{[\"coeff\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParams}(\"my.function\") == [\"coeff\"]}
     #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParams}(\"my.function\")}
-    #   @LineExResult{[\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParams}(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
     #   @LineExSimple{obj.removeFunctionParam(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionParams}(\"my.function\")}
-    #   @LineExResult{[\"tolerance\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParams}(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
     def getFunctionParams (self, FunID):
@@ -352,7 +333,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@LineExComment{obj.addGenerator(\"SU\"\\, \"var\")}}
+    #   @LineExSimple{@LineExComment{\\obj.addGenerator(\"SU\"\\, \"var\")}}
     #   @LineExSimple{obj.setGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\") == \"12.3\"}
     # @EndExample
@@ -372,7 +353,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@LineExComment{obj.addGenerator(\"SU\"\\, \"var\")}}
+    #   @LineExSimple{@LineExComment{\\obj.addGenerator(\"SU\"\\, \"var\")}}
     #   @LineExSimple{obj.@HLImportant{setGeneratorParam}(\"SU\"\,\"var.flux\"\,\"fixedvalue\"\,\"12.3\")}
     #   @LineExSimple{@HLReserv{assert} obj.getGeneratorParam(\"SU\"\,\"var.flux\"\,\"fixedvalue\") == \"12.3\"}
     # @EndExample
@@ -391,18 +372,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParam}s()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getModelGlobalParams()) == 0}
     #   @LineExSimple{obj.setModelGlobalParam(\"gvalue\"\,\"37.2\")}
     #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getModelGlobalParam}(\"gvalue\") == \"37.2\"}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParam}s()}
-    #   @LineExResult{[\"gvalue\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"gvalue\"]}
     #   @LineExSimple{obj.setModelGlobalParam(\"bluesky\"\,\"YES\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParam}s()}
-    #   @LineExResult{[\"gvalue\"\, \"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"gvalue\"\, \"bluesky\"]}
     #   @LineExSimple{obj.removeModelGlobalParam(\"gvalue\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParam}s()}
-    #   @LineExResult{[\"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"bluesky\"]}
     # @EndExample
     #
     def getModelGlobalParam (self, ParamName):
@@ -418,18 +395,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getModelGlobalParams()) == 0}
     #   @LineExSimple{obj.@HLImportant{setModelGlobalParam}(\"gvalue\"\,\"37.2\")}
     #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParam(\"gvalue\") == \"37.2\"}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[\"gvalue\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"gvalue\"]}
     #   @LineExSimple{obj.@HLImportant{setModelGlobalParam}(\"bluesky\"\,\"YES\")}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[\"gvalue\"\, \"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"gvalue\"\, \"bluesky\"]}
     #   @LineExSimple{obj.removeModelGlobalParam(\"gvalue\")}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[\"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"bluesky\"]}
     # @EndExample
     #
     def setModelGlobalParam (self, ParamName, ParamValue):
@@ -446,18 +419,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParams}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getModelGlobalParams}()) == 0}
     #   @LineExSimple{obj.setModelGlobalParam(\"gvalue\"\,\"37.2\")}
     #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParam(\"gvalue\") == \"37.2\"}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParams}()}
-    #   @LineExResult{[\"gvalue\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getModelGlobalParams}() == [\"gvalue\"]}
     #   @LineExSimple{obj.setModelGlobalParam(\"bluesky\"\,\"YES\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParams}()}
-    #   @LineExResult{[\"gvalue\"\, \"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getModelGlobalParams}() == [\"gvalue\"\, \"bluesky\"]}
     #   @LineExSimple{obj.removeModelGlobalParam(\"gvalue\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelGlobalParams}()}
-    #   @LineExResult{[\"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getModelGlobalParams}() == [\"bluesky\"]}
     # @EndExample
     #
     def getModelGlobalParams (self):
@@ -473,18 +442,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getModelGlobalParams()) == 0}
     #   @LineExSimple{obj.setModelGlobalParam(\"gvalue\"\,\"37.2\")}
     #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParam(\"gvalue\") == \"37.2\"}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[\"gvalue\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"gvalue\"]}
     #   @LineExSimple{obj.setModelGlobalParam(\"bluesky\"\,\"YES\")}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[\"gvalue\"\, \"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"gvalue\"\, \"bluesky\"]}
     #   @LineExSimple{obj.@HLImportant{removeModelGlobalParam}(\"gvalue\")}
-    #   @LineExSimple{@HLReserv{print} obj.getModelGlobalParams()}
-    #   @LineExResult{[\"bluesky\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getModelGlobalParams() == [\"bluesky\"]}
     # @EndExample
     #
     def removeModelGlobalParam (self, ParamName):
@@ -497,6 +462,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ## @DOCSTRING_doxygen_GETMODELITEMS@
+    #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{obj.addFunction(\"examples.primitives.unitsA.prod\")}
+    #   @LineExSimple{obj.addFunction(\"examples.primitives.unitsB.prod\")}
+    #   @LineExSimple{obj.addFunction(\"examples.primitives.unitsA.up\")}
+    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelItems}()}
+    #   @LineExResult{[\"examples.primitives.unitsA.prod\"\, \"examples.primitives.unitsB.prod\"\, \"examples.primitives.unitsA.up\"]}
+    # @EndExample
     #
     def getModelItems (self):
         """@DOCSTRING_python_GETMODELITEMS@"""
@@ -511,20 +485,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
     #   @LineExSimple{obj.@HLImportant{addFunction}(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"firstFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"]}
     #   @LineExSimple{obj.@HLImportant{addFunction}(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"\, \"secFunc\"]}
     #   @LineExSimple{obj.removeFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"secFunc\"]}
     #   @LineExSimple{obj.clearModel()}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
     # @EndExample
     #
     def addFunction (self, FuncID):
@@ -540,20 +509,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
     #   @LineExSimple{obj.addFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"firstFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"]}
     #   @LineExSimple{obj.addFunction(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"\, \"secFunc\"]}
     #   @LineExSimple{obj.@HLImportant{removeFunction}(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"secFunc\"]}
     #   @LineExSimple{obj.clearModel()}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
     # @EndExample
     #
     def removeFunction (self, FuncID):
@@ -569,20 +533,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
     #   @LineExSimple{obj.addFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"firstFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"]}
     #   @LineExSimple{obj.addFunction(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"\, \"secFunc\"]}
     #   @LineExSimple{obj.removeFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"secFunc\"]}
     #   @LineExSimple{obj.@HLImportant{clearModel}()}
-    #   @LineExSimple{@HLReserv{print} obj.getFunctionsInModel()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
     # @EndExample
     #
     def clearModel (self):
@@ -598,20 +557,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionsInModel}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getFunctionsInModel}()) == 0}
     #   @LineExSimple{obj.addFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionsInModel}()}
-    #   @LineExResult{[\"firstFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionsInModel}() == [\"firstFunc\"]}
     #   @LineExSimple{obj.addFunction(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionsInModel}()}
-    #   @LineExResult{[\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionsInModel}() == [\"firstFunc\"\, \"secFunc\"]}
     #   @LineExSimple{obj.removeFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionsInModel}()}
-    #   @LineExResult{[\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionsInModel}() == [\"secFunc\"]}
     #   @LineExSimple{obj.clearModel()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getFunctionsInModel}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getFunctionsInModel}()) == 0}
     # @EndExample
     #
     def getFunctionsInModel (self):
@@ -628,18 +582,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParam}s(\"export.test.fake\")}
-    #   @LineExResult{[]}
-    #   @LineExSimple{obj.setObserverParam(\"@HLImportant{getObserverParam}s\"\, \"format.f1.header\"\, \"colsname\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserverParam}(\"@HLImportant{getObserverParam}s\"\, \"format.f1.header\") == \"colsname\"}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParam}s(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"]}
-    #   @LineExSimple{obj.setObserverParam(\"@HLImportant{getObserverParam}s\"\, \"format.f1.maxwidth\"\, \"50\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParam}s(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"\, \"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserverParams(\"export.test.fake\")) == 0}
+    #   @LineExSimple{obj.setObserverParam(\"getObserverParams\"\, \"format.f1.header\"\, \"colsname\")}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserverParam}(\"getObserverParams\"\, \"format.f1.header\") == \"colsname\"}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.header\"]}
+    #   @LineExSimple{obj.setObserverParam(\"getObserverParams\"\, \"format.f1.maxwidth\"\, \"50\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.header\"\, \"format.f1.maxwidth\"]}
     #   @LineExSimple{obj.removeObserverParam(\"export.test.fake\"\, \"format.f1.header\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParam}s(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.maxwidth\"]}
     # @EndExample
     #
     def getObserverParam (self, ObsID, ParamName):
@@ -656,18 +606,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserverParams(\"export.test.fake\")) == 0}
     #   @LineExSimple{obj.@HLImportant{setObserverParam}(\"getObserverParams\"\, \"format.f1.header\"\, \"colsname\")}
     #   @LineExSimple{@HLReserv{assert} obj.getObserverParam(\"getObserverParams\"\, \"format.f1.header\") == \"colsname\"}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.header\"]}
     #   @LineExSimple{obj.@HLImportant{setObserverParam}(\"getObserverParams\"\, \"format.f1.maxwidth\"\, \"50\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"\, \"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.header\"\, \"format.f1.maxwidth\"]}
     #   @LineExSimple{obj.removeObserverParam(\"export.test.fake\"\, \"format.f1.header\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.maxwidth\"]}
     # @EndExample
     #
     def setObserverParam (self, ObsID, ParamName, ParamValue):
@@ -685,18 +631,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserverParams(\"export.test.fake\")) == 0}
     #   @LineExSimple{obj.setObserverParam(\"getObserverParams\"\, \"format.f1.header\"\, \"colsname\")}
     #   @LineExSimple{@HLReserv{assert} obj.getObserverParam(\"getObserverParams\"\, \"format.f1.header\") == \"colsname\"}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.header\"]}
     #   @LineExSimple{obj.setObserverParam(\"getObserverParams\"\, \"format.f1.maxwidth\"\, \"50\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"\, \"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.header\"\, \"format.f1.maxwidth\"]}
     #   @LineExSimple{obj.@HLImportant{removeObserverParam}(\"export.test.fake\"\, \"format.f1.header\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserverParams(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserverParams(\"export.test.fake\") == [\"format.f1.maxwidth\"]}
     # @EndExample
     #
     def removeObserverParam (self, ObsID, ParamName):
@@ -714,18 +656,14 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.addObserver(\"export.test.fake\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParams}(\"export.test.fake\")}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getObserverParams}(\"export.test.fake\")) == 0}
     #   @LineExSimple{obj.setObserverParam(\"@HLImportant{getObserverParams}\"\, \"format.f1.header\"\, \"colsname\")}
     #   @LineExSimple{@HLReserv{assert} obj.getObserverParam(\"@HLImportant{getObserverParams}\"\, \"format.f1.header\") == \"colsname\"}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParams}(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserverParams}(\"export.test.fake\") == [\"format.f1.header\"]}
     #   @LineExSimple{obj.setObserverParam(\"@HLImportant{getObserverParams}\"\, \"format.f1.maxwidth\"\, \"50\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParams}(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.header\"\, \"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserverParams}(\"export.test.fake\") == [\"format.f1.header\"\, \"format.f1.maxwidth\"]}
     #   @LineExSimple{obj.removeObserverParam(\"export.test.fake\"\, \"format.f1.header\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserverParams}(\"export.test.fake\")}
-    #   @LineExResult{[\"format.f1.maxwidth\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserverParams}(\"export.test.fake\") == [\"format.f1.maxwidth\"]}
     # @EndExample
     #
     def getObserverParams (self, ObsID):
@@ -741,20 +679,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserversInMonitoring()) == 0}
     #   @LineExSimple{obj.@HLImportant{addObserver}(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test.firstObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test.firstObs\"]}
     #   @LineExSimple{obj.@HLImportant{addObserver}(\"export.test2.secObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test.firstObs\"\, \"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test.firstObs\"\, \"export.test2.secObs\"]}
     #   @LineExSimple{obj.removeObserver(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test2.secObs\"]}
     #   @LineExSimple{obj.clearMonitoring()}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserversInMonitoring() == 0}
     # @EndExample
     #
     def addObserver (self, ObsID):
@@ -770,20 +703,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserversInMonitoring()) == 0}
     #   @LineExSimple{obj.addObserver(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test.firstObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test.firstObs\"]}
     #   @LineExSimple{obj.addObserver(\"export.test2.secObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test.firstObs\"\, \"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test.firstObs\"\, \"export.test2.secObs\"]}
     #   @LineExSimple{obj.@HLImportant{removeObserver}(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test2.secObs\"]}
     #   @LineExSimple{obj.clearMonitoring()}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserversInMonitoring() == 0}
     # @EndExample
     #
     def removeObserver (self, ObsID):
@@ -799,20 +727,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserversInMonitoring()) == 0}
     #   @LineExSimple{obj.addObserver(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test.firstObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test.firstObs\"]}
     #   @LineExSimple{obj.addObserver(\"export.test2.secObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test.firstObs\"\, \"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test.firstObs\"\, \"export.test2.secObs\"]}
     #   @LineExSimple{obj.removeObserver(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[\"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getObserversInMonitoring() == [\"export.test2.secObs\"]}
     #   @LineExSimple{obj.@HLImportant{clearMonitoring}()}
-    #   @LineExSimple{@HLReserv{print} obj.getObserversInMonitoring()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getObserversInMonitoring() == 0}
     # @EndExample
     #
     def clearMonitoring (self):
@@ -828,20 +751,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserversInMonitoring}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getObserversInMonitoring}()) == 0}
     #   @LineExSimple{obj.addObserver(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserversInMonitoring}()}
-    #   @LineExResult{[\"export.test.firstObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserversInMonitoring}() == [\"export.test.firstObs\"]}
     #   @LineExSimple{obj.addObserver(\"export.test2.secObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserversInMonitoring}()}
-    #   @LineExResult{[\"export.test.firstObs\"\, \"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserversInMonitoring}() == [\"export.test.firstObs\"\, \"export.test2.secObs\"]}
     #   @LineExSimple{obj.removeObserver(\"export.test.firstObs\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserversInMonitoring}()}
-    #   @LineExResult{[\"export.test2.secObs\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getObserversInMonitoring}() == [\"export.test2.secObs\"]}
     #   @LineExSimple{obj.clearMonitoring()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getObserversInMonitoring}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getObserversInMonitoring}() == 0}
     # @EndExample
     #
     def getObserversInMonitoring (self):
@@ -857,31 +775,21 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitsClasses}()) == 0}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsClasses}() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1]}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1\, 2]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsClasses}() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1\, 2]}
     #   @LineExSimple{obj.addUnit(\"WQ\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"WQ\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsClasses}() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"WQ\") == [1]}
     #   @LineExSimple{obj.removeUnit(\"SU\"\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[2]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsClasses}() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [2]}
     #   @LineExSimple{obj.clearAllUnits(\"SU\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsClasses}()}
-    #   @LineExResult{[\"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsClasses}() == [\"WQ\"]}
     # @EndExample
     #
     def getUnitsClasses (self):
@@ -897,31 +805,21 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsClasses()) == 0}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsIDs}(\"SU\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsIDs}(\"SU\") == [1]}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsIDs}(\"SU\")}
-    #   @LineExResult{[1\, 2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsIDs}(\"SU\") == [1\, 2]}
     #   @LineExSimple{obj.addUnit(\"WQ\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsIDs}(\"WQ\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsIDs}(\"WQ\") == [1]}
     #   @LineExSimple{obj.removeUnit(\"SU\"\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getUnitsIDs}(\"SU\")}
-    #   @LineExResult{[2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitsIDs}(\"SU\") == [2]}
     #   @LineExSimple{obj.clearAllUnits(\"SU\")}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"WQ\"]}
     # @EndExample
     #
     def getUnitsIDs (self, UnitClass):
@@ -937,31 +835,21 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsClasses()) == 0}
     #   @LineExSimple{obj.@HLImportant{addUnit}(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1]}
     #   @LineExSimple{obj.@HLImportant{addUnit}(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1\, 2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1\, 2]}
     #   @LineExSimple{obj.@HLImportant{addUnit}(\"WQ\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"WQ\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"WQ\") == [1]}
     #   @LineExSimple{obj.removeUnit(\"SU\"\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [2]}
     #   @LineExSimple{obj.clearAllUnits(\"SU\")}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"WQ\"]}
     # @EndExample
     #
     def addUnit (self, UnitClass, UnitID, PcsOrder):
@@ -978,31 +866,21 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsClasses()) == 0}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1]}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1\, 2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1\, 2]}
     #   @LineExSimple{obj.addUnit(\"WQ\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"WQ\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"WQ\") == [1]}
     #   @LineExSimple{obj.@HLImportant{removeUnit}(\"SU\"\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [2]}
     #   @LineExSimple{obj.clearAllUnits(\"SU\")}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"WQ\"]}
     # @EndExample
     #
     def removeUnit (self, UnitClass, UnitID):
@@ -1019,31 +897,21 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitsClasses()) == 0}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1]}
     #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[1\, 2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [1\, 2]}
     #   @LineExSimple{obj.addUnit(\"WQ\"\, 1\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"WQ\")}
-    #   @LineExResult{[1]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"WQ\") == [1]}
     #   @LineExSimple{obj.removeUnit(\"SU\"\, 1)}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"SU\"\, \"WQ\"]}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsIDs(\"SU\")}
-    #   @LineExResult{[2]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"SU\"\, \"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsIDs(\"SU\") == [2]}
     #   @LineExSimple{obj.@HLImportant{clearAllUnits}(\"SU\")}
-    #   @LineExSimple{@HLReserv{print} obj.getUnitsClasses()}
-    #   @LineExResult{[\"WQ\"]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitsClasses() == [\"WQ\"]}
     # @EndExample
     #
     def clearAllUnits (self, UnitClass=None):
@@ -1095,10 +963,28 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_GETUNITSTOS@
+    ## @DOCSTRING_doxygen_GETUNITTOS@
+    #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitTos}(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitTos}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.addFromToConnection(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitFroms(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitTos}(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitTos}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.removeFromToConnection(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitTos}(\"SU\"\, 1)) == 0}
+    # @EndExample
     #
     def getUnitTos (self, UnitClass, UnitID):
-        """@DOCSTRING_python_GETUNITSTOS@"""
+        """@DOCSTRING_python_GETUNITTOS@"""
         return pyopenfluid.PyOpenFLUID.getUnitTos(self, UnitClass,
             UnitID)
 
@@ -1107,10 +993,28 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_GETUNITSFROMS@
+    ## @DOCSTRING_doxygen_GETUNITFROMS@
+    #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitFroms}(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitFroms}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.addFromToConnection(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitFroms}(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getUnitFroms}(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitTos(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.removeFromToConnection(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getUnitFroms}(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 1)) == 0}
+    # @EndExample
     #
     def getUnitFroms (self, UnitClass, UnitID):
-        """@DOCSTRING_python_GETUNITSFROMS@"""
+        """@DOCSTRING_python_GETUNITFROMS@"""
         return pyopenfluid.PyOpenFLUID.getUnitFroms(self, UnitClass,
             UnitID)
 
@@ -1120,6 +1024,24 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ## @DOCSTRING_doxygen_ADDFROMTOCONNECTION@
+    #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.@HLImportant{addFromToConnection}(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitFroms(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitTos(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.removeFromToConnection(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 1)) == 0}
+    # @EndExample
     #
     def addFromToConnection (self, UnitClassFrom, UnitIDFrom, UnitClassTo,
                       UnitIDTo):
@@ -1133,6 +1055,24 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
     ## @DOCSTRING_doxygen_REMOVEFROMTOCONNECTION@
+    #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 1\, 1)}
+    #   @LineExSimple{obj.addUnit(\"SU\"\, 2\, 1)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.addFromToConnection(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 1)) == 0}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitFroms(\"SU\"\, 2) == [(\"SU\"\, 1)]}
+    #   @LineExSimple{@HLReserv{assert} obj.getUnitTos(\"SU\"\, 1) == [(\"SU\"\, 2)]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{obj.@HLImportant{removeFromToConnection}(\"SU\"\, 1\, \"SU\"\, 2)}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitFroms(\"SU\"\, 2)) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getUnitTos(\"SU\"\, 1)) == 0}
+    # @EndExample
     #
     def removeFromToConnection (self, UnitClassFrom, UnitIDFrom, UnitClassTo,
                          UnitIDTo):
@@ -1393,6 +1333,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
     ## @DOCSTRING_doxygen_SAVEDATASET@
     #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{... @LineExComment{\\ configure the simulation}}
+    #   @LineExSimple{obj.@HLImportant{saveDataset}(\"/path/to/dataset\")}
+    # @EndExample
+    #
     def saveDataset (self, Path):
         """@DOCSTRING_python_SAVEDATASET@"""
         pyopenfluid.PyOpenFLUID.saveDataset(self, Path)
@@ -1420,6 +1366,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
     ## @DOCSTRING_doxygen_SAVEPROJECT@
     #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{... @LineExComment{\\ configure the simulation}}
+    #   @LineExSimple{obj.@HLImportant{saveProject}(\"/path/to/project\")}
+    # @EndExample
+    #
     def saveProject (self, path, **kw):
         """@DOCSTRING_python_SAVEPROJECT@"""
         pyopenfluid.PyOpenFLUID.saveProject(self, path, **kw)
@@ -1434,9 +1386,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{setCurrentOutputDir}(\"/path/to/output\")}
-    #   @LineExSimple{path = obj.getCurrentOutputDir()}
-    #   @LineExSimple{@HLReserv{print} path}
-    #   @LineExResult{\"/path/to/output\"}
+    #   @LineExSimple{@HLReserv{assert} obj.getCurrentOutputDir() == \"/path/to/output\"}
     # @EndExample
     #
     def setCurrentOutputDir (self, Path):
@@ -1453,9 +1403,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setCurrentOutputDir(\"/path/to/output\")}
-    #   @LineExSimple{path = obj.@HLImportant{getCurrentOutputDir}()}
-    #   @LineExSimple{@HLReserv{print} path}
-    #   @LineExResult{\"/path/to/output\"}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getCurrentOutputDir}() == \"/path/to/output\"}
     # @EndExample
     #
     def getCurrentOutputDir (self):
@@ -1472,9 +1420,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setDefaultDeltaT(60)}
-    #   @LineExSimple{deltat = obj.@HLImportant{getDefaultDeltaT}()}
-    #   @LineExSimple{@HLReserv{print} deltat}
-    #   @LineExResult{60}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getDefaultDeltaT}() == 60}
     # @EndExample
     #
     def getDefaultDeltaT (self):
@@ -1490,10 +1436,8 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.@HLImportant{setDefaultDeltaT}(60)}
-    #   @LineExSimple{deltat = obj.getDefaultDeltaT()}
-    #   @LineExSimple{@HLReserv{print} deltat}
-    #   @LineExResult{60}
+    #   @LineExSimple{obj.setDefaultDeltaT(60)}
+    #   @LineExSimple{@HLReserv{assert} obj.getDefaultDeltaT() == 60}
     # @EndExample
     #
     def setDefaultDeltaT (self, DefaultDeltaT):
@@ -1510,9 +1454,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setPeriodBeginDate(\"1997-06-05 04:00:00\")}
-    #   @LineExSimple{bdate = obj.@HLImportant{getPeriodBeginDate}()}
-    #   @LineExSimple{@HLReserv{print} bdate}
-    #   @LineExSimple{\"1997-06-05 04:00:00\"}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getPeriodBeginDate}() == \"1997-06-05 04:00:00\"}
     # @EndExample
     #
     def getPeriodBeginDate (self):
@@ -1529,9 +1471,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.setPeriodEndDate(\"1997-06-05 04:00:00\")}
-    #   @LineExSimple{bdate = obj.@HLImportant{getPeriodEndDate}()}
-    #   @LineExSimple{@HLReserv{print} bdate}
-    #   @LineExResult{\"1997-06-05 04:00:00\"}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getPeriodEndDate}() = \"1997-06-05 04:00:00\"}
     # @EndExample
     #
     def getPeriodEndDate (self):
@@ -1548,9 +1488,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{setPeriodBeginDate}(\"1997-06-05 04:00:00\")}
-    #   @LineExSimple{bdate = obj.getPeriodBeginDate()}
-    #   @LineExSimple{@HLReserv{print} bdate}
-    #   @LineExSimple{\"1997-06-05 04:00:00\"}
+    #   @LineExSimple{@HLReserv{assert} obj.getPeriodBeginDate() == \"1997-06-05 04:00:00\"}
     # @EndExample
     #
     def setPeriodBeginDate (self, BeginDate):
@@ -1567,9 +1505,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
     #   @LineExSimple{obj.@HLImportant{setPeriodEndDate}(\"1997-06-05 04:00:00\")}
-    #   @LineExSimple{bdate = obj.getPeriodEndDate()}
-    #   @LineExSimple{@HLReserv{print} bdate}
-    #   @LineExResult{\"1997-06-05 04:00:00\"}
+    #   @LineExSimple{@HLReserv{assert} obj.getPeriodEndDate() = \"1997-06-05 04:00:00\"}
     # @EndExample
     #
     def setPeriodEndDate (self, EndDate):
@@ -1601,7 +1537,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{... @LineExComment{ open a project or configure the simulation}}
+    #   @LineExSimple{... @LineExComment{\\ open a project or configure the simulation}}
     #   @LineExSimple{res = obj.@HLImportant{runSimulation}()}
     #   @LineExSimple{@HLReserv{assert} @HLSpecial{isinstance}(res\, bool)}
     # @EndExample
