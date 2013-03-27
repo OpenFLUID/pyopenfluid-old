@@ -229,3 +229,16 @@ SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
                      DEPENDS RunSimulation_TEST
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+SET(RUNSIMULATION_NAME "cmd_runsimulation_out")
+FILE(MAKE_DIRECTORY "${TEST_PATH}/${RUNSIMULATION_NAME}")
+ADD_TEST(RunSimulation_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/RunSimulation_TEST.py"
+         "--output" "${TEST_PATH}/${RUNSIMULATION_NAME}")
+SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
