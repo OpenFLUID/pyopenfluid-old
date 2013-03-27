@@ -1157,7 +1157,7 @@ void PyOpenFLUID::clearAllUnits (boost::python::object UnitClass)
 // =====================================================================
 // =====================================================================
 
-//TODO change replace operation
+
 void PyOpenFLUID::setProcessOrder (boost::python::object UnitClass,
                                        boost::python::object UnitID,
                                        boost::python::object PcsOrder)
@@ -1634,7 +1634,7 @@ void PyOpenFLUID::setInputData (boost::python::object UnitClass,
 // =====================================================================
 // =====================================================================
 
-// TODO see if it is optimizable
+
 void PyOpenFLUID::removeInputData (boost::python::object UnitClass,
                                    boost::python::object IDataName)
 {
