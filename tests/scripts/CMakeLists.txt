@@ -7,6 +7,7 @@
 
 # =============================================================================
 # =============================  NO NEEDS OF DATAS ============================
+
 ADD_TEST(Version_TEST
          ${PYTHON_EXECUTABLE}
          ${CMAKE_CURRENT_SOURCE_DIR}/Version_TEST.py)
@@ -177,16 +178,6 @@ SET_TESTS_PROPERTIES(InputData_TEST PROPERTIES
 
 
 
-ADD_TEST(ModelItems_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/ModelItems_TEST.py")
-SET_TESTS_PROPERTIES(ModelItems_TEST PROPERTIES
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-
 ADD_TEST(UnitsIDsClasses_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/UnitsIDsClasses_TEST.py")
@@ -221,9 +212,31 @@ SET_TESTS_PROPERTIES(Project_TEST PROPERTIES
 
 
 
+# =============================================================================
+# =========================  NEEDS DATASET OR PROJECT =========================
 
-SET(RUNPROJECT_NAME "cmd_runproject")
-FILE(MAKE_DIRECTORY "${TEST_PATH}/${RUNPROJECT_NAME}")
+ADD_TEST(GeneratorParameter_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/GeneratorParameter_TEST.py"
+         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN")
+SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(ModelItems_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/ModelItems_TEST.py"
+         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN")
+SET_TESTS_PROPERTIES(ModelItems_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
 ADD_TEST(RunProject_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/RunProject_TEST.py"
@@ -236,25 +249,10 @@ SET_TESTS_PROPERTIES(RunProject_TEST PROPERTIES
 
 
 
-SET(RUNSIMULATION_NAME "cmd_runsimulation_out")
-FILE(MAKE_DIRECTORY "${TEST_PATH}/${RUNSIMULATION_NAME}")
 ADD_TEST(RunSimulation_TEST
          "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/RunSimulation_TEST.py"
-         "--output" "${TEST_PATH}/${RUNSIMULATION_NAME}")
+         "--project" "${TEST_PATH}/${RUNSIMULATION_NAME}")
 SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
-                     WILL_FAIL FALSE
-                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
-
-
-
-# =============================================================================
-# =========================  NEEDS DATASET OR PROJECT =========================
-ADD_TEST(GeneratorParameter_TEST
-         "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/GeneratorParameter_TEST.py"
-         "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN"
-         "--output" "${TEST_PATH}/${PROJECT_NAME_1}/OUT")
-SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")

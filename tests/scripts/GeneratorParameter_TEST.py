@@ -7,11 +7,10 @@ class PyOpenFLUIDTest_GeneratorParameter(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of generator parameters functions."""
-        self.preparePyOpenFLUIDClass(ArgList, "output", "dataset",
-            optional="project")
+        self.preparePyOpenFLUIDClass(ArgList, "dataset")
 
-        UnitClass = "TestUnits"
-        VarName = "tests.fixed"
+        UnitClass = "unitsA"
+        VarName = "var10"
         ParamName = "fixedvalue"
 
         # tests of getGeneratorParam

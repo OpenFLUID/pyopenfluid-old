@@ -23,9 +23,13 @@ ENDMACRO(CreateOFRepository)
 
 # output projects path
 SET(PROJECT_NAME_1        "project_1")
+SET(RUNSIMULATION_NAME    "cmd_runsimulation")
+SET(RUNPROJECT_NAME       "cmd_runproject")
 
 # input projects path (use read-only)
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${PROJECT_NAME_1}")
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNSIMULATION_NAME}")
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNPROJECT_NAME}")
 
 ##
 ADD_TEST(TestOfTestUnit

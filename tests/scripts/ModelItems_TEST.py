@@ -7,27 +7,19 @@ class PyOpenFLUIDTest_TestModelItems(PyOpenFLUIDTest):
 
     def runTest(self):
         """Test of model items globals functions."""
+        self.preparePyOpenFLUIDClass(ArgList, "dataset")
 
-        FUNCTION = "function"
-        GENERATOR = "generator"
-
-        ListOfItems = [(FUNCTION, "fctA"), (FUNCTION, "fctB"), (GENERATOR, "genA"),\
-            (FUNCTION, "fctC"), (GENERATOR, "genB"), (GENERATOR, "genC"),\
-            (GENERATOR, "genD"), (FUNCTION, "fctLast")]
-
-        # building
-        UNITCLASS = "SU"
-        self.openfluid.addUnit(UNITCLASS, 1, 1)
-        for _type, name in ListOfItems:
-            if _type == FUNCTION:
-                self.openfluid.addFunction(name)
-            elif _type == GENERATOR:
-                self.openfluid.addGenerator(UNITCLASS, name)
+        ListCheck = ("examples.primitives.unitsA.prod",
+            "GENERATOR__SCALAR__var10__unitsA",
+            "GENERATOR__SCALAR__var11__unitsA",
+            "examples.primitives.unitsA.up",
+            "examples.primitives.unitsB.prod")
 
         # test of getModelItems
-        ListCheck = [b for a,b in ListOfItems]
-        self.assertItemsEqual(ListCheck, self.openfluid.getModelItems())
+        # check order
+        self.assertEquals(ListCheck, tuple(self.openfluid.getModelItems()))
 
 
 if __name__ == "__main__":
+    ArgList = skipArgFromCL()
     unittest.main()
