@@ -1,5 +1,3 @@
-#include <Python.h>
-#include <stdio.h>
 #include <boost/python/str.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/list.hpp>
@@ -258,8 +256,8 @@ void PyOpenFLUID::printSimulationInfo ()
   std::map<std::string,std::map<int, openfluid::fluidx::BuilderUnit> >
       MapUnitClassID = this->mp_AdvFXDesc->getDomain().getUnitsByIdByClass();
 
-  std::map<std::string,std::map<int, openfluid::fluidx::BuilderUnit> >::iterator
-      ItMapUnitClassID;
+  std::map<std::string,std::map<int, openfluid::fluidx::BuilderUnit> >
+      ::iterator ItMapUnitClassID;
 
   SStream << "Spatial domain is made of " << MapUnitClassID.size()
       << " spatial units" << std::endl;
@@ -322,9 +320,11 @@ void PyOpenFLUID::printSimulationInfo ()
 
   /* Time period */
   SStream << "Simulation period from " <<
-      this->mp_AdvFXDesc->getRunDescriptor().getBeginDate().getAsISOString().c_str()
+      this->mp_AdvFXDesc->getRunDescriptor().getBeginDate().
+          getAsISOString().c_str()
       << " to "
-      << this->mp_AdvFXDesc->getRunDescriptor().getEndDate().getAsISOString().c_str()
+      << this->mp_AdvFXDesc->getRunDescriptor().getEndDate().
+          getAsISOString().c_str()
       << std::endl;
 
   /* Time step */
@@ -656,7 +656,8 @@ void PyOpenFLUID::setModelGlobalParam (boost::python::object ParamName,
   openfluid::ware::WareParamValue_t ParamValueStr =
       (openfluid::ware::WareParamValue_t) getStringParamValue();
 
-  this->mp_AdvFXDesc->getModel().setGlobalParameter(ParamNameStr,ParamValueStr);
+  this->mp_AdvFXDesc->getModel().
+      setGlobalParameter(ParamNameStr,ParamValueStr);
 }
 
 
@@ -711,7 +712,8 @@ boost::python::object PyOpenFLUID::getModelItems ()
   openfluid::fluidx::FunctionDescriptor* FuncDescp;
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
 
-  for(ItListItem = ListItem.begin(); ItListItem != ListItem.end(); ++ItListItem)
+  for(ItListItem = ListItem.begin(); ItListItem != ListItem.end();
+      ++ItListItem)
     if ((*ItListItem)->isType(
           openfluid::fluidx::FunctionDescriptor::PluggedFunction))
     {
@@ -811,8 +813,9 @@ boost::python::object PyOpenFLUID::getFunctionsInModel ()
       ++ItItemList)
     if ((*ItItemList)->isType(
         openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
-      ListRes.append(boost::python::str((
-          (openfluid::fluidx::FunctionDescriptor*)(*ItItemList))->getFileID()));
+      ListRes.append(boost::python::str(
+          ((openfluid::fluidx::FunctionDescriptor*)(*ItItemList))->
+          getFileID()));
 
   return ListRes;
 }
@@ -993,7 +996,7 @@ void PyOpenFLUID::removeObserver (boost::python::object ObsID)
 void PyOpenFLUID::clearMonitoring ()
 {
   std::list<openfluid::fluidx::ObserverDescriptor*> EmptyList =
-      std::list< openfluid::fluidx::ObserverDescriptor * >();
+      std::list< openfluid::fluidx::ObserverDescriptor*>();
   this->mp_AdvFXDesc->getMonitoring().setItems(EmptyList);
 }
 
@@ -1131,6 +1134,7 @@ void PyOpenFLUID::removeUnit (boost::python::object UnitClass,
 
 void PyOpenFLUID::clearAllUnits (boost::python::object UnitClass)
 {
+  /* if python None */
   if (UnitClass.ptr() == Py_None)
   {
     this->mp_AdvFXDesc->getDomain().clearDomain();
@@ -1242,7 +1246,8 @@ boost::python::object PyOpenFLUID::getUnitTos (
 
     std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
 
-    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end();
+        ++ItListUnit)
       ListRes.append(boost::python::make_tuple(
           boost::python::object((*ItListUnit).first),
           boost::python::object((*ItListUnit).second) ));
@@ -1281,7 +1286,8 @@ boost::python::object PyOpenFLUID::getUnitFroms (
 
     std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
 
-    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end();
+        ++ItListUnit)
       ListRes.append(boost::python::make_tuple(
           boost::python::object((*ItListUnit).first),
           boost::python::object((*ItListUnit).second) ));
@@ -1402,7 +1408,8 @@ boost::python::object PyOpenFLUID::getUnitChildren (
 
     std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
 
-    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end();
+        ++ItListUnit)
       ListRes.append(boost::python::make_tuple(
           boost::python::object((*ItListUnit).first),
           boost::python::object((*ItListUnit).second) ));
@@ -1440,7 +1447,8 @@ boost::python::object PyOpenFLUID::getUnitParents (
 
     std::list<openfluid::core::UnitClassID_t>::iterator ItListUnit;
 
-    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end(); ++ItListUnit)
+    for(ItListUnit = ListUnit.begin(); ItListUnit != ListUnit.end();
+        ++ItListUnit)
       ListRes.append(boost::python::make_tuple(
           boost::python::object((*ItListUnit).first),
           boost::python::object((*ItListUnit).second) ));
@@ -1650,7 +1658,8 @@ void PyOpenFLUID::removeInputData (boost::python::object UnitClass,
 
   try
   {
-    this->mp_AdvFXDesc->getDomain().deleteInputData(UnitClassStr, IDataNameStr);
+    this->mp_AdvFXDesc->getDomain().
+        deleteInputData(UnitClassStr, IDataNameStr);
   } HANDLE_OFEXCEPTION
 }
 
@@ -1757,7 +1766,6 @@ void PyOpenFLUID::openProject (boost::python::object Path)
 
 PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
     PyObject* InDict)
-//void PyOpenFLUID::saveProject (boost::python::object Path)
 {
   char* Keywords[5];
   Keywords[0] = (char*) "path";
@@ -2001,9 +2009,9 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
       TabRes[i] = std::atoi(TmpStr.c_str());
     }
 
-  openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0],
-      TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
-  this->mp_AdvFXDesc->getRunDescriptor().setBeginDate(BDate);
+    openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0],
+        TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
+    this->mp_AdvFXDesc->getRunDescriptor().setBeginDate(BDate);
   }
   else
     throw PyOFException("begin date isn't formatted with good format",
@@ -2042,9 +2050,9 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
       TabRes[i] = std::atoi(TmpStr.c_str());
     }
 
-  openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0],
-      TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
-  this->mp_AdvFXDesc->getRunDescriptor().setEndDate(BDate);
+    openfluid::core::DateTime BDate = openfluid::core::DateTime(TabRes[0],
+        TabRes[1], TabRes[2], TabRes[3], TabRes[4], TabRes[5]);
+    this->mp_AdvFXDesc->getRunDescriptor().setEndDate(BDate);
   }
   else
     throw PyOFException("end date isn't formatted with good format",
@@ -2124,40 +2132,8 @@ boost::python::object PyOpenFLUID::runSimulation ()
 // =====================================================================
 
 
-//PyOpenFLUID* PyOpenFLUID::loadResult (boost::python::object UnitClass,
-//                                           boost::python::object UnitID,
-//                                           boost::python::object Suffix)
-//{
-//  throw PyOFException("unavailable method");
-//}
-
-
-// =====================================================================
-// =====================================================================
-
-
-//PyOpenFLUID* PyOpenFLUID::loadResultFile (boost::python::object FilePath)
-//{
-//  throw PyOFException("unavailable method");
-//}
-
-
-// =====================================================================
-// =====================================================================
-
-
 void PyOpenFLUID::updateOutputsConfig ()
 {
-//  std::vector<openfluid::base::OutputFilesDescriptor>::iterator DescIt;
-
-//  for (DescIt = this->mp_FXDesc->getMonitoringDescriptor().getFileSets().begin();
-//       DescIt != this->mp_FXDesc->getMonitoringDescriptor().getFileSets().end();
-//       ++DescIt)
-//  {
-//    (*DescIt).setHeaderType(openfluid::base::OutputFilesDescriptor::
-//        ColnamesAsData);
-//    (*DescIt).setDateFormat("%Y%m%d-%H%M%S");
-//  }
 }
 
 
@@ -2169,7 +2145,7 @@ boost::python::object PyOpenFLUID::getStr ()
 {
   std::stringstream SStream(std::stringstream::in | std::stringstream::out);
 
-  /* 'PyOpenFLUID(<<version pyof>>)' */
+  /* output: 'PyOpenFLUID(<<version pyof>>)' */
   SStream << "PyOpenFLUID(" << PYOPENFLUID_VERSION << ")";
 
   return boost::python::object(SStream.str());

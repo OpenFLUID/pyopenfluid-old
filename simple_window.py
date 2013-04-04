@@ -50,27 +50,27 @@ class WindowPyOF:
         Frame = tk.Frame(self.Elements["workFrame"])
         Frame.pack(side=TOP, anchor=NW, expand=YES, fill=X)
 
-        self.Elements["openButton"] = button = tk.Button(Frame,\
+        self.Elements["openButton"] = button = tk.Button(Frame,
             text="Open project", command=self.open, width=width_button)
-        button.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=NW,\
+        button.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=NW,
             expand=NO, fill=X)
 
         self.Elements["textvarPath"] = pathvar = tk.StringVar(Frame, "<no project path>")
         label = tk.Label(Frame, textvariable=pathvar, justify=LEFT)
-        label.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=W,\
+        label.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=W,
             expand=NO, fill=X)
 
         Frame = tk.Frame(self.Elements["workFrame"])
         Frame.pack(side=TOP, anchor=NW, expand=YES, fill=X)
 
-        self.Elements["quitButton"] = button = tk.Button(Frame, text="Quit",\
+        self.Elements["quitButton"] = button = tk.Button(Frame, text="Quit",
             command=self.quit, width=width_button)
-        button.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=NW,\
+        button.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=NW,
             expand=NO, fill=X)
 
-        self.Elements["runButton"] = button = tk.Button(Frame,\
+        self.Elements["runButton"] = button = tk.Button(Frame,
             text="Run simulation", command=self.startSimulation, state=DISABLED)
-        button.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=NW,\
+        button.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=NW,
             expand=YES, fill=X)
 
         # log
@@ -80,7 +80,7 @@ class WindowPyOF:
         YScrollBar = tk.Scrollbar(Frame)
         YScrollBar.pack(side=RIGHT, fill=Y, padx=1, pady=1)
 
-        self.Elements["textError"] = Text = tk.Text(Frame, wrap=WORD,\
+        self.Elements["textError"] = Text = tk.Text(Frame, wrap=WORD,
             yscrollcommand=YScrollBar.set, height=10)
         Text.pack(expand=YES, fill=BOTH, ipadx=3, ipady=3, side=LEFT)
         YScrollBar.config(command=Text.yview)
@@ -92,12 +92,12 @@ class WindowPyOF:
         Frame.pack_forget()
 
         label = tk.Label(Frame, text="The simulation is running.", justify=CENTER)
-        label.pack(ipadx=3, ipady=3, side=TOP, anchor=CENTER,\
+        label.pack(ipadx=3, ipady=3, side=TOP, anchor=CENTER,
             expand=YES, fill=BOTH)
 
         self.Elements["textvarSimulation"] = simuvar = tk.StringVar(Frame, "<no project path>")
         label = tk.Label(Frame, textvariable=simuvar, justify=CENTER)
-        label.pack(ipadx=3, ipady=3, side=TOP, anchor=CENTER,\
+        label.pack(ipadx=3, ipady=3, side=TOP, anchor=CENTER,
             expand=YES, fill=BOTH)
 
         # window
@@ -114,9 +114,9 @@ class WindowPyOF:
     ## event function
     def quit(self, Event=None):
         if not self.IsSimulationRunned.isSet():
-            tkMessageBox._show(parent=self.Fen,\
-                message="You can't close the window during a simulation.",\
-                _icon=tkMessageBox.WARNING, _type=tkMessageBox.OK,\
+            tkMessageBox._show(parent=self.Fen,
+                message="You can't close the window during a simulation.",
+                _icon=tkMessageBox.WARNING, _type=tkMessageBox.OK,
                 title="PyOpenFLUID simulation running")
             return
 
@@ -131,7 +131,7 @@ class WindowPyOF:
         else:
             TmpRoot = self.ProjectPath
 
-        InputDir = tkFileDialog.askdirectory(parent=self.Fen, mustexist=True,\
+        InputDir = tkFileDialog.askdirectory(parent=self.Fen, mustexist=True,
             title="open an OpenFLUID project path", initialdir=TmpRoot)
 
         if len(InputDir) == 0:
@@ -141,9 +141,9 @@ class WindowPyOF:
         Message = "'%s' isn't a correct OpenFLUID project path." % InputDir
         Title = ""
         for Suffix in ["", "IN"]:
-            if not (os.path.exists(os.path.join(InputDir, Suffix)) and \
+            if not (os.path.exists(os.path.join(InputDir, Suffix)) and
                     os.path.isdir(os.path.join(InputDir, Suffix)) ):
-                tkMessageBox._show(parent=self.Fen, message=Message,\
+                tkMessageBox._show(parent=self.Fen, message=Message,
                     _icon=tkMessageBox.ERROR, _type=tkMessageBox.OK, title=Title)
                 return
 
@@ -160,7 +160,7 @@ class WindowPyOF:
         self.NbSimu += 1
         self.hideLogText()
         self.Elements["workFrame"].pack_forget()
-        self.Elements["simulationFrame"].pack(\
+        self.Elements["simulationFrame"].pack(
             **self.Elements["simulationFramePackInfo"])
         self.Elements["runButton"].config(state=DISABLED) # security
         self.Elements["quitButton"].config(state=DISABLED) # security
@@ -168,10 +168,10 @@ class WindowPyOF:
         self.Elements["textvarSimulation"].set(self.ProjectPath)
         self.resizeWindow()
         #
-        Th = Thread(target=self._launchSimulation,\
+        Th = Thread(target=self._launchSimulation,
             name="OpenFLUID simulation process launcher")
         Th.start()
-        Th = Thread(target=self._endSimulation,\
+        Th = Thread(target=self._endSimulation,
             name="end of simulation thread")
         Th.start()
 
@@ -179,8 +179,8 @@ class WindowPyOF:
         self.IsSimulationRunned.clear()
         #
         ResQueue = Queue()
-        ProcessSimu = Process(target=Simulate,\
-            args=(self.PyOpenFLUID, ResQueue,),\
+        ProcessSimu = Process(target=Simulate,
+            args=(self.PyOpenFLUID, ResQueue,),
             name="OpenFLUID simulation process")
         ProcessSimu.start()
         self.ResultSimu = ProcessSimu.join()
@@ -214,9 +214,9 @@ class WindowPyOF:
         self.resizeWindow()
         #
         if not self.ResultSimu:
-            tkMessageBox._show(parent=self.Fen,\
-                message="Problem(s) or errors occured during simulation.",\
-                _icon=tkMessageBox.ERROR, _type=tkMessageBox.OK,\
+            tkMessageBox._show(parent=self.Fen,
+                message="Problem(s) or errors occured during simulation.",
+                _icon=tkMessageBox.ERROR, _type=tkMessageBox.OK,
                 title="Error during the simulation")
         #
         self.ResultSimu = None
@@ -237,8 +237,8 @@ class WindowPyOF:
         try:
             self.PyOpenFLUID.openProject(Path)
         except Exception as e:
-            tkMessageBox._show(parent=self.Fen, message=e.message,\
-                _icon=tkMessageBox.ERROR, _type=tkMessageBox.OK,\
+            tkMessageBox._show(parent=self.Fen, message=e.message,
+                _icon=tkMessageBox.ERROR, _type=tkMessageBox.OK,
                 title="Error during project opening with PyOpenFLUID")
             self.Elements["runButton"].config(state=DISABLED)
 

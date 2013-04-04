@@ -1,6 +1,5 @@
 #include "PythonUtilities.hpp"
 
-
 namespace pyopenfluid { 
 
 namespace tools {

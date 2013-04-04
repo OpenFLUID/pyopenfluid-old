@@ -4,26 +4,33 @@
 # Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
 #
 
+# includes all functions infos
 INCLUDE(DocStrings.cmake)
 
+STRING(ASCII 35 HASH) # '#'
+STRING(ASCII 37 POURC) # '%'
+STRING(ASCII 38 AMP) # '&'
 
-STRING(ASCII 35 HASH)
-STRING(ASCII 37 POURC)
-STRING(ASCII 38 AMP)
+################################################################################
+##############  CREATION OF boost, python AND doxygen DOCSTRINGS  ##############
 
-# create boost, python and doxygen docstrings
+# prefix for 'PyOpenFLUID.py', for identation
 SET(DOXYGEN_DOC_PREFIX "    ${HASH} ")
 
+# add a content into a var
+# because CMake doesn't provide it (just set new content)
 FUNCTION(ADDTOVAR NAMEVAR CONTENT)
   SET(${NAMEVAR} "${${NAMEVAR}}${CONTENT}" PARENT_SCOPE)
 ENDFUNCTION()
 
+# escape characters for doxygen
 FUNCTION(PREPAREVAR_DOXYGEN NAMEVAR)
   STRING(REPLACE "," "\\," ${NAMEVAR} "${${NAMEVAR}}")
   STRING(REPLACE "${POURC}" "\\${POURC}" ${NAMEVAR} "${${NAMEVAR}}")
   SET(${NAMEVAR} "${${NAMEVAR}}" PARENT_SCOPE)
 ENDFUNCTION()
 
+# main function
 FUNCTION(ADAPT_ADVANCED_DOCSTRING FUNCTIONNAME)
   # init
   SET(TMPBUFFER_BO "")
@@ -131,6 +138,7 @@ FUNCTION(ADAPT_ADVANCED_DOCSTRING FUNCTIONNAME)
   SET(DOCSTRING_doxygen_${FUNCTIONNAME} "${TMPBUFFER_DX_FINAL}" CACHE INTERNAL "" FORCE)
 ENDFUNCTION()
 
+# adapt all functions listed
 FOREACH(FUNCTIONNAME ${DOCSTRING_ALL_FUNCTION_ADVANCED})
   ADAPT_ADVANCED_DOCSTRING("${FUNCTIONNAME}")
 ENDFOREACH()

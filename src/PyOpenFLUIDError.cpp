@@ -1,6 +1,3 @@
-#include <Python.h>
-#include <string>
-#include <exception>
 #include "PyOpenFLUIDError.hpp"
 
 // =====================================================================

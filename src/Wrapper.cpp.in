@@ -32,7 +32,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 /* ------------------------- BOOST SETTINGS ------------------------- */
 
-  // docstring perso - docstring boost(python) - docstring boost(c++)
+  // docstring given - docstring boost(python) - docstring boost(c++)
   boost::python::docstring_options local_docstring_options(true, true, false);
 
 
@@ -765,48 +765,6 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
       ( boost::python::arg("self") ),
       "@DOCSTRING_boost_RUNSIMULATION@"
     )
-
-
-// =====================================================================
-// =====================================================================
-
-
-/*    .def("loadResult", &PyOpenFLUID::loadResult,
-      ( boost::python::arg("UnitClass"), boost::python::arg("UnitID"),
-        boost::python::arg("Suffix") ),
-      "Loads results as a dataframe, giving output dataset informations.\
-\n\nKeyword arguments:\
-\nUnitClass  -- the unit class\
-\nUnitID     -- the unit ID\
-\nSuffix     -- the output dataset suffix\
-\n\nReturns:\
-\na dataframe containing the simulation results\
-\n\nExamples:\
-\n>>> obj = PyOpenFLUID()\
-\n>>> resSU18 = obj.loadResult(self, \"SU\",18,\"full\")\
-\n>>> resRS1 = obj.loadResult(self, \"RS\",1,\"waterlevel\")\
-", boost::python::return_internal_reference<>()
-    )*/
-
-
-// =====================================================================
-// =====================================================================
-
-
-/*    .def("loadResultFile", &PyOpenFLUID::loadResultFile,
-      ( boost::python::arg("FilePath") ),
-      "Loads results as a dataframe, giving output file name.\
-\n\nKeyword arguments:\
-\nFilePath  -- the full path of the file to load\
-\n\nReturns:\
-\na dataframe containing the simulation results\
-\n\nExamples:\
-\n>>> obj = PyOpenFLUID()\
-\n>>> resSU18 = obj.loadResultFile(\"/path/to/output/SU18_full.out\")\
-\n>>> resRS1 = obj.loadResultFile(\
-\"/path/to/output/RS1_waterlevel.out\")\
-", boost::python::return_internal_reference<>()
-    )*/
 
 
 // =====================================================================

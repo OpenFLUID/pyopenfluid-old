@@ -11,6 +11,7 @@
 #include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
 
 
+// used for parameter default value (python None)
 const boost::python::object BOOST_NONE = boost::python::object();
 
 
@@ -21,6 +22,7 @@ const boost::python::object BOOST_NONE = boost::python::object();
 class PyOpenFLUID
 {
   public :
+
 
 // =====================================================================
 // =====================================================================
@@ -312,8 +314,8 @@ class PyOpenFLUID
 
 
     void setProcessOrder (boost::python::object UnitClass,
-                              boost::python::object UnitID,
-                              boost::python::object PcsOrder);
+                          boost::python::object UnitID,
+                          boost::python::object PcsOrder);
 
 
 // =====================================================================
@@ -321,7 +323,7 @@ class PyOpenFLUID
 
 
     boost::python::object getProcessOrder (boost::python::object UnitClass,
-                                               boost::python::object UnitID);
+                                           boost::python::object UnitID);
 
 
 // =====================================================================
@@ -528,22 +530,6 @@ class PyOpenFLUID
 
 
     boost::python::object runSimulation ();
-
-
-// =====================================================================
-// =====================================================================
-
-
-//    void loadResult (boost::python::object UnitClass,
-//                             boost::python::object UnitID,
-//                             boost::python::object Suffix);
-
-
-// =====================================================================
-// =====================================================================
-
-
-//    void loadResultFile (boost::python::object FilePath);
 
 
 // =====================================================================

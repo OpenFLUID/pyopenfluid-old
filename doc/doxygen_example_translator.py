@@ -132,7 +132,7 @@ def fusionSplitRegex(listIn, word, end=""):
             res += end + subpattern
     return res
 
-def fusionSplitRegexAvecValeur(listIn, prev, end):
+def fusionSplitRegexWithValue(listIn, prev, end):
     res = ""
     for i, subpattern in enumerate(listIn):
         if i%4 == 0:
@@ -173,7 +173,7 @@ for lFunc, lRawEx in LIST_EXAMPLES:
             line_ex = line_ex.replace(speCar, "\\"+speCar)
         # number
 #        SPLIT_LIGNE = re.split("([^\w]?)([-]?[0-9]+)([^\w]?)", line_ex)
-#        line_ex = fusionSplitRegexAvecValeur(SPLIT_LIGNE, createTag(REPLACE_LIST["number"]+"{"), "}")
+#        line_ex = fusionSplitRegexWithValue(SPLIT_LIGNE, createTag(REPLACE_LIST["number"]+"{"), "}")
         # mise en valeur des words
         for tag, wordif, lMotSpe in REPLACE_LIST_BY_WORD:
             for wordSpe in lMotSpe:

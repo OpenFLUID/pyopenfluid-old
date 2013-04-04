@@ -110,7 +110,7 @@ class PyOFException : std::exception
 
 
 // =====================================================================
-// ===================      TRANSLATOR EXCEPTION      ==================
+// ===================      EXCEPTION TRANSLATOR     ===================
 
 
 void TranslatePyOFException (const PyOFException& e);

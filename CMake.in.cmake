@@ -15,7 +15,7 @@ SET(PYOPENFLUID_VERSION "${OpenFLUID_VERSION}")
 
 SET(PYOPENFLUID_LICENCE "GPLv3")
 SET(PYOPENFLUID_SHORT_DESCRIPTION "This module allows to load, parameterize, run and analyse OpenFLUID simulations within the Python 2.x environment.")
-SET(PYOPENFLUID_LONG_DESCRIPTION "This module allows to load, parameterize, run and analyse OpenFLUID simulations within the Python 2.x environment. (long version)")
+SET(PYOPENFLUID_LONG_DESCRIPTION "This module allows to load, parameterize, run and analyse OpenFLUID simulations within the Python 2.x environment.")
 SET(PYOPENFLUID_AUTHORS_LIST "Bastien VAYSSE")
 SET(PYOPENFLUID_EMAIL_LIST "bastien.vaysse@supagro.inra.fr")
 SET(PYOPENFLUID_MAINTAINER "Bastien VAYSSE")
@@ -42,12 +42,6 @@ SET(TESTS_OUTPUTS_PATH      "tests-outputs")
 # ------ PREFIXS ------ #
 SET(BUILD_PREFIX "dist")
 SET(BUILD_PATH "${OUTPUT_PATH}/${BUILD_PREFIX}")
-
-
-# ------ DOCUMENTATION ------ #
-SET(CREATE_DOC_HTML YES)
-SET(CREATE_DOC_LATEX YES)
-SET(CREATE_DOC_MAN YES)
 
 
 # ------ TESTS FILES ------ #

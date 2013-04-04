@@ -1,17 +1,13 @@
 #ifndef __PYTHONUTILITIES_HPP__
 #define __PYTHONUTILITIES_HPP__
 
-#include <map>
-#include <list>
 #include <string>
-#include <vector>
 #include <sstream>
 #include <iostream>
 
 #include <Python.h>
 #include <boost/python/str.hpp>
 #include <boost/python/dict.hpp>
-#include <boost/python/list.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/object.hpp>
 #include <boost/python/extract.hpp>
