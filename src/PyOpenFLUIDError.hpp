@@ -5,6 +5,46 @@
 #include <string>
 #include <exception>
 
+#define HANDLE_EXCEPTION \
+catch (openfluid::base::OFException& E) \
+{ \
+  throw PyOFException(E.what()); \
+} \
+catch (std::bad_alloc& E) \
+{ \
+  throw PyOFException(std::string("MEMORY ALLOCATION ERROR, ") \
+      + std::string(E.what()) \
+      + std::string(". Possibly not enough memory available"), \
+      PyExc_MemoryError); \
+} \
+catch (PyOFException& E) \
+{ \
+  throw E; \
+} \
+catch (std::exception& E) \
+{ \
+  throw PyOFException(std::string("SYSTEM ERROR, ") + std::string(E.what()), \
+      PyExc_SystemError); \
+} \
+catch (...) \
+{ \
+  throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError); \
+}
+
+
+#define HANDLE_OFEXCEPTION \
+catch (openfluid::base::OFException& E) \
+{ \
+  throw PyOFException(E.what()); \
+}
+
+
+#define WARNING_OFEXCEPTION \
+catch (openfluid::base::OFException& E) \
+{ \
+  pyopenfluid::topython::printWarning(E.what()); \
+}
+
 
 // =====================================================================
 // ====================      GENERAL EXCEPTION      ====================
@@ -70,7 +110,7 @@ class PyOFException : std::exception
 
 
 // =====================================================================
-// ===================      TRANSLATOR EXCEPTION      ==================
+// ===================      EXCEPTION TRANSLATOR     ===================
 
 
 void TranslatePyOFException (const PyOFException& e);

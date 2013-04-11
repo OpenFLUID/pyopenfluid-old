@@ -1,12 +1,22 @@
+#
+# CMake build for PyOpenFLUID
+#
+# Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
+#
+
 SET(pyopenfluid_script
     __init__.py
     PyOpenFLUID.py)
-
-# copy PyOpenFLUID module (python files) of the library
-ADD_CUSTOM_TARGET(PyOpenFLUID_File_Copy ALL)
+# copy PyOpenFLUID module (python files) of the library and configure them
 FOREACH(script ${pyopenfluid_script})
-  ADD_CUSTOM_COMMAND(TARGET PyOpenFLUID_File_Copy POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" "-E"
-    "copy" "${PYOPENFLUID_INPUT_MODULE}/${script}"
-    "${PYTHON_MODULE_OUTPUT_PATH}" VERBATIM)
+  CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${script}.in"
+      "${PYTHON_OUTPUT_SRC_PATH}/${script}" @ONLY)
 ENDFOREACH(script)
+
+
+GET_PROPERTY(PYOPENFLUID_DYNAMIC_LIBRARY_RAWNAME TARGET PyOpenFLUID PROPERTY OUTPUT_NAME)
+GET_PROPERTY(PYOPENFLUID_DYNAMIC_LIBRARY_PREFIX TARGET PyOpenFLUID PROPERTY PREFIX)
+SET(PYOPENFLUID_DYNAMIC_LIBRARY_NAME "${PYOPENFLUID_DYNAMIC_LIBRARY_PREFIX}${PYOPENFLUID_DYNAMIC_LIBRARY_RAWNAME}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+# configuration setup
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in"
+    "${PYTHON_OUTPUT_PATH}/setup.py" @ONLY)

@@ -2,8 +2,6 @@
 _*
 *~
 *.pyc
-/devel
-/devel/*
 
 !/.gitignore
 !*.py

@@ -1,6 +1,3 @@
-#include <Python.h>
-#include <string>
-#include <exception>
 #include "PyOpenFLUIDError.hpp"
 
 // =====================================================================
@@ -67,13 +64,3 @@ void TranslatePyOFException (const PyOFException& e)
     PyErr_SetString(myException, e.what());
   }
 }
-
-
-// =====================================================================
-// =====================================================================
-
-
-//void TranslatePyOFExc_TypeError (const PyOFExc_TypeError& e)
-//{
-//  PyErr_SetString(PyExc_TypeError, e.what());
-//}
