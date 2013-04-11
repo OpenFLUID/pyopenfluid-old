@@ -10,8 +10,8 @@ class PyOpenFLUIDTest_TestModelItems(PyOpenFLUIDTest):
         self.preparePyOpenFLUIDClass(ArgList, "dataset")
 
         ListCheck = ("examples.primitives.unitsA.prod",
-            "GENERATOR__SCALAR__var10__unitsA",
-            "GENERATOR__SCALAR__var11__unitsA",
+            "var10.unitsA.genscalar",
+            "var11.unitsA.genscalar",
             "examples.primitives.unitsA.up",
             "examples.primitives.unitsB.prod")
 
