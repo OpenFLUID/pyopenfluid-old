@@ -11,7 +11,19 @@ def skipArgFromCL():
     """Gets arguments (in line command) away from sys, because unittest will try to use them."""
     Res = sys.argv[1:]
     sys.argv = sys.argv[:1]
-    return Res
+
+    Args = ()
+    Kw = {}
+
+    while len(Res) > 0:
+      Word = Res.pop(0)
+      if Word.startswith("--"):
+        Kw[Word[2:]] = Res.pop(0)
+      else:
+        Args = Args + (Word,)
+    Kw["__unknow__"] = Args
+
+    return Kw
 
 
 # ########################################################################## #
@@ -60,7 +72,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
     def loadInputDataset(self, Path):
         self.checkDirectory(Path)
-        return self.openfluid.openDataset(Path)
+        self.openfluid.openDataset(Path)
 
 
 # ########################################################################## #
@@ -69,21 +81,37 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
     def loadProject(self, Path):
         self.checkDirectory(Path)
-        return self.openfluid.openProject(Path)
+        self.openfluid.openProject(Path)
 
 
 # ########################################################################## #
 # ########################################################################## #
 
 
-    def loadAllInputDataset(self, List):
-        for DTPath in List:
-            try:
-                self.openfluid = self.loadInputDataset(DTPath)
-            except Exception as e:
-                print "Loading input dataset fail : " + e.message
-        else:
-            return len(List)
+    def preparePyOpenFLUIDClass(self, DictIn, *Args, **Kw):
+        def _actionPreparation(Key, Value):
+            if Key == "dataset":
+                self.loadInputDataset(Value)
+            elif Key == "project":
+                self.loadProject(Value)
+            elif Key == "output":
+                self.checkDirectory(Value)
+                self.openfluid.setCurrentOutputDir(Value)
+            elif Key == "funpath":
+                self.checkDirectory(Value)
+                self.openfluid.addExtraFunctionsPaths(Value)
+            elif Key == "obspath":
+                self.checkDirectory(Value)
+                self.openfluid.addExtraObserversPaths(Value)
+        #
+        for Key in Args:
+            self.assertTrue(DictIn.has_key(Key))
+            _actionPreparation(Key, DictIn[Key])
+        #
+        Optional = list(Kw.get("optional", []))
+        for Key in Optional:
+            if DictIn.has_key(Key):
+                _actionPreparation(Key, DictIn[Key])
 
 
 # ########################################################################## #
@@ -145,11 +173,42 @@ class PyOpenFLUIDTest(unittest.TestCase):
         self.assertGreater(len(Contenu), 0)
 
         # verification des fichiers que le dossier contient
-        ListModel = ["^.*\.log$"]
+        ListModel = ["^.*\.(log|csv)$"]
         ListModel = [re.compile(Model) for Model in ListModel]
         for Fichier in Contenu:
             for ValidModel in ListModel:
                 if not ValidModel.search(Fichier) is None:
                     break
             else:
-                self.assertTrue(False, "file '{0}' doesn't suit any format.".format(Fichier))
+                self.assertTrue(False, "file '{0}' doesn't suit any format.".
+                        format(Fichier))
+
+
+# ########################################################################## #
+# ########################################################################## #
+
+
+    def assertRaisesOrElse(self, exception, callObj, elseMethod,
+            argObj=(), kwObj={}, argMeth=(), kwMeth={} ):
+        if not ( callable(callObj) and callable(elseMethod) and
+                issubclass(exception, Exception) and isinstance(argObj, tuple)
+                and isinstance(kwObj, dict) and isinstance(argMeth, tuple)
+                and isinstance(kwMeth, dict) ):
+            print "1:", callable(callObj)
+            print "2:", callable(elseMethod)
+            print "3:", issubclass(exception, Exception)
+            print "5:", isinstance(argObj, tuple)
+            print "4:", isinstance(kwObj, dict)
+            print "7:", isinstance(argMeth, tuple)
+            print "6:", isinstance(kwMeth, dict)
+            raise TypeError("'assertRaisesOrElse' method called with some wrong\
+ parameter(s)")
+
+        try:
+            TmpRes = callObj(*argObj, **kwObj)
+        except exception:
+            pass
+        except Exception:
+            raise RuntimeError("exception occured wasn't the one excepted")
+        else:
+            return elseMethod(TmpRes, *argMeth, **kwMeth)

@@ -1,0 +1,26 @@
+#!/bin/env/python
+# -*- coding: UTF-8 -*-
+
+# ########################################################################## #
+# ###                                IMPORT                              ### #
+# ########################################################################## #
+
+
+try:
+    import _pyopenfluid
+except ImportError, msg:
+    raise ImportError, str(msg) + ', please install the python-openfluid package'
+
+# constants
+__doc__ = "@PYOPENFLUID_SHORT_DESCRIPTION@"
+__author__ = "@PYOPENFLUID_AUTHORS_LIST@"
+__version__ = "@PYOPENFLUID_VERSION@"
+__license__ = "@PYOPENFLUID_LICENCE@"
+__all__ = ["PyOpenFLUID"]
+
+
+# ########################################################################## #
+# ###                           OPENFLUID CLASS                          ### #
+# ########################################################################## #
+
+from PyOpenFLUID import PyOpenFLUID

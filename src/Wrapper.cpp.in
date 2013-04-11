@@ -1,0 +1,785 @@
+#include <boost/python/def.hpp>
+#include <boost/python/scope.hpp>
+#include <boost/python/class.hpp>
+#include <boost/python/module.hpp>
+#include <boost/python/overloads.hpp>
+#include <boost/python/raw_function.hpp>
+#include <boost/python/docstring_options.hpp>
+#include <boost/python/exception_translator.hpp>
+#include <boost/python/return_internal_reference.hpp>
+
+#include <boost/python/str.hpp>
+#include <boost/python/dict.hpp>
+#include <boost/python/list.hpp>
+#include <boost/python/tuple.hpp>
+#include <boost/python/object.hpp>
+
+#include <openfluid/config.hpp>
+
+#include "Wrapper.hpp"
+#include "PyOpenFLUID.hpp"
+#include "PyOpenFLUIDError.hpp"
+#include "PythonUtilities.hpp"
+#include "PyOpenFLUIDConstants.hpp"
+
+
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(clearAllUnits_overloads,
+    clearAllUnits, 0, 1)
+
+BOOST_PYTHON_MODULE(_pyopenfluid)
+{
+
+// =====================================================================
+/* ------------------------- BOOST SETTINGS ------------------------- */
+
+  // docstring given - docstring boost(python) - docstring boost(c++)
+  boost::python::docstring_options local_docstring_options(true, true, false);
+
+
+// =====================================================================
+/* ------------------------- MODULE CONSTANTS ----------------------- */
+
+  boost::python::scope().attr("__version__") = boost::python::str(
+      PYOPENFLUID_VERSION);
+
+  boost::python::scope().attr("__author__") = boost::python::str(
+      PYOPENFLUID_AUTHOR);
+
+  boost::python::scope().attr("__license__") = boost::python::str(
+      PYOPENFLUID_LICENCE);
+
+  boost::python::scope().attr("__doc__") = boost::python::str(
+      PYOPENFLUID_DESCRIPTION);
+
+
+// =====================================================================
+/* ---------------------- OTHERS CLASS & METHODS -------------------- */
+
+  boost::python::register_exception_translator<PyOFException>
+                                              (&TranslatePyOFException);
+
+
+// =====================================================================
+/* ------------------------ PYOPENFLUID CLASS ----------------------- */
+
+
+  boost::python::class_<PyOpenFLUID>("PyOpenFLUID",
+                      boost::python::init<>("@DOCSTRING_boost_CONSTRUCTOR@") )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addExtraFunctionsPaths",
+      &PyOpenFLUID::addExtraFunctionsPaths,
+      ( boost::python::arg("self"), boost::python::arg("Paths") ),
+      "@DOCSTRING_boost_ADDEXTRAFUNCTIONSPATHS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getExtraFunctionsPaths",
+      &PyOpenFLUID::getExtraFunctionsPaths,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETEXTRAFUNCTIONSPATHS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("resetExtraFunctionsPaths",
+      &PyOpenFLUID::resetExtraFunctionsPaths,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_RESETEXTRAFUNCTIONSPATHS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addExtraObserversPaths",
+      &PyOpenFLUID::addExtraObserversPaths,
+      ( boost::python::arg("self"), boost::python::arg("Paths") ),
+      "@DOCSTRING_boost_ADDEXTRAOBSERVERSPATHS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getExtraObserversPaths",
+      &PyOpenFLUID::getExtraObserversPaths,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETEXTRAOBSERVERSPATHS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("resetExtraObserversPaths",
+      &PyOpenFLUID::resetExtraObserversPaths,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_RESETEXTRAOBSERVERSPATHS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getVersion",
+        boost::python::raw_function<RawFunctionPyOpenFLUID>(
+            RawFunctionPyOpenFLUID(&PyOpenFLUID::getVersion)),
+      "@DOCSTRING_boost_GETVERSION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("printSimulationInfo",
+      &PyOpenFLUID::printSimulationInfo,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_PRINTSIMULATIONINFO@"
+    )
+
+
+// =====================================================================
+/* ------------------------  MODEL FUNCTIONS  ----------------------- */
+
+
+    .def("getFunctionParam",
+      &PyOpenFLUID::getFunctionParam,
+      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+        boost::python::arg("ParamName") ),
+      "@DOCSTRING_boost_GETFUNCTIONPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setFunctionParam",
+      &PyOpenFLUID::setFunctionParam,
+      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+        boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
+      "@DOCSTRING_boost_SETFUNCTIONPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeFunctionParam",
+      &PyOpenFLUID::removeFunctionParam,
+      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+        boost::python::arg("ParamName") ),
+      "@DOCSTRING_boost_REMOVEFUNCTIONPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getFunctionParams",
+      &PyOpenFLUID::getFunctionParams,
+      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
+      "@DOCSTRING_boost_GETFUNCTIONPARAMS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getGeneratorParam", &PyOpenFLUID::getGeneratorParam,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("VarName"), boost::python::arg("ParamName") ),
+      "@DOCSTRING_boost_GETGENERATORPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setGeneratorParam", &PyOpenFLUID::setGeneratorParam,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("VarName"), boost::python::arg("ParamName"),
+        boost::python::arg("ParamValue") ),
+      "@DOCSTRING_boost_SETGENERATORPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getModelGlobalParam",
+      &PyOpenFLUID::getModelGlobalParam,
+      ( boost::python::arg("self"), boost::python::arg("ParamName") ),
+      "@DOCSTRING_boost_GETMODELGLOBALPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setModelGlobalParam",
+      &PyOpenFLUID::setModelGlobalParam,
+      ( boost::python::arg("self"), boost::python::arg("ParamName"),
+        boost::python::arg("ParamValue") ),
+      "@DOCSTRING_boost_SETMODELGLOBALPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getModelGlobalParams",
+      &PyOpenFLUID::getModelGlobalParams,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETMODELGLOBALPARAMS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeModelGlobalParam",
+      &PyOpenFLUID::removeModelGlobalParam,
+      ( boost::python::arg("self"), boost::python::arg("ParamName") ),
+      "@DOCSTRING_boost_REMOVEMODELGLOBALPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getModelItems",
+      &PyOpenFLUID::getModelItems,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETMODELITEMS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addFunction",
+      &PyOpenFLUID::addFunction,
+      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
+      "@DOCSTRING_boost_ADDFUNCTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeFunction",
+      &PyOpenFLUID::removeFunction,
+      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
+      "@DOCSTRING_boost_REMOVEFUNCTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("clearModel",
+      &PyOpenFLUID::clearModel,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_CLEARMODEL@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getFunctionsInModel",
+      &PyOpenFLUID::getFunctionsInModel,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETFUNCTIONSINMODEL@"
+    )
+
+
+// =====================================================================
+/* ---------------------  MONITORING FUNCTIONS  --------------------- */
+
+
+    .def("getObserverParam", &PyOpenFLUID::getObserverParam,
+      ( boost::python::arg("self"), boost::python::arg("ObsID"),
+        boost::python::arg("ParamName") ),
+      "@DOCSTRING_boost_GETOBSERVERPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setObserverParam", &PyOpenFLUID::setObserverParam,
+      ( boost::python::arg("self"), boost::python::arg("ObsID"),
+        boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
+      "@DOCSTRING_boost_SETOBSERVERPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeObserverParam",
+      &PyOpenFLUID::removeObserverParam,
+      ( boost::python::arg("self"), boost::python::arg("ObsID"),
+        boost::python::arg("ParamName") ),
+      "@DOCSTRING_boost_REMOVEOBSERVERPARAM@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getObserverParams",
+      &PyOpenFLUID::getObserverParams,
+      ( boost::python::arg("self"), boost::python::arg("ObsID") ),
+      "@DOCSTRING_boost_GETOBSERVERPARAMS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addObserver", &PyOpenFLUID::addObserver,
+      ( boost::python::arg("self"), boost::python::arg("ObsID") ),
+      "@DOCSTRING_boost_ADDOBSERVER@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeObserver", &PyOpenFLUID::removeObserver,
+      ( boost::python::arg("self"), boost::python::arg("ObsID") ),
+      "@DOCSTRING_boost_REMOVEOBSERVER@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("clearMonitoring", &PyOpenFLUID::clearMonitoring,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_CLEARMONITORING@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getObserversInMonitoring", &PyOpenFLUID::getObserversInMonitoring,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETOBSERVERSINMONITORING@"
+    )
+
+
+// =====================================================================
+/* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
+
+
+    .def("getUnitsClasses", &PyOpenFLUID::getUnitsClasses,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETUNITSCLASSES@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitsIDs", &PyOpenFLUID::getUnitsIDs,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass") ),
+      "@DOCSTRING_boost_GETUNITSIDS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addUnit", &PyOpenFLUID::addUnit,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("PcsOrder") ),
+      "@DOCSTRING_boost_ADDUNIT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeUnit", &PyOpenFLUID::removeUnit,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_REMOVEUNIT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("clearAllUnits", &PyOpenFLUID::clearAllUnits, clearAllUnits_overloads(
+      ( boost::python::arg("self"),
+        boost::python::arg("UnitClass") ),
+      "@DOCSTRING_boost_CLEARALLUNITS@")
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setProcessOrder", &PyOpenFLUID::setProcessOrder,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("PcsOrder") ),
+      "@DOCSTRING_boost_SETPROCESSORDER@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getProcessOrder", &PyOpenFLUID::getProcessOrder,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_GETPROCESSORDER@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitTos", &PyOpenFLUID::getUnitTos,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_GETUNITTOS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitFroms", &PyOpenFLUID::getUnitFroms,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_GETUNITFROMS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addFromToConnection", &PyOpenFLUID::addFromToConnection,
+      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
+        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
+        boost::python::arg("UnitIDTo") ),
+      "@DOCSTRING_boost_ADDFROMTOCONNECTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeFromToConnection", &PyOpenFLUID::removeFromToConnection,
+      ( boost::python::arg("self"), boost::python::arg("UnitClassFrom"),
+        boost::python::arg("UnitIDFrom"), boost::python::arg("UnitClassTo"),
+        boost::python::arg("UnitIDTo") ),
+      "@DOCSTRING_boost_REMOVEFROMTOCONNECTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitChildren", &PyOpenFLUID::getUnitChildren,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_GETUNITCHILDREN@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getUnitParents", &PyOpenFLUID::getUnitParents,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID") ),
+      "@DOCSTRING_boost_GETUNITPARENTS@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("addParentChildConnection", &PyOpenFLUID::addParentChildConnection,
+      ( boost::python::arg("self"), boost::python::arg("UnitClassParent"),
+        boost::python::arg("UnitIDParent"), boost::python::arg("UnitClassChild"),
+        boost::python::arg("UnitIDChild") ),
+      "@DOCSTRING_boost_ADDPARENTCHILDCONNECTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeParentChildConnection", &PyOpenFLUID::removeParentChildConnection,
+      ( boost::python::arg("self"), boost::python::arg("UnitClassParent"),
+        boost::python::arg("UnitIDParent"), boost::python::arg("UnitClassChild"),
+        boost::python::arg("UnitIDChild") ),
+      "@DOCSTRING_boost_REMOVEPARENTCHILDCONNECTION@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("createInputData", &PyOpenFLUID::createInputData,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("IDataName"), boost::python::arg("IDataValue") ),
+      "@DOCSTRING_boost_CREATEINPUTDATA@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getInputData", &PyOpenFLUID::getInputData,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("IDataName") ),
+      "@DOCSTRING_boost_GETINPUTDATA@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setInputData", &PyOpenFLUID::setInputData,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("UnitID"), boost::python::arg("IDataName"),
+        boost::python::arg("IDataValue") ),
+      "@DOCSTRING_boost_SETINPUTDATA@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("removeInputData", &PyOpenFLUID::removeInputData,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("IDataName") ),
+      "@DOCSTRING_boost_REMOVEINPUTDATA@"
+    )
+
+
+// =====================================================================
+/* --------------------  INPUT OUTPUT FUNCTIONS  -------------------- */
+
+
+
+    .def("openDataset", &PyOpenFLUID::openDataset,
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
+      "@DOCSTRING_boost_OPENDATASET@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("saveDataset", &PyOpenFLUID::saveDataset,
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
+      "@DOCSTRING_boost_SAVEDATASET@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("openProject", &PyOpenFLUID::openProject,
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
+      "@DOCSTRING_boost_OPENPROJECT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("saveProject", 
+        boost::python::raw_function<RawFunctionPyOpenFLUID>(
+            RawFunctionPyOpenFLUID(&PyOpenFLUID::saveProject)),
+      "@DOCSTRING_boost_SAVEPROJECT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setCurrentOutputDir",
+      &PyOpenFLUID::setCurrentOutputDir,
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
+      "@DOCSTRING_boost_SETCURRENTOUTPUTDIR@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getCurrentOutputDir",
+      &PyOpenFLUID::getCurrentOutputDir,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETCURRENTOUTPUTDIR@"
+    )
+
+
+// =====================================================================
+/* ---------------------  SIMULATION FUNCTIONS  --------------------- */
+
+
+    .def("getDefaultDeltaT", &PyOpenFLUID::getDefaultDeltaT,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETDEFAULTDELTAT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setDefaultDeltaT", &PyOpenFLUID::setDefaultDeltaT,
+      ( boost::python::arg("self"), boost::python::arg("DeltaT") ),
+      "@DOCSTRING_boost_SETDEFAULTDELTAT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getPeriodBeginDate",
+      &PyOpenFLUID::getPeriodBeginDate,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETPERIODBEGINDATE@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("getPeriodEndDate", &PyOpenFLUID::getPeriodEndDate,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETPERIODENDDATE@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setPeriodBeginDate", &PyOpenFLUID::setPeriodBeginDate,
+      ( boost::python::arg("self"), boost::python::arg("BeginDate") ),
+      "@DOCSTRING_boost_SETPERIODBEGINDATE@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("setPeriodEndDate", &PyOpenFLUID::setPeriodEndDate,
+      ( boost::python::arg("self"), boost::python::arg("EndDate") ),
+      "@DOCSTRING_boost_SETPERIODENDDATE@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("runProject", &PyOpenFLUID::runProject,
+      ( boost::python::arg("self"), boost::python::arg("Path") ),
+      "@DOCSTRING_boost_RUNPROJECT@"
+    )
+
+
+// =====================================================================
+// =====================================================================
+
+
+    .def("runSimulation", &PyOpenFLUID::runSimulation,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_RUNSIMULATION@"
+    )
+
+
+// =====================================================================
+/* ------------------------ OTHER FUNCTIONS  ------------------------ */
+
+
+    .def("__str__", &PyOpenFLUID::getStr,
+      ( boost::python::arg("self") ),
+      "@DOCSTRING_boost_GETSTR@"
+    )
+
+; /* end of PyOpenFLUID class definition */
+
+
+// =====================================================================
+// =====================================================================
+
+}

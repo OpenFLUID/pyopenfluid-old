@@ -951,60 +951,72 @@ dl.citelist dd {
 /* EXAMPLE */
 .example
 {
-  line-height : 130%;
-  text-align : justify;
+  margin-right : 5px;
 }
 
-.example .highlight
+.example .ex_bloc
 {
   line-height : 120%;
-  padding : 5px;
+  margin-top : 3px;
   color : #333333;
   border-width : 1px medium;
   border-style : solid none;
   border-image : none;
-  border-color : #AACC99;
-  background : none repeat scroll 0 0 #EEFFCC;
+/*  letter-spacing : 0.8px;*/
+/* ---- style 1 ---- */
+  padding : 3px 5px;
+/*  border-color :  #AACC99;*/
+/*  background : none repeat scroll 0 0 #EEFFCC;*/
+/* ---- style 2 ---- */
+  padding : 6px 5px;
+  border-radius : 8px;
+  border-color : #222222;
+  background : none;
+  display : inline-block;
 }
 
 
-.example .gp
+.example .gp /* start of line ('>>>' and '...') */
 {
   color : #000080;
   font-weight : bold;
 }
-.example .n
+.example .n /* standard */
 {
   color : #333333;
 }
-.example .nb
+.example .nb /* reserved words but setable (ex: str, id, isinstance) */
 {
   color : #008000;
   font-weight : bold;
 }
-.example .nc
+.example .nc /* reserved words not setable (ex: print, assert) */
 {
-  color : #cc0000;
+  color : #da4c0e;
   font-weight : bold;
 }
-.example .nd
+.example .nd /* special value (ex: None, True, False) */
 {
   color : #5c3566;
   font-weight : bold;
 }
-.example .ne
+.example .ne /* important word */
 {
   font-weight : bold;
 }
-.example .o
+.example .ns /* string */
+{
+  color : #4e9a06;
+}
+.example .nn /* number */
+{
+  color : #1e9c51;
+}
+.example .o /* equals sign */
 {
   color : #666666;
 }
-.example .p
-{
-  color : #333333;
-}
-.example .c
+.example .c /* comments */
 {
   color : #5c3566;
   font-weight : bold;
