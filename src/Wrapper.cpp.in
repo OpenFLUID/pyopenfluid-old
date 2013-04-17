@@ -411,6 +411,17 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
 
 // =====================================================================
+// =====================================================================
+
+
+    .def("addCSVOutput", &PyOpenFLUID::addCSVOutput,
+      ( boost::python::arg("self"), boost::python::arg("UnitClass"),
+        boost::python::arg("Vars"), boost::python::arg("ListID") ),
+      "@DOCSTRING_boost_ADDCSVOUTPUT@"
+    )
+
+
+// =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 

@@ -272,6 +272,15 @@ class PyOpenFLUID
 
 
 // =====================================================================
+// =====================================================================
+
+
+    boost::python::object addCSVOutput (boost::python::object UnitClass,
+                                        boost::python::object Vars,
+                                        boost::python::object ListID);
+
+
+// =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 
@@ -547,15 +556,47 @@ class PyOpenFLUID
 
 
 // =====================================================================
+/* ------------------------ SPECIAL FUNCTIONS  ---------------------- */
+
+
+    void initWithoutDescriptor ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    void initFluidxDescriptor ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    void initAdvancedFluidxDescriptor ();
+
+
+// =====================================================================
 // =====================================================================
 
 
   private :
+    /* basis */
     openfluid::base::IOListener* mp_IOL;
     openfluid::fluidx::FluidXDescriptor* mp_FXDesc;
     openfluid::fluidx::AdvancedFluidXDescriptor* mp_AdvFXDesc;
 
+    /* custom observer */
+    unsigned int m_LastObsID;
+
 };
+
+
+// =====================================================================
+/* ----------------------- STATIC FUNCTIONS  ------------------------ */
+
+
+void setPyOFCSVFormat (openfluid::fluidx::ObserverDescriptor& Observer);
 
 
 #endif // __PYOPENFLUID_HPP__

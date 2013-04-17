@@ -79,23 +79,15 @@ PyOpenFLUID::PyOpenFLUID ()
 {
   try
   {
+    /* basis */
     this->mp_IOL = new openfluid::base::IOListener();
     this->mp_FXDesc = new openfluid::fluidx::FluidXDescriptor(this->mp_IOL);
     this->mp_AdvFXDesc = new openfluid::fluidx::AdvancedFluidXDescriptor(
         *(this->mp_FXDesc));
 
-    openfluid::fluidx::RunDescriptor& runDescp = this->mp_FXDesc->
-      getRunDescriptor();
-
-    std::time_t t = time(0);   // get time now
-    struct std::tm *Now = localtime( &t );
-
-    runDescp.setDeltaT((unsigned int)60);
-    runDescp.setBeginDate(openfluid::core::DateTime(Now->tm_year+1900,\
-        Now->tm_mon+1, Now->tm_mday, 0, 0, 0));
-    runDescp.setEndDate(openfluid::core::DateTime(Now->tm_year+1900,\
-        Now->tm_mon+1, Now->tm_mday, 1, 0, 0));
-    runDescp.setFilled(true);
+    this->initWithoutDescriptor();
+    this->initFluidxDescriptor();
+    this->initAdvancedFluidxDescriptor();
   }
   catch (openfluid::base::OFException& E)
   {
@@ -1023,6 +1015,81 @@ boost::python::object PyOpenFLUID::getObserversInMonitoring ()
 
 
 // =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::addCSVOutput (
+    boost::python::object UnitClass, boost::python::object Vars,
+    boost::python::object ListID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<std::string> getStringVars(Vars);
+  if (!getStringVars.check())
+    throw PyOFException("needed string for vars", PyExc_TypeError);
+  boost::python::extract<std::string> getStringIDs(ListID);
+  if (!getStringIDs.check())
+    throw PyOFException("needed string for ids", PyExc_TypeError);
+
+  std::stringstream Stream(std::stringstream::in | std::stringstream::out);
+
+  /* pyof<n> */
+  Stream << "pyof" << this->m_LastObsID;
+  this->m_LastObsID++;
+  std::string ObsIDStr;
+  Stream.flush();
+  Stream >> ObsIDStr;
+
+  Stream.clear(); Stream.str("");
+  Stream << "set.";
+  Stream << ObsIDStr;
+  Stream.flush();
+
+  /* unit class */
+  std::string ObsUnitClassStr = Stream.str() + std::string(".unitclass");
+
+  /* unit id */
+  std::string ObsIDsStr = Stream.str() + std::string(".unitsIDs");
+
+  /* vars */
+  std::string ObsVarsStr = Stream.str() + std::string(".vars");
+
+  /* format */
+  std::string ObsFormatStr = Stream.str() + std::string(".format");
+
+  /* add */
+  try
+  {
+    /* add format if doesn't exists */
+    std::string ObsID = std::string("export.vars.files.csv");
+    try
+    {
+      this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsID);
+    }
+    catch (openfluid::base::OFException& E)
+    {
+      this->mp_AdvFXDesc->getMonitoring().addToObserverList(ObsID);
+    }
+
+    openfluid::fluidx::ObserverDescriptor& Observer =
+        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsID);
+    setPyOFCSVFormat(Observer);
+
+    Observer.setParameter(ObsUnitClassStr, getStringUnitClass());
+
+    Observer.setParameter(ObsIDsStr, getStringIDs());
+
+    Observer.setParameter(ObsVarsStr, getStringVars());
+
+    Observer.setParameter(ObsFormatStr, std::string("pyofformat"));
+  } HANDLE_OFEXCEPTION
+
+  return boost::python::str(ObsIDStr);
+}
+
+
+// =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
 
 
@@ -1684,6 +1751,9 @@ void PyOpenFLUID::openDataset (boost::python::object Path)
       delete this->mp_IOL;
     this->mp_IOL = new openfluid::base::IOListener();
 
+    this->initWithoutDescriptor();
+    this->initFluidxDescriptor();
+
     openfluid::base::RuntimeEnvironment::getInstance()->
         setInputDir(std::string(StrPath));
     this->mp_FXDesc->loadFromDirectory(openfluid::base::RuntimeEnvironment::
@@ -1693,6 +1763,8 @@ void PyOpenFLUID::openDataset (boost::python::object Path)
       delete this->mp_AdvFXDesc;
     this->mp_AdvFXDesc = new openfluid::fluidx::AdvancedFluidXDescriptor(
         *(this->mp_FXDesc));
+
+    this->initAdvancedFluidxDescriptor();
 
   } HANDLE_EXCEPTION
 }
@@ -2149,4 +2221,63 @@ boost::python::object PyOpenFLUID::getStr ()
   SStream << "PyOpenFLUID(" << PYOPENFLUID_VERSION << ")";
 
   return boost::python::object(SStream.str());
+}
+
+
+// =====================================================================
+/* ----------------------- SPECIAL FUNCTIONS  ----------------------- */
+
+
+void PyOpenFLUID::initWithoutDescriptor ()
+{
+    /* custom observer */
+    this->m_LastObsID = 1;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::initFluidxDescriptor ()
+{
+    /* run descp */
+    openfluid::fluidx::RunDescriptor& runDescp = this->mp_FXDesc->
+      getRunDescriptor();
+
+    std::time_t t = time(0);   // get time now
+    struct std::tm *Now = localtime( &t );
+
+    runDescp.setDeltaT((unsigned int)60);
+    runDescp.setBeginDate(openfluid::core::DateTime(Now->tm_year+1900,\
+        Now->tm_mon+1, Now->tm_mday, 0, 0, 0));
+    runDescp.setEndDate(openfluid::core::DateTime(Now->tm_year+1900,\
+        Now->tm_mon+1, Now->tm_mday, 1, 0, 0));
+    runDescp.setFilled(true);
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::initAdvancedFluidxDescriptor ()
+{
+}
+
+
+// =====================================================================
+/* ----------------------- STATIC FUNCTIONS  ------------------------ */
+
+
+void setPyOFCSVFormat (openfluid::fluidx::ObserverDescriptor& Observer)
+{
+    Observer.setParameter(std::string("format.pyofformat.header"),
+        std::string("colnames-as-data"));
+
+    Observer.setParameter(std::string("format.pyofformat.date"),
+        std::string("%Y-%m-%d %H:%M:%S"));
+
+    Observer.setParameter(std::string("format.pyofformat.precision"),
+        std::string("7"));
 }
