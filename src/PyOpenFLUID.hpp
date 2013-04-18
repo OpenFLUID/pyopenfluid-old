@@ -2,6 +2,7 @@
 #define __PYOPENFLUID_HPP__
 
 #include <Python.h>
+
 #include <boost/python/dict.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/object.hpp>

@@ -19,8 +19,8 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include <sstream>
 #include <cstdlib>
+#include <sstream>
 #include <iostream>
 #include <exception>
 
@@ -1087,7 +1087,6 @@ boost::python::object PyOpenFLUID::addCSVOutput (
 
   return boost::python::str(ObsIDStr);
 }
-
 
 // =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
@@ -2276,7 +2275,7 @@ void setPyOFCSVFormat (openfluid::fluidx::ObserverDescriptor& Observer)
         std::string("colnames-as-data"));
 
     Observer.setParameter(std::string("format.pyofformat.date"),
-        std::string("%Y-%m-%d %H:%M:%S"));
+        std::string("%Y-%m-%dT%H:%M:%S"));
 
     Observer.setParameter(std::string("format.pyofformat.precision"),
         std::string("7"));

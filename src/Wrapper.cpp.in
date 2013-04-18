@@ -26,9 +26,9 @@
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(clearAllUnits_overloads,
     clearAllUnits, 0, 1)
 
+
 BOOST_PYTHON_MODULE(_pyopenfluid)
 {
-
 // =====================================================================
 /* ------------------------- BOOST SETTINGS ------------------------- */
 

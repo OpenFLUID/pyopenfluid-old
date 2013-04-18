@@ -768,6 +768,23 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
 # ########################################################################## #
+# ########################################################################## #
+
+
+    ## @DOCSTRING_doxygen_ADDCSVOUTPUT@
+    #
+    #
+    def addCSVOutput (self, UnitClass, Vars, ListID):
+        """@DOCSTRING_python_ADDCSVOUTPUT@"""
+        if isinstance(Vars, (tuple, list)):
+            Vars = ";".join(Vars)
+        if isinstance(ListID, (tuple, list)):
+            ListID = ";".join(ListID)
+        return pyopenfluid.PyOpenFLUID.addCSVOutput(self,
+                UnitClass, Vars, ListID)
+
+
+# ########################################################################## #
 # ###############           SPATIAL DOMAIN FUNCTIONS         ############### #
 
 
