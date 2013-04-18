@@ -785,6 +785,73 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
 
 # ########################################################################## #
+# ########################################################################## #
+
+
+    ## @DOCSTRING_doxygen_LOADCSVOUTPUT@
+    #
+    #
+    def loadCSVOutput (self, ObsName, UnitClass, ListID, ListVar):
+        """@DOCSTRING_python_LOADCSVOUTPUT@"""
+        import numpy
+        import datetime
+        import csv
+        import os
+
+        ListRes = []
+
+        def getDTFromDTStamp(DTStamp):
+            try:
+                DatePart, TimePart = DTStamp.split("T")
+                DatePart= DatePart.split("-")
+                TimePart= TimePart.split(":")
+                return numpy.datetime64(datetime.datetime(
+                    year=int(DatePart[0]), month=int(DatePart[1]),
+                    day=int(DatePart[2]), hour=int(TimePart[0]),
+                    minute=int(TimePart[1]), second=int(TimePart[2]) ))
+            except:
+                raise RuntimeError, "wrong csv line format"
+
+        if ListID == "*":
+            ListID = self.getUnitsIDs(UnitClass)
+        elif not isinstance(ListID, (tuple, list)):
+            ListID = str(ListID).split(';')
+
+        for UnitID in ListID:
+
+            if ListVar == "*":
+                NamePrefix = "{}_{}{}_var".format(ObsName, UnitClass, UnitID)
+                ListVar = [int(FName[len(NamePrefix):-4])
+                    for FName in os.listdir(self.getCurrentOutputDir())
+                    if FName.startswith(NamePrefix) and FName.endswith(".csv")]
+            elif not isinstance(ListVar, (tuple, list)):
+                ListVar = str(ListVar).split(';')
+
+            for UnitVar in ListVar:
+                # open
+                CSVFilename = "{}/{}_{}{}_var{}.csv".format(
+                    self.getCurrentOutputDir(), ObsName, UnitClass, UnitID,
+                    UnitVar)
+
+                with open(CSVFilename, "r") as CSVFile:
+
+                    CSVReader = csv.reader(CSVFile, delimiter="\t")
+                    CSVReaderIter = CSVReader.__iter__()
+
+                    Head = CSVReaderIter.next()
+
+                    DTList, VlList = zip(*
+                        [(getDTFromDTStamp(Value[0]), float(Value[1]))
+                            for Value in CSVReaderIter])
+
+                    ListRes.append(((UnitClass, UnitID, UnitVar), Head, (
+                        numpy.array(DTList, dtype=numpy.datetime64),
+                        numpy.array(VlList, dtype=numpy.float64) ) ))
+        #
+        return ListRes
+
+
+# ########################################################################## #
 # ###############           SPATIAL DOMAIN FUNCTIONS         ############### #
 
 
