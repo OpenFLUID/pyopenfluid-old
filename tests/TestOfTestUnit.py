@@ -8,7 +8,7 @@ class PyOpenFLUIDTest_TestUnit(PyOpenFLUIDTest):
     def runTest(self):
         """Test of good working of tests."""
 
-        self.assertTrue(False)
+        self.assertTrue(True)
 
 if __name__ == "__main__":
     unittest.main()

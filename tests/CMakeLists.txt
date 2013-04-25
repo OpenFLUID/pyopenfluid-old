@@ -36,7 +36,7 @@ ADD_TEST(TestOfTestUnit
          ${PYTHON_EXECUTABLE}
          "${CMAKE_CURRENT_SOURCE_DIR}/TestOfTestUnit.py")
 SET_TESTS_PROPERTIES(TestOfTestUnit PROPERTIES
-                     WILL_FAIL TRUE
+                     WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
 #
