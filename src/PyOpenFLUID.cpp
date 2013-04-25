@@ -1926,8 +1926,7 @@ PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
  and saving project");
     }
 
-    std::string InputDir = ProjectManager->getInputDir().raw();
-    std::string OuputDir = ProjectManager->getOutputDir().raw();
+    std::string InputDir = ProjectManager->getInputDir();
 
     /* dataset */
     this->mp_FXDesc->writeToManyFiles(InputDir);
