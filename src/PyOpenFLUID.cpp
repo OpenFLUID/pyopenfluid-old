@@ -36,6 +36,7 @@
 
 #include <openfluid/core/TypeDefs.hpp>
 #include <openfluid/core/DateTime.hpp>
+#include <openfluid/core/StringValue.hpp>
 
 #include <openfluid/ware/PluggableWare.hpp>
 
@@ -357,11 +358,12 @@ boost::python::object PyOpenFLUID::getFunctionParam (
 
     if (FuncDescp != NULL)
     {
-      boost::optional<std::string> Res =
-          FuncDescp->getParameters().get_optional<std::string>(ParamNameStr);
+    openfluid::ware::WareParams_t Params = FuncDescp->getParameters();
 
-      if (Res)
-        return boost::python::str(*Res);
+    openfluid::ware::WareParams_t::iterator ItParam = Params.find(ParamNameStr);
+
+      if (ItParam != Params.end())
+        return boost::python::str(std::string(ItParam->second.get()));
     }
   }
 
@@ -402,7 +404,12 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
         dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
-      FuncDescp->setParameter(ParamNameStr,ParamValueStr);
+    {
+      openfluid::ware::WareParams_t PairParam;
+      PairParam[ParamNameStr] = openfluid::core::StringValue(ParamValueStr);
+
+      FuncDescp->setParameters(PairParam);
+    }
   }
   else
     throw PyOFException("function doesn't exists");
@@ -472,7 +479,9 @@ boost::python::object PyOpenFLUID::getFunctionParams(
     if (FuncDescp != NULL)
     {
       openfluid::ware::WareParams_t Params = FuncDescp->getParameters();
+
       openfluid::ware::WareParams_t::iterator ItParam;
+
       for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
         ListRes.append(boost::python::str((*ItParam).first));
     }
@@ -504,10 +513,6 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
   std::string VarNameStr = getStringVarName();
   std::string ParamNameStr = getStringParamName();
 
-  /* looking for position of the generator */
-  openfluid::ware::WareParams_t Params;
-  openfluid::ware::WareParams_t::iterator ItParam;
-
   std::list<openfluid::fluidx::ModelItemDescriptor*> ModelInfos =
       this->mp_AdvFXDesc->getModel().getItems();
 
@@ -532,11 +537,12 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
   /* if exists (=> by position), returns */
   if (ItModelInfos != ModelInfos.end())
   {
-    boost::optional<std::string> Res =
-        GenDescp->getParameters().get_optional<std::string>(ParamNameStr);
+    openfluid::ware::WareParams_t Params = GenDescp->getParameters();
 
-    if (Res)
-      return boost::python::str(*Res);
+    openfluid::ware::WareParams_t::iterator ItParam = Params.find(ParamNameStr);
+
+    if (ItParam != Params.end())
+      return boost::python::str(std::string(ItParam->second.get()));
   }
 
   return boost::python::object(); /* makes Python NONE */
@@ -594,7 +600,12 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
 
   /* if exists (=> by position), sets */
   if (ItModelInfos != ModelInfos.end())
-    GenDescp->setParameter(ParamNameStr, ParamValueStr);
+  {
+    openfluid::ware::WareParams_t PairParam;
+    PairParam[ParamNameStr] = openfluid::core::StringValue(ParamValueStr);
+
+    GenDescp->setParameters(PairParam);
+  }
   else
     throw PyOFException("generator doesn't exists");
 }
@@ -616,6 +627,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParam (
   /* looking for position of the parameter */
   openfluid::ware::WareParams_t Params = this->mp_AdvFXDesc->getModel()
       .getGlobalParameters();
+
   openfluid::ware::WareParams_t::iterator ItParam = Params.begin();
 
   while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
@@ -623,7 +635,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParam (
 
   /* if found, or else return NONE */
   if (ItParam != Params.end())
-    return boost::python::str((*ItParam).second.data());
+    return boost::python::str(std::string(ItParam->second.get()));
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -663,6 +675,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParams ()
 
   openfluid::ware::WareParams_t Params = this->mp_AdvFXDesc->getModel()
       .getGlobalParameters();
+
   openfluid::ware::WareParams_t::iterator ItParam;
 
   for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
@@ -835,11 +848,12 @@ boost::python::object PyOpenFLUID::getObserverParam (
     openfluid::fluidx::ObserverDescriptor ObsDesc =
        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsIDStr);
 
-    boost::optional<std::string> Res =
-        ObsDesc.getParameters().get_optional<std::string>(ParamNameStr);
+    openfluid::ware::WareParams_t Params = ObsDesc.getParameters();
 
-    if (Res)
-      return boost::python::str(*Res);
+    openfluid::ware::WareParams_t::iterator ItParam = Params.find(ParamNameStr);
+
+    if (ItParam != Params.end())
+      return boost::python::str(std::string((*ItParam).second.get()));
 
   } WARNING_OFEXCEPTION
 
@@ -874,7 +888,10 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
     openfluid::fluidx::ObserverDescriptor& ObsDesc =
        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsIDStr);
 
-    ObsDesc.setParameter(ParamNameStr, ParamValueStr);
+    openfluid::ware::WareParams_t PairParam;
+    PairParam[ParamNameStr] = openfluid::core::StringValue(ParamValueStr);
+
+    ObsDesc.setParameters(PairParam);
 
   } HANDLE_OFEXCEPTION
 }
@@ -928,10 +945,9 @@ boost::python::object PyOpenFLUID::getObserverParams (
     openfluid::fluidx::ObserverDescriptor ObsDesc =
        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsIDStr);
 
-    std::map<std::string, std::string> MapInfos = openfluid::fluidx::
-        WareDescriptor::getParamsAsMap(ObsDesc.getParameters());
+    openfluid::ware::WareParams_t MapInfos = ObsDesc.getParameters();
 
-    std::map<std::string, std::string>::iterator ItMapInfos;
+    openfluid::ware::WareParams_t::iterator ItMapInfos;
 
     for (ItMapInfos = MapInfos.begin(); ItMapInfos != MapInfos.end();
         ++ItMapInfos)
@@ -1076,13 +1092,13 @@ boost::python::object PyOpenFLUID::addCSVOutput (
         this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsID);
     setPyOFCSVFormat(Observer);
 
-    Observer.setParameter(ObsUnitClassStr, getStringUnitClass());
+    openfluid::ware::WareParams_t PairParam;
+    PairParam[ObsUnitClassStr] = openfluid::core::StringValue(getStringUnitClass());
+    PairParam[ObsIDsStr] = openfluid::core::StringValue(getStringIDs());
+    PairParam[ObsVarsStr] = openfluid::core::StringValue(getStringVars());
+    PairParam[ObsFormatStr] = openfluid::core::StringValue(std::string("pyofformat"));
 
-    Observer.setParameter(ObsIDsStr, getStringIDs());
-
-    Observer.setParameter(ObsVarsStr, getStringVars());
-
-    Observer.setParameter(ObsFormatStr, std::string("pyofformat"));
+    Observer.setParameters(PairParam);
   } HANDLE_OFEXCEPTION
 
   return boost::python::str(ObsIDStr);
@@ -2270,12 +2286,17 @@ void PyOpenFLUID::initAdvancedFluidxDescriptor ()
 
 void setPyOFCSVFormat (openfluid::fluidx::ObserverDescriptor& Observer)
 {
-    Observer.setParameter(std::string("format.pyofformat.header"),
-        std::string("colnames-as-data"));
 
-    Observer.setParameter(std::string("format.pyofformat.date"),
-        std::string("%Y-%m-%dT%H:%M:%S"));
+    openfluid::ware::WareParams_t PairParam;
 
-    Observer.setParameter(std::string("format.pyofformat.precision"),
-        std::string("7"));
+    PairParam[std::string("format.pyofformat.header")] =
+        openfluid::core::StringValue(std::string("colnames-as-data"));
+
+    PairParam[std::string("format.pyofformat.date")] =
+        openfluid::core::StringValue(std::string("%Y-%m-%dT%H:%M:%S"));
+
+    PairParam[std::string("format.pyofformat.precision")] =
+        openfluid::core::StringValue(std::string("7"));
+
+    Observer.setParameters(PairParam);
 }
