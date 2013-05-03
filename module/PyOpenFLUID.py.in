@@ -820,8 +820,8 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
         for UnitID in ListID:
 
             if ListVar == "*":
-                NamePrefix = "{}_{}{}_var".format(ObsName, UnitClass, UnitID)
-                ListVar = [int(FName[len(NamePrefix):-4])
+                NamePrefix = "{}_{}{}_".format(ObsName, UnitClass, UnitID)
+                ListVar = [FName[len(NamePrefix):-4]
                     for FName in os.listdir(self.getCurrentOutputDir())
                     if FName.startswith(NamePrefix) and FName.endswith(".csv")]
             elif not isinstance(ListVar, (tuple, list)):
@@ -829,7 +829,7 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
             for UnitVar in ListVar:
                 # open
-                CSVFilename = "{}/{}_{}{}_var{}.csv".format(
+                CSVFilename = "{}/{}_{}{}_{}.csv".format(
                     self.getCurrentOutputDir(), ObsName, UnitClass, UnitID,
                     UnitVar)
 
