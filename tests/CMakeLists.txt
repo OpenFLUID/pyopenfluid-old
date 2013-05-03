@@ -25,15 +25,17 @@ ENDMACRO(CreateOFRepository)
 SET(PROJECT_NAME_1        "project_1")
 SET(RUNSIMULATION_NAME    "cmd_runsimulation")
 SET(RUNPROJECT_NAME       "cmd_runproject")
+SET(RESULTS_NAME          "cmd_results")
 
 # input projects path (use read-only)
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${PROJECT_NAME_1}")
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNSIMULATION_NAME}")
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNPROJECT_NAME}")
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RESULTS_NAME}")
 
 ##
 ADD_TEST(TestOfTestUnit
-         ${PYTHON_EXECUTABLE}
+         "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/TestOfTestUnit.py")
 SET_TESTS_PROPERTIES(TestOfTestUnit PROPERTIES
                      WILL_FAIL FALSE

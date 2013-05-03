@@ -71,8 +71,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("addExtraFunctionsPaths",
-      &PyOpenFLUID::addExtraFunctionsPaths,
+    .def("addExtraSimulatorsPaths",
+      &PyOpenFLUID::addExtraSimulatorsPaths,
       ( boost::python::arg("self"), boost::python::arg("Paths") ),
       "@DOCSTRING_boost_ADDEXTRAFUNCTIONSPATHS@"
     )
@@ -82,8 +82,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getExtraFunctionsPaths",
-      &PyOpenFLUID::getExtraFunctionsPaths,
+    .def("getExtraSimulatorsPaths",
+      &PyOpenFLUID::getExtraSimulatorsPaths,
       ( boost::python::arg("self") ),
       "@DOCSTRING_boost_GETEXTRAFUNCTIONSPATHS@"
     )
@@ -93,8 +93,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("resetExtraFunctionsPaths",
-      &PyOpenFLUID::resetExtraFunctionsPaths,
+    .def("resetExtraSimulatorsPaths",
+      &PyOpenFLUID::resetExtraSimulatorsPaths,
       ( boost::python::arg("self") ),
       "@DOCSTRING_boost_RESETEXTRAFUNCTIONSPATHS@"
     )
@@ -159,8 +159,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 /* ------------------------  MODEL FUNCTIONS  ----------------------- */
 
 
-    .def("getFunctionParam",
-      &PyOpenFLUID::getFunctionParam,
+    .def("getSimulatorParam",
+      &PyOpenFLUID::getSimulatorParam,
       ( boost::python::arg("self"), boost::python::arg("FuncID"),
         boost::python::arg("ParamName") ),
       "@DOCSTRING_boost_GETFUNCTIONPARAM@"
@@ -171,8 +171,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("setFunctionParam",
-      &PyOpenFLUID::setFunctionParam,
+    .def("setSimulatorParam",
+      &PyOpenFLUID::setSimulatorParam,
       ( boost::python::arg("self"), boost::python::arg("FuncID"),
         boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
       "@DOCSTRING_boost_SETFUNCTIONPARAM@"
@@ -183,8 +183,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("removeFunctionParam",
-      &PyOpenFLUID::removeFunctionParam,
+    .def("removeSimulatorParam",
+      &PyOpenFLUID::removeSimulatorParam,
       ( boost::python::arg("self"), boost::python::arg("FuncID"),
         boost::python::arg("ParamName") ),
       "@DOCSTRING_boost_REMOVEFUNCTIONPARAM@"
@@ -195,8 +195,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getFunctionParams",
-      &PyOpenFLUID::getFunctionParams,
+    .def("getSimulatorParams",
+      &PyOpenFLUID::getSimulatorParams,
       ( boost::python::arg("self"), boost::python::arg("FuncID") ),
       "@DOCSTRING_boost_GETFUNCTIONPARAMS@"
     )
@@ -285,8 +285,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("addFunction",
-      &PyOpenFLUID::addFunction,
+    .def("addSimulator",
+      &PyOpenFLUID::addSimulator,
       ( boost::python::arg("self"), boost::python::arg("FuncID") ),
       "@DOCSTRING_boost_ADDFUNCTION@"
     )
@@ -296,8 +296,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("removeFunction",
-      &PyOpenFLUID::removeFunction,
+    .def("removeSimulator",
+      &PyOpenFLUID::removeSimulator,
       ( boost::python::arg("self"), boost::python::arg("FuncID") ),
       "@DOCSTRING_boost_REMOVEFUNCTION@"
     )
@@ -318,8 +318,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getFunctionsInModel",
-      &PyOpenFLUID::getFunctionsInModel,
+    .def("getSimulatorsInModel",
+      &PyOpenFLUID::getSimulatorsInModel,
       ( boost::python::arg("self") ),
       "@DOCSTRING_boost_GETFUNCTIONSINMODEL@"
     )

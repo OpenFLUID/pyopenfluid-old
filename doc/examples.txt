@@ -1,15 +1,15 @@
 
 --------------------------------------------------------------------------------
- - addExtraFunctionsPaths/getExtraFunctionsPaths/resetExtraFunctionsPaths
+ - addExtraSimulatorsPaths/getExtraSimulatorsPaths/resetExtraSimulatorsPaths
 >>> obj = PyOpenFLUID()
->>> obj.addExtraFunctionsPaths("/first/path/to/add")
->>> print obj.getExtraFunctionsPaths()
+>>> obj.addExtraSimulatorsPaths("/first/path/to/add")
+>>> print obj.getExtraSimulatorsPaths()
 ["/first/path/to/add"]
->>> obj.addExtraFunctionsPaths("/second/path/to/add:/third/path/to/add")
->>> print obj.getExtraFunctionsPaths()
+>>> obj.addExtraSimulatorsPaths("/second/path/to/add:/third/path/to/add")
+>>> print obj.getExtraSimulatorsPaths()
 ["/second/path/to/add:/third/path/to/add:/first/path/to/add"]
->>> obj.resetExtraFunctionsPaths()
->>> assert len(obj.getExtraFunctionsPaths()) == 0
+>>> obj.resetExtraSimulatorsPaths()
+>>> assert len(obj.getExtraSimulatorsPaths()) == 0
 
 
 --------------------------------------------------------------------------------
@@ -82,17 +82,17 @@ Spatial domain is made of ....
 
 
 --------------------------------------------------------------------------------
- - addFunction/removeFunction/clearModel/getFunctionsInModel
+ - addSimulator/removeSimulator/clearModel/getSimulatorsInModel
 >>> obj = PyOpenFLUID()
->>> assert len(obj.getFunctionsInModel()) == 0
->>> obj.addFunction("firstFunc")
->>> assert obj.getFunctionsInModel() == ["firstFunc"]
->>> obj.addFunction("secFunc")
->>> assert obj.getFunctionsInModel() == ["firstFunc", "secFunc"]
->>> obj.removeFunction("firstFunc")
->>> assert obj.getFunctionsInModel() == ["secFunc"]
+>>> assert len(obj.getSimulatorsInModel()) == 0
+>>> obj.addSimulator("firstFunc")
+>>> assert obj.getSimulatorsInModel() == ["firstFunc"]
+>>> obj.addSimulator("secFunc")
+>>> assert obj.getSimulatorsInModel() == ["firstFunc", "secFunc"]
+>>> obj.removeSimulator("firstFunc")
+>>> assert obj.getSimulatorsInModel() == ["secFunc"]
 >>> obj.clearModel()
->>> assert len(obj.getFunctionsInModel()) == 0
+>>> assert len(obj.getSimulatorsInModel()) == 0
 
 
 --------------------------------------------------------------------------------
@@ -110,17 +110,17 @@ Spatial domain is made of ....
 
 
 --------------------------------------------------------------------------------
- - getFunctionParam/setFunctionParam/removeFunctionParam/getFunctionParams
+ - getSimulatorParam/setSimulatorParam/removeSimulatorParam/getSimulatorParams
 >>> obj = PyOpenFLUID()
->>> obj.addFunction("my.function")
->>> assert len(obj.getFunctionParams("my.function")) == 0
->>> obj.setFunctionParam("my.function","coeff","3")
->>> assert obj.getFunctionParam("my_function", "coeff") == "3"
->>> assert obj.getFunctionParams("my.function") == ["coeff"]
->>> obj.setFunctionParam("my.function","tolerance","0.2")
->>> assert obj.getFunctionParams("my.function") == ["coeff", "tolerance"]
->>> obj.removeFunctionParam("my.function", "coeff")
->>> assert obj.getFunctionParams("my.function") == ["tolerance"]
+>>> obj.addSimulator("my.simulator")
+>>> assert len(obj.getSimulatorParams("my.simulator")) == 0
+>>> obj.setSimulatorParam("my.simulator","coeff","3")
+>>> assert obj.getSimulatorParam("my_simulator", "coeff") == "3"
+>>> assert obj.getSimulatorParams("my.simulator") == ["coeff"]
+>>> obj.setSimulatorParam("my.simulator","tolerance","0.2")
+>>> assert obj.getSimulatorParams("my.simulator") == ["coeff", "tolerance"]
+>>> obj.removeSimulatorParam("my.simulator", "coeff")
+>>> assert obj.getSimulatorParams("my.simulator") == ["tolerance"]
 
 
 --------------------------------------------------------------------------------
@@ -284,9 +284,9 @@ Spatial domain is made of ....
 --------------------------------------------------------------------------------
  - getModelItems
 >>> obj = PyOpenFLUID()
->>> obj.addFunction("examples.primitives.unitsA.prod")
->>> obj.addFunction("examples.primitives.unitsB.prod")
->>> obj.addFunction("examples.primitives.unitsA.up")
+>>> obj.addSimulator("examples.primitives.unitsA.prod")
+>>> obj.addSimulator("examples.primitives.unitsB.prod")
+>>> obj.addSimulator("examples.primitives.unitsA.up")
 >>> print obj.getModelItems()
 ["examples.primitives.unitsA.prod", "examples.primitives.unitsB.prod", "examples.primitives.unitsA.up"]
 

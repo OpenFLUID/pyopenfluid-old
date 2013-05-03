@@ -9,9 +9,9 @@ import PyOpenFLUID
 #    -end_date            => a string
 #    -delta_t             => a number
 #    -model_global_param  => a list of pair key/value
-#    -extra_function_path => a list of string
-#    -extra_observer_path => a list of string
-#    -functions           => a list of tuple(name, parameter: list of pair key/value)
+#    -extra_simulator_path => a list of string
+#    -extra_observer_path  => a list of string
+#    -simulators           => a list of tuple(name, parameter: list of pair key/value)
 #    -observers           => a list of tuple(name, parameter: list of pair key/value)
 #    -units               => a list of tuple(class, id, process order)
 #    -from_to             => a list of tuple(class from, id from,
@@ -35,17 +35,17 @@ def loadOpenFLUIDConfig(config, pyof=None):
         pyof.setPeriodEndDate(config["end_date"])
     if config.has_key("delta_t"):
         pyof.setDefaultDeltaT(config["delta_t"])
-    extraFunctionPath = ":".join(config.get("extra_function_path", []))
-    if len(extraFunctionPath) > 0:
-        pyof.addExtraFunctionsPaths(extraFunctionPath)
+    extraSimulatorPath = ":".join(config.get("extra_simulator_path", []))
+    if len(extraSimulatorPath) > 0:
+        pyof.addExtraSimulatorsPaths(extraSimulatorPath)
     extraObserverPath = ":".join(config.get("extra_observer_path", []))
     if len(extraObserverPath) > 0:
         pyof.addExtraObserversPaths(extraObserverPath)
     #
-    for f, fParams in config.get("functions", []):
-        pyof.addFunction(f)
+    for f, fParams in config.get("simulators", []):
+        pyof.addSimulator(f)
         for key, val in fParams:
-            pyof.setFunctionParam(f, key, val)
+            pyof.setSimulatorParam(f, key, val)
     for o, oParams in config.get("observers", []):
         pyof.addObserver(o)
         for key, val in oParams:
@@ -82,13 +82,13 @@ def checkOpenFLUIDConfig(config, pyof=None):
         assert pyof.getPeriodEndDate() == config["end_date"]
     if config.has_key("delta_t"):
         assert pyof.getDefaultDeltaT() == config["delta_t"]
-    assert pyof.getExtraFunctionsPaths() == config.get("extra_function_path", [])
+    assert pyof.getExtraSimulatorsPaths() == config.get("extra_simulator_path", [])
     assert pyof.getExtraObserversPaths() == config.get("extra_observer_path", [])
     #
-    for f, fParams in config.get("functions", []):
-        assert f in pyof.getFunctionsInModel()
+    for f, fParams in config.get("simulators", []):
+        assert f in pyof.getSimulatorsInModel()
         for key, val in fParams:
-            assert pyof.getFunctionParam(f, key) == val
+            assert pyof.getSimulatorParam(f, key) == val
     for o, oParams in config.get("observers", []):
         assert o in pyof.getObserversInMonitoring()
         for key, val in oParams:

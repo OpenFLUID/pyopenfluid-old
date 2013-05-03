@@ -75,69 +75,69 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_ADDEXTRAFUNCTIONSPATHS@
+    ## @DOCSTRING_doxygen_ADDEXTRASIMULATORSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.@HLImportant{addExtraFunctionsPaths}(\"/first/path/to/add\")}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExSimple{obj.@HLImportant{addExtraSimulatorsPaths}(\"/first/path/to/add\")}
+    #   @LineExSimple{@HLReserv{print} obj.getExtraSimulatorsPaths()}
     #   @LineExResult{[\"/first/path/to/add\"]}
-    #   @LineExSimple{obj.@HLImportant{addExtraFunctionsPaths}(\"/second/path/to/add:/third/path/to/add\")}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExSimple{obj.@HLImportant{addExtraSimulatorsPaths}(\"/second/path/to/add:/third/path/to/add\")}
+    #   @LineExSimple{@HLReserv{print} obj.getExtraSimulatorsPaths()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
-    #   @LineExSimple{obj.resetExtraFunctionsPaths()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraFunctionsPaths()) == 0}
+    #   @LineExSimple{obj.resetExtraSimulatorsPaths()}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraSimulatorsPaths()) == 0}
     # @EndExample
     #
-    def addExtraFunctionsPaths (self, Paths):
-        """@DOCSTRING_python_ADDEXTRAFUNCTIONSPATHS@"""
-        pyopenfluid.PyOpenFLUID.addExtraFunctionsPaths(self, Paths)
+    def addExtraSimulatorsPaths (self, Paths):
+        """@DOCSTRING_python_ADDEXTRASIMULATORSPATHS@"""
+        pyopenfluid.PyOpenFLUID.addExtraSimulatorsPaths(self, Paths)
 
 
 # ########################################################################## #
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_RESETEXTRAFUNCTIONSPATHS@
+    ## @DOCSTRING_doxygen_RESETEXTRASIMULATORSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.addExtraFunctionsPaths(\"/first/path/to/add\")}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExSimple{obj.addExtraSimulatorsPaths(\"/first/path/to/add\")}
+    #   @LineExSimple{@HLReserv{print} obj.getExtraSimulatorsPaths()}
     #   @LineExResult{[\"/first/path/to/add\"]}
-    #   @LineExSimple{obj.addExtraFunctionsPaths(\"/second/path/to/add:/third/path/to/add\")}
-    #   @LineExSimple{@HLReserv{print} obj.getExtraFunctionsPaths()}
+    #   @LineExSimple{obj.addExtraSimulatorsPaths(\"/second/path/to/add:/third/path/to/add\")}
+    #   @LineExSimple{@HLReserv{print} obj.getExtraSimulatorsPaths()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
-    #   @LineExSimple{obj.@HLImportant{resetExtraFunctionsPaths}()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraFunctionsPaths()) == 0}
+    #   @LineExSimple{obj.@HLImportant{resetExtraSimulatorsPaths}()}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getExtraSimulatorsPaths()) == 0}
     # @EndExample
     #
-    def resetExtraFunctionsPaths (self):
-        """@DOCSTRING_python_RESETEXTRAFUNCTIONSPATHS@"""
-        pyopenfluid.PyOpenFLUID.resetExtraFunctionsPaths(self)
+    def resetExtraSimulatorsPaths (self):
+        """@DOCSTRING_python_RESETEXTRASIMULATORSPATHS@"""
+        pyopenfluid.PyOpenFLUID.resetExtraSimulatorsPaths(self)
 
 
 # ########################################################################## #
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_GETEXTRAFUNCTIONSPATHS@
+    ## @DOCSTRING_doxygen_GETEXTRASIMULATORSPATHS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.addExtraFunctionsPaths(\"/first/path/to/add\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraFunctionsPaths}()}
+    #   @LineExSimple{obj.addExtraSimulatorsPaths(\"/first/path/to/add\")}
+    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraSimulatorsPaths}()}
     #   @LineExResult{[\"/first/path/to/add\"]}
-    #   @LineExSimple{obj.addExtraFunctionsPaths(\"/second/path/to/add:/third/path/to/add\")}
-    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraFunctionsPaths}()}
+    #   @LineExSimple{obj.addExtraSimulatorsPaths(\"/second/path/to/add:/third/path/to/add\")}
+    #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getExtraSimulatorsPaths}()}
     #   @LineExResult{[\"/second/path/to/add:/third/path/to/add:/first/path/to/add\"]}
-    #   @LineExSimple{obj.resetExtraFunctionsPaths()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getExtraFunctionsPaths}()) == 0}
+    #   @LineExSimple{obj.resetExtraSimulatorsPaths()}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getExtraSimulatorsPaths}()) == 0}
     # @EndExample
     #
-    def getExtraFunctionsPaths (self):
-        """@DOCSTRING_python_GETEXTRAFUNCTIONSPATHS@"""
-        return pyopenfluid.PyOpenFLUID.getExtraFunctionsPaths(self)
+    def getExtraSimulatorsPaths (self):
+        """@DOCSTRING_python_GETEXTRASIMULATORSPATHS@"""
+        return pyopenfluid.PyOpenFLUID.getExtraSimulatorsPaths(self)
 
 
 # ########################################################################## #
@@ -232,48 +232,48 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ###############               MODEL FUNCTIONS              ############### #
 
 
-    ## @DOCSTRING_doxygen_GETFUNCTIONPARAM@
+    ## @DOCSTRING_doxygen_GETSIMULATORPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionParams(\"my.function\")) == 0}
-    #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"coeff\"\,\"3\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParam}(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"]}
-    #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
-    #   @LineExSimple{obj.removeFunctionParam(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"tolerance\"]}
+    #   @LineExSimple{obj.addSimulator(\"my.function\")}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorParams(\"my.function\")) == 0}
+    #   @LineExSimple{obj.setSimulatorParam(\"my.function\"\,\"coeff\"\,\"3\")}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getSimulatorParam}(\"my_function\"\, \"coeff\") == \"3\"}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"coeff\"]}
+    #   @LineExSimple{obj.setSimulatorParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{obj.removeSimulatorParam(\"my.function\"\, \"coeff\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
-    def getFunctionParam (self, FunID, ParamName):
-        """@DOCSTRING_python_GETFUNCTIONPARAM@"""
-        return pyopenfluid.PyOpenFLUID.getFunctionParam(self, FunID, ParamName)
+    def getSimulatorParam (self, FunID, ParamName):
+        """@DOCSTRING_python_GETSIMULATORPARAM@"""
+        return pyopenfluid.PyOpenFLUID.getSimulatorParam(self, FunID, ParamName)
 
 
 # ########################################################################## #
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_SETFUNCTIONPARAM@
+    ## @DOCSTRING_doxygen_SETSIMULATORPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionParams(\"my.function\")) == 0}
-    #   @LineExSimple{obj.@HLImportant{setFunctionParam}(\"my.function\"\,\"coeff\"\,\"3\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParam(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"]}
-    #   @LineExSimple{obj.@HLImportant{setFunctionParam}(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
-    #   @LineExSimple{obj.removeFunctionParam(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"tolerance\"]}
+    #   @LineExSimple{obj.addSimulator(\"my.function\")}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorParams(\"my.function\")) == 0}
+    #   @LineExSimple{obj.@HLImportant{setSimulatorParam}(\"my.function\"\,\"coeff\"\,\"3\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParam(\"my_function\"\, \"coeff\") == \"3\"}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"coeff\"]}
+    #   @LineExSimple{obj.@HLImportant{setSimulatorParam}(\"my.function\"\,\"tolerance\"\,\"0.2\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{obj.removeSimulatorParam(\"my.function\"\, \"coeff\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
-    def setFunctionParam (self, FunID, ParamName, ParamValue):
-        """@DOCSTRING_python_SETFUNCTIONPARAM@"""
-        pyopenfluid.PyOpenFLUID.setFunctionParam(self, FunID, ParamName,
+    def setSimulatorParam (self, FunID, ParamName, ParamValue):
+        """@DOCSTRING_python_SETSIMULATORPARAM@"""
+        pyopenfluid.PyOpenFLUID.setSimulatorParam(self, FunID, ParamName,
             ParamValue)
 
 
@@ -281,47 +281,47 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_REMOVEFUNCTIONPARAM@
+    ## @DOCSTRING_doxygen_REMOVESIMULATORPARAM@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionParams(\"my.function\")) == 0}
-    #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"coeff\"\,\"3\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParam(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"]}
-    #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
-    #   @LineExSimple{obj.@HLImportant{removeFunctionParam}(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParams(\"my.function\") == [\"tolerance\"]}
+    #   @LineExSimple{obj.addSimulator(\"my.function\")}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorParams(\"my.function\")) == 0}
+    #   @LineExSimple{obj.setSimulatorParam(\"my.function\"\,\"coeff\"\,\"3\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParam(\"my_function\"\, \"coeff\") == \"3\"}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"coeff\"]}
+    #   @LineExSimple{obj.setSimulatorParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{obj.@HLImportant{removeSimulatorParam}(\"my.function\"\, \"coeff\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParams(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
-    def removeFunctionParam (self, FunID, ParamName):
-        """@DOCSTRING_python_REMOVEFUNCTIONPARAM@"""
-        pyopenfluid.PyOpenFLUID.removeFunctionParam(self, FunID, ParamName)
+    def removeSimulatorParam (self, FunID, ParamName):
+        """@DOCSTRING_python_REMOVESIMULATORPARAM@"""
+        pyopenfluid.PyOpenFLUID.removeSimulatorParam(self, FunID, ParamName)
 
 
 # ########################################################################## # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_GETFUNCTIONPARAMS@
+    ## @DOCSTRING_doxygen_GETSIMULATORPARAMS@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.addFunction(\"my.function\")}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getFunctionParams}(\"my.function\")) == 0}
-    #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"coeff\"\,\"3\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionParam(\"my_function\"\, \"coeff\") == \"3\"}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParams}(\"my.function\") == [\"coeff\"]}
-    #   @LineExSimple{obj.setFunctionParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParams}(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
-    #   @LineExSimple{obj.removeFunctionParam(\"my.function\"\, \"coeff\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionParams}(\"my.function\") == [\"tolerance\"]}
+    #   @LineExSimple{obj.addSimulator(\"my.function\")}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getSimulatorParams}(\"my.function\")) == 0}
+    #   @LineExSimple{obj.setSimulatorParam(\"my.function\"\,\"coeff\"\,\"3\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorParam(\"my_function\"\, \"coeff\") == \"3\"}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getSimulatorParams}(\"my.function\") == [\"coeff\"]}
+    #   @LineExSimple{obj.setSimulatorParam(\"my.function\"\,\"tolerance\"\,\"0.2\")}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getSimulatorParams}(\"my.function\") == [\"coeff\"\, \"tolerance\"]}
+    #   @LineExSimple{obj.removeSimulatorParam(\"my.function\"\, \"coeff\")}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getSimulatorParams}(\"my.function\") == [\"tolerance\"]}
     # @EndExample
     #
-    def getFunctionParams (self, FunID):
-        """@DOCSTRING_python_GETFUNCTIONPARAMS@"""
-        return pyopenfluid.PyOpenFLUID.getFunctionParams(self, FunID)
+    def getSimulatorParams (self, FunID):
+        """@DOCSTRING_python_GETSIMULATORPARAMS@"""
+        return pyopenfluid.PyOpenFLUID.getSimulatorParams(self, FunID)
 
 
 # ########################################################################## #
@@ -465,9 +465,9 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{obj.addFunction(\"examples.primitives.unitsA.prod\")}
-    #   @LineExSimple{obj.addFunction(\"examples.primitives.unitsB.prod\")}
-    #   @LineExSimple{obj.addFunction(\"examples.primitives.unitsA.up\")}
+    #   @LineExSimple{obj.addSimulator(\"examples.primitives.unitsA.prod\")}
+    #   @LineExSimple{obj.addSimulator(\"examples.primitives.unitsB.prod\")}
+    #   @LineExSimple{obj.addSimulator(\"examples.primitives.unitsA.up\")}
     #   @LineExSimple{@HLReserv{print} obj.@HLImportant{getModelItems}()}
     #   @LineExResult{[\"examples.primitives.unitsA.prod\"\, \"examples.primitives.unitsB.prod\"\, \"examples.primitives.unitsA.up\"]}
     # @EndExample
@@ -481,48 +481,48 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_ADDFUNCTION@
+    ## @DOCSTRING_doxygen_ADDSIMULATOR@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
-    #   @LineExSimple{obj.@HLImportant{addFunction}(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"]}
-    #   @LineExSimple{obj.@HLImportant{addFunction}(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"\, \"secFunc\"]}
-    #   @LineExSimple{obj.removeFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorsInModel()) == 0}
+    #   @LineExSimple{obj.@HLImportant{addSimulator}(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"firstFunc\"]}
+    #   @LineExSimple{obj.@HLImportant{addSimulator}(\"secFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{obj.removeSimulator(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"secFunc\"]}
     #   @LineExSimple{obj.clearModel()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorsInModel()) == 0}
     # @EndExample
     #
-    def addFunction (self, FuncID):
-        """@DOCSTRING_python_ADDFUNCTION@"""
-        return pyopenfluid.PyOpenFLUID.addFunction(self, FuncID)
+    def addSimulator (self, FuncID):
+        """@DOCSTRING_python_ADDSIMULATOR@"""
+        return pyopenfluid.PyOpenFLUID.addSimulator(self, FuncID)
 
 
 # ########################################################################## #
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_REMOVEFUNCTION@
+    ## @DOCSTRING_doxygen_REMOVESIMULATOR@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
-    #   @LineExSimple{obj.addFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"]}
-    #   @LineExSimple{obj.addFunction(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"\, \"secFunc\"]}
-    #   @LineExSimple{obj.@HLImportant{removeFunction}(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorsInModel()) == 0}
+    #   @LineExSimple{obj.addSimulator(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"firstFunc\"]}
+    #   @LineExSimple{obj.addSimulator(\"secFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{obj.@HLImportant{removeSimulator}(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"secFunc\"]}
     #   @LineExSimple{obj.clearModel()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorsInModel()) == 0}
     # @EndExample
     #
-    def removeFunction (self, FuncID):
-        """@DOCSTRING_python_REMOVEFUNCTION@"""
-        return pyopenfluid.PyOpenFLUID.removeFunction(self, FuncID)
+    def removeSimulator (self, FuncID):
+        """@DOCSTRING_python_REMOVESIMULATOR@"""
+        return pyopenfluid.PyOpenFLUID.removeSimulator(self, FuncID)
 
 
 # ########################################################################## #
@@ -533,15 +533,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
-    #   @LineExSimple{obj.addFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"]}
-    #   @LineExSimple{obj.addFunction(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"firstFunc\"\, \"secFunc\"]}
-    #   @LineExSimple{obj.removeFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.getFunctionsInModel() == [\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorsInModel()) == 0}
+    #   @LineExSimple{obj.addSimulator(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"firstFunc\"]}
+    #   @LineExSimple{obj.addSimulator(\"secFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{obj.removeSimulator(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.getSimulatorsInModel() == [\"secFunc\"]}
     #   @LineExSimple{obj.@HLImportant{clearModel}()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getFunctionsInModel()) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.getSimulatorsInModel()) == 0}
     # @EndExample
     #
     def clearModel (self):
@@ -553,24 +553,24 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 # ########################################################################## #
 
 
-    ## @DOCSTRING_doxygen_GETFUNCTIONSINMODEL@
+    ## @DOCSTRING_doxygen_GETSIMULATORSINMODEL@
     #
     # @StartExample
     #   @LineExSimple{obj = PyOpenFLUID()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getFunctionsInModel}()) == 0}
-    #   @LineExSimple{obj.addFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionsInModel}() == [\"firstFunc\"]}
-    #   @LineExSimple{obj.addFunction(\"secFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionsInModel}() == [\"firstFunc\"\, \"secFunc\"]}
-    #   @LineExSimple{obj.removeFunction(\"firstFunc\")}
-    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getFunctionsInModel}() == [\"secFunc\"]}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getSimulatorsInModel}()) == 0}
+    #   @LineExSimple{obj.addSimulator(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getSimulatorsInModel}() == [\"firstFunc\"]}
+    #   @LineExSimple{obj.addSimulator(\"secFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getSimulatorsInModel}() == [\"firstFunc\"\, \"secFunc\"]}
+    #   @LineExSimple{obj.removeSimulator(\"firstFunc\")}
+    #   @LineExSimple{@HLReserv{assert} obj.@HLImportant{getSimulatorsInModel}() == [\"secFunc\"]}
     #   @LineExSimple{obj.clearModel()}
-    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getFunctionsInModel}()) == 0}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(obj.@HLImportant{getSimulatorsInModel}()) == 0}
     # @EndExample
     #
-    def getFunctionsInModel (self):
-        """@DOCSTRING_python_GETFUNCTIONSINMODEL@"""
-        return pyopenfluid.PyOpenFLUID.getFunctionsInModel(self)
+    def getSimulatorsInModel (self):
+        """@DOCSTRING_python_GETSIMULATORSINMODEL@"""
+        return pyopenfluid.PyOpenFLUID.getSimulatorsInModel(self)
 
 
 # ########################################################################## #
@@ -776,12 +776,12 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     #
     def addCSVOutput (self, UnitClass, Vars, ListID):
         """@DOCSTRING_python_ADDCSVOUTPUT@"""
-        if isinstance(Vars, (tuple, list)):
-            Vars = ";".join(Vars)
-        if isinstance(ListID, (tuple, list)):
-            ListID = ";".join(ListID)
+        def listComma(input):
+            if not isinstance(input, (str, unicode)):
+                return ";".join(list(input))
+            return input
         return pyopenfluid.PyOpenFLUID.addCSVOutput(self,
-                UnitClass, Vars, ListID)
+                UnitClass, listComma(Vars), listComma(ListID))
 
 
 # ########################################################################## #

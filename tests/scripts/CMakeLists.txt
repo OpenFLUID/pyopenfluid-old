@@ -48,10 +48,10 @@ SET_TESTS_PROPERTIES(DefaultDeltaT_TEST PROPERTIES
 
 
 
-ADD_TEST(ExtraFunctionsPaths_TEST
+ADD_TEST(ExtraSimulatorsPaths_TEST
          ${PYTHON_EXECUTABLE}
-         ${CMAKE_CURRENT_SOURCE_DIR}/ExtraFunctionsPaths_TEST.py)
-SET_TESTS_PROPERTIES(ExtraFunctionsPaths_TEST PROPERTIES
+         ${CMAKE_CURRENT_SOURCE_DIR}/ExtraSimulatorsPaths_TEST.py)
+SET_TESTS_PROPERTIES(ExtraSimulatorsPaths_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -68,10 +68,10 @@ SET_TESTS_PROPERTIES(ExtraObserversPaths_TEST PROPERTIES
 
 
 
-ADD_TEST(ModelGlobalParameter_TEST
+ADD_TEST(ModelGlobalParameters_TEST
          ${PYTHON_EXECUTABLE}
-         ${CMAKE_CURRENT_SOURCE_DIR}/ModelGlobalParameter_TEST.py)
-SET_TESTS_PROPERTIES(ModelGlobalParameter_TEST PROPERTIES
+         ${CMAKE_CURRENT_SOURCE_DIR}/ModelGlobalParameters_TEST.py)
+SET_TESTS_PROPERTIES(ModelGlobalParameters_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -108,30 +108,30 @@ SET_TESTS_PROPERTIES(Observer_TEST PROPERTIES
 
 
 
-ADD_TEST(ObserverParameter_TEST
+ADD_TEST(ObserverParameters_TEST
          "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/ObserverParameter_TEST.py")
-SET_TESTS_PROPERTIES(ObserverParameter_TEST PROPERTIES
+         "${CMAKE_CURRENT_SOURCE_DIR}/ObserverParameters_TEST.py")
+SET_TESTS_PROPERTIES(ObserverParameters_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
 
 
 
-ADD_TEST(Functions_TEST
+ADD_TEST(Simulators_TEST
          "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/Functions_TEST.py")
-SET_TESTS_PROPERTIES(Functions_TEST PROPERTIES
+         "${CMAKE_CURRENT_SOURCE_DIR}/Simulators_TEST.py")
+SET_TESTS_PROPERTIES(Simulators_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
 
 
 
-ADD_TEST(FunctionsParameter_TEST
+ADD_TEST(SimulatorParameters_TEST
          "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/FunctionsParameter_TEST.py")
-SET_TESTS_PROPERTIES(FunctionsParameter_TEST PROPERTIES
+         "${CMAKE_CURRENT_SOURCE_DIR}/SimulatorParameters_TEST.py")
+SET_TESTS_PROPERTIES(SimulatorParameters_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -215,11 +215,11 @@ SET_TESTS_PROPERTIES(Project_TEST PROPERTIES
 # =============================================================================
 # =========================  NEEDS DATASET OR PROJECT =========================
 
-ADD_TEST(GeneratorParameter_TEST
+ADD_TEST(GeneratorParameters_TEST
          "${PYTHON_EXECUTABLE}"
-         "${CMAKE_CURRENT_SOURCE_DIR}/GeneratorParameter_TEST.py"
+         "${CMAKE_CURRENT_SOURCE_DIR}/GeneratorParameters_TEST.py"
          "--dataset" "${TEST_PATH}/${PROJECT_NAME_1}/IN")
-SET_TESTS_PROPERTIES(GeneratorParameter_TEST PROPERTIES
+SET_TESTS_PROPERTIES(GeneratorParameters_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
@@ -254,5 +254,16 @@ ADD_TEST(RunSimulation_TEST
          "${CMAKE_CURRENT_SOURCE_DIR}/RunSimulation_TEST.py"
          "--project" "${TEST_PATH}/${RUNSIMULATION_NAME}")
 SET_TESTS_PROPERTIES(RunSimulation_TEST PROPERTIES
+                     WILL_FAIL FALSE
+                     ENVIRONMENT "PYTHONPATH=${PY_DIR}")
+
+
+
+
+ADD_TEST(Results_TEST
+         "${PYTHON_EXECUTABLE}"
+         "${CMAKE_CURRENT_SOURCE_DIR}/Results_TEST.py"
+         "--project" "${TEST_PATH}/${RESULTS_NAME}")
+SET_TESTS_PROPERTIES(Results_TEST PROPERTIES
                      WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")

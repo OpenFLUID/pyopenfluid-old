@@ -46,7 +46,7 @@
 #include <openfluid/machine/SimulationBlob.hpp>
 #include <openfluid/machine/MachineListener.hpp>
 #include <openfluid/machine/MonitoringInstance.hpp>
-#include <openfluid/machine/FunctionPluginsManager.hpp>
+#include <openfluid/machine/SimulatorPluginsManager.hpp>
 #include <openfluid/machine/ObserverPluginsManager.hpp>
 
 #include <openfluid/fluidx/RunDescriptor.hpp>
@@ -55,7 +55,7 @@
 #include <openfluid/fluidx/IDataDescriptor.hpp>
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/DomainDescriptor.hpp>
-#include <openfluid/fluidx/FunctionDescriptor.hpp>
+#include <openfluid/fluidx/SimulatorDescriptor.hpp>
 #include <openfluid/fluidx/ObserverDescriptor.hpp>
 #include <openfluid/fluidx/GeneratorDescriptor.hpp>
 #include <openfluid/fluidx/DatastoreDescriptor.hpp>
@@ -146,7 +146,7 @@ PyObject* PyOpenFLUID::getVersion (PyObject* PyObSelf, PyObject* InTuple,
 // =====================================================================
 
 
-void PyOpenFLUID::addExtraFunctionsPaths (boost::python::object Paths)
+void PyOpenFLUID::addExtraSimulatorsPaths (boost::python::object Paths)
 {
   boost::python::extract<std::string> getStringPaths(Paths);
   if (!getStringPaths.check())
@@ -154,7 +154,7 @@ void PyOpenFLUID::addExtraFunctionsPaths (boost::python::object Paths)
         PyExc_TypeError);
 
   openfluid::base::RuntimeEnvironment::getInstance()->
-    addExtraFunctionsPluginsPaths(getStringPaths());
+    addExtraSimulatorsPluginsPaths(getStringPaths());
 }
 
 
@@ -162,10 +162,10 @@ void PyOpenFLUID::addExtraFunctionsPaths (boost::python::object Paths)
 // =====================================================================
 
 
-void PyOpenFLUID::resetExtraFunctionsPaths ()
+void PyOpenFLUID::resetExtraSimulatorsPaths ()
 {
   openfluid::base::RuntimeEnvironment::getInstance()->
-    resetExtraFunctionsPluginsPaths();
+    resetExtraSimulatorsPluginsPaths();
 }
 
 
@@ -173,10 +173,10 @@ void PyOpenFLUID::resetExtraFunctionsPaths ()
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getExtraFunctionsPaths ()
+boost::python::object PyOpenFLUID::getExtraSimulatorsPaths ()
 {
   std::vector<std::string> VectPath = openfluid::base::RuntimeEnvironment
-      ::getInstance()->getExtraFunctionsPluginsPaths();
+      ::getInstance()->getExtraSimulatorsPluginsPaths();
 
   boost::python::list ListPath = boost::python::list();
 
@@ -278,9 +278,9 @@ void PyOpenFLUID::printSimulationInfo ()
     SStream << " - ";
 
     if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
+        openfluid::fluidx::ModelItemDescriptor::PluggedSimulator))
     {
-      SStream << ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->
+      SStream << ((openfluid::fluidx::SimulatorDescriptor*)(*ItModelInfos))->
           getFileID().c_str() << " simulation function" << std::endl;
     }
 
@@ -333,7 +333,7 @@ void PyOpenFLUID::printSimulationInfo ()
 /* ------------------------  MODEL FUNCTIONS  ----------------------- */
 
 
-boost::python::object PyOpenFLUID::getFunctionParam (
+boost::python::object PyOpenFLUID::getSimulatorParam (
     boost::python::object FuncID, boost::python::object ParamName)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
@@ -353,8 +353,8 @@ boost::python::object PyOpenFLUID::getFunctionParam (
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
     {
@@ -375,7 +375,7 @@ boost::python::object PyOpenFLUID::getFunctionParam (
 // =====================================================================
 
 
-void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
+void PyOpenFLUID::setSimulatorParam (boost::python::object FuncID,
                                     boost::python::object ParamName,
                                     boost::python::object ParamValue)
 {
@@ -400,8 +400,8 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
     {
@@ -420,7 +420,7 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
 // =====================================================================
 
 
-void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
+void PyOpenFLUID::removeSimulatorParam (boost::python::object FuncID,
                                        boost::python::object ParamName)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
@@ -440,8 +440,8 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
       FuncDescp->eraseParameter(ParamNameStr);
@@ -455,7 +455,7 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getFunctionParams(
+boost::python::object PyOpenFLUID::getSimulatorParams(
     boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
@@ -473,8 +473,8 @@ boost::python::object PyOpenFLUID::getFunctionParams(
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
     {
@@ -714,15 +714,15 @@ boost::python::object PyOpenFLUID::getModelItems ()
 
   std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator ItListItem;
 
-  openfluid::fluidx::FunctionDescriptor* FuncDescp;
+  openfluid::fluidx::SimulatorDescriptor* FuncDescp;
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
 
   for(ItListItem = ListItem.begin(); ItListItem != ListItem.end();
       ++ItListItem)
     if ((*ItListItem)->isType(
-          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
+          openfluid::fluidx::SimulatorDescriptor::PluggedSimulator))
     {
-      FuncDescp = (openfluid::fluidx::FunctionDescriptor*) *ItListItem;
+      FuncDescp = (openfluid::fluidx::SimulatorDescriptor*) *ItListItem;
       ListRes.append(boost::python::object(FuncDescp->getFileID()));
     }
     else if ((*ItListItem)->isType(
@@ -740,7 +740,7 @@ boost::python::object PyOpenFLUID::getModelItems ()
 // =====================================================================
 
 
-void PyOpenFLUID::addFunction (boost::python::object FuncID)
+void PyOpenFLUID::addSimulator (boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
   if (!getStringFuncID.check())
@@ -750,10 +750,10 @@ void PyOpenFLUID::addFunction (boost::python::object FuncID)
 
   try
   {
-    openfluid::fluidx::FunctionDescriptor* NewFunction =
-        new openfluid::fluidx::FunctionDescriptor(FuncIDStr);
+    openfluid::fluidx::SimulatorDescriptor* NewSimulator =
+        new openfluid::fluidx::SimulatorDescriptor(FuncIDStr);
 
-    this->mp_AdvFXDesc->getModel().appendItem(NewFunction);
+    this->mp_AdvFXDesc->getModel().appendItem(NewSimulator);
   } HANDLE_OFEXCEPTION
 }
 
@@ -762,7 +762,7 @@ void PyOpenFLUID::addFunction (boost::python::object FuncID)
 // =====================================================================
 
 
-void PyOpenFLUID::removeFunction (boost::python::object FuncID)
+void PyOpenFLUID::removeSimulator (boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
   if (!getStringFuncID.check())
@@ -793,7 +793,7 @@ void PyOpenFLUID::clearModel ()
   {
     for (ItItems = Items.begin(); ItItems != Items.end(); ++ItItems)
       if ((*ItItems)->isType(
-          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
+          openfluid::fluidx::SimulatorDescriptor::PluggedSimulator))
         this->mp_AdvFXDesc->getModel().removeItem(
           this->mp_AdvFXDesc->getModel().getFirstItemIndex(*ItItems));
   } HANDLE_OFEXCEPTION
@@ -804,7 +804,7 @@ void PyOpenFLUID::clearModel ()
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getFunctionsInModel ()
+boost::python::object PyOpenFLUID::getSimulatorsInModel ()
 {
   boost::python::list ListRes = boost::python::list();
 
@@ -817,9 +817,9 @@ boost::python::object PyOpenFLUID::getFunctionsInModel ()
   for (ItItemList = ItemList.begin(); ItItemList != ItemList.end();
       ++ItItemList)
     if ((*ItItemList)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
+        openfluid::fluidx::ModelItemDescriptor::PluggedSimulator))
       ListRes.append(boost::python::str(
-          ((openfluid::fluidx::FunctionDescriptor*)(*ItItemList))->
+          ((openfluid::fluidx::SimulatorDescriptor*)(*ItItemList))->
           getFileID()));
 
   return ListRes;
@@ -2169,7 +2169,7 @@ boost::python::object PyOpenFLUID::runSimulation ()
 
     this->updateOutputsConfig();
 
-    openfluid::machine::FunctionPluginsManager::getInstance()
+    openfluid::machine::SimulatorPluginsManager::getInstance()
         ->unloadAllWares();
     openfluid::machine::ObserverPluginsManager::getInstance()
         ->unloadAllWares();
@@ -2297,6 +2297,9 @@ void setPyOFCSVFormat (openfluid::fluidx::ObserverDescriptor& Observer)
 
     PairParam[std::string("format.pyofformat.precision")] =
         openfluid::core::StringValue(std::string("7"));
+
+    PairParam[std::string("format.pyofformat.colsep")] =
+        openfluid::core::StringValue(std::string("	"));
 
     Observer.setParameters(PairParam);
 }
