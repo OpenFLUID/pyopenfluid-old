@@ -39,7 +39,7 @@ __all__ = ["PyOpenFLUID"]
 #
 # @author     Bastien Vaysse <bastien.vaysse@supagro.inra.fr>
 # @copyright  Copyright 2013 GPLv3
-# @version    2.0.0~alpha
+# @version    @PYOPENFLUID_VERSION@
 #
 class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
     """This class provides OpenFLUID simulations, by loading, parameterizing and running them. It uses the OpenFLUID framework to do simulations."""
@@ -773,6 +773,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
     ## @DOCSTRING_doxygen_ADDCSVOUTPUT@
     #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{obj.openProject(\"some_project\")}
+    #   @LineExSimple{obs = obj.@HLImportant{addCSVOutput}(\"unitsA\"\, \"*\"\, \"1;2;3\")}
+    #   @LineExSimple{obj.runSimulation()}
+    #   @LineExResult{@HLValue{True}}
+    #   @LineExSimple{Res = obj.loadCSVOutput(obs\, \"unitsA\"\, \"1;2\"\, \"*\")}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(Res) == 2}
+    # @EndExample
     #
     def addCSVOutput (self, UnitClass, Vars, ListID):
         """@DOCSTRING_python_ADDCSVOUTPUT@"""
@@ -790,6 +799,15 @@ class PyOpenFLUID (pyopenfluid.PyOpenFLUID):
 
     ## @DOCSTRING_doxygen_LOADCSVOUTPUT@
     #
+    # @StartExample
+    #   @LineExSimple{obj = PyOpenFLUID()}
+    #   @LineExSimple{obj.openProject(\"some_project\")}
+    #   @LineExSimple{obs = obj.addCSVOutput(\"unitsA\"\, \"*\"\, \"1;2;3\")}
+    #   @LineExSimple{obj.runSimulation()}
+    #   @LineExResult{@HLValue{True}}
+    #   @LineExSimple{Res = obj.@HLImportant{loadCSVOutput}(obs\, \"unitsA\"\, \"1;2\"\, \"*\")}
+    #   @LineExSimple{@HLReserv{assert} @HLSpecial{len}(Res) == 2}
+    # @EndExample
     #
     def loadCSVOutput (self, ObsName, UnitClass, ListID, ListVar):
         """@DOCSTRING_python_LOADCSVOUTPUT@"""

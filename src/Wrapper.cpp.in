@@ -1,3 +1,4 @@
+/* boost.python functions */
 #include <boost/python/def.hpp>
 #include <boost/python/scope.hpp>
 #include <boost/python/class.hpp>
@@ -7,22 +8,22 @@
 #include <boost/python/docstring_options.hpp>
 #include <boost/python/exception_translator.hpp>
 #include <boost/python/return_internal_reference.hpp>
-
+/* boost.python types */
 #include <boost/python/str.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/list.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/object.hpp>
-
+/* openfluid */
 #include <openfluid/config.hpp>
-
+/* pyopenfluid */
 #include "Wrapper.hpp"
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
 #include "PythonUtilities.hpp"
 #include "PyOpenFLUIDConstants.hpp"
 
-
+/* tells boost 'clearAllUnits' may be called with 0 or 1 parameter */
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(clearAllUnits_overloads,
     clearAllUnits, 0, 1)
 
@@ -32,7 +33,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 /* ------------------------- BOOST SETTINGS ------------------------- */
 
-  // docstring given - docstring boost(python) - docstring boost(c++)
+  // own docstring - auto docstring python - auto docstring c++
   boost::python::docstring_options local_docstring_options(true, true, false);
 
 

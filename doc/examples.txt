@@ -291,3 +291,14 @@ Spatial domain is made of ....
 ["examples.primitives.unitsA.prod", "examples.primitives.unitsB.prod", "examples.primitives.unitsA.up"]
 
 
+--------------------------------------------------------------------------------
+ - addCSVOutput/loadCSVOutput
+>>> obj = PyOpenFLUID()
+>>> obj.openProject("some_project")
+>>> obs = obj.addCSVOutput("unitsA", "*", "1;2;3")
+>>> obj.runSimulation()
+ True 
+>>> Res = obj.loadCSVOutput(obs, "unitsA", "1;2", "*")
+>>> assert len(Res) == 2
+
+

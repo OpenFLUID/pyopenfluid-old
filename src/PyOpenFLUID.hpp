@@ -3,10 +3,12 @@
 
 #include <Python.h>
 
+/* boost.python */
 #include <boost/python/dict.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/object.hpp>
 
+/* openfluid */
 #include <openfluid/base/IOListener.hpp>
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
@@ -582,12 +584,12 @@ class PyOpenFLUID
 
 
   private :
-    /* basis */
+    /* basics */
     openfluid::base::IOListener* mp_IOL;
     openfluid::fluidx::FluidXDescriptor* mp_FXDesc;
     openfluid::fluidx::AdvancedFluidXDescriptor* mp_AdvFXDesc;
 
-    /* custom observer */
+    /* last observer id */
     unsigned int m_LastObsID;
 
 };

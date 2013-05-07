@@ -11,7 +11,7 @@ import os
 from threading import Thread, Event
 from multiprocessing import Process, Queue
 
-
+# do the simulation
 def Simulate(PyOFClass, ResStorage):
     try:
         Res = PyOFClass.runSimulation()
@@ -39,14 +39,15 @@ class WindowPyOF:
         self.Fen.title("PyOpenFLUID simple simulation")
         self.Fen.protocol("WM_DELETE_WINDOW", self.quit)
 
+        # dict for storage
         self.Elements = dict()
-        self.Elements["workFrame"] = Frame = tk.Frame(self.Fen)
+        self.Elements["workFrame"] = Frame = tk.Frame(self.Fen) # main frame
         Frame.pack(side=TOP, anchor=NW, expand=YES, fill=X)
         self.Elements["workFramePackInfo"] = Frame.pack_info()
 
 
-        width_button = 9
-        # work frame
+        width_button = 9 # graphic constant
+        # project frame
         Frame = tk.Frame(self.Elements["workFrame"])
         Frame.pack(side=TOP, anchor=NW, expand=YES, fill=X)
 
@@ -60,6 +61,7 @@ class WindowPyOF:
         label.pack(padx=3, pady=3, ipadx=2, ipady=2, side=LEFT, anchor=W,
             expand=NO, fill=X)
 
+         # run frame
         Frame = tk.Frame(self.Elements["workFrame"])
         Frame.pack(side=TOP, anchor=NW, expand=YES, fill=X)
 
@@ -113,6 +115,7 @@ class WindowPyOF:
 
     ## event function
     def quit(self, Event=None):
+        # if simulation isn't finished
         if not self.IsSimulationRunned.isSet():
             tkMessageBox._show(parent=self.Fen,
                 message="You can't close the window during a simulation.",
@@ -123,9 +126,11 @@ class WindowPyOF:
         self.Fen.destroy()
 
     def open(self, Event=None):
+        # if simulation isn't finished => aborted
         if not self.IsSimulationRunned.isSet():
             return
 
+        # default path to search
         if self.ProjectPath is None:
             TmpRoot = os.getcwd()
         else:
@@ -134,10 +139,12 @@ class WindowPyOF:
         InputDir = tkFileDialog.askdirectory(parent=self.Fen, mustexist=True,
             title="open an OpenFLUID project path", initialdir=TmpRoot)
 
+        # if no answer (like closed window or cancel)
         if len(InputDir) == 0:
             self.ProjectPath = None
             return
 
+        # check path
         Message = "'%s' isn't a correct OpenFLUID project path." % InputDir
         Title = ""
         for Suffix in ["", "IN"]:
@@ -150,13 +157,16 @@ class WindowPyOF:
         self.openProject(InputDir)
 
     def startSimulation(self, Event=None):
-        if self.ProjectPath is None:
+        if self.ProjectPath is None: # if no project path
             return
+        # if simulation isn't finished
         if not self.IsSimulationRunned.isSet():
             return
+        # if simulation already done
         if self.NbSimu >= 1:
             return
 
+        # modified window appearance
         self.NbSimu += 1
         self.hideLogText()
         self.Elements["workFrame"].pack_forget()
@@ -167,7 +177,7 @@ class WindowPyOF:
         self.Elements["openButton"].config(state=DISABLED) # security
         self.Elements["textvarSimulation"].set(self.ProjectPath)
         self.resizeWindow()
-        #
+        # launching
         Th = Thread(target=self._launchSimulation,
             name="OpenFLUID simulation process launcher")
         Th.start()
@@ -176,14 +186,16 @@ class WindowPyOF:
         Th.start()
 
     def _launchSimulation(self):
+        # unset bool
         self.IsSimulationRunned.clear()
         #
+        # queue for code results from simulation
         ResQueue = Queue()
         ProcessSimu = Process(target=Simulate,
             args=(self.PyOpenFLUID, ResQueue,),
             name="OpenFLUID simulation process")
         ProcessSimu.start()
-        self.ResultSimu = ProcessSimu.join()
+        self.ResultSimu = ProcessSimu.join() # waiting end
         self.ErrorMessage = None
         if self.ResultSimu is None:
             try:
@@ -196,13 +208,14 @@ class WindowPyOF:
         #
         del ResQueue
         del ProcessSimu
-        self.IsSimulationRunned.set()
+        self.IsSimulationRunned.set() # set simulation ended
 
     def _endSimulation(self, Event=None):
+        # wait for simulation end
         self.IsSimulationRunned.wait()
         if self.ResultSimu is None:
             return
-        #
+        # if simulation runned, modified window appearance
         self.Elements["simulationFrame"].pack_forget()
         self.Elements["workFrame"].pack( **self.Elements["workFramePackInfo"] )
         if not self.ErrorMessage is None:
@@ -213,7 +226,7 @@ class WindowPyOF:
         #
         self.resizeWindow()
         #
-        if not self.ResultSimu:
+        if not self.ResultSimu: # if error
             tkMessageBox._show(parent=self.Fen,
                 message="Problem(s) or errors occured during simulation.",
                 _icon=tkMessageBox.ERROR, _type=tkMessageBox.OK,
@@ -255,6 +268,7 @@ class WindowPyOF:
         self.Elements["textError"].delete("0.0", END)
 
     def centerWindow(self):
+        # center the window on the screen
         self.Fen.update_idletasks()
         width = self.Fen.winfo_width()
         height = self.Fen.winfo_height()

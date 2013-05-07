@@ -1,6 +1,6 @@
 SET(OUTPUT_SOURCE_PATH "${OUTPUT_PATH}/src")
 
-# preparation
+# preparation (copy)
 SET(pyopenfluid_raw_source
     Wrapper.hpp
     PyOpenFLUID.hpp          PyOpenFLUID.cpp
@@ -12,10 +12,10 @@ FOREACH(RAW_SOURCE ${pyopenfluid_raw_source})
 ENDFOREACH()
 
 
-## configuration
+## configuration (cmake config and copy)
 SET(pyopenfluid_files_config_required
     Wrapper.cpp
-    PyOpenFLUIDConstants.hpp)
+    PyOpenFLUIDConstants.hpp) # files without '.in'
 FOREACH(RAW_SOURCE ${pyopenfluid_files_config_required})
 CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${RAW_SOURCE}.in"
     "${OUTPUT_SOURCE_PATH}/${RAW_SOURCE}" @ONLY)
@@ -28,12 +28,13 @@ SET(pyopenfluid_files
     PyOpenFLUID.hpp          PyOpenFLUID.cpp
     PyOpenFLUIDError.hpp     PyOpenFLUIDError.cpp
     PythonUtilities.hpp      PythonUtilities.cpp
-    PyOpenFLUIDConstants.hpp)
+    PyOpenFLUIDConstants.hpp) # all files used
 SET(pyopenfluid_source)
 FOREACH(READY_SOURCE ${pyopenfluid_files})
     LIST(APPEND pyopenfluid_source "${OUTPUT_SOURCE_PATH}/${READY_SOURCE}")
 ENDFOREACH()
 
+# the library here
 ADD_LIBRARY(PyOpenFLUID SHARED ${pyopenfluid_source})
 
 TARGET_LINK_LIBRARIES(PyOpenFLUID

@@ -5,7 +5,7 @@
 #
 
 # ------ GENERAL ------ #
-SET(OUTPUT_PATH "${CMAKE_BINARY_DIR}")
+SET(OUTPUT_PATH "${CMAKE_BINARY_DIR}") # build folder
 SET(CURRENT_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
 SET(PYOPENFLUID_MAIN_NAME "pyopenfluid")
@@ -17,14 +17,14 @@ SET(PYOPENFLUID_LICENCE "GPLv3")
 SET(PYOPENFLUID_SHORT_DESCRIPTION "This module allows to load, parameterize, run and analyse OpenFLUID simulations within the Python 2.x environment.")
 SET(PYOPENFLUID_LONG_DESCRIPTION "This module allows to load, parameterize, run and analyse OpenFLUID simulations within the Python 2.x environment.")
 SET(PYOPENFLUID_AUTHORS_LIST "Bastien VAYSSE")
-SET(PYOPENFLUID_EMAIL_LIST "bastien.vaysse@supagro.inra.fr")
-SET(PYOPENFLUID_MAINTAINER "Bastien VAYSSE")
-SET(PYOPENFLUID_EMAIL_MAINTAINER "bastien.vaysse@supagro.inra.fr")
+SET(PYOPENFLUID_EMAIL_LIST "bastien.vaysse@supagro.inra.fr;fabrejc@supagro.inra.fr") # separated by comma ";"
+SET(PYOPENFLUID_MAINTAINER "Fabre Jean-Christophe")
+SET(PYOPENFLUID_EMAIL_MAINTAINER "fabrejc@supagro.inra.fr")
 SET(PYOPENFLUID_URL "http://www.openfluid-project.org/openfluid/community/index.php/Main_Page")
 
 
 # ------ DIRECTORIES ------ #
-# "PYOPENFLUID_INPUT_<S>" -> for the main repository
+# "PYOPENFLUID_INPUT_<S>" -> input files
 # "<S>_PATH" -> for built and installed repository (relative path)
 # "<S>_OUTPUT_PATH" -> for the built repository (absolute path)
 
@@ -41,7 +41,7 @@ SET(TESTS_OUTPUTS_PATH      "tests-outputs")
 
 # ------ PREFIXS ------ #
 SET(BUILD_PREFIX "dist")
-SET(BUILD_PATH "${OUTPUT_PATH}/${BUILD_PREFIX}")
+SET(BUILD_PATH "${OUTPUT_PATH}/${BUILD_PREFIX}") # _build/dist
 
 
 # ------ TESTS FILES ------ #

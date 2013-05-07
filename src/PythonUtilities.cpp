@@ -4,6 +4,8 @@ namespace pyopenfluid {
 
 namespace tools {
 
+/* stringFill('text', 'pattern ', 14) = 'pattern pattern text'*/
+/* stringFill('23', '0', 5) = '00023' */
 std::string stringFill (const std::string Input, const std::string StrFill,
     unsigned int MaxLength)
 {
@@ -36,6 +38,7 @@ void printStdOut (std::string& Message, int EOL)
 {
   int LenMsg = Message.length();
 
+  /* split message by 1000 char */
   if (LenMsg >= 1000)
   {
     int NFois = LenMsg / 999;
@@ -68,6 +71,7 @@ void printStdErr (std::string& Message, int EOL)
 {
   int LenMsg = Message.length();
 
+  /* split message by 1000 char */
   if (LenMsg >= 1000)
   {
     int NFois = LenMsg / 999;

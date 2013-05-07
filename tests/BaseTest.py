@@ -7,14 +7,17 @@ import os
 import re
 import PyOpenFLUID
 
+
 def skipArgFromCL():
-    """Gets arguments (in line command) away from sys, because unittest will try to use them."""
+    """Gets arguments (in command line) away from sys.argv, because unittest will try to use them."""
     Res = sys.argv[1:]
     sys.argv = sys.argv[:1]
 
     Args = ()
     Kw = {}
 
+    # getting parameters (ex: "--key value --key value another")
+    # value without key are in "__unknow__"
     while len(Res) > 0:
       Word = Res.pop(0)
       if Word.startswith("--"):
@@ -89,6 +92,9 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def preparePyOpenFLUIDClass(self, DictIn, *Args, **Kw):
+        # DictIn  : command line dict
+        # Args : list of asked keys
+        # Kw["optional"] : list of optional keys
         def _actionPreparation(Key, Value):
             if Key == "dataset":
                 self.loadInputDataset(Value)
@@ -153,6 +159,7 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def checkNumeric(self, InputStr):
+        # check number, wheither int or float
         self.assertTrue(isinstance(InputStr, str))
         if InputStr.startswith("-"):
             InputStr = InputStr[1:]
@@ -167,12 +174,12 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
 
     def checkSimulationOutputPath(self, OutPath):
-        # verification dossier sortie non vide
+        # check output path not empty
         self.checkDirectory(OutPath)
         Contenu = os.listdir(OutPath)
         self.assertGreater(len(Contenu), 0)
 
-        # verification des fichiers que le dossier contient
+        # check files in output path
         ListModel = ["^.*\.(log|csv)$"]
         ListModel = [re.compile(Model) for Model in ListModel]
         for Fichier in Contenu:
@@ -190,6 +197,9 @@ class PyOpenFLUIDTest(unittest.TestCase):
 
     def assertRaisesOrElse(self, exception, callObj, elseMethod,
             argObj=(), kwObj={}, argMeth=(), kwMeth={} ):
+        # call method 'callObj',
+        # if not error 'exception' : error !
+        # else (if 'exception') : call 'elseMethod'
         if not ( callable(callObj) and callable(elseMethod) and
                 issubclass(exception, Exception) and isinstance(argObj, tuple)
                 and isinstance(kwObj, dict) and isinstance(argMeth, tuple)

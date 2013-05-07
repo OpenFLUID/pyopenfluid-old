@@ -1,7 +1,9 @@
 SET(CUSTOM_CSS_DOCUMENTATION_PATH "${PYOPENFLUID_INPUT_DOC}/doxygen_stylesheets.css")
 
+# include files to the documentation
 SET(DOC_FILES_INCLUDE
     "${PYTHON_OUTPUT_SRC_PATH}/PyOpenFLUID.py")
+# exclude files to the documentation
 SET(DOC_FILES_EXCLUDE
     "${PYTHON_OUTPUT_SRC_PATH}/__init__.py")
 

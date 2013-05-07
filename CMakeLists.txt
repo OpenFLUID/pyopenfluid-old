@@ -37,6 +37,7 @@ IF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
   INCLUDE(CMake.in.local.cmake)
 ENDIF (EXISTS ${CMAKE_SOURCE_DIR}/CMake.in.local.cmake)
 
+# most common paths used
 SET(PYTHON_OUTPUT_PATH             "${OUTPUT_PATH}/${PYTHON_MODULE_PATH}")
 SET(PYTHON_OUTPUT_SRC_PATH         "${OUTPUT_PATH}/${PYTHON_MODULE_SRC_PATH}")
 SET(DOC_OUTPUT_PATH                "${BUILD_PATH}/${DOC_PATH}")
@@ -53,8 +54,8 @@ FILE(MAKE_DIRECTORY "${TEST_OUTPUT_PATH}")
 #
 # Preparation
 #
-SET(CMAKE_CXX_FLAGS "-Wall")
-INCLUDE(PreparationDocCMake.cmake)
+SET(CMAKE_CXX_FLAGS "-Wall") # all flags for compiler
+INCLUDE(PreparationDocCMake.cmake) # docstring preparation before sources
 
 #
 # Browsing

@@ -1,11 +1,12 @@
 #ifndef __PYTHONUTILITIES_HPP__
 #define __PYTHONUTILITIES_HPP__
-
+/* standard library c++ */
 #include <string>
 #include <sstream>
 #include <iostream>
-
+/* python */
 #include <Python.h>
+/* boost.python */
 #include <boost/python/str.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/tuple.hpp>
@@ -16,6 +17,7 @@
 namespace pyopenfluid { 
 
 namespace tools {
+
 
 std::string stringFill (const std::string Input, const std::string StrFill,
     unsigned int MaxLength);
