@@ -2,5 +2,34 @@ Introduction to the PyOpenFLUID module
 ======================================
 
 This module allows to load, parameterize, run and analyse OpenFLUID simulations 
-from the Python environment 
+from the Python environment.
 
+Last update: 2013.04.17
+
+
+PyOpenFLUID sources
+=================
+
+The PyOpenFLUID module source tree is organized as follow
+- doc : reserved to documentation edition
+- module : python scripts for enhancing PyOpenFLUID library
+- src : sources of PyOpenFLUID library
+- tests : ressources for tests
+- tests/scripts : python tests scripts
+
+
+The required libraries are:
+
+For the PyOpenFLUID module:
+  - C++ STL
+  - Python 2 C-API
+  - Boost (python regex system filesystem)
+  - libXML2
+  - Glibmm
+  - OpenFLUID (core base ware tools machine fluidx)
+
+For building the module, required software are:
+- cmake
+
+For building documentation, required software are:
+- doxygen

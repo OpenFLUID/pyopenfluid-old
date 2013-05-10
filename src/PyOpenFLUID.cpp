@@ -1,9 +1,10 @@
+/* boost.python */
 #include <boost/python/str.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/list.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/object.hpp>
-
+/* boost */
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/exception/all.hpp>
@@ -11,7 +12,7 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/optional.hpp>
-
+/* standard library c++ */
 #include <set>
 #include <map>
 #include <list>
@@ -19,42 +20,43 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include <sstream>
 #include <cstdlib>
+#include <sstream>
 #include <iostream>
 #include <exception>
-
+/* glibmm */
 #include <glibmm/ustring.h>
-
+/* openfluid */
 #include <openfluid/config.hpp>
-
+/* openfluid base */
 #include <openfluid/base/Init.hpp>
 #include <openfluid/base/IOListener.hpp>
 #include <openfluid/base/RuntimeEnv.hpp>
 #include <openfluid/base/OFException.hpp>
 #include <openfluid/base/ProjectManager.hpp>
-
+/* openfluid core */
 #include <openfluid/core/TypeDefs.hpp>
 #include <openfluid/core/DateTime.hpp>
-
+#include <openfluid/core/StringValue.hpp>
+/* openfluid ware */
 #include <openfluid/ware/PluggableWare.hpp>
-
+/* openfluid machine */
 #include <openfluid/machine/Engine.hpp>
 #include <openfluid/machine/Factory.hpp>
 #include <openfluid/machine/ModelInstance.hpp>
 #include <openfluid/machine/SimulationBlob.hpp>
 #include <openfluid/machine/MachineListener.hpp>
 #include <openfluid/machine/MonitoringInstance.hpp>
-#include <openfluid/machine/FunctionPluginsManager.hpp>
+#include <openfluid/machine/SimulatorPluginsManager.hpp>
 #include <openfluid/machine/ObserverPluginsManager.hpp>
-
+/* openfluid fluidx */
 #include <openfluid/fluidx/RunDescriptor.hpp>
 #include <openfluid/fluidx/WareDescriptor.hpp>
 #include <openfluid/fluidx/UnitDescriptor.hpp>
 #include <openfluid/fluidx/IDataDescriptor.hpp>
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/DomainDescriptor.hpp>
-#include <openfluid/fluidx/FunctionDescriptor.hpp>
+#include <openfluid/fluidx/SimulatorDescriptor.hpp>
 #include <openfluid/fluidx/ObserverDescriptor.hpp>
 #include <openfluid/fluidx/GeneratorDescriptor.hpp>
 #include <openfluid/fluidx/DatastoreDescriptor.hpp>
@@ -64,7 +66,7 @@
 #include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
 #include <openfluid/fluidx/AdvancedDomainDescriptor.hpp>
 #include <openfluid/fluidx/AdvancedMonitoringDescriptor.hpp>
-
+/* pyopenfluid */
 #include "PyOpenFLUID.hpp"
 #include "PyOpenFLUIDError.hpp"
 #include "PythonUtilities.hpp"
@@ -79,23 +81,15 @@ PyOpenFLUID::PyOpenFLUID ()
 {
   try
   {
+    /* basics */
     this->mp_IOL = new openfluid::base::IOListener();
     this->mp_FXDesc = new openfluid::fluidx::FluidXDescriptor(this->mp_IOL);
     this->mp_AdvFXDesc = new openfluid::fluidx::AdvancedFluidXDescriptor(
         *(this->mp_FXDesc));
 
-    openfluid::fluidx::RunDescriptor& runDescp = this->mp_FXDesc->
-      getRunDescriptor();
-
-    std::time_t t = time(0);   // get time now
-    struct std::tm *Now = localtime( &t );
-
-    runDescp.setDeltaT((unsigned int)60);
-    runDescp.setBeginDate(openfluid::core::DateTime(Now->tm_year+1900,\
-        Now->tm_mon+1, Now->tm_mday, 0, 0, 0));
-    runDescp.setEndDate(openfluid::core::DateTime(Now->tm_year+1900,\
-        Now->tm_mon+1, Now->tm_mday, 1, 0, 0));
-    runDescp.setFilled(true);
+    this->initWithoutDescriptor();
+    this->initFluidxDescriptor();
+    this->initAdvancedFluidxDescriptor();
   }
   catch (openfluid::base::OFException& E)
   {
@@ -153,7 +147,7 @@ PyObject* PyOpenFLUID::getVersion (PyObject* PyObSelf, PyObject* InTuple,
 // =====================================================================
 
 
-void PyOpenFLUID::addExtraFunctionsPaths (boost::python::object Paths)
+void PyOpenFLUID::addExtraSimulatorsPaths (boost::python::object Paths)
 {
   boost::python::extract<std::string> getStringPaths(Paths);
   if (!getStringPaths.check())
@@ -161,7 +155,7 @@ void PyOpenFLUID::addExtraFunctionsPaths (boost::python::object Paths)
         PyExc_TypeError);
 
   openfluid::base::RuntimeEnvironment::getInstance()->
-    addExtraFunctionsPluginsPaths(getStringPaths());
+    addExtraSimulatorsPluginsPaths(getStringPaths());
 }
 
 
@@ -169,10 +163,10 @@ void PyOpenFLUID::addExtraFunctionsPaths (boost::python::object Paths)
 // =====================================================================
 
 
-void PyOpenFLUID::resetExtraFunctionsPaths ()
+void PyOpenFLUID::resetExtraSimulatorsPaths ()
 {
   openfluid::base::RuntimeEnvironment::getInstance()->
-    resetExtraFunctionsPluginsPaths();
+    resetExtraSimulatorsPluginsPaths();
 }
 
 
@@ -180,10 +174,10 @@ void PyOpenFLUID::resetExtraFunctionsPaths ()
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getExtraFunctionsPaths ()
+boost::python::object PyOpenFLUID::getExtraSimulatorsPaths ()
 {
   std::vector<std::string> VectPath = openfluid::base::RuntimeEnvironment
-      ::getInstance()->getExtraFunctionsPluginsPaths();
+      ::getInstance()->getExtraSimulatorsPluginsPaths();
 
   boost::python::list ListPath = boost::python::list();
 
@@ -245,6 +239,7 @@ boost::python::object PyOpenFLUID::getExtraObserversPaths ()
 // =====================================================================
 
 
+/* same prompt as ROpenFLUID 1.7.2 */
 void PyOpenFLUID::printSimulationInfo ()
 {
   /* output stream */
@@ -285,9 +280,9 @@ void PyOpenFLUID::printSimulationInfo ()
     SStream << " - ";
 
     if ((*ItModelInfos)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
+        openfluid::fluidx::ModelItemDescriptor::PluggedSimulator))
     {
-      SStream << ((openfluid::fluidx::FunctionDescriptor*)(*ItModelInfos))->
+      SStream << ((openfluid::fluidx::SimulatorDescriptor*)(*ItModelInfos))->
           getFileID().c_str() << " simulation function" << std::endl;
     }
 
@@ -340,7 +335,7 @@ void PyOpenFLUID::printSimulationInfo ()
 /* ------------------------  MODEL FUNCTIONS  ----------------------- */
 
 
-boost::python::object PyOpenFLUID::getFunctionParam (
+boost::python::object PyOpenFLUID::getSimulatorParam (
     boost::python::object FuncID, boost::python::object ParamName)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
@@ -355,21 +350,23 @@ boost::python::object PyOpenFLUID::getFunctionParam (
 
   int PosItem = this->mp_AdvFXDesc->getModel().getFirstItemIndex(FuncIDStr);
 
+  /* if exists */
   if (PosItem >= 0)
   {
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
     {
-      boost::optional<std::string> Res =
-          FuncDescp->getParameters().get_optional<std::string>(ParamNameStr);
+      openfluid::ware::WareParams_t Params = FuncDescp->getParameters();
 
-      if (Res)
-        return boost::python::str(*Res);
+      openfluid::ware::WareParams_t::iterator ItParam = Params.find(ParamNameStr);
+
+      if (ItParam != Params.end())
+        return boost::python::str(std::string(ItParam->second.get()));
     }
   }
 
@@ -381,7 +378,7 @@ boost::python::object PyOpenFLUID::getFunctionParam (
 // =====================================================================
 
 
-void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
+void PyOpenFLUID::setSimulatorParam (boost::python::object FuncID,
                                     boost::python::object ParamName,
                                     boost::python::object ParamValue)
 {
@@ -401,16 +398,22 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
 
   int PosItem = this->mp_AdvFXDesc->getModel().getFirstItemIndex(FuncIDStr);
 
+  /* if exists */
   if (PosItem >= 0)
   {
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
-      FuncDescp->setParameter(ParamNameStr,ParamValueStr);
+    {
+      openfluid::ware::WareParams_t PairParam;
+      PairParam[ParamNameStr] = openfluid::core::StringValue(ParamValueStr);
+
+      FuncDescp->setParameters(PairParam);
+    }
   }
   else
     throw PyOFException("function doesn't exists");
@@ -421,7 +424,7 @@ void PyOpenFLUID::setFunctionParam (boost::python::object FuncID,
 // =====================================================================
 
 
-void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
+void PyOpenFLUID::removeSimulatorParam (boost::python::object FuncID,
                                        boost::python::object ParamName)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
@@ -436,13 +439,14 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
 
   int PosItem = this->mp_AdvFXDesc->getModel().getFirstItemIndex(FuncIDStr);
 
+  /* if exists */
   if (PosItem >= 0)
   {
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
       FuncDescp->eraseParameter(ParamNameStr);
@@ -456,7 +460,7 @@ void PyOpenFLUID::removeFunctionParam (boost::python::object FuncID,
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getFunctionParams(
+boost::python::object PyOpenFLUID::getSimulatorParams(
     boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
@@ -469,18 +473,21 @@ boost::python::object PyOpenFLUID::getFunctionParams(
 
   int PosItem = this->mp_AdvFXDesc->getModel().getFirstItemIndex(FuncIDStr);
 
+  /* if exists */
   if (PosItem >= 0)
   {
     openfluid::fluidx::ModelItemDescriptor* ItemFound =
         this->mp_AdvFXDesc->getModel().getItemAt(PosItem);
 
-    openfluid::fluidx::FunctionDescriptor* FuncDescp =
-        dynamic_cast<openfluid::fluidx::FunctionDescriptor*>(ItemFound);
+    openfluid::fluidx::SimulatorDescriptor* FuncDescp =
+        dynamic_cast<openfluid::fluidx::SimulatorDescriptor*>(ItemFound);
 
     if (FuncDescp != NULL)
     {
       openfluid::ware::WareParams_t Params = FuncDescp->getParameters();
+
       openfluid::ware::WareParams_t::iterator ItParam;
+
       for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
         ListRes.append(boost::python::str((*ItParam).first));
     }
@@ -512,10 +519,6 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
   std::string VarNameStr = getStringVarName();
   std::string ParamNameStr = getStringParamName();
 
-  /* looking for position of the generator */
-  openfluid::ware::WareParams_t Params;
-  openfluid::ware::WareParams_t::iterator ItParam;
-
   std::list<openfluid::fluidx::ModelItemDescriptor*> ModelInfos =
       this->mp_AdvFXDesc->getModel().getItems();
 
@@ -540,11 +543,12 @@ boost::python::object PyOpenFLUID::getGeneratorParam (
   /* if exists (=> by position), returns */
   if (ItModelInfos != ModelInfos.end())
   {
-    boost::optional<std::string> Res =
-        GenDescp->getParameters().get_optional<std::string>(ParamNameStr);
+    openfluid::ware::WareParams_t Params = GenDescp->getParameters();
 
-    if (Res)
-      return boost::python::str(*Res);
+    openfluid::ware::WareParams_t::iterator ItParam = Params.find(ParamNameStr);
+
+    if (ItParam != Params.end())
+      return boost::python::str(std::string(ItParam->second.get()));
   }
 
   return boost::python::object(); /* makes Python NONE */
@@ -602,7 +606,12 @@ void PyOpenFLUID::setGeneratorParam (boost::python::object UnitClass,
 
   /* if exists (=> by position), sets */
   if (ItModelInfos != ModelInfos.end())
-    GenDescp->setParameter(ParamNameStr, ParamValueStr);
+  {
+    openfluid::ware::WareParams_t PairParam;
+    PairParam[ParamNameStr] = openfluid::core::StringValue(ParamValueStr);
+
+    GenDescp->setParameters(PairParam);
+  }
   else
     throw PyOFException("generator doesn't exists");
 }
@@ -624,14 +633,15 @@ boost::python::object PyOpenFLUID::getModelGlobalParam (
   /* looking for position of the parameter */
   openfluid::ware::WareParams_t Params = this->mp_AdvFXDesc->getModel()
       .getGlobalParameters();
+
   openfluid::ware::WareParams_t::iterator ItParam = Params.begin();
 
   while (ItParam != Params.end() && (*ItParam).first != ParamNameStr)
     ++ItParam;
 
-  /* if found, or else return NONE */
+  /* if found */
   if (ItParam != Params.end())
-    return boost::python::str((*ItParam).second.data());
+    return boost::python::str(std::string(ItParam->second.get()));
 
   return boost::python::object(); /* makes Python NONE */
 }
@@ -671,6 +681,7 @@ boost::python::object PyOpenFLUID::getModelGlobalParams ()
 
   openfluid::ware::WareParams_t Params = this->mp_AdvFXDesc->getModel()
       .getGlobalParameters();
+
   openfluid::ware::WareParams_t::iterator ItParam;
 
   for (ItParam = Params.begin(); ItParam != Params.end(); ++ItParam)
@@ -709,15 +720,15 @@ boost::python::object PyOpenFLUID::getModelItems ()
 
   std::list<openfluid::fluidx::ModelItemDescriptor*>::iterator ItListItem;
 
-  openfluid::fluidx::FunctionDescriptor* FuncDescp;
+  openfluid::fluidx::SimulatorDescriptor* FuncDescp;
   openfluid::fluidx::GeneratorDescriptor* GenDescp;
 
   for(ItListItem = ListItem.begin(); ItListItem != ListItem.end();
       ++ItListItem)
     if ((*ItListItem)->isType(
-          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
+          openfluid::fluidx::SimulatorDescriptor::PluggedSimulator))
     {
-      FuncDescp = (openfluid::fluidx::FunctionDescriptor*) *ItListItem;
+      FuncDescp = (openfluid::fluidx::SimulatorDescriptor*) *ItListItem;
       ListRes.append(boost::python::object(FuncDescp->getFileID()));
     }
     else if ((*ItListItem)->isType(
@@ -735,7 +746,7 @@ boost::python::object PyOpenFLUID::getModelItems ()
 // =====================================================================
 
 
-void PyOpenFLUID::addFunction (boost::python::object FuncID)
+void PyOpenFLUID::addSimulator (boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
   if (!getStringFuncID.check())
@@ -745,10 +756,10 @@ void PyOpenFLUID::addFunction (boost::python::object FuncID)
 
   try
   {
-    openfluid::fluidx::FunctionDescriptor* NewFunction =
-        new openfluid::fluidx::FunctionDescriptor(FuncIDStr);
+    openfluid::fluidx::SimulatorDescriptor* NewSimulator =
+        new openfluid::fluidx::SimulatorDescriptor(FuncIDStr);
 
-    this->mp_AdvFXDesc->getModel().appendItem(NewFunction);
+    this->mp_AdvFXDesc->getModel().appendItem(NewSimulator);
   } HANDLE_OFEXCEPTION
 }
 
@@ -757,7 +768,7 @@ void PyOpenFLUID::addFunction (boost::python::object FuncID)
 // =====================================================================
 
 
-void PyOpenFLUID::removeFunction (boost::python::object FuncID)
+void PyOpenFLUID::removeSimulator (boost::python::object FuncID)
 {
   boost::python::extract<std::string> getStringFuncID(FuncID);
   if (!getStringFuncID.check())
@@ -786,11 +797,13 @@ void PyOpenFLUID::clearModel ()
 
   try
   {
+    openfluid::fluidx::AdvancedModelDescriptor& ModelDescp = 
+        this->mp_AdvFXDesc->getModel();
+
     for (ItItems = Items.begin(); ItItems != Items.end(); ++ItItems)
       if ((*ItItems)->isType(
-          openfluid::fluidx::FunctionDescriptor::PluggedFunction))
-        this->mp_AdvFXDesc->getModel().removeItem(
-          this->mp_AdvFXDesc->getModel().getFirstItemIndex(*ItItems));
+          openfluid::fluidx::SimulatorDescriptor::PluggedSimulator))
+        ModelDescp.removeItem(ModelDescp.getFirstItemIndex(*ItItems));
   } HANDLE_OFEXCEPTION
 }
 
@@ -799,7 +812,7 @@ void PyOpenFLUID::clearModel ()
 // =====================================================================
 
 
-boost::python::object PyOpenFLUID::getFunctionsInModel ()
+boost::python::object PyOpenFLUID::getSimulatorsInModel ()
 {
   boost::python::list ListRes = boost::python::list();
 
@@ -812,9 +825,9 @@ boost::python::object PyOpenFLUID::getFunctionsInModel ()
   for (ItItemList = ItemList.begin(); ItItemList != ItemList.end();
       ++ItItemList)
     if ((*ItItemList)->isType(
-        openfluid::fluidx::ModelItemDescriptor::PluggedFunction))
+        openfluid::fluidx::ModelItemDescriptor::PluggedSimulator))
       ListRes.append(boost::python::str(
-          ((openfluid::fluidx::FunctionDescriptor*)(*ItItemList))->
+          ((openfluid::fluidx::SimulatorDescriptor*)(*ItItemList))->
           getFileID()));
 
   return ListRes;
@@ -843,11 +856,12 @@ boost::python::object PyOpenFLUID::getObserverParam (
     openfluid::fluidx::ObserverDescriptor ObsDesc =
        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsIDStr);
 
-    boost::optional<std::string> Res =
-        ObsDesc.getParameters().get_optional<std::string>(ParamNameStr);
+    openfluid::ware::WareParams_t Params = ObsDesc.getParameters();
 
-    if (Res)
-      return boost::python::str(*Res);
+    openfluid::ware::WareParams_t::iterator ItParam = Params.find(ParamNameStr);
+
+    if (ItParam != Params.end())
+      return boost::python::str(std::string((*ItParam).second.get()));
 
   } WARNING_OFEXCEPTION
 
@@ -882,7 +896,10 @@ void PyOpenFLUID::setObserverParam (boost::python::object ObsID,
     openfluid::fluidx::ObserverDescriptor& ObsDesc =
        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsIDStr);
 
-    ObsDesc.setParameter(ParamNameStr, ParamValueStr);
+    openfluid::ware::WareParams_t PairParam;
+    PairParam[ParamNameStr] = openfluid::core::StringValue(ParamValueStr);
+
+    ObsDesc.setParameters(PairParam);
 
   } HANDLE_OFEXCEPTION
 }
@@ -936,10 +953,9 @@ boost::python::object PyOpenFLUID::getObserverParams (
     openfluid::fluidx::ObserverDescriptor ObsDesc =
        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsIDStr);
 
-    std::map<std::string, std::string> MapInfos = openfluid::fluidx::
-        WareDescriptor::getParamsAsMap(ObsDesc.getParameters());
+    openfluid::ware::WareParams_t MapInfos = ObsDesc.getParameters();
 
-    std::map<std::string, std::string>::iterator ItMapInfos;
+    openfluid::ware::WareParams_t::iterator ItMapInfos;
 
     for (ItMapInfos = MapInfos.begin(); ItMapInfos != MapInfos.end();
         ++ItMapInfos)
@@ -1021,6 +1037,82 @@ boost::python::object PyOpenFLUID::getObserversInMonitoring ()
   return ListRes;
 }
 
+
+// =====================================================================
+// =====================================================================
+
+
+boost::python::object PyOpenFLUID::addCSVOutput (
+    boost::python::object UnitClass, boost::python::object Vars,
+    boost::python::object ListID)
+{
+  boost::python::extract<std::string> getStringUnitClass(UnitClass);
+  if (!getStringUnitClass.check())
+    throw PyOFException("needed string for unit class", PyExc_TypeError);
+  boost::python::extract<std::string> getStringVars(Vars);
+  if (!getStringVars.check())
+    throw PyOFException("needed string for vars", PyExc_TypeError);
+  boost::python::extract<std::string> getStringIDs(ListID);
+  if (!getStringIDs.check())
+    throw PyOFException("needed string for ids", PyExc_TypeError);
+
+  /* temp stream for making keys */
+  std::stringstream Stream(std::stringstream::in | std::stringstream::out);
+
+  /* pyof<n> */
+  Stream << "pyof" << this->m_LastObsID;
+  this->m_LastObsID++;
+  std::string ObsIDStr;
+  Stream.flush();
+  Stream >> ObsIDStr;
+
+  /* begin of keys 'set.<obs>' */
+  Stream.clear(); Stream.str("");
+  Stream << "set.";
+  Stream << ObsIDStr;
+  Stream.flush();
+
+  /* unit class */
+  std::string ObsUnitClassStr = Stream.str() + std::string(".unitclass");
+
+  /* unit id */
+  std::string ObsIDsStr = Stream.str() + std::string(".unitsIDs");
+
+  /* vars */
+  std::string ObsVarsStr = Stream.str() + std::string(".vars");
+
+  /* format */
+  std::string ObsFormatStr = Stream.str() + std::string(".format");
+
+  /* add */
+  try
+  {
+    /* add format if doesn't exists */
+    std::string ObsID = std::string("export.vars.files.csv");
+    try /* if doesn't exists */
+    {
+      this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsID);
+    }
+    catch (openfluid::base::OFException& E)
+    {
+      this->mp_AdvFXDesc->getMonitoring().addToObserverList(ObsID);
+    }
+
+    openfluid::fluidx::ObserverDescriptor& Observer =
+        this->mp_AdvFXDesc->getMonitoring().getDescriptor(ObsID);
+    setPyOFCSVFormat(Observer);
+
+    openfluid::ware::WareParams_t PairParam;
+    PairParam[ObsUnitClassStr] = openfluid::core::StringValue(getStringUnitClass());
+    PairParam[ObsIDsStr] = openfluid::core::StringValue(getStringIDs());
+    PairParam[ObsVarsStr] = openfluid::core::StringValue(getStringVars());
+    PairParam[ObsFormatStr] = openfluid::core::StringValue(std::string("pyofformat"));
+
+    Observer.setParameters(PairParam);
+  } HANDLE_OFEXCEPTION
+
+  return boost::python::str(ObsIDStr);
+}
 
 // =====================================================================
 /* -------------------  SPATIAL DOMAIN FUNCTIONS  ------------------- */
@@ -1684,6 +1776,9 @@ void PyOpenFLUID::openDataset (boost::python::object Path)
       delete this->mp_IOL;
     this->mp_IOL = new openfluid::base::IOListener();
 
+    this->initWithoutDescriptor();
+    this->initFluidxDescriptor();
+
     openfluid::base::RuntimeEnvironment::getInstance()->
         setInputDir(std::string(StrPath));
     this->mp_FXDesc->loadFromDirectory(openfluid::base::RuntimeEnvironment::
@@ -1693,6 +1788,8 @@ void PyOpenFLUID::openDataset (boost::python::object Path)
       delete this->mp_AdvFXDesc;
     this->mp_AdvFXDesc = new openfluid::fluidx::AdvancedFluidXDescriptor(
         *(this->mp_FXDesc));
+
+    this->initAdvancedFluidxDescriptor();
 
   } HANDLE_EXCEPTION
 }
@@ -1767,21 +1864,24 @@ void PyOpenFLUID::openProject (boost::python::object Path)
 PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
     PyObject* InDict)
 {
-  char* Keywords[5];
-  Keywords[0] = (char*) "path";
-  Keywords[1] = (char*) "name";
-  Keywords[2] = (char*) "description";
-  Keywords[3] = (char*) "authors";
+  char* Keywords[5]; /* parameter names */
+  Keywords[0] = (char*) "Path";
+  Keywords[1] = (char*) "Name";
+  Keywords[2] = (char*) "Description";
+  Keywords[3] = (char*) "Authors";
   Keywords[4] = NULL;
   char* CharPath = NULL;
   char* CharName = NULL;
   char* CharDescp = NULL;
   char* CharAuth = NULL;
+  /* checking parameters */
   if (!PyArg_ParseTupleAndKeywords(InTuple, InDict, "s|sss", Keywords,\
       &CharPath, &CharName, &CharDescp, &CharAuth))
   {
+    /* if not path parameter */
     if (CharPath == NULL)
       throw PyOFException("project output path not given");
+    /* if other kind of error */
     throw PyOFException("error getting parameters");
   }
 
@@ -1803,23 +1903,22 @@ PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
     }
 
     /* project */
-    /* if exists */
-    if (ProjectManager->isProject(GUProjectPath))
+    if (ProjectManager->isProject(GUProjectPath)) /* if exists */
     {
       if(!ProjectManager->open(GUProjectPath))
         throw PyOFException("ProjectManager::open, error opening project");
 
-      if (CharName != NULL)
+      if (CharName != NULL) /* is parameter set */
       {
         Glib::ustring GUTmpName = Glib::ustring(CharName);
         ProjectManager->setName(GUTmpName);
       }
-      if (CharDescp != NULL)
+      if (CharDescp != NULL) /* is parameter set */
       {
         Glib::ustring GUTmpDescp = Glib::ustring(CharDescp);
         ProjectManager->setDescription(GUTmpDescp);
       }
-      if (CharAuth != NULL)
+      if (CharAuth != NULL) /* is parameter set */
       {
         Glib::ustring GUTmpAuthors = Glib::ustring(CharAuth);
         ProjectManager->setAuthors(GUTmpAuthors);
@@ -1828,23 +1927,22 @@ PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
       if (!ProjectManager->save())
         throw PyOFException("ProjectManager::save, error saving project");
     }
-    /* if creates */
-    else
+    else /* if creates */
     {
       Glib::ustring GUTmpName;
-      if (CharName != NULL)
+      if (CharName != NULL) /* is parameter set */
         GUTmpName = Glib::ustring(CharName);
       else
         GUTmpName = Glib::ustring("");
 
       Glib::ustring GUTmpDescp;
-      if (CharDescp != NULL)
+      if (CharDescp != NULL) /* is parameter set */
         GUTmpDescp = Glib::ustring(CharDescp);
       else
         GUTmpDescp = Glib::ustring("");
 
       Glib::ustring GUTmpAuthors;
-      if (CharAuth != NULL)
+      if (CharAuth != NULL) /* is parameter set */
         GUTmpAuthors = Glib::ustring(CharAuth);
       else
         GUTmpAuthors = Glib::ustring("");
@@ -1855,8 +1953,7 @@ PyObject* PyOpenFLUID::saveProject (PyObject* PyObSelf, PyObject* InTuple,
  and saving project");
     }
 
-    std::string InputDir = ProjectManager->getInputDir().raw();
-    std::string OuputDir = ProjectManager->getOutputDir().raw();
+    std::string InputDir = ProjectManager->getInputDir();
 
     /* dataset */
     this->mp_FXDesc->writeToManyFiles(InputDir);
@@ -2000,9 +2097,9 @@ void PyOpenFLUID::setPeriodBeginDate (boost::python::object BDate)
 
   if (isMatchFound && ResMatch.size() == 7)
   {
-    int TabRes[6];
+    int TabRes[6]; /* storage of numbers */
     int i;
-    std::string TmpStr;
+    std::string TmpStr; /* string buffer */
     for (i=0; i<6; i++)
     {
       TmpStr = ResMatch[i+1];
@@ -2041,9 +2138,9 @@ void PyOpenFLUID::setPeriodEndDate (boost::python::object EDate)
 
   if (isMatchFound && ResMatch.size() == 7)
   {
-    int TabRes[6];
+    int TabRes[6]; /* storage of numbers */
     int i;
-    std::string TmpStr;
+    std::string TmpStr; /* string buffer */
     for (i=0; i<6; i++)
     {
       TmpStr = ResMatch[i+1];
@@ -2083,7 +2180,7 @@ boost::python::object PyOpenFLUID::runSimulation ()
 
     this->updateOutputsConfig();
 
-    openfluid::machine::FunctionPluginsManager::getInstance()
+    openfluid::machine::SimulatorPluginsManager::getInstance()
         ->unloadAllWares();
     openfluid::machine::ObserverPluginsManager::getInstance()
         ->unloadAllWares();
@@ -2098,7 +2195,7 @@ boost::python::object PyOpenFLUID::runSimulation ()
     openfluid::machine::MonitoringInstance Monitoring(SBlob);
 
     openfluid::machine::Factory::buildSimulationBlobFromDescriptors(
-        *(this->mp_FXDesc),SBlob);
+        *(this->mp_FXDesc), SBlob);
 
     openfluid::machine::Factory::buildModelInstanceFromDescriptor(
         this->mp_FXDesc->getModelDescriptor(), Model);
@@ -2145,8 +2242,75 @@ boost::python::object PyOpenFLUID::getStr ()
 {
   std::stringstream SStream(std::stringstream::in | std::stringstream::out);
 
-  /* output: 'PyOpenFLUID(<<version pyof>>)' */
+  /* output: 'PyOpenFLUID(<version pyof>)' */
   SStream << "PyOpenFLUID(" << PYOPENFLUID_VERSION << ")";
 
   return boost::python::object(SStream.str());
+}
+
+
+// =====================================================================
+/* ----------------------- SPECIAL FUNCTIONS  ----------------------- */
+
+
+void PyOpenFLUID::initWithoutDescriptor ()
+{
+    /* custom observer */
+    this->m_LastObsID = 1;
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::initFluidxDescriptor ()
+{
+    /* run descp */
+    openfluid::fluidx::RunDescriptor& runDescp = this->mp_FXDesc->
+      getRunDescriptor();
+
+    std::time_t t = time(0); // get current time
+    struct std::tm *Now = localtime(&t);
+
+    runDescp.setDeltaT((unsigned int)60);
+    runDescp.setBeginDate(openfluid::core::DateTime(Now->tm_year+1900,\
+        Now->tm_mon+1, Now->tm_mday, 0, 0, 0));
+    runDescp.setEndDate(openfluid::core::DateTime(Now->tm_year+1900,\
+        Now->tm_mon+1, Now->tm_mday, 1, 0, 0));
+    runDescp.setFilled(true);
+}
+
+
+// =====================================================================
+// =====================================================================
+
+
+void PyOpenFLUID::initAdvancedFluidxDescriptor ()
+{
+}
+
+
+// =====================================================================
+/* ----------------------- STATIC FUNCTIONS  ------------------------ */
+
+
+void setPyOFCSVFormat (openfluid::fluidx::ObserverDescriptor& Observer)
+{
+
+    openfluid::ware::WareParams_t PairParam;
+
+    PairParam[std::string("format.pyofformat.header")] =
+        openfluid::core::StringValue(std::string("colnames-as-data"));
+
+    PairParam[std::string("format.pyofformat.date")] =
+        openfluid::core::StringValue(std::string("%Y-%m-%dT%H:%M:%S"));
+
+    PairParam[std::string("format.pyofformat.precision")] =
+        openfluid::core::StringValue(std::string("7"));
+
+    PairParam[std::string("format.pyofformat.colsep")] =
+        openfluid::core::StringValue(std::string("	"));
+
+    Observer.setParameters(PairParam);
 }

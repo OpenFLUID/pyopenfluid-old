@@ -17,9 +17,9 @@ class PyOpenFLUIDTest_Project(PyOpenFLUIDTest):
             end_date = "2013-10-10 10:10:10",\
             delta_t = 3600,\
             model_global_param = [("bluesky", "yes"), ("redstone", "no"), ("zero", "0")],\
-            extra_function_path = ["the/function/path", "an/other/function/path"],\
+            extra_simulator_path = ["the/simulator/path", "an/other/simulator/path"],\
             extra_observer_path = ["the/observer/path", "an/other/observer/path"],\
-            functions = [ ("funcA", [("fixedvalue","3"), ("minvalue", "-5")]),\
+            simulators = [ ("funcA", [("fixedvalue","3"), ("minvalue", "-5")]),\
                 ("funcB", [("rangemin", "0"), ("rangemax", "5"), ("rangeincr", "0.1")]),\
                 ("funcC", [("empty", "10"), ("random", "0.1454")]) ],\
             observers = [ ("obsA", [("format.h1.header","title")]),\

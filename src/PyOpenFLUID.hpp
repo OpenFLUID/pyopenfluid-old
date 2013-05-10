@@ -2,10 +2,13 @@
 #define __PYOPENFLUID_HPP__
 
 #include <Python.h>
+
+/* boost.python */
 #include <boost/python/dict.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/object.hpp>
 
+/* openfluid */
 #include <openfluid/base/IOListener.hpp>
 #include <openfluid/fluidx/FluidXDescriptor.hpp>
 #include <openfluid/fluidx/AdvancedFluidXDescriptor.hpp>
@@ -51,21 +54,21 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void addExtraFunctionsPaths (boost::python::object Paths);
+    void addExtraSimulatorsPaths (boost::python::object Paths);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    void resetExtraFunctionsPaths ();
+    void resetExtraSimulatorsPaths ();
 
 
 // =====================================================================
 // =====================================================================
 
 
-    boost::python::object getExtraFunctionsPaths ();
+    boost::python::object getExtraSimulatorsPaths ();
 
 
 // =====================================================================
@@ -100,24 +103,24 @@ class PyOpenFLUID
 /* ------------------------  MODEL FUNCTIONS  ----------------------- */
 
 
-    boost::python::object getFunctionParam (boost::python::object FuncID,
-                                            boost::python::object ParamName);
+    boost::python::object getSimulatorParam (boost::python::object FuncID,
+                                             boost::python::object ParamName);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    void setFunctionParam (boost::python::object FuncID,
-                           boost::python::object ParamName,
-                           boost::python::object ParamValue);
+    void setSimulatorParam (boost::python::object FuncID,
+                            boost::python::object ParamName,
+                            boost::python::object ParamValue);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    void removeFunctionParam (boost::python::object FuncID,
+    void removeSimulatorParam (boost::python::object FuncID,
                               boost::python::object ParamName);
 
 
@@ -125,7 +128,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    boost::python::object getFunctionParams (boost::python::object FuncID);
+    boost::python::object getSimulatorParams (boost::python::object FuncID);
 
 
 // =====================================================================
@@ -187,14 +190,14 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void addFunction (boost::python::object FuncID);
+    void addSimulator (boost::python::object FuncID);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    void removeFunction (boost::python::object FuncID);
+    void removeSimulator (boost::python::object FuncID);
 
 
 // =====================================================================
@@ -208,7 +211,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    boost::python::object getFunctionsInModel ();
+    boost::python::object getSimulatorsInModel ();
 
 
 // =====================================================================
@@ -269,6 +272,15 @@ class PyOpenFLUID
 
 
     boost::python::object getObserversInMonitoring ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    boost::python::object addCSVOutput (boost::python::object UnitClass,
+                                        boost::python::object Vars,
+                                        boost::python::object ListID);
 
 
 // =====================================================================
@@ -367,7 +379,7 @@ class PyOpenFLUID
 
 
     boost::python::object getUnitChildren (boost::python::object UnitClass,
-                                            boost::python::object UnitID);
+                                           boost::python::object UnitID);
 
 
 // =====================================================================
@@ -375,7 +387,7 @@ class PyOpenFLUID
 
 
     boost::python::object getUnitParents (boost::python::object UnitClass,
-                                           boost::python::object UnitID);
+                                          boost::python::object UnitID);
 
 
 // =====================================================================
@@ -547,15 +559,47 @@ class PyOpenFLUID
 
 
 // =====================================================================
+/* ------------------------ SPECIAL FUNCTIONS  ---------------------- */
+
+
+    void initWithoutDescriptor ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    void initFluidxDescriptor ();
+
+
+// =====================================================================
+// =====================================================================
+
+
+    void initAdvancedFluidxDescriptor ();
+
+
+// =====================================================================
 // =====================================================================
 
 
   private :
+    /* basics */
     openfluid::base::IOListener* mp_IOL;
     openfluid::fluidx::FluidXDescriptor* mp_FXDesc;
     openfluid::fluidx::AdvancedFluidXDescriptor* mp_AdvFXDesc;
 
+    /* last observer id */
+    unsigned int m_LastObsID;
+
 };
+
+
+// =====================================================================
+/* ----------------------- STATIC FUNCTIONS  ------------------------ */
+
+
+void setPyOFCSVFormat (openfluid::fluidx::ObserverDescriptor& Observer);
 
 
 #endif // __PYOPENFLUID_HPP__

@@ -4,10 +4,10 @@
 # Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
 #
 
-SET(PY_DIR "${PYTHON_OUTPUT_SRC_PATH}:${CMAKE_CURRENT_SOURCE_DIR}")
+SET(PY_DIR "${PYTHON_OUTPUT_SRC_PATH}:${CMAKE_CURRENT_SOURCE_DIR}") # PYTHONPATH
 SET(TEST_PATH "${TEST_OUTPUT_PATH}")
 
-# macro - create a copy of openfluid projet path
+# macro - create a copy of an openfluid projet
 MACRO(CreateOFRepository SOURCE FINALPATH FINALNAME)
   IF(EXISTS "${FINALPATH}/${FINALNAME}" AND IS_DIRECTORY "${FINALPATH}/${FINALNAME}")
     FILE(REMOVE_RECURSE "${FINALPATH}/${FINALNAME}")
@@ -25,18 +25,20 @@ ENDMACRO(CreateOFRepository)
 SET(PROJECT_NAME_1        "project_1")
 SET(RUNSIMULATION_NAME    "cmd_runsimulation")
 SET(RUNPROJECT_NAME       "cmd_runproject")
+SET(RESULTS_NAME          "cmd_results")
 
 # input projects path (use read-only)
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${PROJECT_NAME_1}")
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNSIMULATION_NAME}")
 CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RUNPROJECT_NAME}")
+CreateOFRepository("${OPENFLUID_TESTS_PROJECT_1}" "${TEST_PATH}" "${RESULTS_NAME}")
 
-##
+## first test on custom test base
 ADD_TEST(TestOfTestUnit
-         ${PYTHON_EXECUTABLE}
+         "${PYTHON_EXECUTABLE}"
          "${CMAKE_CURRENT_SOURCE_DIR}/TestOfTestUnit.py")
 SET_TESTS_PROPERTIES(TestOfTestUnit PROPERTIES
-                     WILL_FAIL TRUE
+                     WILL_FAIL FALSE
                      ENVIRONMENT "PYTHONPATH=${PY_DIR}")
 
 #

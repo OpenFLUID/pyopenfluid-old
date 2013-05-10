@@ -159,7 +159,7 @@ RTF_EXTENSIONS_FILE    =
 GENERATE_MAN           = @CREATE_DOC_HTML@
 MAN_OUTPUT             = man
 MAN_EXTENSION          = .3
-MAN_LINKS              = YES
+MAN_LINKS              = NO
 #---------------------------------------------------------------------------
 # configuration options related to the XML output
 #---------------------------------------------------------------------------

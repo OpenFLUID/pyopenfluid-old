@@ -4,7 +4,7 @@
 # Author : Bastien VAYSSE <bastien.vaysse@supagro.inra.fr>
 #
 
-# includes all functions infos
+# include all functions infos
 INCLUDE(DocStrings.cmake)
 
 STRING(ASCII 35 HASH) # '#'
@@ -14,11 +14,12 @@ STRING(ASCII 38 AMP) # '&'
 ################################################################################
 ##############  CREATION OF boost, python AND doxygen DOCSTRINGS  ##############
 
-# prefix for 'PyOpenFLUID.py', for identation
+# prefix for 'PyOpenFLUID.py' (for identation)
 SET(DOXYGEN_DOC_PREFIX "    ${HASH} ")
 
 # add a content into a var
 # because CMake doesn't provide it (just set new content)
+# exemple : 'var += content'
 FUNCTION(ADDTOVAR NAMEVAR CONTENT)
   SET(${NAMEVAR} "${${NAMEVAR}}${CONTENT}" PARENT_SCOPE)
 ENDFUNCTION()
@@ -66,7 +67,7 @@ FUNCTION(ADAPT_ADVANCED_DOCSTRING FUNCTIONNAME)
   FOREACH(PARAMETER ${DOCSTRINGRAW_PARAMETERS_${FUNCTIONNAME}})
     ADDTOVAR(TMPBUFFER_BO "\\n${PARAMETER}")
     ADDTOVAR(TMPBUFFER_PY "\\n${PARAMETER}")
-    PREPAREVAR_DOXYGEN(PARAMETER)
+#    PREPAREVAR_DOXYGEN(PARAMETER)
     STRING(REPLACE "--" "  " PARAMETER_DX "${PARAMETER}")
     ADDTOVAR(TMPBUFFER_DX "\n@param ${PARAMETER_DX}")
   ENDFOREACH()
@@ -128,13 +129,13 @@ FUNCTION(ADAPT_ADVANCED_DOCSTRING FUNCTIONNAME)
   STRING(REPLACE "\n" "\\n" TMPBUFFER_PY_FINAL "${TMPBUFFER_PY}")
   STRING(REPLACE "\n" "\n${DOXYGEN_DOC_PREFIX}" TMPBUFFER_DX_FINAL "${TMPBUFFER_DX}")
 
-  # recording
+  # settings final global vars
   SET(DOCSTRING_boost_${FUNCTIONNAME} "${TMPBUFFER_BO_FINAL}" CACHE INTERNAL "" FORCE)
   SET(DOCSTRING_python_${FUNCTIONNAME} "${TMPBUFFER_PY_FINAL}" CACHE INTERNAL "" FORCE)
   SET(DOCSTRING_doxygen_${FUNCTIONNAME} "${TMPBUFFER_DX_FINAL}" CACHE INTERNAL "" FORCE)
 ENDFUNCTION()
 
 # adapt all functions listed
-FOREACH(FUNCTIONNAME ${DOCSTRING_ALL_FUNCTION_ADVANCED})
+FOREACH(FUNCTIONNAME ${DOCSTRING_ALL_FUNCTIONS_ADVANCED})
   ADAPT_ADVANCED_DOCSTRING("${FUNCTIONNAME}")
 ENDFOREACH()

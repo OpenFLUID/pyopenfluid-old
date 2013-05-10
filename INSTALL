@@ -1,0 +1,68 @@
+This is the INSTALL file for PyOpenFLUID module
+-----------------------------------------------
+Copyright (C)  2013, Bastien Vaysse <bastien.vaysse@supagro.inra.fr>
+               LISAH (INRA), Montpellier, France
+Webpage:       none
+GitHub:        https://github.com/VaysseB/pyopenfluid/tree/devel-pyof
+
+Contents
+---------
+1. Building and compiling the sources
+2. Install
+3. Use
+
+Last update: 2013.04.17
+Please see README first before reading this file.
+
+The build system is based on CMake (http://www.cmake.org/).
+The build description is contained in the CMakeLists.txt file.
+The installation system is the python standard installation system (http://docs.python.org/2/install/).
+
+
+1. Building and compiling the sources
+-------------------------------------
+Before building the module, first make an empty folder and move into it:
+> mkdir _build
+> cd _build
+You can change the name of this folder, but we recommend to always use and empty folder for building.
+
+Now, to prepare and building from source, execute:
+> cmake ..
+to generate Makefiles and prepare all files for the next step.
+
+Then execute the command:
+> make
+to compile the source code.
+
+
+2. Install
+----------
+To install the module, moved to the build directory, and moved into 'pythonsetup' folder:
+> cd pythonsetup
+Then, install the module as a python standard module (see http://docs.python.org/2/install/).
+> python setup.py install
+
+
+3. Use
+------
+There are different way to use the PyOpenFLUID module.
+
+3.1 Using PyOpenFLUID module when installed
+The module is accessible from an interperter, as follow:
+> python
+>>> import PyOpenFLUID
+>>> pyof = PyOpenFLUID.PyOpenFLUID()
+
+
+3.2 Using PyOpenFLUID module without installation
+A. First way:
+Setting PYTHONPATH to the PyOpenFLUID module source
+> PYTHONPATH=$PYTHONPATH:/the_module_path/_build/pythonsetup/src python
+>>> import PyOpenFLUID
+
+B. Second way:
+Adding the PyOpenFLUID module source into system path:
+> python
+>>> import sys
+>>> sys.path.append("/the_module_path/_build/pythonsetup/src")
+>>> import PyOpenFLUID
