@@ -103,9 +103,9 @@ class PyOpenFLUIDTest(unittest.TestCase):
             elif Key == "output":
                 self.checkDirectory(Value)
                 self.openfluid.setCurrentOutputDir(Value)
-            elif Key == "funpath":
+            elif Key == "simpath":
                 self.checkDirectory(Value)
-                self.openfluid.addExtraFunctionsPaths(Value)
+                self.openfluid.addExtraSimulatorsPaths(Value)
             elif Key == "obspath":
                 self.checkDirectory(Value)
                 self.openfluid.addExtraObserversPaths(Value)

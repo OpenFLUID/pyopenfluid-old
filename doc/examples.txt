@@ -85,12 +85,12 @@ Spatial domain is made of ....
  - addSimulator/removeSimulator/clearModel/getSimulatorsInModel
 >>> obj = PyOpenFLUID()
 >>> assert len(obj.getSimulatorsInModel()) == 0
->>> obj.addSimulator("firstFunc")
->>> assert obj.getSimulatorsInModel() == ["firstFunc"]
->>> obj.addSimulator("secFunc")
->>> assert obj.getSimulatorsInModel() == ["firstFunc", "secFunc"]
->>> obj.removeSimulator("firstFunc")
->>> assert obj.getSimulatorsInModel() == ["secFunc"]
+>>> obj.addSimulator("firstSim")
+>>> assert obj.getSimulatorsInModel() == ["firstSim"]
+>>> obj.addSimulator("secSim")
+>>> assert obj.getSimulatorsInModel() == ["firstSim", "secSim"]
+>>> obj.removeSimulator("firstSim")
+>>> assert obj.getSimulatorsInModel() == ["secSim"]
 >>> obj.clearModel()
 >>> assert len(obj.getSimulatorsInModel()) == 0
 
@@ -181,19 +181,19 @@ Spatial domain is made of ....
 
 
 --------------------------------------------------------------------------------
- - createInputData/getInputData/setInputData/removeInputData
+ - createAttribute/getAttribute/setAttribute/removeAttribute
 >>> obj = PyOpenFLUID()
 >>> obj.addUnit("SU", 1, 1)
 >>> obj.addUnit("SU", 2, 1)
->>> obj.createInputData("SU", "area", "1.0")
->>> assert obj.getInputData("SU", 1, "area") == "1.0"
->>> assert obj.getInputData("SU", 2, "area") == "1.0"
->>> obj.setInputData("SU", 1, "area", "162")
->>> assert obj.getInputData("SU", 1, "area") == "162"
->>> assert obj.getInputData("SU", 2, "area") == "1.0"
->>> obj.removeInputData("SU", "area")
->>> assert obj.getInputData("SU", 1, "area") is None
->>> assert obj.getInputData("SU", 2, "area") is None
+>>> obj.createAttribute("SU", "area", "1.0")
+>>> assert obj.getAttribute("SU", 1, "area") == "1.0"
+>>> assert obj.getAttribute("SU", 2, "area") == "1.0"
+>>> obj.setAttribute("SU", 1, "area", "162")
+>>> assert obj.getAttribute("SU", 1, "area") == "162"
+>>> assert obj.getAttribute("SU", 2, "area") == "1.0"
+>>> obj.removeAttribute("SU", "area")
+>>> assert obj.getAttribute("SU", 1, "area") is None
+>>> assert obj.getAttribute("SU", 2, "area") is None
 
 
 --------------------------------------------------------------------------------

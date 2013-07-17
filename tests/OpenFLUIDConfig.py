@@ -18,8 +18,8 @@ import PyOpenFLUID
 #                               a list of tuple(class to, id to) )
 #    -parent_child        => a list of tuple(class parent, id parent,
 #                               a list of tuple(class child, id child) )
-#    -input_data          => a list of tuple(class, data name, data val)
-#    -input_data_by_units => a list of tuple(class, unit id, list of tuple(data name, data val))
+#    -attribute          => a list of tuple(class, attr name, attr val)
+#    -attribute_by_units => a list of tuple(class, unit id, list of tuple(attr name, attr val))
 
 
 def loadOpenFLUIDConfig(config, pyof=None):
@@ -62,11 +62,11 @@ def loadOpenFLUIDConfig(config, pyof=None):
         for UnitClassChild, UnitIDChild in ListChildren:
             pyof.addParentChildConnection(UnitClassParent, UnitIDParent,\
                 UnitClassChild, UnitIDChild)
-    for UnitClass, IDataName, IDataVal in config.get("input_data", []):
-        pyof.createInputData(UnitClass, IDataName, IDataVal)
-    for UnitClass, UnitID, Params in config.get("input_data_by_units", []):
-        for IDataName, IDataVal in Params:
-            pyof.setInputData(UnitClass, UnitID, IDataName, IDataVal)
+    for UnitClass, AttrName, AttrVal in config.get("attribute", []):
+        pyof.createAttribute(UnitClass, AttrName, AttrVal)
+    for UnitClass, UnitID, Params in config.get("attribute_by_units", []):
+        for AttrName, AttrVal in Params:
+            pyof.setAttribute(UnitClass, UnitID, AttrName, AttrVal)
 
 
 def checkOpenFLUIDConfig(config, pyof=None):
@@ -106,22 +106,22 @@ def checkOpenFLUIDConfig(config, pyof=None):
         for UnitClassChild, UnitIDChild in ListChildren:
             assert (UnitClassChild, UnitIDChild) in\
                 pyof.getUnitChildren(UnitClassParent, UnitIDParent)
-    for UnitClass, IDataName, IDataVal in config.get("input_data", []):
+    for UnitClass, AttrName, AttrVal in config.get("attribute", []):
         CheckList = []
         # searching for unset value
-        for UClass, UID, Params in config.get("input_data_by_units", []):
+        for UClass, UID, Params in config.get("attribute_by_units", []):
             for IDName, IDVal in Params:
-                if UClass == UnitClass and IDName == IDataName:
+                if UClass == UnitClass and IDName == AttrName:
                     CheckList.append(UID)
         # check
         for ID in pyof.getUnitsIDs(UnitClass):
             if not ID in CheckList:
-                assert pyof.getInputData(UnitClass, ID, IDataName)\
-                    == IDataVal
+                assert pyof.getAttribute(UnitClass, ID, AttrName)\
+                    == AttrVal
                 break
-    for UnitClass, UnitID, Params in config.get("input_data_by_units", []):
-        for IDataName, IDataVal in Params:
-            assert pyof.getInputData(UnitClass, UnitID, IDataName) == IDataVal
+    for UnitClass, UnitID, Params in config.get("attribute_by_units", []):
+        for AttrName, AttrVal in Params:
+            assert pyof.getAttribute(UnitClass, UnitID, AttrName) == AttrVal
 
 
 def clearOpenFLUIDconfig(pyof):

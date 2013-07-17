@@ -6,31 +6,31 @@ from BaseTest import *
 class PyOpenFLUIDTest_Simulators(PyOpenFLUIDTest):
 
     def runTest(self):
-        """Test of functions functions."""
+        """Test of simulators functions."""
 
         # test of removeSimulator/addSimulator
-        FuncID = "tests.primitives.use"
+        SimID = "tests.primitives.use"
         ParamName = "longparam"
         ParamValue = "12568"
 
         self.assertRaises(TypeError, self.openfluid.addSimulator, 9)
-        self.openfluid.addSimulator(FuncID)
+        self.openfluid.addSimulator(SimID)
 
-        self.openfluid.setSimulatorParam(FuncID, ParamName, ParamValue)
-        self.assertIsNotNone(self.openfluid.getSimulatorParam(FuncID, ParamName))
+        self.openfluid.setSimulatorParam(SimID, ParamName, ParamValue)
+        self.assertIsNotNone(self.openfluid.getSimulatorParam(SimID, ParamName))
 
-        self.openfluid.removeSimulator(FuncID)
+        self.openfluid.removeSimulator(SimID)
         self.assertRaisesOrElse(StandardError, self.openfluid.getSimulatorParam,
-                self.assertIsNone, argObj=(FuncID, ParamName) )
+                self.assertIsNone, argObj=(SimID, ParamName) )
 
         # test of getSimulatorsInModel
         CheckList = self.openfluid.getSimulatorsInModel()
         self.assertTrue(isinstance(CheckList, (list, tuple)))
         self.assertEquals(len(CheckList), 0)
-        self.openfluid.addSimulator(FuncID)
+        self.openfluid.addSimulator(SimID)
         CheckList = self.openfluid.getSimulatorsInModel()
         self.assertEquals(len(CheckList), 1)
-        self.assertItemsEqual(CheckList, [FuncID])
+        self.assertItemsEqual(CheckList, [SimID])
 
         # test of clearModel
         self.openfluid.clearModel()

@@ -19,9 +19,9 @@ class PyOpenFLUIDTest_Project(PyOpenFLUIDTest):
             model_global_param = [("bluesky", "yes"), ("redstone", "no"), ("zero", "0")],\
             extra_simulator_path = ["the/simulator/path", "an/other/simulator/path"],\
             extra_observer_path = ["the/observer/path", "an/other/observer/path"],\
-            simulators = [ ("funcA", [("fixedvalue","3"), ("minvalue", "-5")]),\
-                ("funcB", [("rangemin", "0"), ("rangemax", "5"), ("rangeincr", "0.1")]),\
-                ("funcC", [("empty", "10"), ("random", "0.1454")]) ],\
+            simulators = [ ("simA", [("fixedvalue","3"), ("minvalue", "-5")]),\
+                ("simB", [("rangemin", "0"), ("rangemax", "5"), ("rangeincr", "0.1")]),\
+                ("simC", [("empty", "10"), ("random", "0.1454")]) ],\
             observers = [ ("obsA", [("format.h1.header","title")]),\
                 ("obsB", [("column.f1.maxsize", "20"), ("column.f1.minsize", "0")]),\
                 ("obsC", []) ],\
@@ -30,9 +30,9 @@ class PyOpenFLUIDTest_Project(PyOpenFLUIDTest):
             from_to = [ ("SU", 1, [("SU", 2), ("SU", 3)]), ("SU", 5, [("SU", 4)]),\
                 ("SU", 4, [("DD", 1)]), ("DD", 2, [("DD", 3)]) ],\
             parent_child = [ ("SU", 1, [("DD", 1), ("DD", 2)]), ("DD", 1, [("SU", 2)]) ],\
-            input_data = [ ("SU", "area", "0"), ("SU", "color", "blue"),\
+            attributes = [ ("SU", "area", "0"), ("SU", "color", "blue"),\
                 ("DD", "unknown", "none") ],\
-            input_data_by_units = [("SU", 1, [("area", "100.0"), ("color", "red")]),\
+            attributes_by_units = [("SU", 1, [("area", "100.0"), ("color", "red")]),\
                 ("SU", 2, [("color", "green")]), ("DD", 1, [("unknown", "true")]),\
                 ("DD", 2, [("unknown", "true")]) ]
         )

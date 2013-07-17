@@ -6,7 +6,7 @@ from BaseTest import *
 class PyOpenFLUIDTest_SimulatorsParameter(PyOpenFLUIDTest):
 
     def runTest(self):
-        """Test of functions parameters functions."""
+        """Test of simulators parameters functions."""
 
         SimuID = "tests.primitives.use"
         ParamName = "longparam"

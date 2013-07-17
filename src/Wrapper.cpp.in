@@ -56,8 +56,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 /* ---------------------- OTHERS CLASS & METHODS -------------------- */
 
-  boost::python::register_exception_translator<PyOFException>
-                                              (&TranslatePyOFException);
+  boost::python::register_exception_translator<PyApplicationException>
+                                              (&TranslatePyApplicationException);
 
 
 // =====================================================================
@@ -75,7 +75,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("addExtraSimulatorsPaths",
       &PyOpenFLUID::addExtraSimulatorsPaths,
       ( boost::python::arg("self"), boost::python::arg("Paths") ),
-      "@DOCSTRING_boost_ADDEXTRAFUNCTIONSPATHS@"
+      "@DOCSTRING_boost_ADDEXTRASIMULATORSPATHS@"
     )
 
 
@@ -86,7 +86,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("getExtraSimulatorsPaths",
       &PyOpenFLUID::getExtraSimulatorsPaths,
       ( boost::python::arg("self") ),
-      "@DOCSTRING_boost_GETEXTRAFUNCTIONSPATHS@"
+      "@DOCSTRING_boost_GETEXTRASIMULATORSPATHS@"
     )
 
 
@@ -97,7 +97,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("resetExtraSimulatorsPaths",
       &PyOpenFLUID::resetExtraSimulatorsPaths,
       ( boost::python::arg("self") ),
-      "@DOCSTRING_boost_RESETEXTRAFUNCTIONSPATHS@"
+      "@DOCSTRING_boost_RESETEXTRASIMULATORSPATHS@"
     )
 
 
@@ -162,9 +162,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getSimulatorParam",
       &PyOpenFLUID::getSimulatorParam,
-      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+      ( boost::python::arg("self"), boost::python::arg("SimID"),
         boost::python::arg("ParamName") ),
-      "@DOCSTRING_boost_GETFUNCTIONPARAM@"
+      "@DOCSTRING_boost_GETSIMULATORPARAM@"
     )
 
 
@@ -174,9 +174,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("setSimulatorParam",
       &PyOpenFLUID::setSimulatorParam,
-      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+      ( boost::python::arg("self"), boost::python::arg("SimID"),
         boost::python::arg("ParamName"), boost::python::arg("ParamValue") ),
-      "@DOCSTRING_boost_SETFUNCTIONPARAM@"
+      "@DOCSTRING_boost_SETSIMULATORPARAM@"
     )
 
 
@@ -186,9 +186,9 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("removeSimulatorParam",
       &PyOpenFLUID::removeSimulatorParam,
-      ( boost::python::arg("self"), boost::python::arg("FuncID"),
+      ( boost::python::arg("self"), boost::python::arg("SimID"),
         boost::python::arg("ParamName") ),
-      "@DOCSTRING_boost_REMOVEFUNCTIONPARAM@"
+      "@DOCSTRING_boost_REMOVESIMULATORPARAM@"
     )
 
 
@@ -198,8 +198,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("getSimulatorParams",
       &PyOpenFLUID::getSimulatorParams,
-      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
-      "@DOCSTRING_boost_GETFUNCTIONPARAMS@"
+      ( boost::python::arg("self"), boost::python::arg("SimID") ),
+      "@DOCSTRING_boost_GETSIMULATORPARAMS@"
     )
 
 
@@ -288,8 +288,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("addSimulator",
       &PyOpenFLUID::addSimulator,
-      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
-      "@DOCSTRING_boost_ADDFUNCTION@"
+      ( boost::python::arg("self"), boost::python::arg("SimID") ),
+      "@DOCSTRING_boost_ADDSIMULATOR@"
     )
 
 
@@ -299,8 +299,8 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 
     .def("removeSimulator",
       &PyOpenFLUID::removeSimulator,
-      ( boost::python::arg("self"), boost::python::arg("FuncID") ),
-      "@DOCSTRING_boost_REMOVEFUNCTION@"
+      ( boost::python::arg("self"), boost::python::arg("SimID") ),
+      "@DOCSTRING_boost_REMOVESIMULATOR@"
     )
 
 
@@ -322,7 +322,7 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
     .def("getSimulatorsInModel",
       &PyOpenFLUID::getSimulatorsInModel,
       ( boost::python::arg("self") ),
-      "@DOCSTRING_boost_GETFUNCTIONSINMODEL@"
+      "@DOCSTRING_boost_GETSIMULATORSINMODEL@"
     )
 
 
@@ -593,10 +593,10 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("createInputData", &PyOpenFLUID::createInputData,
+    .def("createAttribute", &PyOpenFLUID::createAttribute,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
-        boost::python::arg("IDataName"), boost::python::arg("IDataValue") ),
-      "@DOCSTRING_boost_CREATEINPUTDATA@"
+        boost::python::arg("AttrName"), boost::python::arg("AttrValue") ),
+      "@DOCSTRING_boost_CREATEATTRIBUTE@"
     )
 
 
@@ -604,10 +604,10 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("getInputData", &PyOpenFLUID::getInputData,
+    .def("getAttribute", &PyOpenFLUID::getAttribute,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
-        boost::python::arg("UnitID"), boost::python::arg("IDataName") ),
-      "@DOCSTRING_boost_GETINPUTDATA@"
+        boost::python::arg("UnitID"), boost::python::arg("AttrName") ),
+      "@DOCSTRING_boost_GETATTRIBUTE@"
     )
 
 
@@ -615,11 +615,11 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("setInputData", &PyOpenFLUID::setInputData,
+    .def("setAttribute", &PyOpenFLUID::setAttribute,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
-        boost::python::arg("UnitID"), boost::python::arg("IDataName"),
-        boost::python::arg("IDataValue") ),
-      "@DOCSTRING_boost_SETINPUTDATA@"
+        boost::python::arg("UnitID"), boost::python::arg("AttrName"),
+        boost::python::arg("AttrValue") ),
+      "@DOCSTRING_boost_SETATTRIBUTE@"
     )
 
 
@@ -627,10 +627,10 @@ BOOST_PYTHON_MODULE(_pyopenfluid)
 // =====================================================================
 
 
-    .def("removeInputData", &PyOpenFLUID::removeInputData,
+    .def("removeAttribute", &PyOpenFLUID::removeAttribute,
       ( boost::python::arg("self"), boost::python::arg("UnitClass"),
-        boost::python::arg("IDataName") ),
-      "@DOCSTRING_boost_REMOVEINPUTDATA@"
+        boost::python::arg("AttrName") ),
+      "@DOCSTRING_boost_REMOVEATTRIBUTE@"
     )
 
 
