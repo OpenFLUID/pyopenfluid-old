@@ -4,7 +4,7 @@
 // ====================      GENERAL EXCEPTION      ====================
 
 
-PyOFException::PyOFException (PyObject* PyExcType /*= NULL*/)
+PyApplicationException::PyApplicationException (PyObject* PyExcType /*= NULL*/)
 {
   this->m_Message = std::string("");
   this->m_Type = PyExcType;
@@ -15,7 +15,7 @@ PyOFException::PyOFException (PyObject* PyExcType /*= NULL*/)
 // =====================================================================
 
 
-PyOFException::PyOFException (std::string InputMsg, PyObject* PyExcType)
+PyApplicationException::PyApplicationException (std::string InputMsg, PyObject* PyExcType)
 {
   this->m_Message = InputMsg;
   this->m_Type = PyExcType;
@@ -26,7 +26,7 @@ PyOFException::PyOFException (std::string InputMsg, PyObject* PyExcType)
 // =====================================================================
 
 
-PyOFException::PyOFException (char* InputMsg, PyObject* PyExcType)
+PyApplicationException::PyApplicationException (char* InputMsg, PyObject* PyExcType)
 {
   this->m_Message = std::string(InputMsg);
   this->m_Type = PyExcType;
@@ -37,7 +37,7 @@ PyOFException::PyOFException (char* InputMsg, PyObject* PyExcType)
 // =====================================================================
 
 
-PyOFException::PyOFException (const char* InputMsg, PyObject* PyExcType)
+PyApplicationException::PyApplicationException (const char* InputMsg, PyObject* PyExcType)
 {
   this->m_Message = std::string(InputMsg);
   this->m_Type = PyExcType;
@@ -48,7 +48,7 @@ PyOFException::PyOFException (const char* InputMsg, PyObject* PyExcType)
 // ===================      TRANSLATOR EXCEPTION      ==================
 
 
-void TranslatePyOFException (const PyOFException& e)
+void TranslatePyApplicationException (const PyApplicationException& e)
 {
   // Use the Python 'C' API to set up an exception object
   // if type error is specified

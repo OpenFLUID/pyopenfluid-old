@@ -6,7 +6,7 @@ from BaseTest import *
 class PyOpenFLUIDTest_ExtraSimulatorsPaths(PyOpenFLUIDTest):
 
     def runTest(self):
-        """Test of extra functions paths functions."""
+        """Test of extra simulators paths functions."""
 
         # tests on addExtraSimulatorsPaths
         self.assertRaises(TypeError, self.openfluid.addExtraSimulatorsPaths, 65)

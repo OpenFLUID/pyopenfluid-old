@@ -103,7 +103,7 @@ class PyOpenFLUID
 /* ------------------------  MODEL FUNCTIONS  ----------------------- */
 
 
-    boost::python::object getSimulatorParam (boost::python::object FuncID,
+    boost::python::object getSimulatorParam (boost::python::object SimID,
                                              boost::python::object ParamName);
 
 
@@ -111,7 +111,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void setSimulatorParam (boost::python::object FuncID,
+    void setSimulatorParam (boost::python::object SimID,
                             boost::python::object ParamName,
                             boost::python::object ParamValue);
 
@@ -120,7 +120,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void removeSimulatorParam (boost::python::object FuncID,
+    void removeSimulatorParam (boost::python::object SimID,
                               boost::python::object ParamName);
 
 
@@ -128,7 +128,7 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    boost::python::object getSimulatorParams (boost::python::object FuncID);
+    boost::python::object getSimulatorParams (boost::python::object SimID);
 
 
 // =====================================================================
@@ -190,14 +190,14 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void addSimulator (boost::python::object FuncID);
+    void addSimulator (boost::python::object SimID);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    void removeSimulator (boost::python::object FuncID);
+    void removeSimulator (boost::python::object SimID);
 
 
 // =====================================================================
@@ -414,35 +414,35 @@ class PyOpenFLUID
 // =====================================================================
 
 
-    void createInputData (boost::python::object UnitClass,
-                          boost::python::object IDataName,
-                          boost::python::object IDataVal);
+    void createAttribute (boost::python::object UnitClass,
+                          boost::python::object AttrName,
+                          boost::python::object AttrVal);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    boost::python::object getInputData (boost::python::object UnitClass,
+    boost::python::object getAttribute (boost::python::object UnitClass,
                                         boost::python::object UnitID,
-                                        boost::python::object IDataName);
+                                        boost::python::object AttrName);
 
 // =====================================================================
 // =====================================================================
 
 
-    void setInputData (boost::python::object UnitClass,
+    void setAttribute (boost::python::object UnitClass,
                        boost::python::object UnitID,
-                       boost::python::object IDataName,
-                       boost::python::object IDataValue);
+                       boost::python::object AttrName,
+                       boost::python::object AttrValue);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    void removeInputData (boost::python::object UnitClass,
-                          boost::python::object IDataName);
+    void removeAttribute (boost::python::object UnitClass,
+                          boost::python::object AttrName);
 
 
 // =====================================================================

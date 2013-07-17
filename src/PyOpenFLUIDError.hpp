@@ -6,41 +6,41 @@
 #include <exception>
 
 #define HANDLE_EXCEPTION \
-catch (openfluid::base::OFException& E) \
+catch (openfluid::base::Exception& E) \
 { \
-  throw PyOFException(E.what()); \
+  throw PyApplicationException(E.what()); \
 } \
 catch (std::bad_alloc& E) \
 { \
-  throw PyOFException(std::string("MEMORY ALLOCATION ERROR, ") \
+  throw PyApplicationException(std::string("MEMORY ALLOCATION ERROR, ") \
       + std::string(E.what()) \
       + std::string(". Possibly not enough memory available"), \
       PyExc_MemoryError); \
 } \
-catch (PyOFException& E) \
+catch (PyApplicationException& E) \
 { \
   throw E; \
 } \
 catch (std::exception& E) \
 { \
-  throw PyOFException(std::string("SYSTEM ERROR, ") + std::string(E.what()), \
+  throw PyApplicationException(std::string("SYSTEM ERROR, ") + std::string(E.what()), \
       PyExc_SystemError); \
 } \
 catch (...) \
 { \
-  throw PyOFException("UNKNOWN ERROR", PyExc_RuntimeError); \
+  throw PyApplicationException("UNKNOWN ERROR", PyExc_RuntimeError); \
 }
 
 
-#define HANDLE_OFEXCEPTION \
-catch (openfluid::base::OFException& E) \
+#define HANDLE_APPLICATIONEXCEPTION \
+catch (openfluid::base::ApplicationException& E) \
 { \
-  throw PyOFException(E.what()); \
+  throw PyApplicationException(E.what()); \
 }
 
 
-#define WARNING_OFEXCEPTION \
-catch (openfluid::base::OFException& E) \
+#define WARNING_EXCEPTION \
+catch (openfluid::base::Exception& E) \
 { \
   pyopenfluid::topython::printWarning(E.what()); \
 }
@@ -50,39 +50,39 @@ catch (openfluid::base::OFException& E) \
 // ====================      GENERAL EXCEPTION      ====================
 
 
-class PyOFException : std::exception
+class PyApplicationException : std::exception
 {
   public :
 
-    PyOFException (PyObject* PyExcType = NULL);
+    PyApplicationException (PyObject* PyExcType = NULL);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    PyOFException (std::string InputMsg, PyObject* PyExcType = NULL);
+    PyApplicationException (std::string InputMsg, PyObject* PyExcType = NULL);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    PyOFException (char* InputMsg, PyObject* PyExcType = NULL);
+    PyApplicationException (char* InputMsg, PyObject* PyExcType = NULL);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    PyOFException (const char* InputMsg, PyObject* PyExcType = NULL);
+    PyApplicationException (const char* InputMsg, PyObject* PyExcType = NULL);
 
 
 // =====================================================================
 // =====================================================================
 
 
-    inline virtual ~PyOFException () throw () {};
+    inline virtual ~PyApplicationException () throw () {};
 
 
 // =====================================================================
@@ -113,6 +113,6 @@ class PyOFException : std::exception
 // ===================      EXCEPTION TRANSLATOR     ===================
 
 
-void TranslatePyOFException (const PyOFException& e);
+void TranslatePyApplicationException (const PyApplicationException& e);
 
 #endif // __PYOPENFLUIDERROR_HPP_
